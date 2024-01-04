@@ -4,15 +4,20 @@ import Home from "./screens/Home";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+const queryClient = new QueryClient();
 export default function App() {
   const Stack = createStackNavigator();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Bloom" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
+      <QueryClientProvider client={queryClient}>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Bloom" component={Home} />
+        </Stack.Navigator>
+      </QueryClientProvider>
     </NavigationContainer>
   );
 }
