@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native'
+import { View, Text , ScrollView } from 'react-native'
 import React from 'react'
 
 const Home = () => {
   return (
-    <View>
-      <Text>salam </Text>
-    </View>
+    <ScrollView>
+     <Text>Home</Text>
+ 
+    </ScrollView>
   )
 }
 
