@@ -1,47 +1,58 @@
-import { View, Text } from "react-native";
+import { View, Text,StyleSheet,ScrollView } from "react-native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import Habit from "../components/Trackers/Habit";
+import UserHabit from "../components/Trackers/UserHabit";
 import { useFetchHabits,useFetchHabitsUser } from "../api/habits/Habits";
+
+
+
 const Tracker = () => {
-    const { data: habits, isLoading, isError } = useFetchHabits();
-    if (isLoading) {
+    const { data: habits, isLoading: habitsLoading, isError: habitsError } = useFetchHabits();
+    const {data:habitsUser,isLoading: userHabitsLoading, isError: userHabitsError, isSuccess}=useFetchHabitsUser()
+    if (habitsLoading || userHabitsLoading) {
       return <Text>Loading...</Text>;
     }
-    if (isError) {
+  
+    if (habitsError || userHabitsError) {
       return <Text>Error loading habits</Text>;
     }
-    console.log(habits.habits[0],'habit');
-    const {data:habitsUser,isLoading : lll,isError : rrr }=useFetchHabitsUser()
-    if(lll){
-      return <Text>Loading...</Text>
-    }
-    if(rrr){
-      return <Text> Error loading </Text>
-    }
-  console.log(habitsUser,"taa user");
+    if (isSuccess) console.log(habitsUser.userHabits[0].habit.name,"taa user");
   
 
   return (
-    <View style={styles.container}>
+    <View >
       <Text style={styles.init}> What Habit Do you Want to Track </Text>
       <View style={styles.habitsWrapper}>
-      {habits.habits?.map((ele:any) => (
+      {habits && habits.habits?.map((ele:any) => (
           <Habit key={ele.id} habit={{
             id: ele.id,
             name : ele.name
           }} />
         ))}
       </View>
-      
+      <Text>
+        My Habbits
+      </Text>
+       <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+       <View style={styles.container}>
+        {isSuccess && habitsUser.userHabits?.map((ele:any)=>(
+          <UserHabit key={ele.id} habitsUser={{
+            id: ele.id,
+            name:ele.habit.name
+          }}/>
+        ))}
+        </View>
+      </ScrollView> 
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    flexDirection:"row",
     backgroundColor: "F3F0EA",
+    marginTop:50,
   },
   init: {
     color: "black",
