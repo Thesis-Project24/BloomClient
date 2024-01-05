@@ -1,6 +1,7 @@
 
 import { Text, View } from "react-native";
 import Nav from "./screens/Nav";
+import Tracker from "./screens/Tracker";
 import { createStackNavigator } from "@react-navigation/stack";
 // import Login from "./screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
@@ -36,9 +37,9 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator>
+        <QueryClientProvider client={queryClient}>
+    <NavigationContainer>
+        <Stack.Navigator >
           <Stack.Screen
             name="Back"
             options={{
@@ -55,11 +56,12 @@ export default function App() {
               cardStyle: { backgroundColor: "transparent" },
             }}
           />
-          {/* <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          /> */}
+           <Stack.Screen
+            name="Tracker"
+            component={Tracker}
+            options={{ headerShown: true }}
+          /> 
+
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
       </NavigationContainer>
