@@ -1,76 +1,58 @@
-import { View, Text,Pressable,StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { useAssignHabit } from "../../api/habits/Habits";
 
 interface HabitProps {
-    habit: {
-      id: number;
-      name: string;
-    };
-  }
-const Habit = ({habit}:HabitProps) => {
+  habit: {
+    id: number;
+    name: string;
+  };
+}
+const Habit = ({ habit }) => {
+  const [isPressed, setIsPressed] = useState<boolean>(false);
+  const {assignHabit,isAssigning} = useAssignHabit()
+  const handlePress = async () => {
+    console.log("pressed");
+    setIsPressed(!isPressed);
+    try {
+      await assignHabit(habit.id,1)
+      console.log('habit assigned successfully');
+    }catch(error){
+      console.error("error assigning")
+    }
+  };
+  
 
-console.log(habit);
-
+  console.log(habit, "page habits");
+  console.log(isPressed);
+  
 
   return (
     <View>
-       <View >
-          <Pressable style={styles.happinessWrapper}>
-            <Text style={[styles.happiness]}>
-            {habit.name}
-            </Text>
-          </Pressable>
-          </View>
+      <View>
+        <Pressable
+          onPress={handlePress}
+          style={[styles.habit, isPressed && styles.habitPressed]}
+        >
+          <Text>{habit.name}</Text>
+        </Pressable>
+      </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "F3F0EA",
-    },
-    init: {
-      color: "black",
-      fontStyle:"italic",
-      width:"auto",
-      paddingLeft:41,
-      paddingRight:86,
-      marginTop: 100,
-      // fontFamily:"Tajawal"
-      fontSize: 17,
-      fontWeight:"semibold"
-    },
-    frameView: {
-        flexWrap: "wrap",
-        marginTop: 26,
-        alignSelf: "stretch",
-        flexDirection: "column",
-        flex: 1,
-      },
-      happinessWrapper: {
-        minWidth: 90,
-        maxHeight: 45,
-        paddingHorizontal:28,
-        borderWidth: 1,
-        borderColor:  "#a78a6e",
-        borderStyle: "solid",
-        borderRadius: 28,
-        paddingVertical: 14,
-        maxWidth: 120,
-        justifyContent: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        flex: 1,
-      },
-      happiness: {
-        color: "#a2a2a2",
-        display: "flex",
-        letterSpacing: -0.1,
-        height: "100%",
-        width: 75,
-        textAlign: "left",
-      },
-  });
-  
-export default Habit
+  habit: {
+    borderWidth: 1,
+    borderColor: "#a78a6e",
+    borderStyle: "solid",
+    borderRadius: 15,
+    padding: 8,
+  },
+  habitPressed: {
+    backgroundColor: "red",
+    color: "F3F0EA",
+  },
+});
+
+export default Habit;
