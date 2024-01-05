@@ -14,9 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <QueryClientProvider client={queryClient}>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Tracker">
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           <Stack.Screen name="Bloom" component={Home} />
+          <Stack.Screen name="Tracker" component={Tracker}/>
         </Stack.Navigator>
       </QueryClientProvider>
     </NavigationContainer>

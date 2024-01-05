@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { useQuery } from 'react-query';
 
-const Habits = () => {
-  return (
-    <View>
-      <Text>Habits</Text>
-    </View>
-  )
-}
-
-export default Habits
+export const useFetchHabits = () => {
+  return useQuery('habits', async () => {
+    const response = await fetch('http://192.168.1.97:3000/habits/getHabits/1')
+    const data = await response.json();
+    console.log(data.userHabits);
+    
+    return data;
+    
+  });
+};
