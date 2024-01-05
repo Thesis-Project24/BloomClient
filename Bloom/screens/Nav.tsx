@@ -2,8 +2,11 @@ import * as React from "react";
 import { Text, StyleSheet, Image, View,Pressable } from "react-native";
 import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "react-native";
 const Nav = () => {
   const navigation = useNavigation();
+  StatusBar.setBarStyle("dark-content");
+  StatusBar.setHidden(false);
   return (
     <View style={[styles.groupParent, styles.textPosition]}>
       <View style={styles.parent}></View>
@@ -53,8 +56,8 @@ const Nav = () => {
 
 const styles = StyleSheet.create({
   textPosition: {
-    left: 0,
-    top: 0,
+    left: -18,
+    top: -20,
   
   },
   textTypo: {
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     height: 14,
     width: 14,
     top: 3,
-  
+    position: "absolute",
   },
   wrapperGroupFlexBox: {
     justifyContent: "center",
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     color: Color.colorGray_200,
     left: 0,
     top: 0,
-  
+    position: "absolute",
   },
   iconLocation: {
     height: "66.67%",
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     overflow: "hidden",
     maxHeight: "100%",
-    
+    position: "absolute",
   },
   phoneIcon: {
     left: 284,
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     top: 0,
-   
+    position: "absolute",
   },
   icons8WiFi504: {
     left: 305,
@@ -172,4 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Nav;
+export default Nav ;
