@@ -1,16 +1,25 @@
-import  React , {useState} from "react";
-import { Text, StyleSheet, TextInput, View } from "react-native";
-import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
+import  React , {useState , useEffect } from "react";
+import { Text, StyleSheet, TextInput, View , KeyboardAvoidingView } from "react-native";
+import { FontFamily, FontSize, Color, Padding, Border  } from "../GlobalStyles";
+import { useQueryClient } from 'react-query';
 
-const BusinessAddressDetails = () => {
-  const [adress,setAdress]= useState([])
-  const adresss= []
-  // console.log(adress,"adress");
-  const handelAdress = ()=>{
-
+const BusinessAddressDetails = ({data , setDoctorData, doctorData }) => {
+  const queryClient = useQueryClient();
+  const [address,setAddress]= useState([])
+  
+    const handelAdress = ()=>{
+    if (data) {
+      setAddress(data[0].address);   
+    }
   }
+
+useEffect(() =>{
+   handelAdress()
+},[])
+
+
   return (
-    <View style={styles.textlabelPersonalDetialsParent}>
+    <KeyboardAvoidingView style={styles.textlabelPersonalDetialsParent}>
       <Text style={styles.textlabelPersonalDetials} numberOfLines={1}>
         Business Address Details
       </Text>
@@ -26,10 +35,17 @@ const BusinessAddressDetails = () => {
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
                onChangeText={(text) => {
-                adress[0]=text
-              }}  
+                const newAdress = [...address]
+                newAdress[0]=text
+                setAddress(newAdress)
+                 setDoctorData({...doctorData,address:address})
+                 console.log(newAdress,"newAdress rakezzz hybaaaaaaa");
+                 console.log(address,"hybaa berasmii rakess");
+                 
+                 
+              }}
                 style={styles.textlabel450116}
-                placeholder="450116"
+                placeholder={ address[0]||'Pincode'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -46,10 +62,13 @@ const BusinessAddressDetails = () => {
             <View style={styles.textlabel450116Border}>
               <TextInput
               onChangeText={(text) => {
-                adress[1]=text
+                const newAdress = [...address]
+                newAdress[1]=text
+                setAddress(newAdress)
+                setDoctorData({...doctorData,address:address })
               }}
-                style={styles.textlabel450116}
-                placeholder="216 St Paul's Rd, "
+              style={styles.textlabel450116}
+              placeholder={ address[1]|| 'Address'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -66,10 +85,13 @@ const BusinessAddressDetails = () => {
             <View style={styles.textlabel450116Border}>
               <TextInput
               onChangeText={(text) => {
-                adress[2]=text
+                const newAdress = [...address]
+                newAdress[2]=text
+                setAddress(newAdress)
+                setDoctorData({...doctorData,address:address })
               }}
-                style={styles.textlabel450116}
-                placeholder="London"
+              style={styles.textlabel450116}
+              placeholder={ address[2]|| 'City'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -89,10 +111,13 @@ const BusinessAddressDetails = () => {
             >
               <TextInput
               onChangeText={(text) => {
-                adress[3]=text
+                const newAdress = [...address]
+                newAdress[3]=text
+                setAddress(newAdress)
+                setDoctorData({...doctorData,address:address })
               }}
-                style={styles.textlabel450116}
-                placeholder="United Kingdom"
+              style={styles.textlabel450116}
+              placeholder={ address[3] || 'Country'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -100,7 +125,7 @@ const BusinessAddressDetails = () => {
         </View>
       </View>
       <View style={styles.frameChild} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

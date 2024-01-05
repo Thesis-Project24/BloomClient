@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import {FontAwesome5} from '@expo/vector-icons';
+import { useQueryClient } from 'react-query';
+
 
 const data = [
   { label: 'specialty 1', value: 'specialty 1' },
@@ -11,14 +13,30 @@ const data = [
   
 ];
 
-const DropdownComponent = () => {
-  const [specialty, setSpecialty] = useState<string>("")
-  const [value, setValue] = useState<any>(null);
+const DropdownComponent = ({specialtyData , setDoctorData, doctorData }) => {
+  const queryClient = useQueryClient();
+
+ 
+  const [value, setValue] = useState<string>(null);
+  const [specialty, setSpecialty] = useState<string>(value)
   const [isFocus, setIsFocus] = useState(false);
-  // console.log(value,"specialty");
+   console.log(value,"specialty");
+  const handeldata= ()=>{
+    if (specialtyData) {
+      
+      setValue(specialtyData[0].specialty)
+      setSpecialty(value)
+      
+    }
+   }
+   useEffect(() =>{
+    handeldata()
   
+  },[specialty])
 
   const renderLabel = () => {
+    console.log();
+    
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: '#242424' }]}>
@@ -44,7 +62,7 @@ const DropdownComponent = () => {
         maxHeight={350}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? '  Specialty' : '...'}
+        placeholder={!isFocus ? specialty : '...'}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -52,6 +70,8 @@ const DropdownComponent = () => {
         onChange={(item) => {
           setValue(item.value);
           setIsFocus(false);
+          setSpecialty(item.value);
+          setDoctorData({...doctorData,specialty:item.value});
         }}
         renderLeftIcon={() => (
           <FontAwesome5

@@ -1,83 +1,55 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Image } from "expo-image";
 import {
   StyleSheet, Pressable, Text, View, StatusBar, SafeAreaView,
-  ScrollView,
+  ScrollView, TouchableOpacity, Alert
 } from "react-native";
 import PersonalDetails from "../components/PersonalDetails";
 import DoctorDetails from "../components/DoctorDetails";
 import BusinessAddressDetails from "../components/BusinessAddressDetails";
 import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import Imageprofile from "../components/ImageProfile";
+import { useQuery, useQueryClient } from 'react-query';
+
 
 const Profile = () => {
+  const queryClient = useQueryClient();
+  const [doctorData, setDoctorData] = useState({});
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`http://172.29.0.50:3000/doctors/getOne/1`);
+      if (!res.ok) throw new Error(res.statusText);
+      const jsonData = await res.json();
+      return jsonData;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  // console.log(doctorData, "update data from profile");
 
+  const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
+  console.log(data, "data prifile");
 
+  const upDateData = () => {
+// console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
+    fetch('http://172.29.0.50:3000/doctors/update',
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id: 1, ...data, ...doctorData })
+      }).then((res) => {
+        console.log(res)
+        Alert.alert('Updated Successfully!');
+      }).catch((err) => {
+        Alert.alert('Error Updating Data');
+        console.log(err);
+        // toast.error("Something went wrong! Please try again.")
+      })
 
-
-
-
-
-
-
-
-
-
-  const addProduct = () => {
-    // console.log(productName, "PRODUCT  NAME");
-    // console.log(parseFloat(priceValue), "price");
-    // console.log(collections, "collection");
-    // console.log(categories, "category");
-    // console.log(description, "desc");
-    // console.log(image, "image");
-
-   
-
-
-        fetch('http://localhost:3000/doctors/update',
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    // productName: productName,
-                    // price: parseFloat(priceValue),
-                    // category: collections,
-                    // gender: categories,
-                    // description: description,
-                    // imageUrl: [image],
-                    // // brandId: window.localStorage.getItem("brandId")!,
-                    // brandId: "d064bc03-f973-455e-99c9-9f95254709e6"
-
-                })
-            }).then((res) => {
-                console.log(res)
-                // alert("Added Successfully!");
-                // setSuccessMsg("Added Successfully!");
-                // setSuccess(true);
-                // toast.success('Added Product Successfully!')
-
-                // handleCancel()
-            }).catch(() => {
-                // setErrorMsg("Something went wrong! Please try again.");
-                // setError(true)
-                // toast.error("Something went wrong! Please try again.")
-            })
-   
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  }
   return (
     <ScrollView style={styles.profile}>
 
@@ -106,24 +78,30 @@ const Profile = () => {
         barStyle="light-content"
         translucent={true}
       /> */}
-     
+
 
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
-       
-        <Image
-        style={styles.image1}
-        contentFit="cover"
-        source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/fa5f351f30e2fb870d16d26261cda7efcf6e87c6f927f6ca02c8feee6d853e2b?", }}
-      />
+          {isSuccess && <Imageprofile data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
 
 
           <View style={styles.frameView}>
             <View style={styles.frameParent1}>
-              <PersonalDetails />
-              <DoctorDetails />
-              <BusinessAddressDetails />
+              {isSuccess && <PersonalDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
+              {isSuccess && <DoctorDetails isSuccess={isSuccess} data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
+              {isSuccess && <BusinessAddressDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
+              <TouchableOpacity
+                onPress={() => {
+                  upDateData()
+                }}
+              >
+                <Text
+
+                >
+                  Save
+                </Text>
+              </TouchableOpacity>
             </View>
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
@@ -161,7 +139,7 @@ const styles = StyleSheet.create({
 
 
   profilePosition: {
-    
+
     left: 0,
     position: "relative",
   },
@@ -261,7 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonSaveprofileSelf: {
-    
+
     borderRadius: Border.br_5xs,
     backgroundColor: Color.colorPaleturquoise,
     shadowColor: "rgba(0, 0, 0, 0.25)",
@@ -270,9 +248,8 @@ const styles = StyleSheet.create({
       height: 4,
     },
 
+    // position: "absolute",
 
-    // width: 350,
-    // height: 55,
     shadowRadius: 4,
     elevation: 4,
     shadowOpacity: 1,
@@ -305,7 +282,7 @@ const styles = StyleSheet.create({
 
 
 
-// HEDHA TEAABA IMG 
+  // HEDHA TEAABA IMG 
   profuleWrapper: {
     top: 40,
     paddingHorizontal: Padding.p_5xl,
@@ -318,7 +295,7 @@ const styles = StyleSheet.create({
 
 
   profile: {
-    
+
     width: "100%",
     height: "100%",
     overflow: "hidden",

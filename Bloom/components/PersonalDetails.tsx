@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Text, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "react-native-paper";
 import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
+import { useQueryClient , useQuery } from 'react-query';
 
-const PersonalDetails = () => {
-  const [first_name, setFirst_name] = useState("");
-  const [last_name, setLast_name] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("")
-// console.log(password,"firstname");
- // editable={true} selectTextOnFocus={true}
+
+
+const PersonalDetails = ({data , setDoctorData, doctorData}) => {
+  const queryClient = useQueryClient();
+
+  // const [password, setPassword] = useState("dd")
+
+
+
+
+
+
+
+
 
   return (
     <View
@@ -34,12 +42,14 @@ const PersonalDetails = () => {
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
+
               // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
-                  setFirst_name(text)
+                  setDoctorData({...doctorData,first_name: text});
+
                 }}
                 style={styles.textlabel450116}
-                placeholder="Username"
+                placeholder={data[0]?.first_name || 'Username'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -52,15 +62,16 @@ const PersonalDetails = () => {
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Your Lastname
+              Your Last Name
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
                onChangeText={(text) => {
-                setLast_name(text)
+               
+                setDoctorData({...doctorData,last_name: text});
               }}
                 style={styles.textlabel450116}
-                placeholder="Lastname"
+                placeholder={data[0]?.last_name || 'Last Name'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -77,10 +88,12 @@ const PersonalDetails = () => {
             <View style={styles.textlabel450116Border}>
               <TextInput
                onChangeText={(text) => {
-                setEmail(text)
+                setDoctorData({...doctorData,email: text});
+
               }}
+
                 style={styles.textlabel450116}
-                placeholder="DSVKJSDN"
+                placeholder={data[0]?.email || 'Email'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -101,10 +114,11 @@ const PersonalDetails = () => {
             >
               <TextInput
                onChangeText={(text) => {
-                setPassword(text)
+                // setPassword(text)
               }}
+              
                 style={styles.textlabel450116}
-                placeholder="iudjshfnsk"
+                placeholder="Password"
                 multiline={true}
                 placeholderTextColor="#242424"
               />

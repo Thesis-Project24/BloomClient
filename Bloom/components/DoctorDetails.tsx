@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Text, StyleSheet, Pressable, View, TextInput } from "react-native";
 import { Image } from "expo-image";
 import { Padding, Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 import DropdownComponent from "./Dropdown";
-const DoctorDetails = () => {
-  
-  const [phone, setPhone] = useState<string>("")
-  const [bio, setBio] = useState<string>("")
+import { useQueryClient } from 'react-query';
 
 
+const DoctorDetails = ({ isSuccess, data , setDoctorData, doctorData}) => {
+  const queryClient = useQueryClient();
 
+ 
   return (
     <View style={styles.textlabelPersonalDetialsParent}>
       <Text style={styles.textlabelPersonalDetials} numberOfLines={1}>
@@ -23,8 +23,9 @@ const DoctorDetails = () => {
 
             <View style={styles.frameGroup}>
 
-              <DropdownComponent />
-          <View
+             { isSuccess && <DropdownComponent specialtyData={data} setDoctorData= {setDoctorData} doctorData= {doctorData}  />}
+             
+            <View
             style={[
               styles.textlabelEmailAddressParent,
               styles.textlabelFlexBox,
@@ -34,7 +35,7 @@ const DoctorDetails = () => {
               style={[styles.textlabelEmailAddress, styles.textlabelLayout]}
               numberOfLines={1}
             >
-              Phone number
+              Phone Number
             </Text>
             <View
               style={[
@@ -44,10 +45,10 @@ const DoctorDetails = () => {
             >
               <TextInput
               onChangeText={(text) => {
-                setPhone(text)
+                setDoctorData({...doctorData,phone_number: text});
               }}
                 style={[styles.textlabel450116, styles.textlabelLayout]}
-                placeholder="450116"
+                placeholder={data[0]?.phone_number || 'PhoneNumber'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -68,15 +69,14 @@ const DoctorDetails = () => {
             >
               <TextInput
               onChangeText={(text) => {
-                setBio(text)
+                setDoctorData({...doctorData,bio: text});
               }}
                 editable
                 multiline
-                // numberOfLines={4}
-                // value={"skjdckisjoeksqdpoekqdp"}
+                 numberOfLines={4}
                 // maxLength={10}
-                style={[styles.textlabel4501161, styles.textlabelTypo4]}
-                placeholder="Bio "
+                style={[styles.textlabel450116, styles.textlabelLayout]}
+                placeholder={data[0].bio || 'Bio'}
                 placeholderTextColor="#242424"
               />
             </View>
