@@ -7,9 +7,6 @@ import Community from "../screens/Community";
 import Home from '../screens/Home';
 import Nav from '../screens/Nav';
 
-
-
-
 // import { View, Platform } from "react-native";
 import React from "react";
 
@@ -26,8 +23,7 @@ export const BottomTabNav = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
+          let iconName
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Chat") {
