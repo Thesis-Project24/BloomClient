@@ -3,17 +3,18 @@ import React from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { addWindow } from "../api/appointements/appointments";
 import { useRoute,useNavigation } from '@react-navigation/native';
-const AvailabilityW = ({navigation,route}) => {
-  // const navigation=useNavigation()
-  // const route=useRoute()
-  const {duration,pause} = route.params 
+const AvailabilityW = ({navigation,route}:{navigation:string,route:{duration:string,pause:string}}) => {
+
+  const duration = route.duration
+  const pause = route.pause
+
   const [chosenDateStart, setChosenDateStart] = React.useState(new Date());
   const [chosenDateEnd, setChosenDateEnd] = React.useState(new Date());
-  const [windows, setWindows] = React.useState([]);
+  const [windows, setWindows] = React.useState<{ duration: string; pause: string; chosenDateStart: Date; chosenDateEnd: Date }[]>([]);
   const [viewEnd, setViewEnd] = React.useState(false);
   const mutation = addWindow();
 
-  const onChange = ({type},date: Date)=> {if(type == "set"){
+  const onChange = ({type}:any,date: Date)=> {if(type == "set"){
     const currentDate=date
     console.log(date, "date");
     
@@ -53,7 +54,7 @@ const AvailabilityW = ({navigation,route}) => {
       )}
       <Button
         onPress={() => {
-          // setWindows([{ duration, pause, chosenDateStart, chosenDateEnd }]);
+          setWindows([{ duration, pause, chosenDateStart, chosenDateEnd }]);
           mutation.mutate(windows);
         }}
         title="set window"

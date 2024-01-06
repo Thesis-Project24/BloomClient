@@ -1,3 +1,4 @@
+
 import { View, Text } from "react-native";
 import React from "react";
 import { StyleSheet, Image, Pressable } from "react-native";
@@ -17,3 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 export default Home;
+
