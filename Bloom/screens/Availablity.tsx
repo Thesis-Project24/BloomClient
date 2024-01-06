@@ -1,8 +1,10 @@
 import { View, Text } from "react-native";
 import { StyleSheet, TextInput, Button } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const Availability = ({ navigation }) => {
+const Availability = () => {
+  const navigation:any= useNavigation()
   const [duration, onChangeDuration] = React.useState("");
   const [pause, onChangePause] = React.useState("");
   return (

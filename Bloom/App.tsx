@@ -39,9 +39,17 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
     <NavigationContainer>
         <Stack.Navigator >
+        <Stack.Screen
+            name="Availability/"
+            component={AvailabilityW} 
+          />
+        <Stack.Screen
+            name="AvailabilityW/"
+            component={AvailabilityW} 
+          />
           <Stack.Screen
             name="Back"
             options={{
