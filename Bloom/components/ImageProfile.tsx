@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View, Text, Pressable , ScrollView,TouchableOpacity, Alert , Platform   } from "react-native";
 import { Color, Padding } from "../GlobalStyles";
 import * as ImagePicker from 'expo-image-picker';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes , getMetadata , getDownloadURL } from 'firebase/storage';
 import { app } from '../firebase.config';
 import { useQueryClient } from 'react-query';
 
@@ -37,7 +37,13 @@ const Imageprofile = ({data , setDoctorData, doctorData }) => {
         const storageRef = ref(getStorage(app), filename);
         try {
           await uploadBytes(storageRef, blob);
-          console.log("bdet");
+        // Get the download URL of the uploaded image
+        const downloadURL = await getDownloadURL(storageRef); 
+       console.log(downloadURL, "Firebase Storage URL");     
+        Alert.alert('Photo uploaded!');
+          setDoctorData({...doctorData , profile_picture: downloadURL   })
+          console.log(doctorData,"imge uploadeddddd");
+         
           
         } catch (e) {
             console.log("erro");
@@ -46,7 +52,6 @@ const Imageprofile = ({data , setDoctorData, doctorData }) => {
         }
     // webkitURL
         setUploading(false);
-        Alert.alert('Photo uploaded!');
         setImage(null);
         
       };
@@ -86,8 +91,7 @@ const Imageprofile = ({data , setDoctorData, doctorData }) => {
             
         </View>
         { image && <TouchableOpacity  onPress={ ()=>{ 
-          setDoctorData({...doctorData ,profile_picture:image.uri  })
-          uploadImage
+          uploadImage()
           }}>
         <Text >Upload Image</Text>
       </TouchableOpacity>}

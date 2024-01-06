@@ -18,7 +18,7 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://172.29.0.50:3000/doctors/getOne/1`);
+      const res = await fetch(`http://192.168.1.56:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
@@ -26,14 +26,14 @@ const Profile = () => {
       console.error('Error:', error);
     }
   };
-  // console.log(doctorData, "update data from profile");
+   console.log(doctorData, "update data from profile");
 
   const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
   console.log(data, "data prifile");
 
   const upDateData = () => {
-// console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
-    fetch('http://172.29.0.50:3000/doctors/update',
+ console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
+    fetch('http://192.168.1.56:3000/doctors/update',
       {
         method: "PUT",
         headers: {
@@ -45,7 +45,7 @@ const Profile = () => {
         Alert.alert('Updated Successfully!');
       }).catch((err) => {
         Alert.alert('Error Updating Data');
-        console.log(err);
+        console.log(err,"error");
         // toast.error("Something went wrong! Please try again.")
       })
 
