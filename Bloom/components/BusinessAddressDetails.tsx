@@ -3,18 +3,39 @@ import { Text, StyleSheet, TextInput, View , KeyboardAvoidingView } from "react-
 import { FontFamily, FontSize, Color, Padding, Border  } from "../GlobalStyles";
 import { useQueryClient } from 'react-query';
 
-const BusinessAddressDetails = ({data , setDoctorData, doctorData }) => {
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+ }
+ 
+ type BusinessAddressDetailsProps = {
+  data: DoctorData[];
+  setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
+  doctorData: DoctorData;
+};
+
+
+
+
+const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({data , setDoctorData, doctorData }) => {
   const queryClient = useQueryClient();
-  const [address,setAddress]= useState([])
+  const [address,setAddress]= useState<string[]>([])
   
-    const handelAdress = ()=>{
-    if (data) {
-      setAddress(data[0].address);   
+  const handleAddress = () => {
+    if (data && data[0]?.address) {
+      setAddress(data[0].address);  
     }
-  }
+   }
 
 useEffect(() =>{
-   handelAdress()
+  handleAddress()
 },[])
 
 
@@ -35,7 +56,7 @@ useEffect(() =>{
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
                onChangeText={(text) => {
-                const newAdress = [...address]
+                const newAdress: string[]  = [...address]
                 newAdress[0]=text
                 setAddress(newAdress)
                  setDoctorData({...doctorData,address:address})

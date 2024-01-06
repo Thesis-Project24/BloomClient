@@ -5,8 +5,30 @@ import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
 import { useQueryClient , useQuery } from 'react-query';
 
 
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+ }
+ 
+ type PersonalDetailsProps = {
+  data: DoctorData[];
+  setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
+  doctorData: DoctorData;
+};
 
-const PersonalDetails = ({data , setDoctorData, doctorData}) => {
+
+
+
+
+
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, doctorData}) => {
   const queryClient = useQueryClient();
 
   // const [password, setPassword] = useState("dd")

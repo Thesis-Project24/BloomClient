@@ -6,7 +6,30 @@ import DropdownComponent from "./Dropdown";
 import { useQueryClient } from 'react-query';
 
 
-const DoctorDetails = ({ isSuccess, data , setDoctorData, doctorData}) => {
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+ }
+ 
+ type DoctorDetailsProps = {
+  data: DoctorData[];
+  setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
+  doctorData: DoctorData;
+  isSuccess: boolean;
+};
+
+
+
+
+
+const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess, data , setDoctorData, doctorData}) => {
   const queryClient = useQueryClient();
 
  

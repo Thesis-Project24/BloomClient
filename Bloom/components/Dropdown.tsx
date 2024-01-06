@@ -5,6 +5,26 @@ import {FontAwesome5} from '@expo/vector-icons';
 import { useQueryClient } from 'react-query';
 
 
+
+
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+ }
+ 
+ type DropdownComponentProps = {
+  specialtyData: DoctorData[];
+  setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
+  doctorData: DoctorData;
+};
+
 const data = [
   { label: 'specialty 1', value: 'specialty 1' },
   { label: 'specialty 2', value: 'specialty 2' },
@@ -13,11 +33,11 @@ const data = [
   
 ];
 
-const DropdownComponent = ({specialtyData , setDoctorData, doctorData }) => {
+const DropdownComponent: React.FC<DropdownComponentProps> = ({specialtyData , setDoctorData, doctorData }) => {
   const queryClient = useQueryClient();
 
  
-  const [value, setValue] = useState<string>(null);
+  const [value, setValue] = useState<any>(null);
   const [specialty, setSpecialty] = useState<string>(value)
   const [isFocus, setIsFocus] = useState(false);
    console.log(value,"specialty");

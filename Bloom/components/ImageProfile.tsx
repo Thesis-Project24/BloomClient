@@ -7,13 +7,18 @@ import { getStorage, ref, uploadBytes , getMetadata , getDownloadURL } from 'fir
 import { app } from '../firebase.config';
 import { useQueryClient } from 'react-query';
 
+type ImageprofileProps = {
+  data: any; 
+  setDoctorData: any; 
+  doctorData: any; 
+ };
 
 
-const Imageprofile = ({data , setDoctorData, doctorData }) => {
+const Imageprofile : React.FC<ImageprofileProps> = ({data , setDoctorData, doctorData }) => {
   const queryClient = useQueryClient();
 
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState<any>(null);
     const [uploading, setUploading] = useState(false);
     const storageRef = ref(getStorage(app)); // Updated storage reference creation
 
@@ -63,9 +68,10 @@ const Imageprofile = ({data , setDoctorData, doctorData }) => {
           aspect: [4, 3],
           quality: 1,
         });
+        if (result.assets) {
         const source = { uri: result.assets[0].uri };
         setImage(source);
-       
+        }
       };
 
 

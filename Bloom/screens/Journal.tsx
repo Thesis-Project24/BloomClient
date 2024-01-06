@@ -1,11 +1,10 @@
-
 import { View, Text } from "react-native";
 import React from "react";
 import { StyleSheet, Image, Pressable } from "react-native";
-const Home = () => {
+const Journal = () => {
   return (
     <View>
-      <Text style={[styles.textPosition]}>Home</Text>
+      <Text style={[styles.textPosition]}>Journal</Text>
     </View>
   );
 };
@@ -17,5 +16,5 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
-export default Home;
 
+export default Journal;
