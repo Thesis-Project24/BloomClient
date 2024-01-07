@@ -24,7 +24,6 @@ const Availability = () => {
         <View>
           <Text> Break duration </Text>
           <TextInput
-            // style={styles.input}
             onChangeText={onChangePause}
             value={pause}
             placeholder="in minutes"
