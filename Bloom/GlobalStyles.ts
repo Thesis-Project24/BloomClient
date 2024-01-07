@@ -16,9 +16,6 @@ export const FontFamily = {
   dMSansBold: "DMSans-Bold",
   poppinsRegular: "Poppins-Regular",
   epilogueMedium: "Epilogue-Medium",
-  tajawalBold: "Tajawal-Bold",
-  tajawalRegular: "Tajawal-Regular",
-  tajawalMedium: "Tajawal-Medium",
 };
 /* font sizes */
 export const FontSize = {
@@ -49,16 +46,7 @@ export const Color = {
   colorCadetblue: "#729384",
   colorBlack: "#000",
   brown: "#a78a6e",
-  colorGray_1000: "#fbfbfb",
-  black: "#242424",
-  colorChocolate: "#fe8235",
-  sageGreen: "#add8c4",
-  
-  colorDimgray: "#666",
-  
-  colorMediumblue: "#0303b3",
 };
-
 /* Paddings */
 export const Padding = {
   p_3xs: 10,
@@ -72,16 +60,6 @@ export const Padding = {
   p_lgi: 19,
   p_base: 16,
   p_26xl: 45,
-  size_xs: 12,
-  size_sm: 14,
-  size_6xl: 16,
-  size_base: 16,
-  size_5xl: 24,
-  // p_26xl: 21,
-
-
- 
- 
 };
 /* border radiuses */
 export const Border = {
@@ -94,9 +72,4 @@ export const Border = {
   br_21xl: 40,
   br_mid: 17,
   br_4xs: 9,
-  br_2xs: 11,
-  br_12xs: 12,
-  br_9xs: 4,
-  br_lg: 18,
 };
-

@@ -10,6 +10,9 @@ import User from "./screens/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
 import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import SignIn from "./screens/SignIn";
+import SignUp from "./screens/SignUp";
+// import GetStart from "./screens/GetStart";
 import Profile from "./screens/Profile";
 
 const queryClient = new QueryClient();
