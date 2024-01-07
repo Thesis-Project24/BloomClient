@@ -10,6 +10,9 @@ import User from "./screens/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
 import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import SignIn from "./screens/SignIn";
+import SignUp from "./screens/SignUp";
+// import GetStart from "./screens/GetStart";
 import Profile from "./screens/Profile";
 
 const queryClient = new QueryClient();
@@ -38,13 +41,18 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator>
           <Stack.Screen
             name="Back"
             options={{
               headerTitle: () => <Nav />,
             }}
             component={BottomTabNav}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="Nav"
@@ -65,7 +73,6 @@ export default function App() {
             component={Profile}
             options={{ headerShown: true }}
           />
-
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
       </NavigationContainer>

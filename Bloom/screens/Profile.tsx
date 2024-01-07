@@ -18,7 +18,7 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://192.168.1.56:3000/doctors/getOne/1`);
+      const res = await fetch(`http://172.20.10.10:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
@@ -33,21 +33,22 @@ const Profile = () => {
 
   const upDateData = () => {
  console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
-    fetch('http://192.168.1.56:3000/doctors/update',
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id: 1, ...data, ...doctorData })
-      }).then((res) => {
-        console.log(res)
-        Alert.alert('Updated Successfully!');
-      }).catch((err) => {
-        Alert.alert('Error Updating Data');
-        console.log(err,"error");
-        // toast.error("Something went wrong! Please try again.")
+    fetch("http://172.20.10.10:3000/doctors/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: 1, ...data, ...doctorData }),
+    })
+      .then((res) => {
+        console.log(res);
+        Alert.alert("Updated Successfully!");
       })
+      .catch((err) => {
+        Alert.alert("Error Updating Data");
+        console.log(err, "error");
+        // toast.error("Something went wrong! Please try again.")
+      });
 
   }
   return (

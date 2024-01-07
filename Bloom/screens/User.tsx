@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   howsYourMood: {
-    fontSize: FontSize.size_6xl,
+    fontSize: FontSize.size_6xll,
     fontWeight: "500",
     fontFamily: FontFamily.poppinsMedium,
     alignSelf: "stretch",
