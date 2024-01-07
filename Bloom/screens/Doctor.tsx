@@ -1,11 +1,10 @@
-
 import { View, Text } from "react-native";
 import React from "react";
 import { StyleSheet, Image, Pressable } from "react-native";
-const Home = () => {
+const Doctor = () => {
   return (
     <View>
-      <Text style={[styles.textPosition]}>Home</Text>
+      <Text style={[styles.textPosition]}>Doctor</Text>
     </View>
   );
 };
@@ -17,9 +16,5 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
-export default Home;
 
-<<<<<<< HEAD
-export default Home 
-=======
->>>>>>> 5e3af5e1d0082d5ae34f45f5aba2c524b67db172
+export default Doctor;
