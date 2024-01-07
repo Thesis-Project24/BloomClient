@@ -6,12 +6,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 // import Login from "./screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
-
 import User from "./screens/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
 import { useFonts } from "expo-font";
-
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Profile from "./screens/Profile";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -37,8 +36,8 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-        <QueryClientProvider client={queryClient}>
-    <NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
         <Stack.Navigator >
           <Stack.Screen
             name="Back"
@@ -56,11 +55,16 @@ export default function App() {
               cardStyle: { backgroundColor: "transparent" },
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
-          /> 
+          />
+          <Stack.Screen
+            name="Edit Profile"
+            component={Profile}
+            options={{ headerShown: true }}
+          />
 
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>

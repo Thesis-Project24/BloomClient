@@ -1,16 +1,24 @@
 {
   "expo": {
-    
     "name": "my-app",
     "slug": "my-app",
+
     "version": "1.0.0",
      "fonts": {
      "Inter-Black": "./assets/fonts/Roboto-Medium.ttf",
      "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
    },
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/group-123@3x.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -19,8 +27,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/group-123@3x.png",
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
