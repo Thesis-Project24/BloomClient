@@ -8,7 +8,7 @@ import {getFirestore} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyCm1T-PCyb1f51dOTmSuHw3vVb92IHWvo8",
   authDomain: "bloom-e9bf4.firebaseapp.com",
   projectId: "bloom-e9bf4",
@@ -16,10 +16,11 @@ const firebaseConfig = {
   messagingSenderId: "354790966478",
   appId: "1:354790966478:web:71c1c33a94e329b06bbc9f",
   measurementId: "G-53JFX45BSY",
+  clientId:"354790966478-mbqbjtk3k6g20tj3r0nnqjm6k6ib2t4d.apps.googleusercontent.com"
 };
-
+console.log("nice")
 // Initialize Firebase
- export const app = initializeApp(firebaseConfig);
+ export const  app = initializeApp(firebaseConfig);
  export const auth=getAuth(app)
  export const store=getFirestore(app)
 // const analytics = getAnalytics(app);
