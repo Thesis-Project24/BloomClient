@@ -1,7 +1,19 @@
-import  React , {useState , useEffect } from "react";
-import { Text, StyleSheet, TextInput, View , KeyboardAvoidingView } from "react-native";
-import { FontFamily, FontSize, Color, Padding, Border  } from "../GlobalStyles";
-import { useQueryClient } from 'react-query';
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
+import { useQueryClient } from "react-query";
 
 interface DoctorData {
   id?: number;
@@ -13,31 +25,31 @@ interface DoctorData {
   phone_number?: string;
   address?: string[];
   bio?: string;
- }
- 
- type BusinessAddressDetailsProps = {
-  data: DoctorData[];
+}
+
+type BusinessAddressDetailsProps = {
+  data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
 
-
-
-
-const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({data , setDoctorData, doctorData }) => {
+const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
+  data,
+  setDoctorData,
+  doctorData,
+}) => {
   const queryClient = useQueryClient();
-  const [address,setAddress]= useState<string[]>([])
-  
+  const [address, setAddress] = useState<string[]>([]);
+
   const handleAddress = () => {
-    if (data && data[0]?.address) {
-      setAddress(data[0].address);  
+    if (data && data?.address) {
+      setAddress(data.address);
     }
-   }
+  };
 
-useEffect(() =>{
-  handleAddress()
-},[])
-
+  useEffect(() => {
+    handleAddress();
+  }, []);
 
   return (
     <KeyboardAvoidingView style={styles.textlabelPersonalDetialsParent}>
@@ -55,18 +67,16 @@ useEffect(() =>{
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
-               onChangeText={(text) => {
-                const newAdress: string[]  = [...address]
-                newAdress[0]=text
-                setAddress(newAdress)
-                 setDoctorData({...doctorData,address:address})
-                 console.log(newAdress,"newAdress rakezzz hybaaaaaaa");
-                 console.log(address,"hybaa berasmii rakess");
-                 
-                 
-              }}
+                onChangeText={(text) => {
+                  const newAdress: string[] = [...address];
+                  newAdress[0] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                  console.log(newAdress, "newAdress rakezzz hybaaaaaaa");
+                  console.log(address, "hybaa berasmii rakess");
+                }}
                 style={styles.textlabel450116}
-                placeholder={ address[0]||'Pincode'}
+                placeholder={address[0] || "Pincode"}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -82,14 +92,14 @@ useEffect(() =>{
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-              onChangeText={(text) => {
-                const newAdress = [...address]
-                newAdress[1]=text
-                setAddress(newAdress)
-                setDoctorData({...doctorData,address:address })
-              }}
-              style={styles.textlabel450116}
-              placeholder={ address[1]|| 'Address'}
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[1] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
+                style={styles.textlabel450116}
+                placeholder={address[1] || "Address"}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -105,14 +115,14 @@ useEffect(() =>{
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-              onChangeText={(text) => {
-                const newAdress = [...address]
-                newAdress[2]=text
-                setAddress(newAdress)
-                setDoctorData({...doctorData,address:address })
-              }}
-              style={styles.textlabel450116}
-              placeholder={ address[2]|| 'City'}
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[2] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
+                style={styles.textlabel450116}
+                placeholder={address[2] || "City"}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -131,14 +141,14 @@ useEffect(() =>{
               ]}
             >
               <TextInput
-              onChangeText={(text) => {
-                const newAdress = [...address]
-                newAdress[3]=text
-                setAddress(newAdress)
-                setDoctorData({...doctorData,address:address })
-              }}
-              style={styles.textlabel450116}
-              placeholder={ address[3] || 'Country'}
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[3] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
+                style={styles.textlabel450116}
+                placeholder={address[3] || "Country"}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -175,7 +185,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     alignSelf: "stretch",
   },
@@ -207,7 +217,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_mid,
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     justifyContent: "center",
     borderStyle: "solid",

@@ -22,7 +22,10 @@ export const login = () => {
       const auth = getAuth(app)
       const res: any = await signInWithEmailAndPassword(auth, object.email, object.password)
       console.log(res)
-      const db = await axios.post(`http://192.168.1.18:3000/users/signin`, object)
+      const db = await axios.post(
+        `http://172.29.0.6:3000/users/signin`,
+        object
+      );
       localStorage.setItem("user", JSON.stringify(res))
       return db
     }
@@ -42,25 +45,33 @@ export const signup = () => {
         const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
         console.log("Firebase Auth Response:", res);
 
-        // Send email verification
+        // Send email verification and wait for user to verify
         const user = res.user;
         await sendEmailVerification(user);
         console.log("Verification email sent to:", user.email);
+        // Check if the user has verified their email
+        await auth.currentUser?.reload();
+        if (auth.currentUser?.emailVerified) {
+          const db = await axios.post(
+            `http://172.29.0.6:3000/users/signup`,
+            object
+          );
+          console.log("Backend Response:", db.data);
 
-        // Call your backend to create user
-        const db = await axios.post(`http://192.168.1.18:3000/users/signup`, object);
-        console.log("Backend Response:", db.data);
-
-        return db.data;
+          return db.data;
+        } else {
+          throw new Error("Email not verified");
+        }
       } catch (error) {
         console.error("Signup Error:", error);
-        throw error; // Rethrow the error for useMutation to handle
+        throw error; 
       }
     }
   });
 
   return query;
 };
+
 
 const deleteuser=()=>{
   const query =useMutation({
@@ -76,7 +87,7 @@ const deleteuser=()=>{
       console.log(storeduser);
       if (storeduser) {
         const parseduser=JSON.parse(storeduser)
-await axios.delete(`http://192.168.1.18:3000/users/${parseduser.data.id}`)
+await axios.delete(`http://172.29.0.19:3000/users/${parseduser.data.id}`);
         localStorage.removeItem('user')
       }
       

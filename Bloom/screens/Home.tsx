@@ -19,7 +19,4 @@ const styles = StyleSheet.create({
 });
 export default Home;
 
-<<<<<<< HEAD
-export default Home 
-=======
->>>>>>> 5e3af5e1d0082d5ae34f45f5aba2c524b67db172
+

@@ -1,14 +1,11 @@
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
- import Chat from "../screens/Chat";
-import Journal from "../screens/Journal";
-import Doctor from "../screens/Doctor";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Chat from "../screens/Chat";
+import Journal from "../screens/UserProfile/Journal";
+import DoctorProfile from "../screens/Doctor/DoctorProfile";
 import Community from "../screens/Community";
-import Home from '../screens/Home';
-import Nav from '../screens/Nav';
-
-
-
+import Home from "../screens/Home";
+import Nav from "../screens/Nav";
+import User from "../screens/UserProfile/User";
 
 // import { View, Platform } from "react-native";
 import React from "react";
@@ -16,25 +13,23 @@ import React from "react";
 // import { Image, StyleSheet, Text, Button, Pressable } from "react-native";
 // import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import Profile from "../screens/Doctor/EditDoctorProfile";
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNav = () => {
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-
-          if (route.name === "Home") {
-            iconName = focused ? "home" : "home-outline";
+          if (route.name === "User") {
+            iconName = focused ? "User" : "home-outline";
           } else if (route.name === "Chat") {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
             iconName = focused ? "journal" : "journal-outline";
-          } else if (route.name === "Doctor") {
+          } else if (route.name === "DoctorProfile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
             iconName = focused ? "home" : "home-outline";
@@ -61,13 +56,13 @@ export const BottomTabNav = () => {
         component={Chat}
       />
       <Tab.Screen
-        name="Doctor"
+        name="DoctorProfile"
         options={{ headerShown: false }}
-        component={Doctor}
+        component={DoctorProfile}
       />
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="User"
+        component={User}
         options={{ headerShown: false }}
       />
       <Tab.Screen
@@ -82,6 +77,6 @@ export const BottomTabNav = () => {
       />
     </Tab.Navigator>
   );
-}
+};
 
-export default BottomTabNav
+export default BottomTabNav;
