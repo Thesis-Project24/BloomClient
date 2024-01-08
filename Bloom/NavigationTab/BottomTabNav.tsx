@@ -7,15 +7,13 @@ import Community from "../screens/Community";
 import Home from '../screens/Home';
 import Nav from '../screens/Nav';
 
-
-
-
 // import { View, Platform } from "react-native";
 import React from "react";
 
 // import { Image, StyleSheet, Text, Button, Pressable } from "react-native";
 // import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Profile from '../screens/Profile';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,15 +24,14 @@ export const BottomTabNav = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
+          let iconName
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Chat") {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
             iconName = focused ? "journal" : "journal-outline";
-          } else if (route.name === "Doctor") {
+          } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
             iconName = focused ? "home" : "home-outline";
@@ -63,7 +60,7 @@ export const BottomTabNav = () => {
       <Tab.Screen
         name="Doctor"
         options={{ headerShown: false }}
-        component={Doctor}
+        component={Profile}
       />
       <Tab.Screen
         name="Home"

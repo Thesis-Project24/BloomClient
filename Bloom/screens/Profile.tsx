@@ -7,7 +7,7 @@ import {
 import PersonalDetails from "../components/PersonalDetails";
 import DoctorDetails from "../components/DoctorDetails";
 import BusinessAddressDetails from "../components/BusinessAddressDetails";
-import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles"
 import Imageprofile from "../components/ImageProfile";
 import { useQuery, useQueryClient } from 'react-query';
 import SaveUpdateButton from "../components/SaveUpdateButton";
@@ -18,7 +18,7 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://192.168.1.56:3000/doctors/getOne/1`);
+      const res = await fetch(`http://172.20.10.10:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
@@ -48,6 +48,11 @@ const Profile = () => {
         console.log(err,"error");
         // toast.error("Something went wrong! Please try again.")
       })
+      .catch((err) => {
+        Alert.alert("Error Updating Data");
+        console.log(err, "error");
+        // toast.error("Something went wrong! Please try again.")
+      });
 
   }
   return (

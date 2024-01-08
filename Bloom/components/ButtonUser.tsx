@@ -37,7 +37,7 @@ const ButtonUser = () => {
             resizeMode="cover"
             source={require("../assets/vector2.png")}
           />
-          <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
+          <Text style={[styles.journal, styles.journalFlexBox]}>Trakers</Text>
         </View>
       </View>
       <View style={[styles.frameWrapper1, styles.frameWrapperShadowBox]}>
@@ -50,16 +50,7 @@ const ButtonUser = () => {
           <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
         </View>
       </View>
-      <Image
-        style={[styles.frameChild, styles.framePosition]}
-        resizeMode="cover"
-        source={require("../assets/line-5.png")}
-      />
-      <Image
-        style={[styles.frameItem, styles.framePosition]}
-        resizeMode="cover"
-        source={require("../assets/line-4.png")}
-      />
+
     </View>
   );
 };
@@ -98,10 +89,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   framePosition: {
-    
     top: "50%",
     left: "50%",
-    position: "absolute",
   },
   vectorIcon: {
     width: 31,
@@ -135,7 +124,7 @@ const styles = StyleSheet.create({
   },
   vectorIcon2: {
     borderRadius: Border.br_12xs,
-    width: 39,
+    width: 36,
     height: 35,
   },
   frameView: {

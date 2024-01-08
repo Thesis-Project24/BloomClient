@@ -104,6 +104,7 @@ export const Color = {
   neutralsGray2: "#838993",
   darkPurple: "#240046",
 };
+
 /* Paddings */
 export const Padding = {
   p_2xl: 21,
