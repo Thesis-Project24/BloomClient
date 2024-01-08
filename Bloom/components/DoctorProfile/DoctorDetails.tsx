@@ -30,12 +30,7 @@ type DoctorDetailsProps = {
   isSuccess: boolean;
 };
 
-const DoctorDetails: React.FC<DoctorDetailsProps> = ({
-  isSuccess,
-  data,
-  setDoctorData,
-  doctorData,
-}) => {
+const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess,data,setDoctorData,doctorData,}) => {
   const queryClient = useQueryClient();
 
   return (

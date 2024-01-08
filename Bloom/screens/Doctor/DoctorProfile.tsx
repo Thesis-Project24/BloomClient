@@ -4,16 +4,12 @@ import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetail
 import DoctorBio from "../../components/DoctorProfile/DoctorBio";
 import BookAppointment from "../../components/DoctorProfile/BookAppointment";
 import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
-import {
-  FontSize,
-  FontFamily,
-  Color,
-  Padding,
-  Border,
-} from "../../GlobalStyles";
-import { useQuery, useQueryClient } from "react-query";
+import { FontSize , FontFamily, Color, Padding , Border } from "../../GlobalStyles";
+import { useQuery , useQueryClient } from "react-query";
 
 const DoctorProfile = () => {
+
+  
     const fetchData = async () => {
         try {
           const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);

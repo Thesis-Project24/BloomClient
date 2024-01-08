@@ -14,13 +14,7 @@ import {
 import PersonalDetails from "../../components/DoctorProfile/PersonalDetails";
 import DoctorDetails from "../../components/DoctorProfile/DoctorDetails";
 import BusinessAddressDetails from "../../components/DoctorProfile/BusinessAddressDetails";
-import {
-  Padding,
-  Color,
-  FontFamily,
-  FontSize,
-  Border,
-} from "../../GlobalStyles";
+import { Padding , Color, FontFamily, FontSize, Border } from "../../GlobalStyles";
 import Imageprofile from "../../components/DoctorProfile/ImageProfile";
 import { useQuery, useQueryClient } from "react-query";
 import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
@@ -28,6 +22,8 @@ import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
 const EditDoctorProfile = () => {
   const queryClient = useQueryClient();
   const [doctorData, setDoctorData] = useState({});
+
+
 
   const fetchData = async () => {
     try {
@@ -127,6 +123,8 @@ console.log(data,"data from edit doctors");
 
               <SaveUpdateButton upDateData={upDateData} />
             </View>
+
+
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
                 style={[
@@ -137,6 +135,8 @@ console.log(data,"data from edit doctors");
                 Save
               </Text>
             </Pressable>
+
+            
           </View>
         </View>
       </View>
