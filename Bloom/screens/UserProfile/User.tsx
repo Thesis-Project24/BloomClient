@@ -16,6 +16,7 @@ import {
 } from "../../GlobalStyles";
 import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const User = () => {
   return (
@@ -53,7 +54,7 @@ const User = () => {
             <View
               style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}
             >
-              <View style={styles.frameChildss} />
+              <View style={styles.frameChildss}/>
               <View style={styles.frameShadowBox} />
               <View style={styles.frameShadowBox} />
               <View style={styles.frameShadowBox} />
