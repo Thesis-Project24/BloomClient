@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
+import { View, Text, Pressable, StyleSheet, ScrollView ,Image} from "react-native";
 import React, { useState } from "react";
 import Habit from "../components/Trackers/Habit";
 import UserHabit from "../components/Trackers/UserHabit";
@@ -48,63 +48,76 @@ const Tracker = () => {
 
   return (
     <ScrollView>
-    <View >
-      <Text style={styles.init}> What Habit Do you Want to Track </Text>
-      <View style={styles.habitsWrapper}>
-      {habits && habits.habits?.map((ele:any) => (
-          <Habit key={ele.id} habit={{
-            id: ele.id,
-            name : ele.name
-          }} onHabitSelect={handleHabitSelect}/>
-        ))}
-      </View>
-      <View >
-      <Pressable onPress={submitSelectedHabits} disabled={selectedHabits.length === 0 || isAssigningMultipleHabits}>
-          <Text style={styles.button} >Submit My Habits</Text>
-        </Pressable>
-      </View >
       <View>
-      <Text style={styles.T1}>
-        My Habbits
-      </Text>
-       <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-       <View style={styles.container}>
-        {isSuccess && habitsUser.userHabits?.map((ele:any)=>(
-          <UserHabit key={ele.id} habitsUser={{
-            id: ele.id,
-            name:ele.habit.name
-          }} />
-        ))}
+        <Image
+          style={[styles.profileItem, styles.profilePosition]}
+          // contentFit="cover"
+          source={require("../assets/vector-1.png")}
+        />
+        <Text style={styles.init}> What Habit Do you Want to Track </Text>
+        <View style={styles.habitsWrapper}>
+          {habits &&
+            habits.habits?.map((ele: any) => (
+              <Habit
+                key={ele.id}
+                habit={{
+                  id: ele.id,
+                  name: ele.name,
+                }}
+                onHabitSelect={handleHabitSelect}
+              />
+            ))}
         </View>
-      </ScrollView> 
+        <View>
+          <Pressable
+            onPress={submitSelectedHabits}
+            disabled={selectedHabits.length === 0 || isAssigningMultipleHabits}
+          >
+            <Text style={styles.button}>Submit My Habits</Text>
+          </Pressable>
+        </View>
+        <View>
+          <Text style={styles.T1}>My Habbits</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+            <View style={styles.container}>
+              {isSuccess &&
+                habitsUser.userHabits?.map((ele: any) => (
+                  <UserHabit
+                    key={ele.id}
+                    habitsUser={{
+                      id: ele.id,
+                      name: ele.habit.name,
+                    }}
+                  />
+                ))}
+            </View>
+          </ScrollView>
+        </View>
       </View>
-    </View>
-    <View>
-      <Text style={styles.T1}>
-        My Habits Stats
-      </Text>
-    </View>
+      <View>
+        <Text style={styles.T1}>My Habits Stats</Text>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    flexDirection:"row",
-    backgroundColor: "F3F0EA",
-    marginTop:50,
+    flex: 1,
+    flexDirection: "row",
+    
+    marginTop: 50,
   },
   init: {
     color: "black",
-    fontStyle:"italic",
-    width:"auto",
-    paddingLeft:41,
-    paddingRight:86,
+    fontStyle: "italic",
+    width: "auto",
+    paddingLeft: 41,
+    paddingRight: 86,
     marginTop: 100,
     // fontFamily:"Tajawal"
     fontSize: 17,
-    fontWeight:"600"
+    fontWeight: "600",
   },
   T1: {
     paddingLeft: 25,
@@ -112,26 +125,35 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontStyle: "italic",
   },
-  button:{
-    textAlign:"center",
-    marginHorizontal:90,
+  button: {
+    textAlign: "center",
+    marginHorizontal: 90,
     borderWidth: 1.5,
     borderColor: "green",
     borderStyle: "solid",
     borderRadius: 15,
-  padding : 10,
+    padding: 10,
     marginTop: 50,
-    marginBottom:50,
+    marginBottom: 50,
   },
   habitsWrapper: {
-    flexDirection: "row", 
-    flexWrap: "wrap", 
-    justifyContent: "space-between", 
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     marginTop: 100,
-    paddingRight:50,
-    paddingLeft:50,
-    gap:10,
-    
+    paddingRight: 50,
+    paddingLeft: 50,
+    gap: 10,
+  },
+  profileItem: {
+    height: 91,
+    width: 390,
+    top: 0,
+    left: 0,
+  },
+  profilePosition: {
+    left: 0,
+    position: "relative",
   },
 });
 

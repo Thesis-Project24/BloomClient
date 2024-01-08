@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   habitPressed: {
-    backgroundColor: "red",
-    color: "F3F0EA",
+    backgroundColor: "#9FCFBD",
+    color: "#9FCFBD",
   },
 });
 

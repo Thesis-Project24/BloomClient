@@ -5,24 +5,23 @@ import { createStackNavigator } from "@react-navigation/stack";
 // import Login from "./screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
-import User from "./screens/User";
+import User from "./screens/UserProfile/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
 import { useFonts } from "expo-font";
-import { QueryClient, QueryClientProvider } from 'react-query';
-import SignIn from "./screens/SignIn";
-import SignUp from "./screens/SignUp";
+import { QueryClient, QueryClientProvider } from "react-query";
+import SignIn from "./screens/Auth/SignIn";
+import SignUp from "./screens/Auth/SignUp";
 // import GetStart from "./screens/GetStart";
-import Profile from "./screens/Profile";
-import DoctorProfile from "./screens/DoctorProfile";
+import Profile from "./screens/Doctor/EditDoctorProfile";
+import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
-import Availability from "./screens/Availablity";
-import AvailabilityW from "./screens/AvailabilityW";
+import Availability from "./screens/Booking/Availablity";
+import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
-
+import Home from "./screens/Home";
 
 const queryClient = new QueryClient();
 export default function App() {
-
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -44,27 +43,17 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-       <QueryClientProvider client={queryClient}  >
-    <NavigationContainer   >
-        <Stack.Navigator initialRouteName="Tracker" >
-        <Stack.Screen
-            name="Availability"
-            component={Availability}
-            
-          /> 
-          {/* <Stack.Screen name="AvailabilityW" component={AvailabilityW} /> */}
-
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Back">
+          <Stack.Screen name="Availability" component={Availability} />
+          <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
           <Stack.Screen
             name="Back"
             options={{
               headerTitle: () => <Nav />,
             }}
             component={BottomTabNav}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="Nav"
@@ -79,23 +68,31 @@ export default function App() {
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
-          /> 
-            <Stack.Screen
+          />
+          <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: true }}
-          /> 
-            <Stack.Screen
+          />
+          <Stack.Screen
             name="DoctorProfile"
             component={DoctorProfile}
             options={{ headerShown: true }}
-          /> 
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ headerShown: true }}
+          />
 
-          <Stack.Screen name="User" component={User} /> 
+          <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
   );
 }
-
-

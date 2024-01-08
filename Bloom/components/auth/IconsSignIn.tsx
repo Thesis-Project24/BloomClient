@@ -1,22 +1,26 @@
 import * as React from "react";
+import { useState } from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
+import { FontSize, FontFamily, Color, Border } from "../../GlobalStyles";
 
-const IconsSignUp = () => {
+const IconsSignIn = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   return (
     <View style={styles.frameParent}>
       <View style={styles.vectorParent}>
         <Image
           style={styles.frameLayout}
           contentFit="cover"
-          source={require("../assets/rectangle-3.png")}
+          source={require("../../assets/rectangle-31.png")}
         />
         <Text style={styles.orContinueWith}>Or continue with</Text>
         <Image
           style={[styles.frameItem, styles.frameLayout]}
           contentFit="cover"
-          source={require("../assets/rectangle-4.png")}
+          source={require("../../assets/rectangle-41.png")}
         />
       </View>
       <View style={styles.buttonsParent}>
@@ -24,21 +28,21 @@ const IconsSignUp = () => {
           <Image
             style={[styles.buttonsChild, styles.buttonsLayout]}
             contentFit="cover"
-            source={require("../assets/frame-1434.png")}
+            source={require("../../assets/frame-14341.png")}
           />
         </Pressable>
         <Pressable style={styles.buttonsShadowBox}>
           <Image
             style={styles.vectorIcon}
             contentFit="cover"
-            source={require("../assets/vector5.png")}
+            source={require("../../assets/vector9.png")}
           />
         </Pressable>
         <Pressable style={styles.buttonsShadowBox}>
           <Image
             style={[styles.buttonsItem, styles.buttonsLayout]}
             contentFit="cover"
-            source={require("../assets/frame-2608626.png")}
+            source={require("../../assets/frame-26086261.png")}
           />
         </Pressable>
       </View>
@@ -137,10 +141,11 @@ const styles = StyleSheet.create({
   frameParent: {
     justifyContent: "flex-end",
     maxHeight: 94,
+    marginTop: 42,
     alignItems: "center",
     flex: 1,
     alignSelf: "stretch",
   },
 });
 
-export default IconsSignUp;
+export default IconsSignIn;

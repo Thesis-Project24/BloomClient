@@ -1,9 +1,14 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "react-native-paper";
-import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
-import { useQueryClient , useQuery } from 'react-query';
-
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
+import { useQueryClient, useQuery } from "react-query";
 
 interface DoctorData {
   id?: number;
@@ -15,31 +20,22 @@ interface DoctorData {
   phone_number?: string;
   address?: string[];
   bio?: string;
- }
- 
- type PersonalDetailsProps = {
+}
+
+type PersonalDetailsProps = {
   data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
 
-
-
-
-
-
-const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, doctorData}) => {
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({
+  data,
+  setDoctorData,
+  doctorData,
+}) => {
   const queryClient = useQueryClient();
 
   // const [password, setPassword] = useState("dd")
-
-
-
-
-
-
-
-
 
   return (
     <View
@@ -64,14 +60,12 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
-
-              // editable={true} selectTextOnFocus={true}
+                // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
-                  setDoctorData({...doctorData,first_name: text});
-
+                  setDoctorData({ ...doctorData, first_name: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.first_name || 'Username'}
+                placeholder={data?.first_name || "Username"}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -88,12 +82,11 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-               onChangeText={(text) => {
-               
-                setDoctorData({...doctorData,last_name: text});
-              }}
+                onChangeText={(text) => {
+                  setDoctorData({ ...doctorData, last_name: text });
+                }}
                 style={styles.textlabel450116}
-                placeholder={data?.last_name || 'Last Name'}
+                placeholder={data?.last_name || "Last Name"}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -109,13 +102,11 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-               onChangeText={(text) => {
-                setDoctorData({...doctorData,email: text});
-
-              }}
-
+                onChangeText={(text) => {
+                  setDoctorData({ ...doctorData, email: text });
+                }}
                 style={styles.textlabel450116}
-                placeholder={data?.email || 'Email'}
+                placeholder={data?.email || "Email"}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -135,10 +126,9 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
               ]}
             >
               <TextInput
-               onChangeText={(text) => {
-                // setPassword(text)
-              }}
-              
+                onChangeText={(text) => {
+                  // setPassword(text)
+                }}
                 style={styles.textlabel450116}
                 placeholder="Password"
                 multiline={true}
