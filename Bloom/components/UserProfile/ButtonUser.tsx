@@ -1,8 +1,16 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { Padding, Color, Border, FontSize, FontFamily } from "../GlobalStyles";
-
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Padding,
+  Color,
+  Border,
+  FontSize,
+  FontFamily,
+} from "../../GlobalStyles";
+import { useNavigation } from "@react-navigation/core";
+import { FontAwesome5 } from "@expo/vector-icons";
 const ButtonUser = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.frameParent}>
       <View style={[styles.frameWrapper, styles.frameWrapperShadowBox]}>
@@ -10,7 +18,7 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon}
             resizeMode="cover"
-            source={require("../assets/vector.png")}
+            source={require("../../assets/Journal.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Journal</Text>
         </View>
@@ -20,12 +28,13 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon1}
             resizeMode="cover"
-            source={require("../assets/vector1.png")}
+            source={require("../../assets/vector1.png")}
           />
           <Text
             style={[styles.reservation, styles.journalFlexBox]}
             numberOfLines={1}
           >
+            {" "}
             Reservation
           </Text>
         </View>
@@ -35,31 +44,30 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon2}
             resizeMode="cover"
-            source={require("../assets/vector2.png")}
+            source={require("../../assets/ppe-santizer-alt-1.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
         </View>
       </View>
       <View style={[styles.frameWrapper1, styles.frameWrapperShadowBox]}>
         <View style={styles.vectorParent}>
-          <Image
-            style={styles.ppeSantizerAlt1Icon}
-            resizeMode="cover"
-            source={require("../assets/ppe-santizer-alt-1.png")}
-          />
-          <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Tracker")}>
+            <FontAwesome5
+              style={styles.ppeSantizerAlt1Icon}
+              name="chart-line"
+              size={30}
+              color="black"
+              justifyContent="center"
+            />
+            {/* <Image
+              style={styles.ppeSantizerAlt1Icon}
+              resizeMode="cover"
+              source={require("../assets/vector2.png")}
+            /> */}
+            <Text style={[styles.journal, styles.journalFlexBox]}>Tracker</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <Image
-        style={[styles.frameChild, styles.framePosition]}
-        resizeMode="cover"
-        source={require("../assets/line-5.png")}
-      />
-      <Image
-        style={[styles.frameItem, styles.framePosition]}
-        resizeMode="cover"
-        source={require("../assets/line-4.png")}
-      />
     </View>
   );
 };
@@ -98,10 +106,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   framePosition: {
-    
     top: "50%",
     left: "50%",
-    position: "absolute",
   },
   vectorIcon: {
     width: 31,
@@ -115,6 +121,7 @@ const styles = StyleSheet.create({
   vectorParent: {
     justifyContent: "center",
     flex: 1,
+
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -127,7 +134,7 @@ const styles = StyleSheet.create({
   },
   reservation: {
     lineHeight: 16,
-     fontWeight: "700",
+    fontWeight: "700",
     fontFamily: FontFamily.tajawalBold,
   },
   frameContainer: {
@@ -135,15 +142,17 @@ const styles = StyleSheet.create({
   },
   vectorIcon2: {
     borderRadius: Border.br_12xs,
-    width: 39,
+    width: 36,
     height: 35,
   },
   frameView: {
     zIndex: 2,
   },
   ppeSantizerAlt1Icon: {
-    width: 48,
-    height: 48,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+
     overflow: "hidden",
   },
   frameWrapper1: {
@@ -165,8 +174,8 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   frameParent: {
-    marginLeft: -195,
-    top: 408,
+    marginLeft: -210,
+    top: 208,
     width: 390,
     height: 290,
     gap: 20,
@@ -181,4 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ButtonUser
+export default ButtonUser;

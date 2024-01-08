@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "expo-image";
 import {
-  StyleSheet, Pressable, Text, View, StatusBar, SafeAreaView,
-  ScrollView, TouchableOpacity, Alert
+  StyleSheet,
+  Pressable,
+  Text,
+  View,
+  StatusBar,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
-import PersonalDetails from "../components/PersonalDetails";
-import DoctorDetails from "../components/DoctorDetails";
-import BusinessAddressDetails from "../components/BusinessAddressDetails";
-import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
-import Imageprofile from "../components/ImageProfile";
-import { useQuery, useQueryClient } from 'react-query';
-
+import PersonalDetails from "../../components/DoctorProfile/PersonalDetails";
+import DoctorDetails from "../../components/DoctorProfile/DoctorDetails";
+import BusinessAddressDetails from "../../components/DoctorProfile/BusinessAddressDetails";
+import {
+  Padding,
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+} from "../../GlobalStyles";
+import Imageprofile from "../../components/DoctorProfile/ImageProfile";
+import { useQuery, useQueryClient } from "react-query";
+import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
 
 const Profile = () => {
   const queryClient = useQueryClient();
@@ -18,52 +31,54 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://192.168.1.56:3000/doctors/getOne/1`);
+      const res = await fetch(`http://172.29.0.6:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-   console.log(doctorData, "update data from profile");
 
-  const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
-  console.log(data, "data prifile");
+  const { data, isError, isLoading, isSuccess } = useQuery("OneDoc", fetchData);
 
   const upDateData = () => {
- console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
-    fetch('http://192.168.1.56:3000/doctors/update',
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id: 1, ...data, ...doctorData })
-      }).then((res) => {
-        console.log(res)
-        Alert.alert('Updated Successfully!');
-      }).catch((err) => {
-        Alert.alert('Error Updating Data');
-        console.log(err,"error");
+    console.log({ id: 1, ...data, ...doctorData }, "update data in fnc ");
+    fetch("http://172.29.0.6:3000/doctors/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: 1, ...data, ...doctorData }),
+    })
+      .then((res) => {
+        console.log(res);
+        Alert.alert("Updated Successfully!");
+      })
+      .catch((err) => {
+        Alert.alert("Error Updating Data");
+        console.log(err, "error");
         // toast.error("Something went wrong! Please try again.")
       })
-
-  }
+      .catch((err) => {
+        Alert.alert("Error Updating Data");
+        console.log(err, "error");
+        // toast.error("Something went wrong! Please try again.")
+      });
+  };
   return (
     <ScrollView style={styles.profile}>
-
       <Image
         style={styles.profileChild}
         contentFit="cover"
-        source={require("../assets/vector-2.png")}
+        source={require("../../assets/vector-2.png")}
       />
-      <Image
+      {/* <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
         source={require("../assets/vector-1.png")}
-      />
-      <View style={styles.vectorParent}>
+      /> */}
+      {/* <View style={styles.vectorParent}>
         <Image
           style={styles.frameChild}
           contentFit="cover"
@@ -72,36 +87,44 @@ const Profile = () => {
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
         </Text>
-      </View>
-      {/* <StatusBar
-        style={styles.profileInnerSpaceBlock}
-        barStyle="light-content"
-        translucent={true}
-      /> */}
-
-
+      </View> */}
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
-          {isSuccess && <Imageprofile data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-
+          {isSuccess && (
+            <Imageprofile
+              data={data}
+              setDoctorData={setDoctorData}
+              doctorData={doctorData}
+            />
+          )}
 
           <View style={styles.frameView}>
             <View style={styles.frameParent1}>
-              {isSuccess && <PersonalDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              {isSuccess && <DoctorDetails isSuccess={isSuccess} data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              {isSuccess && <BusinessAddressDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              <TouchableOpacity
-                onPress={() => {
-                  upDateData()
-                }}
-              >
-                <Text
+              {isSuccess && (
+                <PersonalDetails
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
+              {isSuccess && (
+                <DoctorDetails
+                  isSuccess={isSuccess}
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
+              {isSuccess && (
+                <BusinessAddressDetails
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
 
-                >
-                  Save
-                </Text>
-              </TouchableOpacity>
+              <SaveUpdateButton upDateData={upDateData} />
             </View>
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
@@ -121,8 +144,6 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
-
-
   image1: {
     alignItems: "flex-end",
     overflow: "hidden",
@@ -136,10 +157,7 @@ const styles = StyleSheet.create({
     aspectRatio: "1",
   },
 
-
-
   profilePosition: {
-
     left: 0,
     position: "relative",
   },
@@ -239,7 +257,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonSaveprofileSelf: {
-
     borderRadius: Border.br_5xs,
     backgroundColor: Color.colorPaleturquoise,
     shadowColor: "rgba(0, 0, 0, 0.25)",
@@ -264,8 +281,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
-
-
   frameView: {
     height: "100%",
     minWidth: 600,
@@ -278,11 +293,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-
-
-
-
-  // HEDHA TEAABA IMG 
+  // HEDHA TEAABA IMG
   profuleWrapper: {
     top: 40,
     paddingHorizontal: Padding.p_5xl,
@@ -293,9 +304,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
-
   profile: {
-
     width: "100%",
     height: "100%",
     overflow: "hidden",

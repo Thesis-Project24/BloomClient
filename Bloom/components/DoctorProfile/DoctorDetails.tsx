@@ -1,10 +1,15 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, Pressable, View, TextInput } from "react-native";
 import { Image } from "expo-image";
-import { Padding, Color, Border, FontFamily, FontSize } from "../GlobalStyles";
+import {
+  Padding,
+  Color,
+  Border,
+  FontFamily,
+  FontSize,
+} from "../../GlobalStyles";
 import DropdownComponent from "./Dropdown";
-import { useQueryClient } from 'react-query';
-
+import { useQueryClient } from "react-query";
 
 interface DoctorData {
   id?: number;
@@ -16,23 +21,23 @@ interface DoctorData {
   phone_number?: string;
   address?: string[];
   bio?: string;
- }
- 
- type DoctorDetailsProps = {
-  data: DoctorData[];
+}
+
+type DoctorDetailsProps = {
+  data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
   isSuccess: boolean;
 };
 
-
-
-
-
-const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess, data , setDoctorData, doctorData}) => {
+const DoctorDetails: React.FC<DoctorDetailsProps> = ({
+  isSuccess,
+  data,
+  setDoctorData,
+  doctorData,
+}) => {
   const queryClient = useQueryClient();
 
- 
   return (
     <View style={styles.textlabelPersonalDetialsParent}>
       <Text style={styles.textlabelPersonalDetials} numberOfLines={1}>
@@ -42,70 +47,77 @@ const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess, data , setDoct
       <View style={styles.frameWrapper}>
         <View style={styles.frameParent}>
           <View style={styles.textlabelStateParent}>
-           
-
             <View style={styles.frameGroup}>
+              {isSuccess && (
+                <DropdownComponent
+                  specialtyData={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
 
-             { isSuccess && <DropdownComponent specialtyData={data} setDoctorData= {setDoctorData} doctorData= {doctorData}  />}
-             
-            <View
-            style={[
-              styles.textlabelEmailAddressParent,
-              styles.textlabelFlexBox,
-            ]}
-          >
-            <Text
-              style={[styles.textlabelEmailAddress, styles.textlabelLayout]}
-              numberOfLines={1}
-            >
-              Phone Number
-            </Text>
-            <View
-              style={[
-                styles.textlabel450116Wrapper,
-                styles.textlabel450116Border,
-              ]}
-            >
-              <TextInput
-              onChangeText={(text) => {
-                setDoctorData({...doctorData,phone_number: text});
-              }}
-                style={[styles.textlabel450116, styles.textlabelLayout]}
-                placeholder={data[0]?.phone_number || 'PhoneNumber'}
-                multiline={true}
-                placeholderTextColor="#242424"
-              />
+              <View
+                style={[
+                  styles.textlabelEmailAddressParent,
+                  styles.textlabelFlexBox,
+                ]}
+              >
+                <Text
+                  style={[styles.textlabelEmailAddress, styles.textlabelLayout]}
+                  numberOfLines={1}
+                >
+                  Phone Number
+                </Text>
+                <View
+                  style={[
+                    styles.textlabel450116Wrapper,
+                    styles.textlabel450116Border,
+                  ]}
+                >
+                  <TextInput
+                    onChangeText={(text) => {
+                      setDoctorData({ ...doctorData, phone_number: text });
+                    }}
+                    style={[styles.textlabel450116, styles.textlabelLayout]}
+                    placeholder={data?.phone_number || "PhoneNumber"}
+                    multiline={true}
+                    placeholderTextColor="#242424"
+                  />
+                </View>
+              </View>
+              <View
+                style={[
+                  styles.textlabelEmailAddressGroup,
+                  styles.textlabelFlexBox,
+                ]}
+              >
+                <Text
+                  style={[styles.textlabelEmailAddress, styles.textlabelLayout]}
+                  numberOfLines={1}
+                >
+                  Bio
+                </Text>
+                <View
+                  style={[
+                    styles.textlabel450116Container,
+                    styles.textlabel450116Border,
+                  ]}
+                >
+                  <TextInput
+                    onChangeText={(text) => {
+                      setDoctorData({ ...doctorData, bio: text });
+                    }}
+                    editable
+                    multiline
+                    numberOfLines={4}
+                    // maxLength={10}
+                    style={[styles.textlabel450116, styles.textlabelLayout]}
+                    placeholder={data.bio || "Bio"}
+                    placeholderTextColor="#242424"
+                  />
+                </View>
+              </View>
             </View>
-          </View>
-          <View
-            style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
-          >
-            <Text
-              style={[styles.textlabelEmailAddress, styles.textlabelLayout]}
-              numberOfLines={1}
-            >Bio</Text>
-            <View
-              style={[
-                styles.textlabel450116Container,
-                styles.textlabel450116Border,
-              ]}
-            >
-              <TextInput
-              onChangeText={(text) => {
-                setDoctorData({...doctorData,bio: text});
-              }}
-                editable
-                multiline
-                 numberOfLines={4}
-                // maxLength={10}
-                style={[styles.textlabel450116, styles.textlabelLayout]}
-                placeholder={data[0].bio || 'Bio'}
-                placeholderTextColor="#242424"
-              />
-            </View>
-          </View>
-
-          </View>
           </View>
         </View>
       </View>
@@ -126,14 +138,13 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   textlabel450116Border: {
-
     paddingHorizontal: Padding.p_mid,
     paddingVertical: Padding.p_3xs,
     justifyContent: "center",
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     flex: 1,
     alignSelf: "stretch",
@@ -189,7 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_3xs,
     paddingLeft: Padding.p_mini,
     alignItems: "center",
@@ -215,7 +226,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_3xs,
     flex: 1,
     alignSelf: "stretch",
@@ -233,8 +244,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
   },
-
-
 
   textlabelEmailAddress: {
     fontFamily: FontFamily.montserratRegular,
@@ -262,15 +271,15 @@ const styles = StyleSheet.create({
   textlabel4501161: {
     fontSize: FontSize.size_3xs,
     flex: 1,
-
   },
   textlabel450116Container: {
+    maxWidth: 400,
     height: "100%",
     maxHeight: 200,
     marginTop: 30,
   },
   textlabelEmailAddressGroup: {
-    maxHeight:220,
+    maxHeight: 220,
   },
   frameParent: {
     minWidth: 210,

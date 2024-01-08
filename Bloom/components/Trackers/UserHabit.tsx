@@ -2,13 +2,13 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
 interface UserHabitsProps {
-  habit: {
+  habitsUser: {
     id: number;
     name: string;
   };
 }
 
-const UserHabit = ({ habitsUser }) => {
+const UserHabit = ({ habitsUser }: UserHabitsProps) => {
   console.log(habitsUser.name, "page taaa userrrrrrrrrrrrrrrrrrrrrrrr");
 
   return (
