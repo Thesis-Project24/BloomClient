@@ -1,15 +1,39 @@
-import { View, Text, Pressable, StyleSheet, ScrollView ,Image} from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+  Image,
+} from "react-native";
 import React, { useState } from "react";
 import Habit from "../components/Trackers/Habit";
 import UserHabit from "../components/Trackers/UserHabit";
-import { useFetchHabits, useFetchHabitsUser, useAssignMultiHabits } from "../api/habits/Habits";
+import {
+  useFetchHabits,
+  useFetchHabitsUser,
+  useAssignMultiHabits,
+} from "../api/habits/Habits";
 
 const Tracker = () => {
-  const { data: habits, isLoading: habitsLoading, isError: habitsError } = useFetchHabits();
-  const { data: habitsUser, isLoading: userHabitsLoading, isError: userHabitsError, isSuccess, refetch } = useFetchHabitsUser();
-  const { assignMultiHabits, isAssigningMultipleHabits } = useAssignMultiHabits();
-  const [submitted, setSubmitted] = useState(false) 
+  const {
+    data: habits,
+    isLoading: habitsLoading,
+    isError: habitsError,
+    isFetched,
+  } = useFetchHabits();
+  const {
+    data: habitsUser,
+    isLoading: userHabitsLoading,
+    isError: userHabitsError,
+    isSuccess,
+    refetch,
+  } = useFetchHabitsUser();
+  const { assignMultiHabits, isAssigningMultipleHabits } =
+    useAssignMultiHabits();
+  const [submitted, setSubmitted] = useState(false);
   const [selectedHabits, setSelectedHabits] = useState<number[]>([]);
+  isSuccess && console.log(habitsUser, "=============================");
 
   const handleHabitSelect = (habitId: number) => {
     setSelectedHabits((prevSelected) => {
@@ -20,17 +44,15 @@ const Tracker = () => {
       }
     });
   };
-  console.log(selectedHabits,"sssssssssssssssssss");
-  
+  console.log(selectedHabits, "sssssssssssssssssss");
 
   const submitSelectedHabits = async () => {
     try {
-      await assignMultiHabits(1,selectedHabits);
-      refetch()
-      console.log('Habits assigned successfully');
-      
+      await assignMultiHabits(1, selectedHabits);
+      refetch();
+      console.log("Habits assigned successfully");
     } catch (error) {
-      console.error('Error assigning habits:', error);
+      console.error("Error assigning habits:", error);
     }
   };
 
@@ -44,13 +66,12 @@ const Tracker = () => {
 
   if (isSuccess) console.log(habitsUser.userHabits[0].habit.name, "taa user");
 
-
   return (
     <ScrollView>
       <View>
         <Image
           style={[styles.profileItem, styles.profilePosition]}
-          contentFit="cover"
+          // contentFit="cover"
           source={require("../assets/vector-1.png")}
         />
         <Text style={styles.init}> What Habit Do you Want to Track </Text>
@@ -116,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     // fontFamily:"Tajawal"
     fontSize: 17,
-    fontWeight: "semibold",
+    fontWeight: "600",
   },
   T1: {
     paddingLeft: 25,
