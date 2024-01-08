@@ -8,8 +8,6 @@ import { FontSize , FontFamily, Color, Padding , Border } from "../../GlobalStyl
 import { useQuery , useQueryClient } from "react-query";
 
 const DoctorProfile = () => {
-
-  
     const fetchData = async () => {
         try {
           const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
@@ -50,21 +48,7 @@ const DoctorProfile = () => {
           </ScrollView>
         </View>
       </View>
-      {/* <View style={[styles.doctorBioParent, styles.doctorPosition]}>
-        <Text style={styles.doctorBio} numberOfLines={1}>
-          Doctor Bio
-        </Text>
-        <Text style={[styles.drSarahWilliams, styles.textLayout]}>
-          Dr. Sarah Williams is a highly accomplished cardiologist renowned for
-          her expertise in the field of cardiovascular medicine. With over 20
-          years of experience, she has dedicated her career to providing
-          exceptional patient care and advancing the understanding and treatment
-          of heart-related conditions.
-        </Text>
-        <Text style={[styles.text, styles.textLayout]} numberOfLines={1}>
-          Read more
-        </Text>
-      </View> */}
+     
     </View>
   );
 };
