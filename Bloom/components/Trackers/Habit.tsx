@@ -1,31 +1,21 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { useAssignHabit } from "../../api/habits/Habits";
 
 interface HabitProps {
   habit: {
     id: number;
     name: string;
   };
+  onHabitSelect: (habitId: number) => void;
 }
-const Habit = ({ habit }) => {
-  const [isPressed, setIsPressed] = useState<boolean>(false);
-  const {assignHabit,isAssigning} = useAssignHabit()
-  const handlePress = async () => {
-    console.log("pressed");
-    setIsPressed(!isPressed);
-    try {
-      await assignHabit(habit.id,1)
-      console.log('habit assigned successfully');
-    }catch(error){
-      console.error("error assigning")
-    }
-  };
-  
 
-  console.log(habit, "page habits");
-  console.log(isPressed);
-  
+const Habit = ({ habit, onHabitSelect }: HabitProps) => {
+  const [isPressed, setIsPressed] = useState<boolean>(false);
+
+  const handlePress = () => {
+    setIsPressed(!isPressed);
+    onHabitSelect(habit.id);
+  };
 
   return (
     <View>
@@ -40,6 +30,7 @@ const Habit = ({ habit }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   habit: {

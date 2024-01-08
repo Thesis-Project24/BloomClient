@@ -1,25 +1,52 @@
-import { View, Text,StyleSheet,ScrollView } from "react-native";
-import React from "react";
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
 import Habit from "../components/Trackers/Habit";
 import UserHabit from "../components/Trackers/UserHabit";
-import { useFetchHabits,useFetchHabitsUser } from "../api/habits/Habits";
-
-
+import { useFetchHabits, useFetchHabitsUser, useAssignMultiHabits } from "../api/habits/Habits";
 
 const Tracker = () => {
-    const { data: habits, isLoading: habitsLoading, isError: habitsError } = useFetchHabits();
-    const {data:habitsUser,isLoading: userHabitsLoading, isError: userHabitsError, isSuccess}=useFetchHabitsUser()
-    if (habitsLoading || userHabitsLoading) {
-      return <Text>Loading...</Text>;
-    }
-  
-    if (habitsError || userHabitsError) {
-      return <Text>Error loading habits</Text>;
-    }
-    if (isSuccess) console.log(habitsUser.userHabits[0].habit.name,"taa user");
+  const { data: habits, isLoading: habitsLoading, isError: habitsError } = useFetchHabits();
+  const { data: habitsUser, isLoading: userHabitsLoading, isError: userHabitsError, isSuccess, refetch } = useFetchHabitsUser();
+  const { assignMultiHabits, isAssigningMultipleHabits } = useAssignMultiHabits();
+  const [submitted, setSubmitted] = useState(false) 
+  const [selectedHabits, setSelectedHabits] = useState<number[]>([]);
+
+  const handleHabitSelect = (habitId: number) => {
+    setSelectedHabits((prevSelected) => {
+      if (prevSelected.includes(habitId)) {
+        return prevSelected.filter((id) => id !== habitId);
+      } else {
+        return [...prevSelected, habitId];
+      }
+    });
+  };
+  console.log(selectedHabits,"sssssssssssssssssss");
   
 
+  const submitSelectedHabits = async () => {
+    try {
+      await assignMultiHabits(1,selectedHabits);
+      refetch()
+      console.log('Habits assigned successfully');
+      
+    } catch (error) {
+      console.error('Error assigning habits:', error);
+    }
+  };
+
+  if (habitsLoading || userHabitsLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (habitsError || userHabitsError) {
+    return <Text>Error loading habits</Text>;
+  }
+
+  if (isSuccess) console.log(habitsUser.userHabits[0].habit.name, "taa user");
+
+
   return (
+    <ScrollView>
     <View >
       <Text style={styles.init}> What Habit Do you Want to Track </Text>
       <View style={styles.habitsWrapper}>
@@ -27,10 +54,16 @@ const Tracker = () => {
           <Habit key={ele.id} habit={{
             id: ele.id,
             name : ele.name
-          }} />
+          }} onHabitSelect={handleHabitSelect}/>
         ))}
       </View>
-      <Text>
+      <View >
+      <Pressable onPress={submitSelectedHabits} disabled={selectedHabits.length === 0 || isAssigningMultipleHabits}>
+          <Text style={styles.button} >Submit My Habits</Text>
+        </Pressable>
+      </View >
+      <View>
+      <Text style={styles.T1}>
         My Habbits
       </Text>
        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
@@ -39,11 +72,18 @@ const Tracker = () => {
           <UserHabit key={ele.id} habitsUser={{
             id: ele.id,
             name:ele.habit.name
-          }}/>
+          }} />
         ))}
         </View>
       </ScrollView> 
+      </View>
     </View>
+    <View>
+      <Text style={styles.T1}>
+        My Habits Stats
+      </Text>
+    </View>
+    </ScrollView>
   );
 };
 
@@ -64,6 +104,23 @@ const styles = StyleSheet.create({
     // fontFamily:"Tajawal"
     fontSize: 17,
     fontWeight:"semibold"
+  },
+  T1: {
+    paddingLeft: 25,
+    marginTop: 30,
+    fontSize: 25,
+    fontStyle: "italic",
+  },
+  button:{
+    textAlign:"center",
+    marginHorizontal:90,
+    borderWidth: 1.5,
+    borderColor: "green",
+    borderStyle: "solid",
+    borderRadius: 15,
+  padding : 10,
+    marginTop: 50,
+    marginBottom:50,
   },
   habitsWrapper: {
     flexDirection: "row", 

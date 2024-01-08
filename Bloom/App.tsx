@@ -36,10 +36,10 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-       <QueryClientProvider client={queryClient}>
-    <NavigationContainer>
+       <QueryClientProvider client={queryClient}  >
+    <NavigationContainer   >
         <Stack.Navigator  >
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Back"
             options={{
               headerTitle: () => <Nav />,
@@ -54,19 +54,19 @@ export default function App() {
               headerTransparent: true,
               cardStyle: { backgroundColor: "transparent" },
             }}
-          />
+          /> */}
            <Stack.Screen
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
           /> 
-            <Stack.Screen
+            {/* <Stack.Screen
             name="Edit Profile"
             component={Profile}
             options={{ headerShown: true }}
           /> 
 
-          <Stack.Screen name="User" component={User} />
+          <Stack.Screen name="User" component={User} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
