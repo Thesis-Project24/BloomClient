@@ -36,7 +36,7 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
               <Image
                 style={styles.icons}
-                source={require("../assets/user-1-1.png")}
+                source={require("../../assets/user-1-1.png")}
               />
             </View>
           </TouchableOpacity>
@@ -55,7 +55,7 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
                 <Image
                   style={styles.vectorIcon}
                   contentFit="cover"
-                  source={require("../assets/vector8.png")}
+                  source={require("../../assets/vector8.png")}
                 />
               </View>
               <Text style={[styles.kReviews, styles.text1FlexBox]}>
@@ -100,7 +100,7 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             <Image
               style={styles.vectorIcon1}
               contentFit="cover"
-              source={require("../assets/vector9.png")}
+              source={require("../../assets/vector9.png")}
             />
             <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
           </TouchableOpacity>

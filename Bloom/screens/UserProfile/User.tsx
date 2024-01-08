@@ -27,7 +27,7 @@ const User = () => {
               <Image
                 style={styles.user11}
                 resizeMode="cover"
-                source={require("../assets/user-1-1.png")}
+                source={require("../../assets/user-1-1.png")}
               />
             </View>
             <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
@@ -42,7 +42,7 @@ const User = () => {
           <Image
             style={styles.frameChild}
             resizeMode="cover"
-            source={require("../assets/ellipse-21.png")}
+            source={require("../../assets/ellipse-21.png")}
           />
         </View>
 

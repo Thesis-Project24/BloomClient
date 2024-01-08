@@ -18,7 +18,7 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon}
             resizeMode="cover"
-            source={require("../assets/Journal.png")}
+            source={require("../../assets/Journal.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Journal</Text>
         </View>
@@ -28,7 +28,7 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon1}
             resizeMode="cover"
-            source={require("../assets/vector1.png")}
+            source={require("../../assets/vector1.png")}
           />
           <Text
             style={[styles.reservation, styles.journalFlexBox]}
@@ -44,7 +44,7 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon2}
             resizeMode="cover"
-            source={require("../assets/ppe-santizer-alt-1.png")}
+            source={require("../../assets/ppe-santizer-alt-1.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
         </View>

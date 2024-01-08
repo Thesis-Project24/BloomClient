@@ -14,13 +14,13 @@ const IconsSignIn = () => {
         <Image
           style={styles.frameLayout}
           contentFit="cover"
-          source={require("../assets/rectangle-31.png")}
+          source={require("../../assets/rectangle-31.png")}
         />
         <Text style={styles.orContinueWith}>Or continue with</Text>
         <Image
           style={[styles.frameItem, styles.frameLayout]}
           contentFit="cover"
-          source={require("../assets/rectangle-41.png")}
+          source={require("../../assets/rectangle-41.png")}
         />
       </View>
       <View style={styles.buttonsParent}>
@@ -28,21 +28,21 @@ const IconsSignIn = () => {
           <Image
             style={[styles.buttonsChild, styles.buttonsLayout]}
             contentFit="cover"
-            source={require("../assets/frame-14341.png")}
+            source={require("../../assets/frame-14341.png")}
           />
         </Pressable>
         <Pressable style={styles.buttonsShadowBox}>
           <Image
             style={styles.vectorIcon}
             contentFit="cover"
-            source={require("../assets/vector9.png")}
+            source={require("../../assets/vector9.png")}
           />
         </Pressable>
         <Pressable style={styles.buttonsShadowBox}>
           <Image
             style={[styles.buttonsItem, styles.buttonsLayout]}
             contentFit="cover"
-            source={require("../assets/frame-26086261.png")}
+            source={require("../../assets/frame-26086261.png")}
           />
         </Pressable>
       </View>

@@ -39,14 +39,14 @@ const SignIn = () => {
           <Image
             style={styles.frameChild}
             resizeMode="cover"
-            source={require("../assets/vector-13.png")}
+            source={require("../../assets/vector-13.png")}
           />
         </View>
 
         <Image
           style={styles.signInChild}
           resizeMode="cover"
-          source={require("../assets/vector-23.png")}
+          source={require("../../assets/vector-23.png")}
         />
         <View style={[styles.frameView, styles.frameViewPosition]}>
           <View style={[styles.frameParent, styles.eMailLayout]}>
@@ -74,7 +74,7 @@ Happier You`}</Text>
                           <Image
                             style={styles.icons}
                             resizeMode="cover"
-                            source={require("../assets/icons.png")}
+                            source={require("../../assets/icons.png")}
                           />
                           <TextInput
                             style={[styles.eMail, styles.eMailTypo]}
@@ -99,7 +99,7 @@ Happier You`}</Text>
                               <Image
                                 style={styles.vectorIcon}
                                 resizeMode="cover"
-                                source={require("../assets/vector7.png")}
+                                source={require("../../assets/vector7.png")}
                               />
                             </Pressable>
                             <TextInput
@@ -114,7 +114,7 @@ Happier You`}</Text>
                           <Image
                             style={styles.vectorIcon1}
                             resizeMode="cover"
-                            source={require("../assets/vector8.png")}
+                            source={require("../../assets/vector8.png")}
                           />
                         </View>
                       </View>
@@ -164,7 +164,7 @@ Happier You`}</Text>
                     <Image
                       style={styles.vectorIcon2}
                       resizeMode="cover"
-                      source={require("../assets/vector10.png")}
+                      source={require("../../assets/vector10.png")}
                     />
                   </Pressable>
                 </View>

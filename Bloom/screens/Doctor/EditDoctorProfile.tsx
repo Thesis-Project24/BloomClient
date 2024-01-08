@@ -71,7 +71,7 @@ const Profile = () => {
       <Image
         style={styles.profileChild}
         contentFit="cover"
-        source={require("../assets/vector-2.png")}
+        source={require("../../assets/vector-2.png")}
       />
       {/* <Image
         style={[styles.profileItem, styles.profilePosition]}

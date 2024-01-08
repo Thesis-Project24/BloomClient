@@ -48,13 +48,13 @@ const SignUp = () => {
         <Image
           style={[styles.SignUpChild, styles.SignUpChildPosition]}
           contentFit="cover"
-          source={require("../assets/vector-12.png")}
+          source={require("../../assets/vector-12.png")}
         />
 
         <Image
           style={styles.SignUpItem}
           contentFit="cover"
-          source={require("../assets/vector-23.png")}
+          source={require("../../assets/vector-23.png")}
         />
         <View style={[styles.SignUpInner, styles.textPosition]}>
           <View style={styles.frameParent}>
@@ -72,7 +72,7 @@ const SignUp = () => {
                       <Image
                         style={styles.userIcon}
                         contentFit="cover"
-                        source={require("../assets/group.png")}
+                        source={require("../../assets/group.png")}
                       />
                       <TextInput
                         style={[styles.username1, styles.eMailLayout]}
@@ -91,7 +91,7 @@ const SignUp = () => {
                       <Image
                         style={styles.icons}
                         contentFit="cover"
-                        source={require("../assets/icons1.png")}
+                        source={require("../../assets/icons1.png")}
                       />
                       <TextInput
                         style={[styles.eMail, styles.eMailLayout]}
@@ -108,7 +108,7 @@ const SignUp = () => {
                         <Image
                           style={styles.userIcon}
                           contentFit="cover"
-                          source={require("../assets/vector3.png")}
+                          source={require("../../assets/vector3.png")}
                         />
                         <TextInput
                           style={[styles.eMail, styles.eMailLayout]}
@@ -127,7 +127,7 @@ const SignUp = () => {
                         <Image
                           style={styles.vectorIcon1}
                           contentFit="cover"
-                          source={require("../assets/vector4.png")}
+                          source={require("../../assets/vector4.png")}
                         />
                       </Pressable>
                     </View>
@@ -163,7 +163,7 @@ const SignUp = () => {
                 <Image
                   style={styles.vectorIcon4}
                   contentFit="cover"
-                  source={require("../assets/vector6.png")}
+                  source={require("../../assets/vector6.png")}
                 />
               </Pressable>
             </View>

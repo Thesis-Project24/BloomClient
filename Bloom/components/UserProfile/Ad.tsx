@@ -15,7 +15,7 @@ const Ad = () => {
         <Image
           style={styles.image15Icon}
           resizeMode="cover"
-          source={require("../assets/image-15.png")}
+          source={require("../../assets/image-15.png")}
         />
         <View style={styles.frameParent}>
           <View>
@@ -37,27 +37,27 @@ const Ad = () => {
                 <Image
                   style={styles.starIconLayout}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star-half.png")}
+                  source={require("../../assets/star-half.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star-border.png")}
+                  source={require("../../assets/star-border.png")}
                 />
               </View>
             </View>
