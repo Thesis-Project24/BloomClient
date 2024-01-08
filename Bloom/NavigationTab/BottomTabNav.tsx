@@ -1,4 +1,4 @@
-import Ionicons from "react-native-vector-icons/Ionicons";
+// import Ionicons from "react-native-vector-icons/Ionicons";
 import Chat from "../screens/Chat";
 import Journal from "../screens/UserProfile/Journal";
 import DoctorProfile from "../screens/Doctor/DoctorProfile";
@@ -6,7 +6,7 @@ import Community from "../screens/Community";
 import Home from "../screens/Home";
 import Nav from "../screens/Nav";
 import User from "../screens/UserProfile/User";
-
+ import { Ionicons } from "@expo/vector-icons";
 // import { View, Platform } from "react-native";
 import React from "react";
 
@@ -24,7 +24,7 @@ export const BottomTabNav = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === "User") {
-            iconName = focused ? "User" : "home-outline";
+            iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Chat") {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
@@ -36,7 +36,7 @@ export const BottomTabNav = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName || "Home"} size={35} color={color} />;
+          return <Ionicons name={iconName || "home"} size={35} color={color} />;
         },
 
         tabBarActiveTintColor: "#729384",

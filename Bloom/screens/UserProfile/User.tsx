@@ -16,7 +16,7 @@ import {
 } from "../../GlobalStyles";
 import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
-import Icon from "react-native-vector-icons/FontAwesome";
+ import { Entypo } from "@expo/vector-icons";
 
 const User = () => {
   return (
@@ -48,21 +48,27 @@ const User = () => {
         </View>
 
         <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
-            <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
-              How’s your mood today
-            </Text>
-            <View
-              style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}
-            >
-              <View style={styles.frameChildss}/>
-              <View style={styles.frameShadowBox} />
-              <View style={styles.frameShadowBox} />
-              <View style={styles.frameShadowBox} />
+          <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
+            How’s your mood today
+          </Text>
+          <View style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}>
+            <View style={styles.frameChildss}>
+              <Entypo name="emoji-happy" size={34} color="black" />
             </View>
-            <Text
-              style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
-            >{`Be happy you’re not a Tree `}</Text>
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-flirt" size={34} color="black" />
+            </View>
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-neutral" size={34} color="black" />
+            </View>
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-sad" size={34} color="black" />
+            </View>
           </View>
+          <Text
+            style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
+          >{`Be happy you’re not a Tree `}</Text>
+        </View>
         <ButtonUser />
         <Ad />
       </View>
@@ -167,6 +173,9 @@ const styles = StyleSheet.create({
   frameChildss: {
     height: 53,
     width: 68,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     shadowOpacity: 1,
     elevation: 4,
     shadowRadius: 4,
@@ -179,7 +188,10 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_lg,
   },
   frameShadowBox: {
-    marginLeft: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
     height: 53,
     width: 68,
     shadowOpacity: 1,
