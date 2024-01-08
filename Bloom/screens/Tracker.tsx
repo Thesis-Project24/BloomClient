@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,ScrollView } from "react-native";
+import { View, Text,StyleSheet,ScrollView , Image } from "react-native";
 import React from "react";
 import Habit from "../components/Trackers/Habit";
 import UserHabit from "../components/Trackers/UserHabit";
@@ -21,6 +21,7 @@ const Tracker = () => {
 
   return (
     <View >
+      
       <Text style={styles.init}> What Habit Do you Want to Track </Text>
       <View style={styles.habitsWrapper}>
       {habits && habits.habits?.map((ele:any) => (

@@ -46,13 +46,16 @@ export default function App() {
   return (
        <QueryClientProvider client={queryClient}>
     <NavigationContainer>
-        <Stack.Navigator  >
+        <Stack.Navigator   >
         <Stack.Screen
-            name="Availability"
-            component={Availability}
+            name="DoctorProfile"
+            component={DoctorProfile}
             
           /> 
-          {/* <Stack.Screen name="AvailabilityW" component={AvailabilityW} /> */}
+          <Stack.Screen 
+          name="AvailabilityW" 
+          component={AvailabilityW} 
+          />
 
           <Stack.Screen
             name="Back"
@@ -70,19 +73,24 @@ export default function App() {
               cardStyle: { backgroundColor: "transparent" },
             }}
           />
-           <Stack.Screen
+           {/* <Stack.Screen
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
-          /> 
+          />  */}
             <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: true }}
           /> 
-            <Stack.Screen
+            {/* <Stack.Screen
             name="DoctorProfile"
             component={DoctorProfile}
+            options={{ headerShown: true }}
+          />  */}
+                <Stack.Screen
+            name="Availability"
+            component={Availability}
             options={{ headerShown: true }}
           /> 
 

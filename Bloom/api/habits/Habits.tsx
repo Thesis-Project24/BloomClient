@@ -4,7 +4,7 @@ import axios from "axios";
 export const useFetchHabits = () => {
   return useQuery("habits", async () => {
     const response = await axios.get(
-      "http://172.20.0.79:3000/habits/getAllHabits"
+      "http://172.29.0.50:3000/habits/getAllHabits"
     );
     const data = response.data;
     console.log(data.userHabits);
@@ -16,7 +16,7 @@ export const useAssignHabit = () => {
   const assignHabitMutation = useMutation(
     async ({ habitId, userId }: { habitId: number; userId: number }) => {
       const response = await axios.post(
-        "http://172.20.0.79:3000/habits/assignHabit",
+        "http://172.29.0.50:3000/habits/assignHabit",
         {
           habitId,
           userId,
@@ -39,7 +39,7 @@ export const useFetchHabitsUser = ()=>{
   try{
     return useQuery('habitsUser', async () => {
       const response = await axios.get(
-        "http://172.20.0.79:3000/habits/getHabits/1"
+        "http://172.29.0.50:3000/habits/getHabits/1"
       );
       const data = response.data;
       console.log(data.userHabits);
