@@ -19,6 +19,7 @@ export const FontFamily = {
   dMSansRegular: "DMSans-Regular",
   dMSansBold: "DMSans-Bold",
   poppinsRegular: "Poppins-Regular",
+
   interSemiBold: "Inter-SemiBold",
   medium14: "Manrope-Medium",
   regular12: "Manrope-Regular",
@@ -28,6 +29,7 @@ export const FontFamily = {
   headingsH6: "Manrope-Bold",
   soraRegular: "Sora-Regular",
   soraSemiBold: "Sora-SemiBold",
+  // epilogueMedium: "Epilogue-Medium",
 };
 /* font sizes */
 export const FontSize = {
@@ -78,8 +80,6 @@ export const Color = {
   colorCadetblue: "#729384",
   brown: "#a78a6e",
   coloGray_100: "#fbfbfb",
-
-
   colorPaleturquoise_100: "rgba(173, 216, 196, 0.5)",
   colorPaleturquoise_200: "rgba(173, 216, 196, 0.3)",
   colorGray_400: "#7e7e7e",
@@ -87,14 +87,11 @@ export const Color = {
   charade: "#2a2a37",
   neutralsDark: "#18273b",
   colorGray_600: "#252525",
-
   colorGray_700: "#1c1b1f",
   grayShadesDarkGray: "#09090a",
   colorGray_800: "rgba(36, 36, 36, 0.7)",
   colorGray_900: "rgba(255, 255, 255, 0.4)",
-
   neutralsWhite: "#fff",
-
   green: "#729384",
   neutralPrimaryPurple: "#c8bcf6",
   orangeRangeOrange90: "#ff7900",
@@ -106,13 +103,7 @@ export const Color = {
   manatee: "#8d90a1",
   neutralsGray2: "#838993",
   darkPurple: "#240046",
- 
-  
-  
-  
- 
 };
-
 /* Paddings */
 export const Padding = {
   p_2xl: 21,
@@ -147,6 +138,7 @@ export const Padding = {
   p_32xl: 51,
   p_10xs: 3,
   p_12xs: 1,
+
 };
 /* border radiuses */
 export const Border = {
@@ -179,3 +171,4 @@ export const Border = {
   br_xl: 20,
  
 };
+

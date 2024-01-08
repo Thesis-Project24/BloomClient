@@ -9,10 +9,15 @@ import User from "./screens/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
 import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import SignIn from "./screens/SignIn";
+import SignUp from "./screens/SignUp";
+// import GetStart from "./screens/GetStart";
 import Profile from "./screens/Profile";
 import DoctorProfile from "./screens/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
-
+import Availability from "./screens/Availablity";
+import AvailabilityW from "./screens/AvailabilityW";
+import { Title } from "react-native-paper";
 
 
 const queryClient = new QueryClient();
@@ -41,7 +46,14 @@ export default function App() {
   return (
        <QueryClientProvider client={queryClient}>
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="DoctorProfile" >
+        <Stack.Navigator  >
+        <Stack.Screen
+            name="Availability"
+            component={Availability}
+            
+          /> 
+          {/* <Stack.Screen name="AvailabilityW" component={AvailabilityW} /> */}
+
           <Stack.Screen
             name="Back"
             options={{
