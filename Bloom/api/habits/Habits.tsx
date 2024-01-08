@@ -1,3 +1,4 @@
+
 import { useMutation, useQuery } from "react-query";
 import axios, { AxiosResponse } from "axios";
 
@@ -5,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 export const useFetchHabits = () => {
   return useQuery("habits", async () => {
     const response = await axios.get(
-      "http:/172.20.0.100:3000/habits/getAllHabits"
+      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getAllHabits`
     );
     const data = response.data;
     console.log(data.userHabits);
@@ -17,7 +18,7 @@ export const useAssignHabit = () => {
   const assignHabitMutation = useMutation(
     async ({ habitId, userId }: { habitId: number; userId: number }) => {
       const response = await axios.post(
-        "http://172.20.0.100:3000/habits/assignHabit",
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/assignHabit`,
         {
           habitId,
           userId,
@@ -37,26 +38,28 @@ export const useAssignHabit = () => {
 };
 // { user Habit fetcher } //
 export const useFetchHabitsUser = () => {
-    return useQuery({queryKey: "habitsUser",queryFn: async () => {
+  return useQuery({
+    queryKey: "habitsUser",
+    queryFn: async () => {
       const response = await axios.get(
-        "http://172.20.0.100:3000/habits/getHabits/1"
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getHabits/1`
       );
       const data = response.data;
       console.log(data.userHabits);
 
       return data;
-    }, onError: (err)=> {
+    },
+    onError: (err) => {
       console.log(err);
-      
-    }});
-   
+    },
+  });
 };
 // {multi habit assigning } //
 export const useAssignMultiHabits = () => {
   const assignMultiHabitsMutation = useMutation(
     async ({ userId, habitIds }: { userId: number; habitIds: number[] }) => {
       const response = await axios.post(
-        "http://172.20.0.100:3000/habits/assignMultiHabits",
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/assignMultiHabits`,
         {
           userId,
           habitIds,
@@ -85,7 +88,7 @@ export const useDeleteHabit = () => {
   return useMutation(
     async ({ habitId, userId }: { habitId: number; userId: number }) => {
       const response = await axios.delete(
-        "http://172.20.0.100:3000/habits/deleteAssignedHabit",
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/deleteAssignedHabit`,
         {
           data: { habitId, userId },
         }
