@@ -18,7 +18,7 @@ interface DoctorData {
  }
  
  type PersonalDetailsProps = {
-  data: DoctorData[];
+  data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
@@ -71,7 +71,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
 
                 }}
                 style={styles.textlabel450116}
-                placeholder={data[0]?.first_name || 'Username'}
+                placeholder={data?.first_name || 'Username'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -93,7 +93,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
                 setDoctorData({...doctorData,last_name: text});
               }}
                 style={styles.textlabel450116}
-                placeholder={data[0]?.last_name || 'Last Name'}
+                placeholder={data?.last_name || 'Last Name'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -115,7 +115,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
               }}
 
                 style={styles.textlabel450116}
-                placeholder={data[0]?.email || 'Email'}
+                placeholder={data?.email || 'Email'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     alignSelf: "stretch",
   },
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     paddingHorizontal: Padding.p_mid,
     borderWidth: 1,
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     justifyContent: "center",
     borderColor: Color.colorCadetblue,

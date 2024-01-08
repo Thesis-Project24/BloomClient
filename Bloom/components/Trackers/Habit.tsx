@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
 interface HabitProps {
@@ -20,12 +20,12 @@ const Habit = ({ habit, onHabitSelect }: HabitProps) => {
   return (
     <View>
       <View>
-        <Pressable
+        <TouchableOpacity
           onPress={handlePress}
           style={[styles.habit, isPressed && styles.habitPressed]}
         >
           <Text>{habit.name}</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

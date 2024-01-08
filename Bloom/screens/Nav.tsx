@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     height: 14,
     width: 14,
     top: 3,
-    position: "absolute",
   },
   wrapperGroupFlexBox: {
     justifyContent: "center",
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
     color: Color.colorGray_200,
     left: 0,
     top: 0,
-    position: "absolute",
   },
   iconLocation: {
     height: "66.67%",
@@ -95,8 +93,7 @@ const styles = StyleSheet.create({
     left: "11.56%",
     maxWidth: "100%",
     overflow: "hidden",
-    maxHeight: "100%",
-    position: "absolute",
+    maxHeight: "100%"
   },
   phoneIcon: {
     left: 284,
@@ -106,7 +103,6 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     top: 0,
-    position: "absolute",
   },
   icons8WiFi504: {
     left: 305,

@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { app } from '../../firebase.config';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {  createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup,sendEmailVerification } from 'firebase/auth';
 
 
 interface User {
@@ -16,31 +16,75 @@ interface User {
     mood: number[]
 }
 
-export const login =()=>{
-const query = useMutation({
-  mutationFn: async(object:{email:string,password:string})=>{
-    const auth=getAuth(app)
-    const res:any =await signInWithEmailAndPassword(auth,object.email,object.password)
-    console.log(res)
-    const db= await axios.post(`http://localhost:3000/users/signin`,object)
-    localStorage.setItem("user",JSON.stringify(res))
-    return db
-  }
-})
-return query
+export const login = () => {
+  const query = useMutation({
+    mutationFn: async (object: { email: string, password: string }) => {
+      const auth = getAuth(app)
+      const res: any = await signInWithEmailAndPassword(auth, object.email, object.password)
+      console.log(res)
+      const db = await axios.post(`http://192.168.1.18:3000/users/signin`, object)
+      localStorage.setItem("user", JSON.stringify(res))
+      return db
+    }
+  })
+  return query
 }
 
-export const signup=()=>{
+
+
+export const signup = () => {
   const query = useMutation({
-mutationFn:async (object:{email:string,password:string})=>{
-  const auth=getAuth(app)
-  const res:any = await createUserWithEmailAndPassword(auth,
-    object.email,object.password)
-    console.log(res);
-    const db=await axios.post(`http://localhost:3000/users/signup`,object)
-    console.log(db);
-    return db
-}
+    mutationFn: async (object: { email: string, password: string, username: string, first_name: string, last_name: string, phone_number: string }) => {
+      try {
+        const auth = getAuth(app);
+
+        // Create user in Firebase Authentication
+        const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
+        console.log("Firebase Auth Response:", res);
+
+        // Send email verification
+        const user = res.user;
+        await sendEmailVerification(user);
+        console.log("Verification email sent to:", user.email);
+
+        // Call your backend to create user
+        const db = await axios.post(`http://192.168.1.18:3000/users/signup`, object);
+        console.log("Backend Response:", db.data);
+
+        return db.data;
+      } catch (error) {
+        console.error("Signup Error:", error);
+        throw error; // Rethrow the error for useMutation to handle
+      }
+    }
+  });
+
+  return query;
+};
+
+const deleteuser=()=>{
+  const query =useMutation({
+    mutationFn:async()=>{
+      const auth=getAuth(app)
+      const user =auth.currentUser
+      if(user){
+        console.log(user);
+        user.delete();
+        
+      }
+      const storeduser=localStorage.getItem('user')
+      console.log(storeduser);
+      if (storeduser) {
+        const parseduser=JSON.parse(storeduser)
+await axios.delete(`http://192.168.1.18:3000/users/${parseduser.data.id}`)
+        localStorage.removeItem('user')
+      }
+      
+    },
+    onError(err) {
+      console.log(err);
+    }
   })
-  return query 
+  return query
 }
+
