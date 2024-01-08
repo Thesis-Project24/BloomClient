@@ -28,7 +28,7 @@ const SignIn = () => {
   const [frameCheckboxchecked, setFrameCheckboxchecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = login();
-  mutation.isSuccess && navigation.push("home");
+  mutation.isSuccess && navigation.push("Home");
   const togglePasswordVisibility = () => {
     setPasswordHidden(!passwordHidden);
   };

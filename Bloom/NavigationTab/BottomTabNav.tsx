@@ -9,9 +9,6 @@ import User from "../screens/UserProfile/User";
  import { Ionicons } from "@expo/vector-icons";
 // import { View, Platform } from "react-native";
 import React from "react";
-
-// import { Image, StyleSheet, Text, Button, Pressable } from "react-native";
-// import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "../screens/Doctor/EditDoctorProfile";
 
@@ -23,7 +20,7 @@ export const BottomTabNav = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "User") {
+          if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Chat") {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
@@ -32,11 +29,10 @@ export const BottomTabNav = () => {
           } else if (route.name === "DoctorProfile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
-            iconName = focused ? "home" : "home-outline";
+            // iconName = focused ? "person" : "person-outline";
           }
 
-          // You can return any component that you like here!
-          return <Ionicons name={iconName || "home"} size={35} color={color} />;
+          return <Ionicons  name={iconName || "home"} size={35} color={color} />;
         },
 
         tabBarActiveTintColor: "#729384",
@@ -61,8 +57,8 @@ export const BottomTabNav = () => {
         component={DoctorProfile}
       />
       <Tab.Screen
-        name="User"
-        component={User}
+        name="Home"
+        component={Home}
         options={{ headerShown: false }}
       />
       <Tab.Screen

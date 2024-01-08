@@ -82,15 +82,19 @@ export default function App() {
           <Stack.Screen
             name="SignUp"
             component={SignUp}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="SignIn"
             component={SignIn}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
 
-          <Stack.Screen name="User" component={User} />
+          <Stack.Screen
+            name="User"
+            component={User}
+            options={{ headerShown: true}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

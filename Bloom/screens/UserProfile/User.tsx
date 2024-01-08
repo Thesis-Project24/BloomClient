@@ -53,16 +53,16 @@ const User = () => {
           </Text>
           <View style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}>
             <View style={styles.frameChildss}>
-              <Entypo name="emoji-happy" size={34} color="black" />
+              <Entypo name="emoji-happy" size={34} color="#729384" />
             </View>
             <View style={styles.frameShadowBox}>
-              <Entypo name="emoji-flirt" size={34} color="black" />
+              <Entypo name="emoji-flirt" size={34} color="#729384" />
             </View>
             <View style={styles.frameShadowBox}>
-              <Entypo name="emoji-neutral" size={34} color="black" />
+              <Entypo name="emoji-neutral" size={34} color="#729384" />
             </View>
             <View style={styles.frameShadowBox}>
-              <Entypo name="emoji-sad" size={34} color="black" />
+              <Entypo name="emoji-sad" size={34} color="#729384" />
             </View>
           </View>
           <Text
