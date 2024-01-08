@@ -16,7 +16,7 @@ interface DoctorData {
  }
  
  type BusinessAddressDetailsProps = {
-  data: DoctorData[];
+  data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
@@ -29,8 +29,8 @@ const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({data , s
   const [address,setAddress]= useState<string[]>([])
   
   const handleAddress = () => {
-    if (data && data[0]?.address) {
-      setAddress(data[0].address);  
+    if (data && data?.address) {
+      setAddress(data.address);  
     }
    }
 
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     alignSelf: "stretch",
   },
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_mid,
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     justifyContent: "center",
     borderStyle: "solid",

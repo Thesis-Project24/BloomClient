@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Bloom",
+    "slug": "Bloom",
 
     "version": "1.0.0",
      "fonts": {
@@ -12,7 +12,7 @@
     "icon": "./assets/group-123@3x.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "",
+      "image": "./assets/group-123@3x.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

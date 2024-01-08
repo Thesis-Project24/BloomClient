@@ -83,16 +83,16 @@ const Imageprofile : React.FC<ImageprofileProps> = ({data , setDoctorData, docto
              <Image
                 style={styles.frameChild}
                 contentFit="cover"
-                source={image ? { uri: image.uri } : data[0]?.profile_picture }
+                source={image ? { uri: image.uri } : data?.profile_picture }
                 // source={require("../assets/frame-26086392.png")}
             />
-             <Pressable  onPress={pickImage} style={[styles.groupGroupWrapper, styles.groupFlexBox]}>
+             <TouchableOpacity  onPress={pickImage} style={[styles.groupGroupWrapper, styles.groupFlexBox]}>
                 <Image
                     style={styles.groupGroupIcon}
                     contentFit="cover"
                     source={require("../assets/group-group.png")}
                 />
-            </Pressable>
+            </TouchableOpacity>
             
             
         </View>
@@ -112,6 +112,8 @@ const styles = StyleSheet.create({
         height: 116,
         marginBottom : 10,
         borderRadius : 58 ,
+        borderColor: "red",
+        padding: Padding.p_3xs,
     },
     profuleInner: {
         

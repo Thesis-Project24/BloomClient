@@ -1,4 +1,3 @@
-
 import { Text, View } from "react-native";
 import Nav from "./screens/Nav";
 import Tracker from "./screens/Tracker";
@@ -14,9 +13,12 @@ import SignIn from "./screens/SignIn";
 import SignUp from "./screens/SignUp";
 // import GetStart from "./screens/GetStart";
 import Profile from "./screens/Profile";
+import DoctorProfile from "./screens/DoctorProfile";
+import MentalHealth from "./screens/MentalHealth";
 import Availability from "./screens/Availablity";
 import AvailabilityW from "./screens/AvailabilityW";
 import { Title } from "react-native-paper";
+
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -51,6 +53,7 @@ export default function App() {
             
           /> 
           <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
+
           <Stack.Screen
             name="Back"
             options={{
@@ -76,12 +79,18 @@ export default function App() {
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Edit Profile"
+          /> 
+            <Stack.Screen
+            name="Profile"
             component={Profile}
             options={{ headerShown: true }}
-          />
+          /> 
+            <Stack.Screen
+            name="DoctorProfile"
+            component={DoctorProfile}
+            options={{ headerShown: true }}
+          /> 
+
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
       </NavigationContainer>
