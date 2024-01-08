@@ -44,15 +44,15 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-       <QueryClientProvider client={queryClient}>
-    <NavigationContainer>
-        <Stack.Navigator  >
+       <QueryClientProvider client={queryClient}  >
+    <NavigationContainer   >
+        <Stack.Navigator initialRouteName="Tracker" >
         <Stack.Screen
             name="Availability"
             component={Availability}
             
           /> 
-          <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
+          {/* <Stack.Screen name="AvailabilityW" component={AvailabilityW} /> */}
 
           <Stack.Screen
             name="Back"
@@ -91,7 +91,7 @@ export default function App() {
             options={{ headerShown: true }}
           /> 
 
-          <Stack.Screen name="User" component={User} />
+          <Stack.Screen name="User" component={User} /> 
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
