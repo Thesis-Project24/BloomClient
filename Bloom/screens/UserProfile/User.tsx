@@ -1,40 +1,52 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, ScrollView,SafeAreaView } from "react-native";
-import { Border, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
-import ButtonUser from "../components/ButtonUser";
-import Ad from "../components/Ad";
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+import {
+  Border,
+  Padding,
+  FontSize,
+  FontFamily,
+  Color,
+} from "../../GlobalStyles";
+import ButtonUser from "../../components/UserProfile/ButtonUser";
+import Ad from "../../components/UserProfile/Ad";
 
 const User = () => {
   return (
-    <ScrollView  >
-     
-        <View style={[styles.Box, styles.user11WrapperFlexBox]}>
-          <View style={[styles.frameParent, styles.parentFlexBox]}>
-            <View style={styles.frameGroup}>
-              <View style={[styles.user11Wrapper, styles.user11WrapperFlexBox]}>
-                <Image
-                  style={styles.user11}
-                  resizeMode="cover"
-                  source={require("../assets/user-1-1.png")}
-                />
-              </View>
-              <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
-                <Text
-                  style={[styles.myriamHermessi, styles.myriamHermessiFlexBox]}
-                >
-                  Myriam Hermessi
-                </Text>
-                <Text>Mail</Text>
-              </View>
+    <ScrollView>
+      <View style={[styles.Box, styles.user11WrapperFlexBox]}>
+        <View style={[styles.frameParent, styles.parentFlexBox]}>
+          <View style={styles.frameGroup}>
+            <View style={[styles.user11Wrapper, styles.user11WrapperFlexBox]}>
+              <Image
+                style={styles.user11}
+                resizeMode="cover"
+                source={require("../assets/user-1-1.png")}
+              />
             </View>
-            <Image
-              style={styles.frameChild}
-              resizeMode="cover"
-              source={require("../assets/ellipse-21.png")}
-            />
+            <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
+              <Text
+                style={[styles.myriamHermessi, styles.myriamHermessiFlexBox]}
+              >
+                Myriam Hermessi
+              </Text>
+              <Text>Mail</Text>
+            </View>
           </View>
+          <Image
+            style={styles.frameChild}
+            resizeMode="cover"
+            source={require("../assets/ellipse-21.png")}
+          />
+        </View>
 
-          <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
+        {/* <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
             <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
               How’s your mood today
             </Text>
@@ -49,20 +61,16 @@ const User = () => {
             <Text
               style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
             >{`Be happy you’re not a Tree `}</Text>
-          </View>
-          <ButtonUser />
-          <Ad />
-        </View>
-     
+          </View> */}
+        <ButtonUser />
+        <Ad />
+      </View>
     </ScrollView>
   );
 };
 
-
 const styles = StyleSheet.create({
-  user11WrapperFlexBox: {
-   
-  },
+  user11WrapperFlexBox: {},
   parentFlexBox: {
     justifyContent: "center",
     alignItems: "center",
@@ -206,6 +214,5 @@ const styles = StyleSheet.create({
     padding: Padding.p_3xs,
   },
 });
-
 
 export default User;

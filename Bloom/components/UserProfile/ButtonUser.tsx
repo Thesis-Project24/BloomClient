@@ -1,10 +1,16 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View,TouchableOpacity } from "react-native";
-import { Padding, Color, Border, FontSize, FontFamily } from "../GlobalStyles";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Padding,
+  Color,
+  Border,
+  FontSize,
+  FontFamily,
+} from "../../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
-import { FontAwesome5 } from "@expo/vector-icons"; 
+import { FontAwesome5 } from "@expo/vector-icons";
 const ButtonUser = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <View style={styles.frameParent}>
       <View style={[styles.frameWrapper, styles.frameWrapperShadowBox]}>
@@ -49,8 +55,9 @@ const ButtonUser = () => {
             <FontAwesome5
               style={styles.ppeSantizerAlt1Icon}
               name="chart-line"
-              size={40}
+              size={30}
               color="black"
+              justifyContent="center"
             />
             {/* <Image
               style={styles.ppeSantizerAlt1Icon}
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
   vectorParent: {
     justifyContent: "center",
     flex: 1,
-  
+
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -144,7 +151,7 @@ const styles = StyleSheet.create({
   ppeSantizerAlt1Icon: {
     width: 30,
     height: 30,
-     justifyContent: "center",
+    justifyContent: "center",
 
     overflow: "hidden",
   },
@@ -167,8 +174,8 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   frameParent: {
-    marginLeft: -195,
-    top: 408,
+    marginLeft: -210,
+    top: 208,
     width: 390,
     height: 290,
     gap: 20,
@@ -183,4 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ButtonUser
+export default ButtonUser;

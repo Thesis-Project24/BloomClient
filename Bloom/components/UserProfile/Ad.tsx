@@ -1,8 +1,14 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { Color, FontSize, FontFamily, Padding, Border } from "../GlobalStyles";
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
 
-const Ad= () => {
+const Ad = () => {
   return (
     <View style={styles.advertisingbanner03}>
       <View style={styles.image15Parent}>
@@ -146,7 +152,7 @@ const styles = StyleSheet.create({
   advertisingbanner03: {
     position: "absolute",
     marginLeft: -195,
-    top: 956,
+    top: 456,
     left: "50%",
     borderRadius: Border.br_9xs,
     backgroundColor: Color.colorWhite,
@@ -156,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Ad
+export default Ad;

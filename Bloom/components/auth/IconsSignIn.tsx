@@ -2,12 +2,11 @@ import * as React from "react";
 import { useState } from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
-
+import { FontSize, FontFamily, Color, Border } from "../../GlobalStyles";
 
 const IconsSignIn = () => {
-  const [email,setEmail]=useState<string>('');
-  const [password,setPassword]=useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   return (
     <View style={styles.frameParent}>
@@ -25,7 +24,7 @@ const IconsSignIn = () => {
         />
       </View>
       <View style={styles.buttonsParent}>
-        <Pressable style={styles.buttons} >
+        <Pressable style={styles.buttons}>
           <Image
             style={[styles.buttonsChild, styles.buttonsLayout]}
             contentFit="cover"

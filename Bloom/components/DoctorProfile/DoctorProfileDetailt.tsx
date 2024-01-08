@@ -1,26 +1,29 @@
 import * as React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
-import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import {
+  Padding,
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+} from "../../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
 // import VideoImage from '../assets/video@3x.png';
 interface DoctorData {
-    id?: number;
-    email?: string;
-    first_name?: string;
-    last_name?: string;
-    specialty?: string;
-    profile_picture?: string;
-    phone_number?: string;
-    address?: string[];
-    bio?: string;
-   }
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+}
 
-
-
-const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
-
-   const navigation = useNavigation();
+const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
@@ -29,7 +32,6 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
             onPress={() => {
               navigation.navigate("Profile");
             }}
-           
           >
             <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
               <Image
@@ -132,7 +134,6 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
 
 const styles = StyleSheet.create({
   frameParentFlexBox1: {
-    
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: FontFamily.poppinsMedium,
     color: Color.black,
-    width:"100%",
+    width: "100%",
     height: 16,
     maxWidth: 185,
     marginLeft: 2,
@@ -321,7 +322,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   avatarChild: {
-   
     borderStyle: "solid",
     borderColor: "white",
     borderWidth: 4,
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     maxWidth: 360,
     maxHeight: 256,
     height: "100%",
-    width:"100%",
+    width: "100%",
     paddingBottom: Padding.p_base,
     paddingHorizontal: Padding.p_3xs,
     shadowOpacity: 1,
@@ -466,9 +466,8 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameParent: {
-    
     height: "100%",
-    width:"100%",
+    width: "100%",
     maxHeight: 330,
     alignItems: "center",
   },

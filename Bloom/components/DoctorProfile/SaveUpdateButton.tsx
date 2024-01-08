@@ -1,15 +1,28 @@
 import * as React from "react";
-import { Pressable, Text, StyleSheet, View , TouchableOpacity } from "react-native";
-import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import {
+  FontSize,
+  FontFamily,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
 
-const SaveUpdateButton = ({upDateData} : {upDateData:any} ) => {
+const SaveUpdateButton = ({ upDateData }: { upDateData: any }) => {
   return (
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
-      <TouchableOpacity 
-      onPress={() => {
-        upDateData()
-      }}
-      style={[styles.patientButton, styles.patientFlexBox]}>
+      <TouchableOpacity
+        onPress={() => {
+          upDateData();
+        }}
+        style={[styles.patientButton, styles.patientFlexBox]}
+      >
         <View style={[styles.stateLayer, styles.patientFlexBox]}>
           <Text style={styles.labelText}>Save</Text>
         </View>

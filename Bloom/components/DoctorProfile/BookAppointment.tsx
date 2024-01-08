@@ -1,7 +1,19 @@
 import * as React from "react";
-import { Text, StyleSheet, ScrollView, TouchableOpacity, View } from "react-native";
-import { TextInput as RNPTextInput , TextInput } from "react-native-paper";
-import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
+import {
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { TextInput as RNPTextInput, TextInput } from "react-native-paper";
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
 import { transparent } from "react-native-paper/lib/typescript/styles/colors";
 import ButtonBooking from "./ButtonBooking";
 const BookAppointment = () => {
@@ -18,12 +30,16 @@ const BookAppointment = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.frameScrollView1Content}
         >
-          <TouchableOpacity style={[styles.calendarDate, styles.calendarLayout]}>
+          <TouchableOpacity
+            style={[styles.calendarDate, styles.calendarLayout]}
+          >
             <Text style={[styles.text, styles.textTypo1]}>9</Text>
             <Text style={[styles.mon, styles.monTypo]}>Mon</Text>
             <Text style={[styles.text1, styles.textTypo]}>•••</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.calendarDate1, styles.calendarLayout]}>
+          <TouchableOpacity
+            style={[styles.calendarDate1, styles.calendarLayout]}
+          >
             <Text style={[styles.text2, styles.textTypo1]}>10</Text>
             <Text style={[styles.mon1, styles.monTypo]}>Tue</Text>
             <Text style={[styles.text3, styles.textTypo]}>••</Text>
@@ -38,7 +54,9 @@ const BookAppointment = () => {
             <Text style={[styles.mon1, styles.monTypo]}>Thu</Text>
             <Text style={[styles.text3, styles.textTypo]}>•</Text>
           </View>
-          <TouchableOpacity style={[styles.calendarDate1, styles.calendarLayout]}>
+          <TouchableOpacity
+            style={[styles.calendarDate1, styles.calendarLayout]}
+          >
             <Text style={[styles.text2, styles.textTypo1]}>13</Text>
             <Text style={[styles.mon1, styles.monTypo]}>Fri</Text>
             <Text style={[styles.text3, styles.textTypo]}>••</Text>
@@ -69,36 +87,34 @@ const BookAppointment = () => {
         </ScrollView>
       </View>
 
-      
       <View
-          style={[styles.textFieldWrapper, styles.textFieldWrapperSpaceBlock]}
-        >
-          <View style={[styles.textField, styles.textFieldPosition]}>
-            <View style={styles.textField1}>
-              <View style={[styles.stateLayer, styles.textFieldPosition]}>
-                <View style={styles.content}>
-                  <View style={styles.inputText}>
-                    <TextInput
-                   
-                      style={styles.inputText1}
-                      placeholder="Write your description here"
-                      placeholderTextColor="#aaafb6"
-                    />
-                  </View>
-                  <View style={[styles.labelText, styles.labelTextPosition]}>
-                    <Text style={styles.textTypo}>Description</Text>
-                  </View>
+        style={[styles.textFieldWrapper, styles.textFieldWrapperSpaceBlock]}
+      >
+        <View style={[styles.textField, styles.textFieldPosition]}>
+          <View style={styles.textField1}>
+            <View style={[styles.stateLayer, styles.textFieldPosition]}>
+              <View style={styles.content}>
+                <View style={styles.inputText}>
+                  <TextInput
+                    style={styles.inputText1}
+                    placeholder="Write your description here"
+                    placeholderTextColor="#aaafb6"
+                  />
+                </View>
+                <View style={[styles.labelText, styles.labelTextPosition]}>
+                  <Text style={styles.textTypo}>Description</Text>
                 </View>
               </View>
             </View>
-            <View style={styles.supportingText}>
-              <Text style={[styles.supportingText1, styles.textTypo]}>
-                Supporting text
-              </Text>
-            </View>
+          </View>
+          <View style={styles.supportingText}>
+            <Text style={[styles.supportingText1, styles.textTypo]}>
+              Supporting text
+            </Text>
           </View>
         </View>
-        <ButtonBooking />
+      </View>
+      <ButtonBooking />
     </View>
   );
 };
@@ -140,7 +156,7 @@ const styles = StyleSheet.create({
   },
   textTypo1: {
     // color: Color.colorGray_100,
-   
+
     fontFamily: FontFamily.subtitleBodyCaptionCaption1,
     fontWeight: "600",
     textAlign: "left",
@@ -275,16 +291,13 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flex: 1,
     // color: "white",
-   backgroundColor:"white",
+    backgroundColor: "white",
   },
   inputText: {
-    height:"100%",
-   color: "white",
-   backgroundColor:"white",
+    height: "100%",
+    color: "white",
+    backgroundColor: "white",
   },
-
-
-
 
   textFieldWrapper: {
     paddingHorizontal: 25,
@@ -325,7 +338,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_10xs,
     flex: 1,
   },
-  
+
   labelText: {
     top: -22,
     left: -4,
@@ -350,8 +363,6 @@ const styles = StyleSheet.create({
   supportingText1: {
     flex: 1,
   },
-  
-  
 });
 
 export default BookAppointment;
