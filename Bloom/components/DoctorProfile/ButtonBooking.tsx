@@ -1,7 +1,8 @@
 import * as React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
-import { useNavigation } from "@react-navigation/native";
+import { FontSize, FontFamily, Color, Padding, Border } from "../../GlobalStyles";
+// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/core";
 
 const ButtonBooking = () => {
   const navigation:any= useNavigation()

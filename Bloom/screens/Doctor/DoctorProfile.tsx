@@ -1,17 +1,23 @@
 import * as React from "react";
 import { StatusBar, StyleSheet, ScrollView, View, Text } from "react-native";
-import DoctoreDeatailss from "../components/DoctorProfileDetailt";
-import DoctorBio from "../components/DoctorBio";
-import BookAppointment from "../components/BookAppointment";
-import ButtonBooking from "../components/ButtonBooking";
-import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
-import { useQuery, useQueryClient } from 'react-query';
+import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetailt";
+import DoctorBio from "../../components/DoctorProfile/DoctorBio";
+import BookAppointment from "../../components/DoctorProfile/BookAppointment";
+import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
+import {
+  FontSize,
+  FontFamily,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
+import { useQuery, useQueryClient } from "react-query";
 
 const DoctorProfile = () => {
 
     const fetchData = async () => {
         try {
-          const res = await fetch(`http://172.29.0.50:3000/doctors/getOne/1`);
+          const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
           if (!res.ok) throw new Error(res.statusText);
           const jsonData = await res.json();
           return jsonData;
@@ -20,7 +26,7 @@ const DoctorProfile = () => {
         }
       };
       const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
-    //   console.log(data, "DoctorProfile");
+       console.log(data, "DoctorProfile");
 
 
   return (
@@ -40,12 +46,11 @@ const DoctorProfile = () => {
            
             contentContainerStyle={styles.frameScrollViewContent}
           >
-            { isSuccess && <DoctoreDeatailss data={data}  />}
+            {isSuccess && <DoctoreDeatailss data={data} />}
             <View style={[styles.historyParent, styles.frameFlexBox]}>
-            { isSuccess && <DoctorBio data={data} />}
+              {isSuccess && <DoctorBio data={data} />}
               <BookAppointment />
             </View>
-            
           </ScrollView>
         </View>
       </View>
@@ -70,7 +75,7 @@ const DoctorProfile = () => {
 
 const styles = StyleSheet.create({
   frameScrollViewContent: {
-    minHeight:1561,
+    minHeight: 1561,
     width: "100%",
     height: "100%",
     flexDirection: "column",
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
     paddingBottom: 62,
     alignItems: "center",
     justifyContent: "flex-start",
-    
   },
   textFlexBox: {
     overflow: "hidden",
@@ -121,7 +125,6 @@ const styles = StyleSheet.create({
     height: "100%",
     flex: 1,
   },
-
 
   profileDoctorRajaInner: {
     top: 10,
@@ -168,7 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileDoctorRaja: {
-   
     borderRadius: Border.br_2xl,
     backgroundColor: Color.neutralsWhite,
     height: 1461,

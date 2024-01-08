@@ -1,15 +1,21 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { Color, FontSize, FontFamily, Padding, Border } from "../GlobalStyles";
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
 
-const Ad= () => {
+const Ad = () => {
   return (
     <View style={styles.advertisingbanner03}>
       <View style={styles.image15Parent}>
         <Image
           style={styles.image15Icon}
           resizeMode="cover"
-          source={require("../assets/image-15.png")}
+          source={require("../../assets/image-15.png")}
         />
         <View style={styles.frameParent}>
           <View>
@@ -31,27 +37,27 @@ const Ad= () => {
                 <Image
                   style={styles.starIconLayout}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star1.png")}
+                  source={require("../../assets/star1.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star-half.png")}
+                  source={require("../../assets/star-half.png")}
                 />
                 <Image
                   style={[styles.starIcon1, styles.starIconLayout]}
                   resizeMode="cover"
-                  source={require("../assets/star-border.png")}
+                  source={require("../../assets/star-border.png")}
                 />
               </View>
             </View>
@@ -146,7 +152,7 @@ const styles = StyleSheet.create({
   advertisingbanner03: {
     position: "absolute",
     marginLeft: -195,
-    top: 956,
+    top: 456,
     left: "50%",
     borderRadius: Border.br_9xs,
     backgroundColor: Color.colorWhite,
@@ -156,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Ad
+export default Ad;

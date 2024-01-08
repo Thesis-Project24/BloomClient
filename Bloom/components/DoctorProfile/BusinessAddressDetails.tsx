@@ -1,9 +1,19 @@
-import React, { useState , useEffect } from "react";
-import { Text, StyleSheet, TextInput, View } from "react-native";
-import { Button } from "react-native-paper";
-import { FontFamily, FontSize, Color, Padding, Border } from "../GlobalStyles";
-import { useQueryClient , useQuery } from 'react-query';
-
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
+import { useQueryClient } from "react-query";
 
 interface DoctorData {
   id?: number;
@@ -15,118 +25,114 @@ interface DoctorData {
   phone_number?: string;
   address?: string[];
   bio?: string;
- }
- 
- type PersonalDetailsProps = {
+}
+
+type BusinessAddressDetailsProps = {
   data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
 
-
-
-
-
-
-const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, doctorData}) => {
+const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
+  data,
+  setDoctorData,
+  doctorData,
+}) => {
   const queryClient = useQueryClient();
+  const [address, setAddress] = useState<string[]>([]);
 
-  // const [password, setPassword] = useState("dd")
+  const handleAddress = () => {
+    if (data && data?.address) {
+      setAddress(data.address);
+    }
+  };
 
-
-
-
-
-
-
-
+  useEffect(() => {
+    handleAddress();
+  }, []);
 
   return (
-    <View
-      style={[
-        styles.textlabelPersonalDetialsParent,
-        styles.textlabelParentFlexBox,
-      ]}
-    >
+    <KeyboardAvoidingView style={styles.textlabelPersonalDetialsParent}>
       <Text style={styles.textlabelPersonalDetials} numberOfLines={1}>
-        Personal Details
+        Business Address Details
       </Text>
       <View style={styles.frameWrapper}>
         <View style={styles.frameParent}>
-          <View
-            style={[styles.textlabelEmailAddressParent, styles.textlabelLayout]}
-          >
+          <View style={styles.textlabelEmailAddressParent}>
             <Text
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Your Username
+              Pincode
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
-
-              // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
-                  setDoctorData({...doctorData,first_name: text});
-
+                  const newAdress: string[] = [...address];
+                  newAdress[0] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                  console.log(newAdress, "newAdress rakezzz hybaaaaaaa");
+                  console.log(address, "hybaa berasmii rakess");
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.first_name || 'Username'}
-                multiline={true}
+                placeholder={address[0] || "Pincode"}
                 placeholderTextColor="#242424"
               />
             </View>
           </View>
           <View
-            style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
+            style={[styles.textlabelEmailAddressGroup, styles.frameViewFlexBox]}
           >
             <Text
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Your Last Name
+              Address
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-               onChangeText={(text) => {
-               
-                setDoctorData({...doctorData,last_name: text});
-              }}
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[1] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
                 style={styles.textlabel450116}
-                placeholder={data?.last_name || 'Last Name'}
+                placeholder={address[1] || "Address"}
                 placeholderTextColor="#242424"
               />
             </View>
           </View>
           <View
-            style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
+            style={[styles.textlabelEmailAddressGroup, styles.frameViewFlexBox]}
           >
             <Text
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Email Address
+              City
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
-               onChangeText={(text) => {
-                setDoctorData({...doctorData,email: text});
-
-              }}
-
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[2] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
                 style={styles.textlabel450116}
-                placeholder={data?.email || 'Email'}
-                multiline={true}
+                placeholder={address[2] || "City"}
                 placeholderTextColor="#242424"
               />
             </View>
           </View>
-          <View style={[styles.frameView, styles.textlabelFlexBox]}>
+          <View style={styles.frameViewFlexBox}>
             <Text
               style={[styles.textlabelEmailAddress3, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Password
+              Country
             </Text>
             <View
               style={[
@@ -135,49 +141,26 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data , setDoctorData, 
               ]}
             >
               <TextInput
-               onChangeText={(text) => {
-                // setPassword(text)
-              }}
-              
+                onChangeText={(text) => {
+                  const newAdress = [...address];
+                  newAdress[3] = text;
+                  setAddress(newAdress);
+                  setDoctorData({ ...doctorData, address: address });
+                }}
                 style={styles.textlabel450116}
-                placeholder="Password"
-                multiline={true}
+                placeholder={address[3] || "Country"}
                 placeholderTextColor="#242424"
               />
             </View>
           </View>
-
-          <Button
-            style={[styles.textlabelPassword, styles.textlabelFlexBox]}
-            disabled={false}
-            uppercase={false}
-            mode="text"
-            labelStyle={styles.textlabelPasswordBtn}
-          >
-            Change Password
-          </Button>
         </View>
       </View>
       <View style={styles.frameChild} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  textlabelPasswordBtn: {
-    color: "#729384",
-    fontSize: 12,
-    fontWeight: "600",
-    fontFamily: "PlusJakartaSans-SemiBold",
-  },
-  textlabelParentFlexBox: {
-    alignSelf: "stretch",
-    flex: 1,
-  },
-  textlabelLayout: {
-    minHeight: 68,
-    alignItems: "center",
-  },
   textlabelTypo: {
     maxHeight: 15,
     fontFamily: FontFamily.montserratRegular,
@@ -187,8 +170,10 @@ const styles = StyleSheet.create({
     color: Color.bleck,
     alignSelf: "stretch",
   },
-  textlabelFlexBox: {
+  frameViewFlexBox: {
     marginTop: 17,
+    minHeight: 68,
+    alignItems: "center",
     flex: 1,
     alignSelf: "stretch",
   },
@@ -205,7 +190,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   textlabelPersonalDetials: {
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_base,
     maxHeight: 28,
     overflow: "hidden",
     textAlign: "left",
@@ -231,37 +216,30 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     paddingHorizontal: Padding.p_mid,
     borderWidth: 1,
+    borderColor: Color.colorCadetblue,
     backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     justifyContent: "center",
-    borderColor: Color.colorCadetblue,
     borderStyle: "solid",
     flex: 1,
     alignSelf: "stretch",
   },
   textlabelEmailAddressParent: {
-    justifyContent: "space-between",
     minHeight: 68,
+    justifyContent: "space-between",
+    alignItems: "center",
     flex: 1,
     alignSelf: "stretch",
   },
   textlabelEmailAddressGroup: {
-    minHeight: 68,
-    alignItems: "center",
     justifyContent: "space-between",
+    marginTop: 17,
   },
   textlabelEmailAddress3: {
     height: 15,
   },
   textlabel450116Wrapper1: {
     marginTop: 5,
-  },
-  frameView: {
-    minHeight: 68,
-    alignItems: "center",
-  },
-  textlabelPassword: {
-    maxHeight: 20,
   },
   frameParent: {
     minWidth: 210,
@@ -270,22 +248,21 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameWrapper: {
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
+    height: 386,
     paddingLeft: Padding.p_mini,
     paddingRight: Padding.p_3xs,
     marginTop: 21,
-    flex: 1,
+    alignItems: "center",
     alignSelf: "stretch",
   },
   frameChild: {
+    borderColor: Color.colorSilver_100,
     borderWidth: 0.5,
     maxHeight: 1,
     justifyContent: "center",
-    borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    alignItems: "center",
     marginTop: 21,
+    alignItems: "center",
     flex: 1,
     alignSelf: "stretch",
   },
@@ -293,8 +270,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: Padding.p_9xs,
     maxHeight: 480,
+    marginTop: 30,
     flex: 1,
+    alignSelf: "stretch",
   },
 });
 
-export default PersonalDetails;
+export default BusinessAddressDetails;
