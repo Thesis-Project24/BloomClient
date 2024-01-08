@@ -2,7 +2,7 @@
 import Ionicons from 'react-native-vector-icons/Ionicons';
  import Chat from "../screens/Chat";
 import Journal from "../screens/Journal";
-import Doctor from "../screens/Doctor";
+import DoctorProfile from '../screens/DoctorProfile';
 import Community from "../screens/Community";
 import Home from '../screens/Home';
 import Nav from '../screens/Nav';
@@ -31,7 +31,7 @@ export const BottomTabNav = () => {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
             iconName = focused ? "journal" : "journal-outline";
-          } else if (route.name === "Profile") {
+          } else if (route.name === "DoctorProfile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
             iconName = focused ? "home" : "home-outline";
@@ -58,9 +58,9 @@ export const BottomTabNav = () => {
         component={Chat}
       />
       <Tab.Screen
-        name="Doctor"
+        name="DoctorProfile"
         options={{ headerShown: false }}
-        component={Profile}
+        component={DoctorProfile}
       />
       <Tab.Screen
         name="Home"

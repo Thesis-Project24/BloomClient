@@ -1,13 +1,15 @@
 import * as React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
-
+import { useNavigation } from "@react-navigation/core";
 const ButtonBooking = () => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
-      <TouchableOpacity style={[styles.patientButton, styles.patientFlexBox]}>
+      <TouchableOpacity onPress={() =>{ navigation.navigate("Availability")}}
+       style={[styles.patientButton, styles.patientFlexBox]}>
         <View style={[styles.stateLayer, styles.patientFlexBox]}>
-          <Text style={styles.labelText}>Book Appointment</Text>
+          <Text style={styles.labelText} >Availability</Text>
         </View>
       </TouchableOpacity>
     </View>

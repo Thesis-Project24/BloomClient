@@ -8,6 +8,7 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
 import IconsSignIn from "../components/IconsSignIn";
 import {  login } from "../api/users/Users";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const SignIn = () => {
@@ -27,144 +28,153 @@ const SignIn = () => {
         setPasswordHidden(!passwordHidden);
       };
     return (
+      <ScrollView>
         <View style={[styles.signIn, styles.signInLayout]}>
-            <View style={[styles.signInInner, styles.frameViewPosition]}>
-                <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={require("../assets/vector-13.png")}
-                />
-            </View>
-
+          <View style={[styles.signInInner, styles.frameViewPosition]}>
             <Image
-                style={styles.signInChild}
-                resizeMode="cover"
-                source={require("../assets/vector-23.png")}
+              style={styles.frameChild}
+              resizeMode="cover"
+              source={require("../assets/vector-13.png")}
             />
-            <View style={[styles.frameView, styles.frameViewPosition]}>
-                <View style={[styles.frameParent, styles.eMailLayout]}>
-                    <View style={styles.welcomeBackParent}>
-                        <Text
-                            style={[styles.welcomeBack, styles.textTypo]}
-                            numberOfLines={1}
-                        >
-                            Welcome Back
-                        </Text>
-                        <Text style={styles.signInTo}>{`Sign In to a Healthier,
+          </View>
+
+          <Image
+            style={styles.signInChild}
+            resizeMode="cover"
+            source={require("../assets/vector-23.png")}
+          />
+          <View style={[styles.frameView, styles.frameViewPosition]}>
+            <View style={[styles.frameParent, styles.eMailLayout]}>
+              <View style={styles.welcomeBackParent}>
+                <Text
+                  style={[styles.welcomeBack, styles.textTypo]}
+                  numberOfLines={1}
+                >
+                  Welcome Back
+                </Text>
+                <Text style={styles.signInTo}>{`Sign In to a Healthier,
 Happier You`}</Text>
-                    </View>
-                    <View style={styles.frameGroup}>
-                        <View style={styles.frameContainer}>
-                            <View style={styles.frameParent1}>
-                                <View style={[styles.frameParent2, styles.frameParentFlexBox]}>
-                                    <View
-                                        style={[styles.frameParent3, styles.frameParentFlexBox]}
-                                    >
-                                        <View style={styles.frameWrapper}>
-                                           
-                                            <View style={styles.iconsParent}>
-                                                <Image
-                                                    style={styles.icons}
-                                                    resizeMode="cover"
-                                                    source={require("../assets/icons.png")}
-                                                />
-                                                <TextInput
-                                                    style={[styles.eMail, styles.eMailTypo]}
-                                                    placeholder="E-mail"
-                                                    onChangeText={(text) => setEmail(text)}
-                                                    keyboardType="email-address"
-                                                    autoCapitalize="sentences"
-                                                    secureTextEntry={false}
-                                                    placeholderTextColor="#c7c7c7"
-                                                />
-                                            </View>
-                                        </View>
-                                        <View style={styles.frameWrapper}>
-                                            <View
-                                                style={[styles.frameParent4, styles.frameParentFlexBox]}
-                                            >
-                                                <View style={styles.iconsParent}>
-                                                    <Pressable onPress={togglePasswordVisibility}>
-
-                                                    <Image
-                                                        style={styles.vectorIcon}
-                                                        resizeMode="cover"
-                                                        source={require("../assets/vector7.png")}
-                                                        />
-                                                        </Pressable>
-                                                    <TextInput
-                                                        style={[styles.eMail, styles.eMailTypo]}
-                                                        placeholder="Password"
-                                                        onChangeText={(text) => setPassword(text)}
-                                                        multiline={false}
-                                                        secureTextEntry={true}
-                                                        placeholderTextColor="#c8c8c8"
-                                                    />
-                                                </View>
-                                                <Image
-                                                    style={styles.vectorIcon1}
-                                                    resizeMode="cover"
-                                                    source={require("../assets/vector8.png")}
-                                                />
-                                            </View>
-                                        </View>
-                                    </View>
-                                    <View
-                                        style={[styles.frameParent5, styles.frameParentFlexBox]}
-                                    >
-                                        <View style={styles.frameParent6}>
-                                            <View>
-                                                <Checkbox
-                                                    status={
-                                                        frameCheckboxchecked ? "checked" : "unchecked"
-                                                    }
-                                                    onPress={() =>
-                                                        setFrameCheckboxchecked(!frameCheckboxchecked)
-                                                    }
-                                                    color="#a78a6e"
-                                                />
-                                            </View>
-
-                                        </View>
-                                        <Pressable
-                                            onPress={() => navigation.navigate("ForgotPassword")}
-                                        >
-                                            <Text
-                                                style={[
-                                                    styles.forgotYourPassword,
-                                                    styles.signIn1FlexBox,
-                                                ]}
-                                            >
-                                                Forgot your password?
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </View>
-                                <IconsSignIn />
-                            </View>
-                            <View style={styles.signInParent}>
-                                <Text style={[styles.signIn1, styles.signIn1FlexBox]}>
-                                    Sign in
-                                </Text>
-                                <Pressable style={styles.vectorWrapper} onPress={() => mutation.mutate({ email: email, password: password })
-                                } >
-                                    <Image
-
-                                        style={styles.vectorIcon2}
-                                        resizeMode="cover"
-                                        source={require("../assets/vector10.png")}
-                                    />
-                                </Pressable>
-                            </View>
+              </View>
+              <View style={styles.frameGroup}>
+                <View style={styles.frameContainer}>
+                  <View style={styles.frameParent1}>
+                    <View
+                      style={[styles.frameParent2, styles.frameParentFlexBox]}
+                    >
+                      <View
+                        style={[styles.frameParent3, styles.frameParentFlexBox]}
+                      >
+                        <View style={styles.frameWrapper}>
+                          <View style={styles.iconsParent}>
+                            <Image
+                              style={styles.icons}
+                              resizeMode="cover"
+                              source={require("../assets/icons.png")}
+                            />
+                            <TextInput
+                              style={[styles.eMail, styles.eMailTypo]}
+                              placeholder="E-mail"
+                              onChangeText={(text) => setEmail(text)}
+                              keyboardType="email-address"
+                              autoCapitalize="sentences"
+                              secureTextEntry={false}
+                              placeholderTextColor="#c7c7c7"
+                            />
+                          </View>
                         </View>
-                        <Text style={[styles.dontHaveAnContainer, styles.eMailTypo]}>
-                            {`Don’t have an account? `}
-                            <Text onPress={() => navigation.navigate('singUp')} >Create</Text>
-                        </Text>
+                        <View style={styles.frameWrapper}>
+                          <View
+                            style={[
+                              styles.frameParent4,
+                              styles.frameParentFlexBox,
+                            ]}
+                          >
+                            <View style={styles.iconsParent}>
+                              <Pressable onPress={togglePasswordVisibility}>
+                                <Image
+                                  style={styles.vectorIcon}
+                                  resizeMode="cover"
+                                  source={require("../assets/vector7.png")}
+                                />
+                              </Pressable>
+                              <TextInput
+                                style={[styles.eMail, styles.eMailTypo]}
+                                placeholder="Password"
+                                onChangeText={(text) => setPassword(text)}
+                                multiline={false}
+                                secureTextEntry={true}
+                                placeholderTextColor="#c8c8c8"
+                              />
+                            </View>
+                            <Image
+                              style={styles.vectorIcon1}
+                              resizeMode="cover"
+                              source={require("../assets/vector8.png")}
+                            />
+                          </View>
+                        </View>
+                      </View>
+                      <View
+                        style={[styles.frameParent5, styles.frameParentFlexBox]}
+                      >
+                        <View style={styles.frameParent6}>
+                          <View>
+                            <Checkbox
+                              status={
+                                frameCheckboxchecked ? "checked" : "unchecked"
+                              }
+                              onPress={() =>
+                                setFrameCheckboxchecked(!frameCheckboxchecked)
+                              }
+                              color="#a78a6e"
+                            />
+                          </View>
+                        </View>
+                        <Pressable
+                          onPress={() => navigation.navigate("ForgotPassword")}
+                        >
+                          <Text
+                            style={[
+                              styles.forgotYourPassword,
+                              styles.signIn1FlexBox,
+                            ]}
+                          >
+                            Forgot your password?
+                          </Text>
+                        </Pressable>
+                      </View>
                     </View>
+                    <IconsSignIn />
+                  </View>
+                  <View style={styles.signInParent}>
+                    <Text style={[styles.signIn1, styles.signIn1FlexBox]}>
+                      Sign in
+                    </Text>
+                    <Pressable
+                      style={styles.vectorWrapper}
+                      onPress={() =>
+                        mutation.mutate({ email: email, password: password })
+                      }
+                    >
+                      <Image
+                        style={styles.vectorIcon2}
+                        resizeMode="cover"
+                        source={require("../assets/vector10.png")}
+                      />
+                    </Pressable>
+                  </View>
                 </View>
+                <Text style={[styles.dontHaveAnContainer, styles.eMailTypo]}>
+                  {`Don’t have an account? `}
+                  <Text onPress={() => navigation.navigate("SingUp")}>
+                    Create
+                  </Text>
+                </Text>
+              </View>
             </View>
+          </View>
         </View>
+      </ScrollView>
     );
 };
 

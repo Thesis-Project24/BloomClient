@@ -24,7 +24,7 @@ const SignUp = () => {
   
      
   // on success navigate to the get started page 
-    mutation.isSuccess && navigation.navigate("User")
+    // mutation.isSuccess && navigation.navigate("User")
  
  
   const handlePress = async () => {
@@ -36,6 +36,7 @@ const SignUp = () => {
         last_name: last_name,
         phone_number: phone_number
     });
+    navigation.navigate("User")
 
 };
 

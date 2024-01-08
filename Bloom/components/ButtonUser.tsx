@@ -1,8 +1,10 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View,TouchableOpacity } from "react-native";
 import { Padding, Color, Border, FontSize, FontFamily } from "../GlobalStyles";
-
+import { useNavigation } from "@react-navigation/core";
+import { FontAwesome5 } from "@expo/vector-icons"; 
 const ButtonUser = () => {
+  const navigation = useNavigation()
   return (
     <View style={styles.frameParent}>
       <View style={[styles.frameWrapper, styles.frameWrapperShadowBox]}>
@@ -10,7 +12,7 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon}
             resizeMode="cover"
-            source={require("../assets/vector.png")}
+            source={require("../assets/Journal.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Journal</Text>
         </View>
@@ -26,6 +28,7 @@ const ButtonUser = () => {
             style={[styles.reservation, styles.journalFlexBox]}
             numberOfLines={1}
           >
+            {" "}
             Reservation
           </Text>
         </View>
@@ -35,22 +38,29 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon2}
             resizeMode="cover"
-            source={require("../assets/vector2.png")}
-          />
-          <Text style={[styles.journal, styles.journalFlexBox]}>Trakers</Text>
-        </View>
-      </View>
-      <View style={[styles.frameWrapper1, styles.frameWrapperShadowBox]}>
-        <View style={styles.vectorParent}>
-          <Image
-            style={styles.ppeSantizerAlt1Icon}
-            resizeMode="cover"
             source={require("../assets/ppe-santizer-alt-1.png")}
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
         </View>
       </View>
-
+      <View style={[styles.frameWrapper1, styles.frameWrapperShadowBox]}>
+        <View style={styles.vectorParent}>
+          <TouchableOpacity onPress={() => navigation.navigate("Tracker")}>
+            <FontAwesome5
+              style={styles.ppeSantizerAlt1Icon}
+              name="chart-line"
+              size={40}
+              color="black"
+            />
+            {/* <Image
+              style={styles.ppeSantizerAlt1Icon}
+              resizeMode="cover"
+              source={require("../assets/vector2.png")}
+            /> */}
+            <Text style={[styles.journal, styles.journalFlexBox]}>Tracker</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -104,6 +114,7 @@ const styles = StyleSheet.create({
   vectorParent: {
     justifyContent: "center",
     flex: 1,
+  
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -116,7 +127,7 @@ const styles = StyleSheet.create({
   },
   reservation: {
     lineHeight: 16,
-     fontWeight: "700",
+    fontWeight: "700",
     fontFamily: FontFamily.tajawalBold,
   },
   frameContainer: {
@@ -131,8 +142,10 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   ppeSantizerAlt1Icon: {
-    width: 48,
-    height: 48,
+    width: 30,
+    height: 30,
+     justifyContent: "center",
+
     overflow: "hidden",
   },
   frameWrapper1: {

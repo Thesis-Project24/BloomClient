@@ -11,7 +11,7 @@ const DoctorProfile = () => {
 
     const fetchData = async () => {
         try {
-          const res = await fetch(`http://192.168.1.56:3000/doctors/getOne/1`);
+          const res = await fetch(`http://172.29.0.6:3000/doctors/getOne/1`);
           if (!res.ok) throw new Error(res.statusText);
           const jsonData = await res.json();
           return jsonData;
@@ -20,7 +20,7 @@ const DoctorProfile = () => {
         }
       };
       const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
-    //   console.log(data, "DoctorProfile");
+      console.log(data, "DoctorProfile");
 
 
   return (

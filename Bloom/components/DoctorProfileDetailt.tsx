@@ -2,6 +2,7 @@ import * as React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
 import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import { useNavigation } from "@react-navigation/core";
 // import VideoImage from '../assets/video@3x.png';
 interface DoctorData {
     id?: number;
@@ -18,18 +19,26 @@ interface DoctorData {
 
 
 const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
+
+   const navigation = useNavigation();
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
-          <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
-            <Image
-              style={styles.icons}
-              contentFit="cover"
-              
-              // source={require("../assets/UpdateUser.png")}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Profile");
+            }}
+           
+          >
+            <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
+              <Image
+                style={styles.icons}
+                source={require("../assets/user-1-1.png")}
+              />
+            </View>
+          </TouchableOpacity>
+
           <View style={[styles.doctorInfo, styles.frameParentFlexBox]}>
             <View style={[styles.titleDescription, styles.frameParentFlexBox1]}>
               <Text style={[styles.text, styles.textFlexBox]}>
@@ -55,26 +64,25 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
               </Text>
             </View>
             <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
-            <Text style={styles.text2}>{data.email}</Text>
+              <Text style={styles.text2}>{data.email}</Text>
               <TouchableOpacity
                 style={[styles.telephone2Parent, styles.parentFlexBox]}
               >
                 <Image
                   style={styles.telephone2Icon}
                   contentFit="cover"
-                //   source={require("../assets/telephone-2@3x.png")}
+                  //   source={require("../assets/telephone-2@3x.png")}
                 />
                 <Text style={styles.text3}>+216 {data.phone_number}</Text>
               </TouchableOpacity>
             </View>
-            
           </View>
         </View>
         <View style={[styles.avatar, styles.groupParentShadowBox]}>
           <Image
             style={styles.avatarChild}
             contentFit="cover"
-            source={ data.profile_picture }
+            source={data.profile_picture}
             // source={require("../assets/rectangle-56471.png")}
           />
           <Image
@@ -95,7 +103,9 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
             <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.frameTouchableOpacity, styles.frameShadowBox]}>
+        <TouchableOpacity
+          style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
+        >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             <Image
               style={styles.videoIcon}

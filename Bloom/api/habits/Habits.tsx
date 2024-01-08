@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
+// {all habits Fetcher } //
 export const useFetchHabits = () => {
   return useQuery("habits", async () => {
     const response = await axios.get(
-      "http://172.20.0.79:3000/habits/getAllHabits"
+      "http:/172.29.0.6:3000/habits/getAllHabits"
     );
     const data = response.data;
     console.log(data.userHabits);
@@ -16,7 +17,7 @@ export const useAssignHabit = () => {
   const assignHabitMutation = useMutation(
     async ({ habitId, userId }: { habitId: number; userId: number }) => {
       const response = await axios.post(
-        "http://172.20.0.79:3000/habits/assignHabit",
+        "http://172.29.0.6:3000/habits/assignHabit",
         {
           habitId,
           userId,
@@ -34,12 +35,12 @@ export const useAssignHabit = () => {
   };
   return { assignHabit, isAssigning: assignHabitMutation.isLoading };
 };
-
+// { user Habit fetcher } //
 export const useFetchHabitsUser = ()=>{
   try{
     return useQuery('habitsUser', async () => {
       const response = await axios.get(
-        "http://172.20.0.79:3000/habits/getHabits/1"
+        "http://172.29.0.6:3000/habits/getHabits/1"
       );
       const data = response.data;
       console.log(data.userHabits);
@@ -50,3 +51,46 @@ export const useFetchHabitsUser = ()=>{
     console.error("error  habit :", error);
   }
 }
+// {multi habit assigning } //
+export const useAssignMultiHabits = () => {
+  const assignMultiHabitsMutation = useMutation(
+    async ({ userId, habitIds }: { userId: number; habitIds: number[] }) => {
+      const response = await axios.post(
+        "http://172.29.0.6:3000/habits/assignMultiHabits",
+        {
+          userId,
+          habitIds,
+        }
+      );
+      return response.data;
+    }
+  );
+
+  const assignMultiHabits = async (userId: number, habitIds: number[]) => {
+    try {
+      await assignMultiHabitsMutation.mutateAsync({ userId, habitIds });
+    } catch (error) {
+      console.error("err assigning multiple habitsssss", error);
+    }
+  };
+
+  return {
+    assignMultiHabits,
+    isAssigningMultipleHabits: assignMultiHabitsMutation.isLoading,
+  };
+};
+//  {delete assignement } //
+
+export const useDeleteHabit = () => {
+  return useMutation(
+    async ({ habitId, userId }: { habitId: number; userId: number }) => {
+      const response = await axios.delete(
+        "http://172.29.0.6:3000/habits/deleteAssignedHabit",
+        {
+          data: { habitId, userId },
+        }
+      );
+      return response.data;
+    }
+  );
+};

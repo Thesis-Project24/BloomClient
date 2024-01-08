@@ -18,7 +18,7 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://172.20.10.10:3000/doctors/getOne/1`);
+      const res = await fetch(`http://172.29.0.6:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
@@ -33,19 +33,20 @@ const Profile = () => {
 
   const upDateData = () => {
  console.log({ id: 1, ...data, ...doctorData } , "update data in fnc " );
-    fetch('http://192.168.1.56:3000/doctors/update',
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id: 1, ...data, ...doctorData })
-      }).then((res) => {
-        console.log(res)
-        Alert.alert('Updated Successfully!');
-      }).catch((err) => {
-        Alert.alert('Error Updating Data');
-        console.log(err,"error");
+    fetch("http://172.29.0.6:3000/doctors/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: 1, ...data, ...doctorData }),
+    })
+      .then((res) => {
+        console.log(res);
+        Alert.alert("Updated Successfully!");
+      })
+      .catch((err) => {
+        Alert.alert("Error Updating Data");
+        console.log(err, "error");
         // toast.error("Something went wrong! Please try again.")
       })
       .catch((err) => {
@@ -57,18 +58,17 @@ const Profile = () => {
   }
   return (
     <ScrollView style={styles.profile}>
-
       <Image
         style={styles.profileChild}
         contentFit="cover"
         source={require("../assets/vector-2.png")}
       />
-      <Image
+      {/* <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
         source={require("../assets/vector-1.png")}
-      />
-      <View style={styles.vectorParent}>
+      /> */}
+      {/* <View style={styles.vectorParent}>
         <Image
           style={styles.frameChild}
           contentFit="cover"
@@ -77,23 +77,44 @@ const Profile = () => {
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
         </Text>
-      </View>
-     
-
-
+      </View> */}
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
-          {isSuccess && <Imageprofile data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-
+          {isSuccess && (
+            <Imageprofile
+              data={data}
+              setDoctorData={setDoctorData}
+              doctorData={doctorData}
+            />
+          )}
 
           <View style={styles.frameView}>
             <View style={styles.frameParent1}>
-              {isSuccess && <PersonalDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              {isSuccess && <DoctorDetails isSuccess={isSuccess} data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              {isSuccess && <BusinessAddressDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-             
-             <SaveUpdateButton upDateData={upDateData} />
+              {isSuccess && (
+                <PersonalDetails
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
+              {isSuccess && (
+                <DoctorDetails
+                  isSuccess={isSuccess}
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
+              {isSuccess && (
+                <BusinessAddressDetails
+                  data={data}
+                  setDoctorData={setDoctorData}
+                  doctorData={doctorData}
+                />
+              )}
+
+              <SaveUpdateButton upDateData={upDateData} />
             </View>
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
@@ -105,6 +126,7 @@ const Profile = () => {
                 Save
               </Text>
             </Pressable>
+          
           </View>
         </View>
       </View>

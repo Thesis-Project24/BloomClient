@@ -18,6 +18,7 @@ import MentalHealth from "./screens/MentalHealth";
 import Availability from "./screens/Availablity";
 import AvailabilityW from "./screens/AvailabilityW";
 import { Title } from "react-native-paper";
+import Home from "./screens/Home";
 
 
 const queryClient = new QueryClient();
@@ -62,11 +63,6 @@ export default function App() {
             component={BottomTabNav}
           />
           <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
             name="Nav"
             component={Nav}
             options={{
@@ -74,18 +70,18 @@ export default function App() {
               headerTransparent: true,
               cardStyle: { backgroundColor: "transparent" },
             }}
-          />
+            />
           <Stack.Screen
             name="Tracker"
             component={Tracker}
             options={{ headerShown: true }}
-          /> 
-            <Stack.Screen
+            />
+          <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: true }}
-          /> 
-            <Stack.Screen
+            />
+          <Stack.Screen
             name="DoctorProfile"
             component={DoctorProfile}
             options={{ headerShown: true }}
@@ -94,6 +90,7 @@ export default function App() {
           <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
       </NavigationContainer>
+
     </QueryClientProvider>
   );
 }
