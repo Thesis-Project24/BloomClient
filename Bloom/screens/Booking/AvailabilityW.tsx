@@ -52,9 +52,9 @@ const AvailabilityW = ({
       {viewEnd ? ( */}
       <View>
         <DateTimePicker
-          value={chosenDateEnd}
+          value={chosenDateStart}
           onChange={(event) => {
-            setChosenDateEnd(chosenDateEnd);
+            setChosenDateEnd(chosenDateStart);
           }}
           mode={"datetime"}
         />
@@ -62,7 +62,7 @@ const AvailabilityW = ({
       {/* ) : ( */}
       <View>
         <DateTimePicker
-          value={chosenDateStart}
+          value={chosenDateEnd}
           onChange={(event) => {
             setChosenDateEnd(chosenDateEnd);
           }}

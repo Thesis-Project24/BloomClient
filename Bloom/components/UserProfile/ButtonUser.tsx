@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     marginLeft: -210,
-    top: 208,
+    top: 338,
     width: 390,
     height: 290,
     gap: 20,

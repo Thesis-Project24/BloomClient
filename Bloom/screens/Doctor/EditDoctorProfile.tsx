@@ -31,7 +31,9 @@ const Profile = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://172.29.0.6:3000/doctors/getOne/1`);
+      const res = await fetch(
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`
+      );
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
@@ -44,7 +46,7 @@ const Profile = () => {
 
   const upDateData = () => {
     console.log({ id: 1, ...data, ...doctorData }, "update data in fnc ");
-    fetch("http://172.29.0.6:3000/doctors/update", {
+    fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

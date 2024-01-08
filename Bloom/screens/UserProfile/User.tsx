@@ -46,7 +46,7 @@ const User = () => {
           />
         </View>
 
-        {/* <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
+        <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
             <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
               How’s your mood today
             </Text>
@@ -61,7 +61,7 @@ const User = () => {
             <Text
               style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
             >{`Be happy you’re not a Tree `}</Text>
-          </View> */}
+          </View>
         <ButtonUser />
         <Ad />
       </View>
