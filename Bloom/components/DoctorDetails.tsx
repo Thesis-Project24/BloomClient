@@ -19,7 +19,7 @@ interface DoctorData {
  }
  
  type DoctorDetailsProps = {
-  data: DoctorData[];
+  data: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
   isSuccess: boolean;
@@ -71,7 +71,7 @@ const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess, data , setDoct
                 setDoctorData({...doctorData,phone_number: text});
               }}
                 style={[styles.textlabel450116, styles.textlabelLayout]}
-                placeholder={data[0]?.phone_number || 'PhoneNumber'}
+                placeholder={data?.phone_number || 'PhoneNumber'}
                 multiline={true}
                 placeholderTextColor="#242424"
               />
@@ -99,7 +99,7 @@ const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess, data , setDoct
                  numberOfLines={4}
                 // maxLength={10}
                 style={[styles.textlabel450116, styles.textlabelLayout]}
-                placeholder={data[0].bio || 'Bio'}
+                placeholder={data.bio || 'Bio'}
                 placeholderTextColor="#242424"
               />
             </View>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_5xs,
     flex: 1,
     alignSelf: "stretch",
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_3xs,
     paddingLeft: Padding.p_mini,
     alignItems: "center",
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorCadetblue,
     borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
+    backgroundColor: Color.coloGray_100,
     borderRadius: Border.br_3xs,
     flex: 1,
     alignSelf: "stretch",
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
 
   },
   textlabel450116Container: {
+    maxWidth: 400,
     height: "100%",
     maxHeight: 200,
     marginTop: 30,

@@ -20,15 +20,15 @@ interface DoctorData {
  }
  
  type DropdownComponentProps = {
-  specialtyData: DoctorData[];
+  specialtyData: DoctorData;
   setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
   doctorData: DoctorData;
 };
 
 const data = [
-  { label: 'specialty 1', value: 'specialty 1' },
-  { label: 'specialty 2', value: 'specialty 2' },
-  { label: 'specialty 3', value: 'specialty 3' },
+  { label: 'psychiatry', value: 'psychiatry' },
+  { label: 'psychology', value: 'psychology' },
+  { label: 'Neuropsychiatry', value: 'Neuropsychiatry' },
   { label: 'specialty 4', value: 'specialty 4' },
   
 ];
@@ -44,7 +44,7 @@ const DropdownComponent: React.FC<DropdownComponentProps> = ({specialtyData , se
   const handeldata= ()=>{
     if (specialtyData) {
       
-      setValue(specialtyData[0].specialty)
+      setValue(specialtyData.specialty)
       setSpecialty(value)
       
     }

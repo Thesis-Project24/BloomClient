@@ -10,7 +10,7 @@ import BusinessAddressDetails from "../components/BusinessAddressDetails";
 import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 import Imageprofile from "../components/ImageProfile";
 import { useQuery, useQueryClient } from 'react-query';
-
+import SaveUpdateButton from "../components/SaveUpdateButton";
 
 const Profile = () => {
   const queryClient = useQueryClient();
@@ -26,13 +26,13 @@ const Profile = () => {
       console.error('Error:', error);
     }
   };
-   console.log(doctorData, "update data from profile");
+
 
   const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
-  console.log(data, "data prifile");
+  
 
   const upDateData = () => {
- console.log({ id: 1, ...data[0], ...doctorData } , "update data in fnc " );
+ console.log({ id: 1, ...data, ...doctorData } , "update data in fnc " );
     fetch('http://192.168.1.56:3000/doctors/update',
       {
         method: "PUT",
@@ -73,11 +73,7 @@ const Profile = () => {
           Your Profile
         </Text>
       </View>
-      {/* <StatusBar
-        style={styles.profileInnerSpaceBlock}
-        barStyle="light-content"
-        translucent={true}
-      /> */}
+     
 
 
 
@@ -91,17 +87,8 @@ const Profile = () => {
               {isSuccess && <PersonalDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
               {isSuccess && <DoctorDetails isSuccess={isSuccess} data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
               {isSuccess && <BusinessAddressDetails data={data} setDoctorData={setDoctorData} doctorData={doctorData} />}
-              <TouchableOpacity
-                onPress={() => {
-                  upDateData()
-                }}
-              >
-                <Text
-
-                >
-                  Save
-                </Text>
-              </TouchableOpacity>
+             
+             <SaveUpdateButton upDateData={upDateData} />
             </View>
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
