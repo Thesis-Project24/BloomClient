@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   parentFlexBox: {
     justifyContent: "center",
     alignItems: "center",
+    top: "5%",
   },
   myriamHermessiFlexBox: {
     textAlign: "center",
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   myriamHermessiParent: {
     width: 347,
     height: 53,
-    marginTop: 160,
+    marginTop: 150,
   },
   frameGroup: {
     zIndex: 0,
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     width: 390,
     height: 159,
     marginHorizontal: "auto", // Center horizontally
-    marginTop: 40,
+    marginTop: 30,
     padding: Padding.p_3xs,
   },
 });
