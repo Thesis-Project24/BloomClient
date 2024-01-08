@@ -14,6 +14,9 @@ import SignIn from "./screens/SignIn";
 import SignUp from "./screens/SignUp";
 // import GetStart from "./screens/GetStart";
 import Profile from "./screens/Profile";
+import Availability from "./screens/Availablity";
+import AvailabilityW from "./screens/AvailabilityW";
+import { Title } from "react-native-paper";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -39,9 +42,15 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator>
+       <QueryClientProvider client={queryClient}>
+    <NavigationContainer>
+        <Stack.Navigator  >
+        <Stack.Screen
+            name="Availability"
+            component={Availability}
+            
+          /> 
+          <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
           <Stack.Screen
             name="Back"
             options={{

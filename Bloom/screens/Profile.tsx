@@ -7,7 +7,7 @@ import {
 import PersonalDetails from "../components/PersonalDetails";
 import DoctorDetails from "../components/DoctorDetails";
 import BusinessAddressDetails from "../components/BusinessAddressDetails";
-import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles"
 import Imageprofile from "../components/ImageProfile";
 import { useQuery, useQueryClient } from 'react-query';
 
