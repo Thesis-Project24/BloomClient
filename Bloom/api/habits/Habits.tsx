@@ -1,3 +1,4 @@
+
 import { useMutation, useQuery } from "react-query";
 import axios, { AxiosResponse } from "axios";
 
@@ -37,7 +38,9 @@ export const useAssignHabit = () => {
 };
 // { user Habit fetcher } //
 export const useFetchHabitsUser = () => {
-    return useQuery({queryKey: "habitsUser",queryFn: async () => {
+  return useQuery({
+    queryKey: "habitsUser",
+    queryFn: async () => {
       const response = await axios.get(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getHabits/1`
       );
@@ -45,11 +48,12 @@ export const useFetchHabitsUser = () => {
       console.log(data.userHabits);
 
       return data;
-    }, onError: (err)=> {
+    },
+    onError: (err) => {
       console.log(err);
-      
-    }});
-   
+    },
+  });
+
 };
 // {multi habit assigning } //
 export const useAssignMultiHabits = () => {
