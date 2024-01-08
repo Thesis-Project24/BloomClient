@@ -1,35 +1,46 @@
 import * as React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
-import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import {
+  Padding,
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+} from "../../GlobalStyles";
+import { useNavigation } from "@react-navigation/core";
 // import VideoImage from '../assets/video@3x.png';
 interface DoctorData {
-    id?: number;
-    email?: string;
-    first_name?: string;
-    last_name?: string;
-    specialty?: string;
-    profile_picture?: string;
-    phone_number?: string;
-    address?: string[];
-    bio?: string;
-   }
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+}
 
-
-
-const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
+const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
-          <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
-            <Image
-              style={styles.icons}
-              contentFit="cover"
-              
-              // source={require("../assets/UpdateUser.png")}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Profile");
+            }}
+          >
+            <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
+              <Image
+                style={styles.icons}
+                source={require("../../assets/user-1-1.png")}
+              />
+            </View>
+          </TouchableOpacity>
+
           <View style={[styles.doctorInfo, styles.frameParentFlexBox]}>
             <View style={[styles.titleDescription, styles.frameParentFlexBox1]}>
               <Text style={[styles.text, styles.textFlexBox]}>
@@ -44,7 +55,7 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
                 <Image
                   style={styles.vectorIcon}
                   contentFit="cover"
-                  source={require("../assets/vector8.png")}
+                  source={require("../../assets/vector8.png")}
                 />
               </View>
               <Text style={[styles.kReviews, styles.text1FlexBox]}>
@@ -55,26 +66,25 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
               </Text>
             </View>
             <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
-            <Text style={styles.text2}>{data.email}</Text>
+              <Text style={styles.text2}>{data.email}</Text>
               <TouchableOpacity
                 style={[styles.telephone2Parent, styles.parentFlexBox]}
               >
                 <Image
                   style={styles.telephone2Icon}
                   contentFit="cover"
-                //   source={require("../assets/telephone-2@3x.png")}
+                  //   source={require("../assets/telephone-2@3x.png")}
                 />
                 <Text style={styles.text3}>+216 {data.phone_number}</Text>
               </TouchableOpacity>
             </View>
-            
           </View>
         </View>
         <View style={[styles.avatar, styles.groupParentShadowBox]}>
           <Image
             style={styles.avatarChild}
             contentFit="cover"
-            source={ data.profile_picture }
+            source={data.profile_picture}
             // source={require("../assets/rectangle-56471.png")}
           />
           <Image
@@ -90,12 +100,14 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
             <Image
               style={styles.vectorIcon1}
               contentFit="cover"
-              source={require("../assets/vector9.png")}
+              source={require("../../assets/vector9.png")}
             />
             <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.frameTouchableOpacity, styles.frameShadowBox]}>
+        <TouchableOpacity
+          style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
+        >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             <Image
               style={styles.videoIcon}
@@ -122,7 +134,6 @@ const DoctoreDeatailss = (  {data } : {data: DoctorData}) => {
 
 const styles = StyleSheet.create({
   frameParentFlexBox1: {
-    
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -283,7 +294,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: FontFamily.poppinsMedium,
     color: Color.black,
-    width:"100%",
+    width: "100%",
     height: 16,
     maxWidth: 185,
     marginLeft: 2,
@@ -311,7 +322,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   avatarChild: {
-   
     borderStyle: "solid",
     borderColor: "white",
     borderWidth: 4,
@@ -352,7 +362,7 @@ const styles = StyleSheet.create({
     maxWidth: 360,
     maxHeight: 256,
     height: "100%",
-    width:"100%",
+    width: "100%",
     paddingBottom: Padding.p_base,
     paddingHorizontal: Padding.p_3xs,
     shadowOpacity: 1,
@@ -456,9 +466,8 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameParent: {
-    
     height: "100%",
-    width:"100%",
+    width: "100%",
     maxHeight: 330,
     alignItems: "center",
   },
