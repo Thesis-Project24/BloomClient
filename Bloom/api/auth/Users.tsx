@@ -52,7 +52,7 @@ export const signup = () => {
 
         // Call your backend to create user
         const db = await axios.post(
-          `http://172.29.0.6:3000/users/signup`,
+          `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
           object
         );
         console.log("Backend Response:", db.data);
@@ -82,7 +82,7 @@ const deleteuser=()=>{
       console.log(storeduser);
       if (storeduser) {
         const parseduser=JSON.parse(storeduser)
-await axios.delete(`http://172.29.0.6:3000/users/${parseduser.data.id}`);
+await axios.delete(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${parseduser.data.id}`);
         localStorage.removeItem('user')
       }
       

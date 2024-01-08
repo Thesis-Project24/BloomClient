@@ -6,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 export const useFetchHabits = () => {
   return useQuery("habits", async () => {
     const response = await axios.get(
-      `http:/${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getAllHabits`
+      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getAllHabits`
     );
     const data = response.data;
     console.log(data.userHabits);
@@ -53,7 +53,6 @@ export const useFetchHabitsUser = () => {
       console.log(err);
     },
   });
-
 };
 // {multi habit assigning } //
 export const useAssignMultiHabits = () => {

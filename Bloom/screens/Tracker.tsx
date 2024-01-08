@@ -16,7 +16,24 @@ import {
 } from "../api/habits/Habits";
 
 const Tracker = () => {
-
+  const {
+    data: habits,
+    isLoading: habitsLoading,
+    isError: habitsError,
+    isFetched,
+  } = useFetchHabits();
+  const {
+    data: habitsUser,
+    isLoading: userHabitsLoading,
+    isError: userHabitsError,
+    isSuccess,
+    refetch,
+  } = useFetchHabitsUser();
+  const { assignMultiHabits, isAssigningMultipleHabits } =
+    useAssignMultiHabits();
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedHabits, setSelectedHabits] = useState<number[]>([]);
+  isSuccess && console.log(habitsUser, "=============================");
   const {
     data: habits,
     isLoading: habitsLoading,
