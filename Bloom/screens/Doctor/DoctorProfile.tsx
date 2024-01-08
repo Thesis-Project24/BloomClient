@@ -16,9 +16,7 @@ import { useQuery, useQueryClient } from "react-query";
 const DoctorProfile = () => {
   const fetchData = async () => {
     try {
-      const res = await fetch(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`
-      );
+      const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
       if (!res.ok) throw new Error(res.statusText);
       const jsonData = await res.json();
       return jsonData;
