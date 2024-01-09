@@ -51,7 +51,9 @@ const ButtonUser = () => {
       </View>
       <View style={[styles.frameWrapper1, styles.frameWrapperShadowBox]}>
         <View style={styles.vectorParent}>
-          <TouchableOpacity onPress={() => navigation.navigate("Tracker")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Tracker" as never)}
+          >
             <FontAwesome5
               style={styles.ppeSantizerAlt1Icon}
               name="chart-line"
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     marginLeft: -210,
-    top: 208,
+    top: 368,
     width: 390,
     height: 290,
     gap: 20,
