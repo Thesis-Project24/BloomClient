@@ -29,10 +29,9 @@ export const BottomTabNav = () => {
           } else if (route.name === "DoctorProfile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
-            // iconName = focused ? "person" : "person-outline";
+            iconName = focused ? "people" : "people-outline";
           }
-
-          return <Ionicons  name={iconName || "home"} size={35} color={color} />;
+        return <Ionicons  name={iconName || "people"} size={35} color={color} />;
         },
 
         tabBarActiveTintColor: "#729384",

@@ -30,7 +30,7 @@ const Nav = () => {
         </View>
         <View style={[styles.frameParent, styles.wrapperGroupFlexBox]}>
           <View style={[styles.vectorWrapper, styles.wrapperGroupFlexBox]}>
-            <Pressable onPress={() => navigation.navigate("User")}>
+            <Pressable onPress={() => navigation.navigate("User" as never)}>
               <Image
                 style={styles.frameChild}
                 resizeMode="cover"
@@ -42,7 +42,7 @@ const Nav = () => {
             <Image
               style={styles.groupIcon}
               resizeMode="cover"
-              source={require("../assets/group.png")}
+              source={require("../assets/group1.png")}
             />
             <View style={[styles.wrapper, styles.wrapperGroupFlexBox]}>
               <Text style={[styles.text1, styles.textTypo]}>3</Text>
