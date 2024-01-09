@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import SignIn from "./screens/Auth/SignIn";
 import SignUp from "./screens/Auth/SignUp";
 // import GetStart from "./screens/GetStart";
-import Profile from "./screens/Doctor/EditDoctorProfile";
+import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
 import Availability from "./screens/Booking/Availablity";
@@ -70,8 +70,8 @@ export default function App() {
             options={{ headerShown: true }}
           />
           <Stack.Screen
-            name="Profile"
-            component={Profile}
+            name="EditDoctorProfile"
+            component={EditDoctorProfile}
             options={{ headerShown: true }}
           />
           <Stack.Screen
