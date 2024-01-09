@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     height: 116,
     marginBottom: 10,
     borderRadius: 58,
-    borderColor: "red",
+   
     padding: Padding.p_3xs,
   },
   profuleInner: {

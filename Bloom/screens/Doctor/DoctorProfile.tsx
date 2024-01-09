@@ -4,29 +4,22 @@ import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetail
 import DoctorBio from "../../components/DoctorProfile/DoctorBio";
 import BookAppointment from "../../components/DoctorProfile/BookAppointment";
 import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
-import {
-  FontSize,
-  FontFamily,
-  Color,
-  Padding,
-  Border,
-} from "../../GlobalStyles";
-import { useQuery, useQueryClient } from "react-query";
+import { FontSize , FontFamily, Color, Padding , Border } from "../../GlobalStyles";
+import { useQuery , useQueryClient } from "react-query";
 
 const DoctorProfile = () => {
-  const fetchData = async () => {
-    try {
-      const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
-      if (!res.ok) throw new Error(res.statusText);
-      const jsonData = await res.json();
-      return jsonData;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-  const { data, isError, isLoading, isSuccess } = useQuery("OneDoc", fetchData);
-  console.log(data, "DoctorProfile");
-
+    const fetchData = async () => {
+        try {
+          const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
+          if (!res.ok) throw new Error(res.statusText);
+          const jsonData = await res.json();
+          return jsonData;
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+      const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
+       console.log(data, "DoctorProfile");
   return (
     <View style={[styles.profileDoctorRaja, styles.textFlexBox]}>
       <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
@@ -38,8 +31,10 @@ const DoctorProfile = () => {
           /> */}
           <ScrollView
             style={[styles.frameGroup, styles.frameFlexBox]}
-            showsVerticalScrollIndicator={true}
-            showsHorizontalScrollIndicator={true}
+            
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+           
             contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} />}
@@ -50,7 +45,7 @@ const DoctorProfile = () => {
           </ScrollView>
         </View>
       </View>
-      {/* <View style={[styles.doctorBioParent, styles.doctorPosition]}>
+       {/* <View style={[styles.doctorBioParent, styles.doctorPosition]}>
         <Text style={styles.doctorBio} numberOfLines={1}>
           Doctor Bio
         </Text>
@@ -70,6 +65,14 @@ const DoctorProfile = () => {
 };
 
 const styles = StyleSheet.create({
+
+
+
+
+
+
+
+
   frameScrollViewContent: {
     minHeight: 1561,
     width: "100%",

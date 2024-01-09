@@ -1,4 +1,4 @@
-import Ionicons from "react-native-vector-icons/Ionicons";
+// import Ionicons from "react-native-vector-icons/Ionicons";
 import Chat from "../screens/Chat";
 import Journal from "../screens/UserProfile/Journal";
 import DoctorProfile from "../screens/Doctor/DoctorProfile";
@@ -6,12 +6,9 @@ import Community from "../screens/Community";
 import Home from "../screens/Home";
 import Nav from "../screens/Nav";
 import User from "../screens/UserProfile/User";
-
+ import { Ionicons } from "@expo/vector-icons";
 // import { View, Platform } from "react-native";
 import React from "react";
-
-// import { Image, StyleSheet, Text, Button, Pressable } from "react-native";
-// import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "../screens/Doctor/EditDoctorProfile";
 
@@ -23,8 +20,8 @@ export const BottomTabNav = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "User") {
-            iconName = focused ? "User" : "home-outline";
+          if (route.name === "Home") {
+            iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Chat") {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
@@ -32,11 +29,9 @@ export const BottomTabNav = () => {
           } else if (route.name === "DoctorProfile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
-            iconName = focused ? "home" : "home-outline";
+            iconName = focused ? "people" : "people-outline";
           }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName || "Home"} size={35} color={color} />;
+        return <Ionicons  name={iconName || "people"} size={35} color={color} />;
         },
 
         tabBarActiveTintColor: "#729384",
@@ -61,8 +56,8 @@ export const BottomTabNav = () => {
         component={DoctorProfile}
       />
       <Tab.Screen
-        name="User"
-        component={User}
+        name="Home"
+        component={Home}
         options={{ headerShown: false }}
       />
       <Tab.Screen

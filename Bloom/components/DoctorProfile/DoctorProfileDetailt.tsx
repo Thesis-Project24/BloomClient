@@ -1,6 +1,15 @@
 import * as React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
+
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
 import {
   Padding,
   Color,
@@ -8,8 +17,7 @@ import {
   FontSize,
   Border,
 } from "../../GlobalStyles";
-import { useNavigation } from "@react-navigation/core";
-// import VideoImage from '../assets/video@3x.png';
+
 interface DoctorData {
   id?: number;
   email?: string;
@@ -21,14 +29,30 @@ interface DoctorData {
   address?: string[];
   bio?: string;
 }
-
+type RootStackParamList = {
+  EditDoctorProfile: undefined;
+  // other screen names
+};
 const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
   const navigation = useNavigation();
+
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
-          <TouchableOpacity
+          <View >
+            <TouchableOpacity 
+             onPress={() => navigation.navigate("EditDoctorProfile")}
+            style={[styles.iconsWrapper, styles.parentFlexBox]} >
+            <FontAwesome5 
+          style={styles.icons}
+          name="user-edit" 
+          size={20} color={Color.green} />
+
+            </TouchableOpacity>
+ 
+          </View>
+          {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate("Profile");
             }}
@@ -39,8 +63,7 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
                 source={require("../../assets/user-1-1.png")}
               />
             </View>
-          </TouchableOpacity>
-
+          </TouchableOpacity> */}
           <View style={[styles.doctorInfo, styles.frameParentFlexBox]}>
             <View style={[styles.titleDescription, styles.frameParentFlexBox1]}>
               <Text style={[styles.text, styles.textFlexBox]}>
@@ -52,12 +75,15 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             </View>
             <View style={[styles.reviews, styles.reviewsFlexBox]}>
               <View style={[styles.vectorWrapper, styles.frameParentFlexBox]}>
-                <Image
-                  style={styles.vectorIcon}
-                  contentFit="cover"
-                  source={require("../../assets/vector8.png")}
-                />
+           
+              <FontAwesome 
+              style={styles.vectorIcon}
+              name="star" 
+              size={20} 
+              color="#FFD33C" />
+              
               </View>
+
               <Text style={[styles.kReviews, styles.text1FlexBox]}>
                 <Text>
                   <Text style={styles.textTypo}>4.9</Text>
@@ -66,14 +92,20 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
               </Text>
             </View>
             <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
-              <Text style={styles.text2}>{data.email}</Text>
+            <MaterialCommunityIcons 
+             style={styles.telephone2Icon}
+            name="email-fast" 
+            size={20} 
+            color="#4F6F52" />
+            <Text style={styles.text2}>{data.email}</Text>
               <TouchableOpacity
-                style={[styles.telephone2Parent, styles.parentFlexBox]}
-              >
-                <Image
-                  style={styles.telephone2Icon}
-                  contentFit="cover"
-                  //   source={require("../assets/telephone-2@3x.png")}
+                style={[styles.telephone2Parent, styles.parentFlexBox]} >
+    
+                <Feather 
+                 style={styles.telephone2Icon}
+                name="phone" 
+                size={18} 
+                color="#4F6F52" 
                 />
                 <Text style={styles.text3}>+216 {data.phone_number}</Text>
               </TouchableOpacity>
@@ -85,23 +117,29 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             style={styles.avatarChild}
             contentFit="cover"
             source={data.profile_picture}
-            // source={require("../assets/rectangle-56471.png")}
           />
-          <Image
-            style={styles.avatarItem}
-            contentFit="cover"
-            // source={require("../assets/ellipse-714.png")}
-          />
+           <MaterialIcons
+          style={styles.avatarItem2}
+          name="circle" 
+          size={34} 
+          color="white" />
+          <MaterialIcons
+          style={styles.avatarItem}
+          name="circle" 
+          size={25} 
+          color="#A1DAD7" />
+
+        
         </View>
       </View>
       <View style={[styles.frameView, styles.parentFlexBox]}>
         <TouchableOpacity style={styles.frameWrapper}>
           <TouchableOpacity style={[styles.vectorParent, styles.parentFlexBox]}>
-            <Image
-              style={styles.vectorIcon1}
-              contentFit="cover"
-              source={require("../../assets/vector9.png")}
-            />
+          <Feather
+          style={styles.vectorIcon1}
+           name="phone-call" 
+           size={18} 
+           color="white" />
             <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
           </TouchableOpacity>
         </TouchableOpacity>
@@ -109,21 +147,21 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
-            <Image
-              style={styles.videoIcon}
-              contentFit="cover"
-              // source={require("../assets/video@3x.png")}
-            />
+          <Ionicons 
+           style={styles.videoIcon}
+          name="videocam" 
+          size={20} 
+          color="white" />
             <Text style={[styles.videoCall, styles.callTypo]}>Video Call</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.frameWrapper1, styles.frameShadowBox]}>
           <View style={[styles.vectorGroup, styles.parentFlexBox]}>
-            <Image
-              style={styles.vectorIcon2}
-              contentFit="cover"
-              // source={require("../assets/vector10.png")}
-            />
+          <AntDesign
+          style={styles.vectorIcon2} 
+          name="wechat" 
+          size={20} 
+          color="white" />
             <Text style={[styles.videoCall, styles.callTypo]}>Message</Text>
           </View>
         </TouchableOpacity>
@@ -244,8 +282,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   vectorIcon: {
-    width: 13,
-    height: 13,
+    width: 20,
+    height: 20,
   },
   vectorWrapper: {
     paddingBottom: 30,
@@ -269,12 +307,13 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   reviews: {
-    // textAlign: "center",
+    textAlign: "center",
     // width:"100%",
     width: 139,
     justifyContent: "center",
   },
   telephone2Icon: {
+    paddingRight:23,
     width: 19,
     height: 19,
   },
@@ -283,8 +322,9 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: FontFamily.poppinsMedium,
     color: Color.black,
-    width: 84,
-    height: 16,
+    width: "100%",
+    height:"100%",
+    maxHeight: 16,
     maxWidth: 85,
     marginLeft: 1,
     textAlign: "left",
@@ -301,13 +341,15 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   telephone2Parent: {
-    width: 129,
+    width:"100%",
+    maxWidth: 119,
     paddingVertical: Padding.p_12xs,
-    height: 19,
+    maxHeight: 19,
     paddingHorizontal: Padding.p_3xs,
   },
   doctorInfoInner: {
-    width: 319,
+    width: "100%",
+
     justifyContent: "flex-end",
     marginTop: 12,
   },
@@ -330,18 +372,29 @@ const styles = StyleSheet.create({
     right: "0%",
     bottom: "0%",
     left: "0%",
-    borderRadius: 25,
+    borderRadius: 40,
     maxWidth: "100%",
     maxHeight: "100%",
     overflow: "hidden",
     height: "100%",
     position: "absolute",
   },
+  avatarItem2:{
+    right: -1,
+    bottom: -1,
+    width: 32,
+    height: 32,
+    position: "absolute",
+  },
   avatarItem: {
-    right: -6,
-    bottom: -5,
-    width: 23,
-    height: 23,
+    // borderWidth: 5,
+    // borderStyle: "solid",
+    // borderRadius: 15,
+    // borderColor: "white",
+    right: -2,
+    bottom: -1,
+    width: 28,
+    height: 28,
     position: "absolute",
   },
   avatar: {
@@ -376,8 +429,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   vectorIcon1: {
-    width: 11,
-    height: 11,
+    width: 20,
+    height: 17,
   },
   voiceCall: {
     maxWidth: 50,
@@ -414,8 +467,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   videoIcon: {
-    width: 14,
-    height: 11,
+    width: 20,
+    height: 20,
   },
   videoCall: {
     maxWidth: 53,
@@ -437,8 +490,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.green,
   },
   vectorIcon2: {
-    width: 15,
-    height: 15,
+    width: 22,
+    height: 22,
   },
   vectorGroup: {
     justifyContent: "center",

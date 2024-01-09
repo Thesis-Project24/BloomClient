@@ -14,20 +14,16 @@ import {
 import PersonalDetails from "../../components/DoctorProfile/PersonalDetails";
 import DoctorDetails from "../../components/DoctorProfile/DoctorDetails";
 import BusinessAddressDetails from "../../components/DoctorProfile/BusinessAddressDetails";
-import {
-  Padding,
-  Color,
-  FontFamily,
-  FontSize,
-  Border,
-} from "../../GlobalStyles";
+import { Padding , Color, FontFamily, FontSize, Border } from "../../GlobalStyles";
 import Imageprofile from "../../components/DoctorProfile/ImageProfile";
 import { useQuery, useQueryClient } from "react-query";
 import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
 
-const Profile = () => {
+const EditDoctorProfile = () => {
   const queryClient = useQueryClient();
   const [doctorData, setDoctorData] = useState({});
+
+
 
   const fetchData = async () => {
     try {
@@ -41,6 +37,7 @@ const Profile = () => {
   };
 
   const { data, isError, isLoading, isSuccess } = useQuery("OneDoc", fetchData);
+console.log(data,"data from edit doctors");
 
   const upDateData = () => {
     console.log({ id: 1, ...data, ...doctorData }, "update data in fnc ");
@@ -73,21 +70,21 @@ const Profile = () => {
         contentFit="cover"
         source={require("../../assets/vector-2.png")}
       />
-      {/* <Image
+      <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
-        source={require("../assets/vector-1.png")}
-      /> */}
-      {/* <View style={styles.vectorParent}>
+        // source={require("../assets/vector-1.png")}
+      />
+      <View style={styles.vectorParent}>
         <Image
           style={styles.frameChild}
           contentFit="cover"
-          source={require("../assets/vector-3.png")}
+          // source={require("../assets/vector-3.png")}
         />
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
         </Text>
-      </View> */}
+      </View>
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
@@ -126,6 +123,8 @@ const Profile = () => {
 
               <SaveUpdateButton upDateData={upDateData} />
             </View>
+
+
             <Pressable style={styles.buttonSaveprofileSelf}>
               <Text
                 style={[
@@ -136,6 +135,8 @@ const Profile = () => {
                 Save
               </Text>
             </Pressable>
+
+            
           </View>
         </View>
       </View>
@@ -313,4 +314,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default EditDoctorProfile;

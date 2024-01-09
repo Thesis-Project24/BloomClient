@@ -24,15 +24,11 @@ interface DoctorData {
 
 type PersonalDetailsProps = {
   data: DoctorData;
-  setDoctorData: (arg: DoctorData) => void; // Replace DoctorData with the actual type of the argument
+  setDoctorData: (arg: DoctorData) => void;
   doctorData: DoctorData;
 };
 
-const PersonalDetails: React.FC<PersonalDetailsProps> = ({
-  data,
-  setDoctorData,
-  doctorData,
-}) => {
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({data,setDoctorData,doctorData,}) => {
   const queryClient = useQueryClient();
 
   // const [password, setPassword] = useState("dd")
