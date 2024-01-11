@@ -46,7 +46,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="ConfirmAppointmentOnline">
+        <Stack.Navigator initialRouteName="Back">
           <Stack.Screen
             name="Availability"
             component={Availability}
