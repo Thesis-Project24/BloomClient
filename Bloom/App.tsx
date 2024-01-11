@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from "react-query";
 import SignIn from "./screens/Auth/SignIn";
 import SignUp from "./screens/Auth/SignUp";
-// import GetStart from "./screens/GetStart";
+import Appi from "./screens/ChatApp/Appi";
 import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
@@ -72,6 +72,11 @@ export default function App() {
               headerTransparent: true,
               cardStyle: { backgroundColor: "transparent" },
             }}
+          />
+          <Stack.Screen
+            name="Appi"
+            component={Appi}
+            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="Tracker"
