@@ -18,7 +18,7 @@ import { Padding , Color, FontFamily, FontSize, Border } from "../../GlobalStyle
 import Imageprofile from "../../components/DoctorProfile/ImageProfile";
 import { useQuery, useQueryClient } from "react-query";
 import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
-
+import { Ionicons } from '@expo/vector-icons';
 const EditDoctorProfile = () => {
   const queryClient = useQueryClient();
   const [doctorData, setDoctorData] = useState({});
@@ -76,10 +76,15 @@ console.log(data,"data from edit doctors");
         // source={require("../assets/vector-1.png")}
       />
       <View style={styles.vectorParent}>
+      <Ionicons
+        style={styles.frameChild}
+      name="chevron-back" 
+      size={35} 
+      color={Color.black} />
         <Image
           style={styles.frameChild}
           contentFit="cover"
-          // source={require("../assets/vector-3.png")}
+          // source={require("../assets/back.png")}
         />
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
@@ -212,15 +217,15 @@ const styles = StyleSheet.create({
   },
   frameChild: {
     borderRadius: Border.br_10xs,
-    width: 10,
-    height: 19,
+    width: 30,
+    height: 50,
   },
   yourProfile: {
     fontSize: FontSize.size_lg,
     lineHeight: 22,
     fontWeight: "600",
     fontFamily: FontFamily.montserratSemiBold,
-    color: Color.colorBlack,
+    color: Color.black,
     display: "flex",
     width: 277,
     marginLeft: 8,
@@ -228,7 +233,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   vectorParent: {
-    top: 56,
+    top: 46,
     height: 38,
     alignItems: "flex-end",
     paddingHorizontal: 26,
