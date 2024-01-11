@@ -4,12 +4,13 @@ import axios from "axios";
 const addWindow = () => {
   const mutation = useMutation({
     mutationFn: async (windows: any[]) => {
-        console.log(windows,"mutation")
-        const windowsById = await axios.post(
+        // console.log(windows,"mutation")
+        const slots = await axios.post(
           `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/1`,
           windows
         )
-        return windowsById.data
+        console.log(slots.data, "slots in mutation")
+        return slots.data
       
     },
     onError: error=>{

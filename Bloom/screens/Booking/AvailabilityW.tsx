@@ -1,7 +1,14 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button,TouchableOpacity,StyleSheet  } from "react-native";
 import React from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { addWindow, getSlots } from "../../api/appointements/appointments";
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Padding,
+  Border,
+} from "../../GlobalStyles";
 const AvailabilityW = ({
   navigation,
   route,
@@ -23,27 +30,20 @@ const AvailabilityW = ({
       endingTime: Date;
     }[]
   >([]);
-  const [windowsDb, setWindowsDb] = React.useState<
-    {
-      id: Number;
-      duration: string;
-      pause: string;
-      startingTime: Date;
-      endingTime: Date;
-    }[]
-  >([]);
+  const [windowsDb, setWindowsDb] = React.useState<{
+    windowId:number
+    startingTime: string;
+    endingTime: string;
+  }[]
+>([]);
   const mutation = addWindow();
-  // const query =  getSlots()
+  console.log(windowsDb,"front")
+  if(windowsDb){
 
-  // const onChange = ({ type }: any, date: Date) => {
-  //   if (type == "set") {
-  //     const currentDate = date;
-  //   }
-  // };
-  // console.log(windows);
-  // console.log(viewEnd);
-  console.log(chosenDateEnd, "reloaded");
-  
+    windowsDb.forEach(element=>{
+      console.log (element,"loop")
+    })
+  }
   return (
     <View>
       {/* <Button
@@ -96,6 +96,7 @@ const AvailabilityW = ({
               endingTime: chosenDateEnd,
             },
           ]);
+          // console.log(mutation.data,"mutated")
           setWindowsDb(mutation.data);
         }}
         title="set window"
@@ -106,8 +107,44 @@ const AvailabilityW = ({
         }}
         title="get slots"
       ></Button>
+    <View>
+      {windowsDb ?windowsDb.map(slot=>{
+        return <View>
+          <TouchableOpacity  style={[styles.amWrapper, styles.amFrameLayout]}>
+            <Text style={[styles.am1, styles.amTypo]}>{slot.startingTime}</Text>
+            <Text style={[styles.am1, styles.amTypo]}>{slot.endingTime}</Text>
+          </TouchableOpacity>
+        </View>
+      }):""}
+    </View>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  amFrameLayout: {
+    width: 110,
+    paddingVertical: Padding.p_xs,
+    paddingHorizontal: Padding.p_5xl,
+    justifyContent: "center",
+    borderRadius: Border.br_5xs,
+    alignItems: "center",
+  },
+  amTypo: {
+    fontFamily: FontFamily.medium14,
+    fontWeight: "500",
+    fontSize: FontSize.medium14_size,
+    textAlign: "left",
+  },
+  amWrapper: {
+    backgroundColor: Color.neutralsGray6,
+  },
+  am1: {
+    color: Color.neutralsGray5,
+  },
+  amContainer: {
+    marginLeft: 8,
+    backgroundColor: Color.green,
+  },
+})
 
 export default AvailabilityW;
