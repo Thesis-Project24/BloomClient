@@ -14,41 +14,20 @@ const Availability = () => {
   return (
 
     <View style={styles.availability}>
-
       <Image
         style={styles.profileChild}
         contentFit="cover"
         source={require("../../assets/vector-2.png")}
       />
       <View style={[styles.availabilityInner, styles.patientButton1Position]}>
-
-
         <View style={styles.frameParent}>
-
-
-
           <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
             <View style={styles.availabilityWrapper}>
               <Text style={styles.availability1}>Availability</Text>
             </View>
           </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.frameContainer}>
-
-
               <View
                 style={[
                   styles.breakDurationParent,
@@ -76,31 +55,19 @@ const Availability = () => {
                               keyboardType="numeric"
                               // mode="outlined"
                               placeholderTextColor="#ADADAD"
-
-
                             />
                           </View>
                         </View>
                       </View>
                     </View>
-
                   </View>
                 </View>
               </View>
-
-
-
-
-
-
-
-
               <View
                 style={[
                   styles.breakDurationParent,
                   styles.durationParentShadowBox,
-                ]}
-              >
+                ]}>
                 <Text
                   style={[styles.breakDuration, styles.durationTypo]}
                   numberOfLines={1}
@@ -113,7 +80,6 @@ const Availability = () => {
                       <View style={[styles.stateLayer, styles.textPosition]}>
                         <View style={styles.content}>
                           <View style={styles.labelText}>
-
                             <TextInput
                               style={[styles.labelText1, styles.textTypo]}
                               onChangeText={onChangePause}
@@ -159,15 +125,10 @@ const Availability = () => {
               </View>
             </TouchableOpacity>
           </View>
-
         </View>
       </View>
     </View>
-
-
   );
-
-
 };
 const styles = StyleSheet.create({
   patientButton1Position: {
@@ -419,8 +380,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.beige,
   },
-
-
   profileChild: {
     bottom: -85,
     left: -262,

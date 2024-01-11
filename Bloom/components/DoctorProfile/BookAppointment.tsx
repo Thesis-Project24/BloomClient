@@ -63,6 +63,8 @@ const BookAppointment = () => {
           </TouchableOpacity>
         </ScrollView>
       </View>
+    
+    
       <View style={[styles.chooseTimeSlotParent, styles.frameChildSpaceBlock]}>
         <Text style={styles.chooseTypo}>Choose Time Slot</Text>
         <ScrollView
