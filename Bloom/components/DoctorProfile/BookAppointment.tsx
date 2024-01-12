@@ -34,7 +34,7 @@ const BookAppointment = () => {
     
     const windowMutation=getWindowsByDate()
     const slotMutation=getSlotsByWindow()
-    slotMutation.isSuccess && setSlots(slotMutation.data)
+    // slotMutation.isSuccess && setSlots(slotMutation.data)
     return (
         <View style={styles.frameParent}>
             {/* horizontal calendar */}
@@ -49,7 +49,7 @@ const BookAppointment = () => {
             {/*  */}
             <View style={{ height: 100 }}></View>
             {/* windows by date */}
-            {windows ? (
+            {windows.length ? (
                 <View
                     style={[
                         styles.chooseTimeSlotParent,
@@ -69,6 +69,8 @@ const BookAppointment = () => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         slotMutation.mutate(window.id)
+                                        console.log(slotMutation.data, "le data ================");
+                                        
                                     }}
                                     style={[
                                         styles.amWrapper,
@@ -88,7 +90,7 @@ const BookAppointment = () => {
                 ""
             )}
             {/* slots by window */}
-            {slots? (
+            {slotMutation.isSuccess && slotMutation.data ? (
                 <View
                     style={[
                         styles.chooseTimeSlotParent,
@@ -103,7 +105,8 @@ const BookAppointment = () => {
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.frameScrollView2Content}
                     >
-                        {slots.map((slot) => {
+                        {slotMutation.data.map((slot: any) => {
+                      <Text >salem</Text>
                             return (
                                 <TouchableOpacity
                                     style={[
@@ -111,6 +114,7 @@ const BookAppointment = () => {
                                         styles.amFrameLayout,
                                     ]}
                                 >
+
                                     <Text style={[styles.am, styles.amTypo]}>
                                         {slot.startingTime.slice(11, 16)}{" "}
                                         {slot.endingTime.slice(11, 16)}{" "}
