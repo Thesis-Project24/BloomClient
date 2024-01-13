@@ -22,29 +22,30 @@ import {
 import { transparent } from "react-native-paper/lib/typescript/styles/colors";
 import ButtonBooking from "./ButtonBooking";
 import {
+    bookAppointment,
     getSlotsByWindow,
     getWindowsByDate,
 } from "../../api/appointements/appointments";
 import { Slot, Window } from "../../type";
 const BookAppointment = () => {
     const [selectedDate, setSelectedDate] = React.useState("");
-    const [selectedWindow, setSelectedWindow] = React.useState<Window>();
-    const [windows,setWindows]= React.useState<Window[]>([])
-    const [slots,setSlots]= React.useState<Slot[]>([])
-    
-    const windowMutation=getWindowsByDate()
-    const slotMutation=getSlotsByWindow()
-    // slotMutation.isSuccess && setSlots(slotMutation.data)
+    const [windows, setWindows] = React.useState<Window[]>([]);
+    const [description, setDescription] = React.useState("");
+    const [slot, setSlot] = React.useState<Slot>();
+    const windowMutation = getWindowsByDate();
+    const slotMutation = getSlotsByWindow();
+    const bookingMutation = bookAppointment();
+    console.log(slot);
     return (
         <View style={styles.frameParent}>
             {/* horizontal calendar */}
             <View style={styles.container}>
-                    <Calendar
-                        onSelectDate={setSelectedDate}
-                        selected={selectedDate}
-                        mutation={windowMutation}
-                        setWindows={setWindows}
-                    />
+                <Calendar
+                    onSelectDate={setSelectedDate}
+                    selected={selectedDate}
+                    mutation={windowMutation}
+                    setWindows={setWindows}
+                />
             </View>
             {/*  */}
             <View style={{ height: 100 }}></View>
@@ -68,9 +69,7 @@ const BookAppointment = () => {
                             return (
                                 <TouchableOpacity
                                     onPress={() => {
-                                        slotMutation.mutate(window.id)
-                                        console.log(slotMutation.data, "le data ================");
-                                        
+                                        slotMutation.mutate(window.id);
                                     }}
                                     style={[
                                         styles.amWrapper,
@@ -106,15 +105,16 @@ const BookAppointment = () => {
                         contentContainerStyle={styles.frameScrollView2Content}
                     >
                         {slotMutation.data.map((slot: any) => {
-                      <Text >salem</Text>
                             return (
                                 <TouchableOpacity
+                                    onPress={() => {
+                                        setSlot(slot);
+                                    }}
                                     style={[
                                         styles.amWrapper,
                                         styles.amFrameLayout,
                                     ]}
                                 >
-
                                     <Text style={[styles.am, styles.amTypo]}>
                                         {slot.startingTime.slice(11, 16)}{" "}
                                         {slot.endingTime.slice(11, 16)}{" "}
@@ -145,6 +145,9 @@ const BookAppointment = () => {
                             <View style={styles.content}>
                                 <View style={styles.inputText}>
                                     <TextInput
+                                        onChangeText={(text) => {
+                                            setDescription(text);
+                                        }}
                                         style={styles.inputText1}
                                         placeholder="Write your description here"
                                         placeholderTextColor="#aaafb6"
@@ -170,6 +173,29 @@ const BookAppointment = () => {
                     </View>
                 </View>
             </View>
+            {slot ? (
+                <View>
+                    <TouchableOpacity
+                        style={[styles.patientButton, styles.patientFlexBox]}
+                        onPress={() => {
+                            bookingMutation.mutate({
+                                patientId: 1,
+                                doctorId: 1,
+                                slotId: slot.id,
+                                appDetails: description,
+                            });
+                        }}
+                    >
+                        <View style={[styles.stateLayer, styles.patientFlexBox]}>
+                        <Text style={styles.labelText2}>Book appointement</Text>
+                        </View>
+                        
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                ""
+            )}
+            
             <ButtonBooking />
         </View>
     );
@@ -426,6 +452,39 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    patientFlexBox: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    patientButton: {
+        marginTop: 20,
+        borderRadius: Border.br_5xs,
+        backgroundColor: "#729384",
+        width: 288,
+        height: 48,
+        maxWidth: 288,
+        maxHeight: 50,
+        overflow: "hidden",
+        alignItems: "center",
+    },
+    patientButtonWrapper: {
+        height: 74,
+        paddingHorizontal: Padding.p_32xl,
+        paddingVertical: Padding.p_smi,
+        maxHeight: 75,
+        marginTop: 46,
+        overflow: "hidden",
+        alignItems: "center",
+        alignSelf: "stretch",
+    },
+    labelText2: {
+        fontSize: FontSize.medium14_size,
+        fontWeight: "700",
+        fontFamily: FontFamily.headingsH6,
+        color: Color.black,
+        textAlign: "center",
+      },
 });
 
 export default BookAppointment;

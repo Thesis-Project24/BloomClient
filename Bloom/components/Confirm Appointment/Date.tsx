@@ -10,11 +10,11 @@ const Date = ({ date, onSelectDate, selected,mutation,setWindows}:any) => {
    * if not today, show day of the week e.g 'Mon', 'Tue', 'Wed'
    */
   const day = moment(date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD') ? 'Today' : moment(date).format('ddd')
-  // get the day number e.g 1, 2, 3, 4, 5, 6, 7
+  // get the day number
   const dayNumber = moment(date).format('D')
         mutation.isSuccess && setWindows(mutation.data)
 
-  // get the full date e.g 2021-01-01 - we'll use this to compare the date to the selected date
+  // get the full date
   const fullDate = moment(date).format('YYYY-MM-DD')
   return (
     <TouchableOpacity
