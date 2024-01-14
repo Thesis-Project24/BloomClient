@@ -6,12 +6,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createJ, getJournals } from '../../api/journal/Journal';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Image } from "expo-image";
 
 
 
 
 const CreateJournal = () => {
-  const createMutation=createJ()
+  const createMutation = createJ()
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const [content, setContent] = useState<string>('')
   const [title, setTitle] = useState<string>('')
@@ -32,17 +33,17 @@ const CreateJournal = () => {
     );
   };
   return (
+
     <ScrollView
       style={styles.primaryContainer}
       keyboardShouldPersistTaps={'always'}
     >
-
       <View
         style={styles.inputContainer}
       >
 
         <TextInput
-          style={[styles.input,{fontSize:45}]}
+          style={[styles.input, { fontSize: 45 }]}
           multiline={true}
           numberOfLines={2}
           value={title}
@@ -80,6 +81,13 @@ const CreateJournal = () => {
 }
 
 const styles = StyleSheet.create({
+  profileChild: {
+    bottom: -155,
+    left: -262,
+    width: 411,
+    height: 358,
+    position: "absolute",
+  },
 
   handlewrite: {
     color: 'white',
@@ -93,6 +101,9 @@ const styles = StyleSheet.create({
   primaryContainer: {
     backgroundColor: '#F3F0EA',
     flex: 1,
+    height: "100%",
+
+
   },
   btnText: {
     fontFamily: 'Nunito-SemiBold',
@@ -130,12 +141,12 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     shadowColor: 'gray',
     shadowOffset: {
-    width: 1,
-    height: 2,
+      width: 1,
+      height: 2,
 
-    marginHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
+      marginHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   },
   image: {
@@ -148,13 +159,13 @@ const styles = StyleSheet.create({
     right: 10,
     color: '#729384',
     shadowOffset: {
-    width: 1,
-    height: 2
+      width: 1,
+      height: 2
     },
     shadowOpacity: 0.5,
     elevation: 10,
   },
-  inputContainer:{
+  inputContainer: {
     marginTop: 20,
   }
 })

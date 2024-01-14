@@ -5,7 +5,7 @@ import Diary from '../../components/Journal/Diary';
 import { Ionicons } from '@expo/vector-icons';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-
+import { Image } from "expo-image";
 const Journal = () => {
     const [refreshing, setRefreshing] = useState(false);
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -18,6 +18,11 @@ const Journal = () => {
 
     return (
         <View style={styles.container}>
+             <Image
+        style={styles.profileChild}
+        contentFit="cover"
+        source={require("../../assets/vector-2.png")}
+      />
             <ScrollView 
                 style={styles.content}
                 refreshControl={
@@ -39,7 +44,7 @@ const Journal = () => {
                 <Ionicons
                     name='add-circle-sharp'
                     size={54}
-                    color='black'
+                    color='#ADD8C4'
                 />
                 </TouchableOpacity>
             </View>
@@ -48,10 +53,18 @@ const Journal = () => {
 }
 
 const styles = StyleSheet.create({
+    profileChild: {
+        bottom: -155,
+        left: -262,
+        width: 411,
+        height: 358,
+        position: "absolute",
+      },
     container: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
+        backgroundColor:"#f3f0ea",
         
     },
     content: {
@@ -68,6 +81,8 @@ const styles = StyleSheet.create({
      },
      card: {
         flex:1,
+        gap:20,
+        
 
      },
 });
