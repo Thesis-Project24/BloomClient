@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from "react-query";
 import SignIn from "./screens/Auth/SignIn";
 import SignUp from "./screens/Auth/SignUp";
-// import GetStart from "./screens/GetStart";
+import Appi from "./screens/ChatApp/Appi";
 import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
@@ -23,6 +23,8 @@ import CreateJournal from "./components/Journal/CreateJournal";
 import DiaryDetails from "./components/Journal/DiaryDetails";
 // import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
+// import EditUserProfile from "./screens/UserProfile/EditUserProfile";
+
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
 const queryClient = new QueryClient();
@@ -52,6 +54,12 @@ export default function App() {
 
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Back">
+          {/* <Stack.Screen
+            name="EditUserProfile"
+            component={EditUserProfile}
+            options={{ headerShown: true }}
+          /> */}
+
           <Stack.Screen
             name="Availability"
             component={Availability}
@@ -77,6 +85,11 @@ export default function App() {
               headerTransparent: true,
               cardStyle: { backgroundColor: "transparent" },
             }}
+          />
+          <Stack.Screen
+            name="Appi"
+            component={Appi}
+            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="Tracker"
