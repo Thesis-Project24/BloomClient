@@ -1,37 +1,69 @@
-import { useMutation, useQuery,useQueryClient, QueryClientProvider } from "react-query";
+import {
+    useMutation,
+    useQuery,
+    useQueryClient,
+    QueryClientProvider,
+} from "react-query";
 import axios from "axios";
 
 const addWindow = () => {
-  const mutation = useMutation({
-    mutationFn: async (windows: any[]) => {
-        console.log(windows,"mutation")
-        const windowsById = await axios.post(
-          `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/1`,
-          windows
-        )
-        return windowsById.data
-      
-    },
-    onError: error=>{
-    console.log(error);
+    const mutation = useMutation({
+        mutationFn: async (windows: any[]) => {
+            const slots = await axios.post(
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/1`,
+                windows
+            );
+            console.log(slots.data, "slots in mutation");
+            return slots.data;
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+    });
+    return mutation;
+};
+
+const getWindowsByDate = () => {
+    const mutation = useMutation({
+        mutationFn: async (date: Date) => {
+            const response = await axios.get(
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}`
+            );
+            const data = response.data;
+            return data;
+        },
+    });
+
+    return mutation;
+};
+
+//get slots for specific window
+const getSlotsByWindow = () => {
+    const mutation = useMutation({
+        mutationFn: async (windowId: number) => {
+            const response = await axios.get(
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/slots/${windowId}`
+            );
+            const data = response.data;
+            return data;
+        },
+    });
+    return mutation;
+};
+
+//appointement will be added but the status would stay pending (waitlist implenmeting next week)
+const bookAppointment = ()=> {
+    const mutation = useMutation({
+        mutationFn: async (object:{patientId:number,doctorId:number,slotId:number,appDetails:string}) => {
+          console.log(object)
+            const response =  await axios.post(
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointemnt/appointments/add`,object
+            );
+        },
+        
+    });
     
-    }
-  });
-  return mutation;
-};
+    return mutation;
+}
 
-//get slots for specific window(not tested)
-const getSlots = (windowId: string) => {
-  const query = useQuery(["slots", windowId], async () => {
-    const response = await fetch(
-      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/slots/${windowId}`
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  });
-  return query
-};
-
-export { addWindow, getSlots };
+export { addWindow, getSlotsByWindow, getWindowsByDate, bookAppointment };

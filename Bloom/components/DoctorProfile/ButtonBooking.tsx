@@ -12,7 +12,7 @@ const ButtonBooking = () => {
        onPress={() => navigation.navigate("Availability")}
       style={[styles.patientButton, styles.patientFlexBox]}>
         <View style={[styles.stateLayer, styles.patientFlexBox]}>
-          <Text style={styles.labelText}>Availability</Text>
+          <Text style={styles.labelText2}>Availability</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  labelText: {
+  labelText2: {
     fontSize: FontSize.medium14_size,
     fontWeight: "700",
     fontFamily: FontFamily.headingsH6,
