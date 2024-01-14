@@ -1,19 +1,20 @@
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { app } from '../../firebase.config';
-import {  createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup,sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, sendEmailVerification,onAuthStateChanged } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface User {
-    id: number
-    email: string
-    username: string
-    first_name: string
-    last_name: string
-    profile_picture: string
-    phone_number: string
-    age: number
-    mood: number[]
+  id: number
+  email: string
+  username: string
+  first_name: string
+  last_name: string
+  profile_picture: string
+  phone_number: string
+  age: number
+  mood: number[]
 }
 
 export const login = () => {
@@ -35,19 +36,24 @@ export const login = () => {
 
 
 
-export const signup = () => {
-  const query = useMutation({
-    mutationFn: async (object: { email: string, password: string, username: string, first_name: string, last_name: string, phone_number: string }) => {
-      try {
-        const auth = getAuth(app);
 
-        // Create user in Firebase Authentication
-        const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
-        console.log("Firebase Auth Response:", res);
-
-        // Send email verification
-        const user = res.user;
-        await sendEmailVerification(user);
+  export const signup = () => {
+    const query = useMutation({
+      mutationFn: async (object:{ email: string, password: string, username: string, phone_number: string,emailVerified:boolean }) => {
+        try {
+          const auth = getAuth(app);
+          const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
+  
+          // Send email verification
+          // const user = res.user;
+          // await sendEmailVerification(user);
+          // Create user record in your backend with emailVerified as false
+          // const db = await axios.post(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`, object);
+          
+          // Send email verification
+          const user = res.user;
+          await sendEmailVerification(user);
+          object.emailVerified = user.emailVerified;
         console.log("Verification email sent to:", user.email);
 
         // Call your backend to create user
@@ -64,28 +70,26 @@ export const signup = () => {
       }
     }
   });
+    return query;
+  };
+  
 
-  return query;
-};
-
-const deleteuser=()=>{
-  const query =useMutation({
-    mutationFn:async()=>{
-      const auth=getAuth(app)
-      const user =auth.currentUser
-      if(user){
+const deleteuser = () => {
+  const query = useMutation({
+    mutationFn: async () => {
+      const auth = getAuth(app)
+      const user = auth.currentUser
+      if (user) {
         console.log(user);
         user.delete();
-        
       }
-      const storeduser=localStorage.getItem('user')
+      const storeduser = localStorage.getItem('user')
       console.log(storeduser);
       if (storeduser) {
         const parseduser=JSON.parse(storeduser)
 await axios.delete(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${parseduser.data.id}`);
         localStorage.removeItem('user')
       }
-      
     },
     onError(err) {
       console.log(err);
