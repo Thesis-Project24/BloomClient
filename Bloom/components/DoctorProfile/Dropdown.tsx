@@ -26,10 +26,11 @@ interface DoctorData {
 };
 
 const data = [
-  { label: 'psychiatry', value: 'psychiatry' },
-  { label: 'psychology', value: 'psychology' },
+  
+  { label: 'Psychiatry', value: 'Psychiatry' },
+  { label: 'Psychology', value: 'Psychology' },
   { label: 'Neuropsychiatry', value: 'Neuropsychiatry' },
-  { label: 'specialty 4', value: 'specialty 4' },
+  { label: 'Psychotherapy', value: 'Psychotherapy' },
   
 ];
 
