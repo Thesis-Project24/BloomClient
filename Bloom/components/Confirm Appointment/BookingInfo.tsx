@@ -12,7 +12,7 @@ const BookingInfo = () => {
           <Image
             style={styles.frameChild}
             contentFit="cover"
-            source={require("../../assets/frame-26084961.png")}
+            source={require("../../assets/Doctor.png")}
           />
           <View style={styles.frameContainer}>
             <View style={styles.drEmmaMiaParent}>

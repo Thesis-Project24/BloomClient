@@ -104,7 +104,7 @@ const Imageprofile: React.FC<ImageprofileProps> = ({
           <Image
             style={styles.groupGroupIcon}
             contentFit="cover"
-            source={require("../../assets/group-group.png")}
+            source={require("../../assets/UpDateImage.png")}
           />
         </TouchableOpacity>
       </View>
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   },
 
   groupGroupIcon: {
-    width: 55,
-    height: 55,
+    width: 48,
+    height: 48,
   },
 });
 

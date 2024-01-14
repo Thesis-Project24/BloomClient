@@ -74,10 +74,12 @@ const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess,data,setDoctorD
                       setDoctorData({ ...doctorData, phone_number: text });
                     }}
                     style={[styles.textlabel450116, styles.textlabelLayout]}
-                    placeholder={data?.phone_number || "PhoneNumber"}
+                    placeholder="PhoneNumber"
                     multiline={true}
-                    placeholderTextColor="#242424"
-                  />
+                    placeholderTextColor="#ADADAD"
+                  >
+                   {data.phone_number}   
+                  </TextInput>
                 </View>
               </View>
               <View
@@ -101,15 +103,17 @@ const DoctorDetails: React.FC<DoctorDetailsProps> = ({ isSuccess,data,setDoctorD
                   <TextInput
                     onChangeText={(text) => {
                       setDoctorData({ ...doctorData, bio: text });
-                    }}
+                    }}      
                     editable
                     multiline
                     numberOfLines={4}
                     // maxLength={10}
                     style={[styles.textlabel450116, styles.textlabelLayout]}
                     placeholder={data.bio || "Bio"}
-                    placeholderTextColor="#242424"
-                  />
+                    placeholderTextColor="#ADADAD"
+                  >
+                     {data.bio}
+                  </TextInput>
                 </View>
               </View>
             </View>
