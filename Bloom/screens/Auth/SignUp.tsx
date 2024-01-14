@@ -24,22 +24,31 @@ const SignUp = () => {
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
   const [phone_number, setPhoneNumber] = useState<string>("");
+  const [emailVerified, setEmailVerified] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = signup();
 
-  // on success navigate to the get started page
-  // mutation.isSuccess && navigation.navigate("User")
 
+
+
+  
   const handlePress = async () => {
-    await mutation.mutate({
-      email: email,
-      password: password,
-      username: username,
-      first_name: first_name,
-      last_name: last_name,
-      phone_number: phone_number,
-    });
-    navigation.navigate("User");
+    setLoading(true);
+    try {
+      const response = await mutation.mutateAsync({
+        email: email,
+        password: password,
+        username: username,
+        phone_number: phone_number,
+        emailVerified:emailVerified,
+      });
+      // Navigate user to the app, regardless of email verification
+      navigation.navigate("User");
+    } catch (error) {
+      console.error("Signup Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -151,8 +160,7 @@ const SignUp = () => {
               </View>
             </View>
             <View style={styles.createParent}>
-              <Text style={[styles.create, styles.createTypo]}>{`Create
-`}</Text>
+              <Text style={[styles.create, styles.createTypo]}>{`Create`}</Text>
               <Pressable
                 style={styles.vectorWrapper}
                 onPress={async () => {

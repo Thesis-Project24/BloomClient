@@ -6,15 +6,13 @@ import { Checkbox } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import {
-  FontFamily,
-  FontSize,
-  Color,
-  Border,
-  Padding,
+  FontFamily, FontSize, Color, Border, Padding,
 } from "../../GlobalStyles";
 import IconsSignIn from "../../components/auth/IconsSignIn";
 import { login } from "../../api/auth/Users";
 import { ScrollView } from "react-native-gesture-handler";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { app } from "../../firebase.config";
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
@@ -32,6 +30,19 @@ const SignIn = () => {
   const togglePasswordVisibility = () => {
     setPasswordHidden(!passwordHidden);
   };
+  const handlePasswordReset = async () => {
+    try {
+      const auth = getAuth(app);
+      if (!email) {
+        throw new Error("No email provided");
+      }
+      await sendPasswordResetEmail(auth, email);
+      console.log("Password reset email sent successfully");
+    } catch (error) {
+      console.error("Error sending password reset email:", error);
+    }
+  };
+
   return (
     <ScrollView>
       <View style={[styles.signIn, styles.signInLayout]}>
@@ -42,8 +53,7 @@ const SignIn = () => {
             source={require("../../assets/vector-13.png")}
           />
         </View>
-
-        <Image
+        <Image 
           style={styles.signInChild}
           resizeMode="cover"
           source={require("../../assets/vector-23.png")}
@@ -143,6 +153,7 @@ Happier You`}</Text>
                             styles.forgotYourPassword,
                             styles.signIn1FlexBox,
                           ]}
+                          onPress={() => handlePasswordReset()}
                         >
                           Forgot your password?
                         </Text>

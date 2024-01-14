@@ -19,7 +19,9 @@ import Availability from "./screens/Booking/Availablity";
 import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
 import Home from "./screens/Home";
-
+import CreateJournal from "./components/Journal/CreateJournal";
+import DiaryDetails from "./components/Journal/DiaryDetails";
+// import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -44,10 +46,12 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignIn" >
+        <Stack.Navigator initialRouteName="Back" >
           <Stack.Screen name="Availability" component={Availability} />
           <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
+          {/* <Stack.Screen name="EmailVerificationConfirm" component={EmailVerificationConfirm} /> */}
           <Stack.Screen
             name="Back"
             options={{
@@ -69,6 +73,8 @@ export default function App() {
             component={Tracker}
             options={{ headerShown: true }}
           />
+          <Stack.Screen name="CreateJournal" component={CreateJournal} options={{ headerShown: true }} />
+          <Stack.Screen name="DiaryDetails" component={DiaryDetails} options={{ headerShown: true }} />
           <Stack.Screen
             name="Profile"
             component={Profile}

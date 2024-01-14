@@ -1,19 +1,20 @@
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { app } from '../../firebase.config';
-import {  createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup,sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, sendEmailVerification,onAuthStateChanged } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface User {
-    id: number
-    email: string
-    username: string
-    first_name: string
-    last_name: string
-    profile_picture: string
-    phone_number: string
-    age: number
-    mood: number[]
+  id: number
+  email: string
+  username: string
+  first_name: string
+  last_name: string
+  profile_picture: string
+  phone_number: string
+  age: number
+  mood: number[]
 }
 
 export const login = () => {
@@ -23,7 +24,7 @@ export const login = () => {
       const res: any = await signInWithEmailAndPassword(auth, object.email, object.password)
       console.log(res)
       const db = await axios.post(
-        `http://172.29.0.6:3000/users/signin`,
+        `http://192.168.160.115:3000/users/signin`,
         object
       );
       localStorage.setItem("user", JSON.stringify(res))
@@ -35,62 +36,48 @@ export const login = () => {
 
 
 
-export const signup = () => {
-  const query = useMutation({
-    mutationFn: async (object: { email: string, password: string, username: string, first_name: string, last_name: string, phone_number: string }) => {
-      try {
-        const auth = getAuth(app);
 
-        // Create user in Firebase Authentication
-        const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
-        console.log("Firebase Auth Response:", res);
+  export const signup = () => {
+    const query = useMutation({
+      mutationFn: async (object:{ email: string, password: string, username: string, phone_number: string,emailVerified:boolean }) => {
+        try {
+          const auth = getAuth(app);
+          const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
+  
+          // Send email verification
+          const user = res.user;
+          await sendEmailVerification(user);
+          // Create user record in your backend with emailVerified as false
+          object.emailVerified = user.emailVerified;
+          const db = await axios.post(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`, object);
 
-        // Send email verification and wait for user to verify
-        const user = res.user;
-        await sendEmailVerification(user);
-        console.log("Verification email sent to:", user.email);
-        // Check if the user has verified their email
-        await auth.currentUser?.reload();
-        if (auth.currentUser?.emailVerified) {
-          const db = await axios.post(
-            `http://172.29.0.6:3000/users/signup`,
-            object
-          );
-          console.log("Backend Response:", db.data);
-
-          return db.data;
-        } else {
-          throw new Error("Email not verified");
+          return { ...db.data, emailVerified: user.emailVerified };
+        } catch (error) {
+          console.error("Signup Error:", error);
+          throw error;
         }
-      } catch (error) {
-        console.error("Signup Error:", error);
-        throw error; 
       }
-    }
-  });
+    });
+    return query;
+  };
+  
 
-  return query;
-};
-
-
-const deleteuser=()=>{
-  const query =useMutation({
-    mutationFn:async()=>{
-      const auth=getAuth(app)
-      const user =auth.currentUser
-      if(user){
+const deleteuser = () => {
+  const query = useMutation({
+    mutationFn: async () => {
+      const auth = getAuth(app)
+      const user = auth.currentUser
+      if (user) {
         console.log(user);
         user.delete();
-        
       }
-      const storeduser=localStorage.getItem('user')
+      const storeduser = localStorage.getItem('user')
       console.log(storeduser);
       if (storeduser) {
-        const parseduser=JSON.parse(storeduser)
-await axios.delete(`http://172.29.0.19:3000/users/${parseduser.data.id}`);
+        const parseduser = JSON.parse(storeduser)
+        await axios.delete(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${parseduser.data.id}`);
         localStorage.removeItem('user')
       }
-      
     },
     onError(err) {
       console.log(err);
