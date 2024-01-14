@@ -51,9 +51,8 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Back">
+        <Stack.Navigator initialRouteName="PageSpecialists">
           {/* <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
@@ -96,8 +95,16 @@ export default function App() {
             component={Tracker}
             options={{ headerShown: true }}
           />
-          <Stack.Screen name="CreateJournal" component={CreateJournal} options={{ headerShown: true }} />
-          <Stack.Screen name="DiaryDetails" component={DiaryDetails} options={{ headerShown: true }} />
+          <Stack.Screen
+            name="CreateJournal"
+            component={CreateJournal}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="DiaryDetails"
+            component={DiaryDetails}
+            options={{ headerShown: true }}
+          />
           <Stack.Screen
             name="EditDoctorProfile"
             component={EditDoctorProfile}
@@ -134,12 +141,11 @@ export default function App() {
             component={PageSpecialists}
             options={{ headerShown: true }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="DoctorListing"
             component={DoctorListing}
             options={{ headerShown: true }}
           />
-          
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

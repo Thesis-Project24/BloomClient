@@ -11,6 +11,7 @@ import User from "../screens/UserProfile/User";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "../screens/Doctor/EditDoctorProfile";
+import PageSpecialists from "../screens/Specialists/PageSpecialists";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,12 +28,14 @@ export const BottomTabNav = () => {
             iconName = focused ? "chatbubbles" : "chatbubbles-outline";
           } else if (route.name === "Journal") {
             iconName = focused ? "journal" : "journal-outline";
-          } else if (route.name === "DoctorProfile") {
+          } else if (route.name === "PageSpecialists") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "community") {
             iconName = focused ? "people" : "people-outline";
           }
-        return <Ionicons  name={iconName || "people"} size={35} color={color} />;
+          return (
+            <Ionicons name={iconName || "people"} size={35} color={color} />
+          );
         },
 
         tabBarActiveTintColor: "#729384",
@@ -52,9 +55,9 @@ export const BottomTabNav = () => {
         component={Appi}
       />
       <Tab.Screen
-        name="DoctorProfile"
+        name="Doctor"
         options={{ headerShown: false }}
-        component={DoctorProfile}
+        component={PageSpecialists}
       />
       <Tab.Screen
         name="Home"
