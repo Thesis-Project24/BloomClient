@@ -19,6 +19,9 @@ import Availability from "./screens/Booking/Availablity";
 import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
 import Home from "./screens/Home";
+import CreateJournal from "./components/Journal/CreateJournal";
+import DiaryDetails from "./components/Journal/DiaryDetails";
+// import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
@@ -46,6 +49,7 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Back">
           <Stack.Screen
@@ -79,6 +83,8 @@ export default function App() {
             component={Tracker}
             options={{ headerShown: true }}
           />
+          <Stack.Screen name="CreateJournal" component={CreateJournal} options={{ headerShown: true }} />
+          <Stack.Screen name="DiaryDetails" component={DiaryDetails} options={{ headerShown: true }} />
           <Stack.Screen
             name="EditDoctorProfile"
             component={EditDoctorProfile}
