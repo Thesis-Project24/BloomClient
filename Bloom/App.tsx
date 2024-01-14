@@ -20,6 +20,7 @@ import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
 import Home from "./screens/Home";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
+// import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -47,6 +48,12 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Back">
+          {/* <Stack.Screen
+            name="EditUserProfile"
+            component={EditUserProfile}
+            options={{ headerShown: true }}
+          /> */}
+
           <Stack.Screen
             name="Availability"
             component={Availability}

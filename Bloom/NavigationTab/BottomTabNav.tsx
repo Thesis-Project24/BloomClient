@@ -15,6 +15,7 @@ import Profile from "../screens/Doctor/EditDoctorProfile";
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNav = () => {
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
