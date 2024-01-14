@@ -47,7 +47,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="PageSpecialists">
+        <Stack.Navigator initialRouteName="Back">
           <Stack.Screen
             name="Availability"
             component={Availability}
