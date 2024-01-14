@@ -23,7 +23,8 @@ import CreateJournal from "./components/Journal/CreateJournal";
 import DiaryDetails from "./components/Journal/DiaryDetails";
 // import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
-
+import PageSpecialists from "./screens/Specialists/PageSpecialists";
+import DoctorListing from "./screens/Specialists/DoctorListing";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -115,6 +116,17 @@ export default function App() {
             component={ConfirmAppointmentOnline}
             options={{ headerShown: true }}
           />
+          <Stack.Screen
+            name="PageSpecialists"
+            component={PageSpecialists}
+            options={{ headerShown: true }}
+          />
+            <Stack.Screen
+            name="DoctorListing"
+            component={DoctorListing}
+            options={{ headerShown: true }}
+          />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

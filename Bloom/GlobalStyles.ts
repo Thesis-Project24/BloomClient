@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 /* fonts */
 export const FontFamily = {
+  
   robotoMedium: "Roboto-Medium",
   epilogueMedium: "Epilogue-Medium",
   poppinsMedium: "Poppins-Medium",
@@ -104,6 +105,8 @@ export const Color = {
   manatee: "#8d90a1",
   neutralsGray2: "#838993",
   darkPurple: "#240046",
+  colorPaleturquoise_400: "rgba(173, 216, 196, 0.4)",
+  colorPaleturquoise_300: "rgba(173, 216, 196, 0.6)",
 };
 
 /* Paddings */
@@ -140,6 +143,7 @@ export const Padding = {
   p_32xl: 51,
   p_10xs: 3,
   p_12xs: 1,
+  p_8xs:5,
 
 };
 /* border radiuses */

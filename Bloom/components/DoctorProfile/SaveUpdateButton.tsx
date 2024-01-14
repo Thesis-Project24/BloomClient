@@ -14,12 +14,13 @@ import {
   Border,
 } from "../../GlobalStyles";
 
-const SaveUpdateButton = ({ upDateData }: { upDateData: any }) => {
+const SaveUpdateButton = ({ upDateData , refetch , id }: { refetch:any , upDateData: any , id:number }) => {
   return (
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
       <TouchableOpacity
         onPress={() => {
-          upDateData();
+          upDateData(id);
+          refetch()
         }}
         style={[styles.patientButton, styles.patientFlexBox]}
       >

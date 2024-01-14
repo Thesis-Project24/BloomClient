@@ -72,13 +72,13 @@ const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
                   newAdress[0] = text;
                   setAddress(newAdress);
                   setDoctorData({ ...doctorData, address: address });
-                  console.log(newAdress, "newAdress rakezzz hybaaaaaaa");
-                  console.log(address, "hybaa berasmii rakess");
                 }}
                 style={styles.textlabel450116}
-                placeholder={address[0] || "Pincode"}
-                placeholderTextColor="#242424"
-              />
+                placeholder="Pincode"
+                placeholderTextColor="#ADADAD"
+              >
+                {address[0]}
+              </TextInput>
             </View>
           </View>
           <View
@@ -99,9 +99,11 @@ const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
                   setDoctorData({ ...doctorData, address: address });
                 }}
                 style={styles.textlabel450116}
-                placeholder={address[1] || "Address"}
-                placeholderTextColor="#242424"
-              />
+                placeholder= "Address"
+                placeholderTextColor="#ADADAD"
+              >
+                 {address[1]}
+              </TextInput>
             </View>
           </View>
           <View
@@ -122,9 +124,11 @@ const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
                   setDoctorData({ ...doctorData, address: address });
                 }}
                 style={styles.textlabel450116}
-                placeholder={address[2] || "City"}
-                placeholderTextColor="#242424"
-              />
+                placeholder= "City"
+                placeholderTextColor="#ADADAD"
+              >
+                 {address[2]}
+              </TextInput>
             </View>
           </View>
           <View style={styles.frameViewFlexBox}>
@@ -148,9 +152,11 @@ const BusinessAddressDetails: React.FC<BusinessAddressDetailsProps> = ({
                   setDoctorData({ ...doctorData, address: address });
                 }}
                 style={styles.textlabel450116}
-                placeholder={address[3] || "Country"}
-                placeholderTextColor="#242424"
-              />
+                placeholder= "Country"
+                placeholderTextColor="#ADADAD"
+              >
+                 {address[3]}
+              </TextInput>
             </View>
           </View>
         </View>

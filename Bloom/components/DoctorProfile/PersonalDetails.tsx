@@ -56,15 +56,18 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data,setDoctorData,doc
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
+              numberOfLines={1}
                 // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
                   setDoctorData({ ...doctorData, first_name: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.first_name || "Username"}
+                placeholder={ "Username"}
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+             >
+              {data?.first_name}
+             </TextInput>
             </View>
           </View>
           <View
@@ -82,9 +85,11 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data,setDoctorData,doc
                   setDoctorData({ ...doctorData, last_name: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.last_name || "Last Name"}
-                placeholderTextColor="#242424"
-              />
+                placeholder={ "Last Name"}
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.last_name}
+               </TextInput>
             </View>
           </View>
           <View
@@ -104,8 +109,10 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data,setDoctorData,doc
                 style={styles.textlabel450116}
                 placeholder={data?.email || "Email"}
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.email}
+               </TextInput>
             </View>
           </View>
           <View style={[styles.frameView, styles.textlabelFlexBox]}>
@@ -128,8 +135,9 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({data,setDoctorData,doc
                 style={styles.textlabel450116}
                 placeholder="Password"
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+              >
+               </TextInput>
             </View>
           </View>
 
