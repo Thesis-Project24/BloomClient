@@ -2,36 +2,16 @@ import { View, Text, Button } from "react-native";
 import React from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { addWindow, getSlots } from "../../api/appointements/appointments";
-const AvailabilityW = ({
-  navigation,
-  route,
-}: {
-  navigation: string;
-  route: { params: { duration: string; pause: string } };
-}) => {
+const AvailabilityW = ({ navigation , route }: { navigation: string; route: { params: { duration: string; pause: string } };}) => {
+ 
   const duration = route.params.duration;
   const pause = route.params.pause;
   const [chosenDateStart, setChosenDateStart] = React.useState(new Date());
   const [chosenDateEnd, setChosenDateEnd] = React.useState(new Date());
   const [initial, setInitial] = React.useState(new Date());
   const [viewEnd, setViewEnd] = React.useState(false);
-  const [windows, setWindows] = React.useState<
-    {
-      duration: string;
-      pause: string;
-      startingTime: Date;
-      endingTime: Date;
-    }[]
-  >([]);
-  const [windowsDb, setWindowsDb] = React.useState<
-    {
-      id: Number;
-      duration: string;
-      pause: string;
-      startingTime: Date;
-      endingTime: Date;
-    }[]
-  >([]);
+  const [windows, setWindows] = React.useState<{duration: string; pause: string;startingTime: Date;endingTime: Date;}[]>([]);
+  const [windowsDb, setWindowsDb] = React.useState< {id: Number;duration: string;pause: string;startingTime: Date; endingTime: Date;  }[] >([]);
   const mutation = addWindow();
   // const query =  getSlots()
 

@@ -1,14 +1,14 @@
 import * as React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
-
-import { FontAwesome5 } from '@expo/vector-icons'; 
-import { Feather } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { useNavigation } from "@react-navigation/native";
-import { FontAwesome } from '@expo/vector-icons'; 
-import { AntDesign } from '@expo/vector-icons'; 
-import { Ionicons } from '@expo/vector-icons'; 
+import { StackNavigationProp } from "@react-navigation/stack";
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation, ParamListBase } from "@react-navigation/native";
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {
   Padding,
@@ -34,23 +34,29 @@ type RootStackParamList = {
   // other screen names
 };
 const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
           <View >
-            <TouchableOpacity 
-             onPress={() => navigation.navigate("EditDoctorProfile")}
-            style={[styles.iconsWrapper, styles.parentFlexBox]} >
-            <FontAwesome5 
-          style={styles.icons}
-          name="user-edit" 
-          size={20} color={Color.green} />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("EditDoctorProfile", {
+                  id: data.id
+                })
+                console.log(data.id, "doctor.idddddddddddddddddddddddddd");
+              }
+              }
+              style={[styles.iconsWrapper, styles.parentFlexBox]} >
+              <FontAwesome5
+                style={styles.icons}
+                name="user-edit"
+                size={20} color={Color.green} />
 
             </TouchableOpacity>
- 
+
           </View>
           {/* <TouchableOpacity
             onPress={() => {
@@ -75,13 +81,13 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             </View>
             <View style={[styles.reviews, styles.reviewsFlexBox]}>
               <View style={[styles.vectorWrapper, styles.frameParentFlexBox]}>
-           
-              <FontAwesome 
-              style={styles.vectorIcon}
-              name="star" 
-              size={20} 
-              color="#FFD33C" />
-              
+
+                <FontAwesome
+                  style={styles.vectorIcon}
+                  name="star"
+                  size={20}
+                  color="#FFD33C" />
+
               </View>
 
               <Text style={[styles.kReviews, styles.text1FlexBox]}>
@@ -92,20 +98,20 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
               </Text>
             </View>
             <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
-            <MaterialCommunityIcons 
-             style={styles.telephone2Icon}
-            name="email-fast" 
-            size={20} 
-            color="#4F6F52" />
-            <Text style={styles.text2}>{data.email}</Text>
+              <MaterialCommunityIcons
+                style={styles.telephone2Icon}
+                name="email-fast"
+                size={20}
+                color="#4F6F52" />
+              <Text style={styles.text2}>{data.email}</Text>
               <TouchableOpacity
                 style={[styles.telephone2Parent, styles.parentFlexBox]} >
-    
-                <Feather 
-                 style={styles.telephone2Icon}
-                name="phone" 
-                size={18} 
-                color="#4F6F52" 
+
+                <Feather
+                  style={styles.telephone2Icon}
+                  name="phone"
+                  size={18}
+                  color="#4F6F52"
                 />
                 <Text style={styles.text3}>+216 {data.phone_number}</Text>
               </TouchableOpacity>
@@ -118,28 +124,28 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
             contentFit="cover"
             source={data.profile_picture}
           />
-           <MaterialIcons
-          style={styles.avatarItem2}
-          name="circle" 
-          size={34} 
-          color="white" />
           <MaterialIcons
-          style={styles.avatarItem}
-          name="circle" 
-          size={25} 
-          color="#A1DAD7" />
+            style={styles.avatarItem2}
+            name="circle"
+            size={34}
+            color="white" />
+          <MaterialIcons
+            style={styles.avatarItem}
+            name="circle"
+            size={25}
+            color="#A1DAD7" />
 
-        
+
         </View>
       </View>
       <View style={[styles.frameView, styles.parentFlexBox]}>
         <TouchableOpacity style={styles.frameWrapper}>
           <TouchableOpacity style={[styles.vectorParent, styles.parentFlexBox]}>
-          <Feather
-          style={styles.vectorIcon1}
-           name="phone-call" 
-           size={18} 
-           color="white" />
+            <Feather
+              style={styles.vectorIcon1}
+              name="phone-call"
+              size={18}
+              color="white" />
             <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
           </TouchableOpacity>
         </TouchableOpacity>
@@ -147,21 +153,21 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
-          <Ionicons 
-           style={styles.videoIcon}
-          name="videocam" 
-          size={20} 
-          color="white" />
+            <Ionicons
+              style={styles.videoIcon}
+              name="videocam"
+              size={20}
+              color="white" />
             <Text style={[styles.videoCall, styles.callTypo]}>Video Call</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.frameWrapper1, styles.frameShadowBox]}>
           <View style={[styles.vectorGroup, styles.parentFlexBox]}>
-          <AntDesign
-          style={styles.vectorIcon2} 
-          name="wechat" 
-          size={20} 
-          color="white" />
+            <AntDesign
+              style={styles.vectorIcon2}
+              name="wechat"
+              size={20}
+              color="white" />
             <Text style={[styles.videoCall, styles.callTypo]}>Message</Text>
           </View>
         </TouchableOpacity>
@@ -313,7 +319,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   telephone2Icon: {
-    paddingRight:23,
+    paddingRight: 23,
     width: 19,
     height: 19,
   },
@@ -323,7 +329,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     color: Color.black,
     width: "100%",
-    height:"100%",
+    height: "100%",
     maxHeight: 16,
     maxWidth: 85,
     marginLeft: 1,
@@ -341,7 +347,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   telephone2Parent: {
-    width:"100%",
+    width: "100%",
     maxWidth: 119,
     paddingVertical: Padding.p_12xs,
     maxHeight: 19,
@@ -379,7 +385,7 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
   },
-  avatarItem2:{
+  avatarItem2: {
     right: -1,
     bottom: -1,
     width: 32,

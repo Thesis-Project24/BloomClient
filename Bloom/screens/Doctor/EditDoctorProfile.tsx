@@ -1,46 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "expo-image";
-import {
-  StyleSheet,
-  Pressable,
-  Text,
-  View,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Pressable, Text, View, StatusBar, SafeAreaView, ScrollView, TouchableOpacity, Alert } from "react-native";
 import PersonalDetails from "../../components/DoctorProfile/PersonalDetails";
 import DoctorDetails from "../../components/DoctorProfile/DoctorDetails";
 import BusinessAddressDetails from "../../components/DoctorProfile/BusinessAddressDetails";
 import { Padding , Color, FontFamily, FontSize, Border } from "../../GlobalStyles";
 import Imageprofile from "../../components/DoctorProfile/ImageProfile";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient  , QueryFunctionContext} from "react-query";
 import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
 import { Ionicons } from '@expo/vector-icons';
-const EditDoctorProfile = () => {
+import { useFetchOneDoctor } from "../../api/doctors/Doctors";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from '@react-navigation/native';
+
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+}
+
+
+type YourRouteParamList = {
+  OneDoctor: {
+   id:number
+  };
+};
+
+type OneDoctorNavigationProp = StackNavigationProp<YourRouteParamList, 'OneDoctor'>;
+
+type OneDoctorRouteProp = RouteProp<YourRouteParamList, 'OneDoctor'>;
+
+type OneDoctorProps = {
+  navigation: OneDoctorNavigationProp;
+  route: OneDoctorRouteProp;
+
+};
+
+
+
+
+const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
   const queryClient = useQueryClient();
   const [doctorData, setDoctorData] = useState({});
-
-
-
-  const fetchData = async () => {
-    try {
-      const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
-      if (!res.ok) throw new Error(res.statusText);
-      const jsonData = await res.json();
-      return jsonData;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const { data, isError, isLoading, isSuccess } = useQuery("OneDoc", fetchData);
+  const [id,setId] = useState(route.params.id)
+  const { data, isError, isLoading, isSuccess , refetch } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+    // Extract id from context
+    const id = context.queryKey[1];  
+    // Check if id is defined
+    if (id !== undefined) {
+      // Call useFetchDocSpecialists with id
+      return useFetchOneDoctor(id);
+    } 
+    });
+  // const { data, isError, isLoading, isSuccess ,refetch } = useQuery('OneDoctor', useFetchOneDoctor);
 console.log(data,"data from edit doctors");
 
-  const upDateData = () => {
-    console.log({ id: 1, ...data, ...doctorData }, "update data in fnc ");
+  const upDateData = (id:number) => {
+    console.log({ id: id, ...data, ...doctorData }, "update data in fnc ");
     fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/update`, {
       method: "PUT",
       headers: {
@@ -73,19 +95,21 @@ console.log(data,"data from edit doctors");
       <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
-        // source={require("../assets/vector-1.png")}
+        source={require("../../assets/vector-1.png")}
       />
+     
       <View style={styles.vectorParent}>
-      <Ionicons
+        <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        >
+        <Ionicons
         style={styles.frameChild}
       name="chevron-back" 
       size={35} 
       color={Color.black} />
-        <Image
-          style={styles.frameChild}
-          contentFit="cover"
-          // source={require("../assets/back.png")}
-        />
+        </TouchableOpacity>
+     
+       
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
         </Text>
@@ -93,13 +117,13 @@ console.log(data,"data from edit doctors");
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
-          {isSuccess && (
+          {/* {isSuccess && ( */}
             <Imageprofile
               data={data}
               setDoctorData={setDoctorData}
               doctorData={doctorData}
             />
-          )}
+          {/* // )} */}
 
           <View style={styles.frameView}>
             <View style={styles.frameParent1}>
@@ -126,7 +150,7 @@ console.log(data,"data from edit doctors");
                 />
               )}
 
-              <SaveUpdateButton upDateData={upDateData} />
+              <SaveUpdateButton refetch={refetch} upDateData={upDateData} id={id} />
             </View>
 
 
@@ -301,13 +325,14 @@ const styles = StyleSheet.create({
 
   // HEDHA TEAABA IMG
   profuleWrapper: {
-    top: 40,
+    marginTop: 40,
     paddingHorizontal: Padding.p_5xl,
-    paddingVertical: 2,
+    paddingVertical: 12,
     width: "100%",
 
     flexDirection: "row",
     overflow: "hidden",
+    // backgroundColor: "red",
   },
 
   profile: {
