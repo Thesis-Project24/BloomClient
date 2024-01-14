@@ -1,25 +1,59 @@
-import * as React from "react";
+import React , {useState} from "react";  
 import { StatusBar, StyleSheet, ScrollView, View, Text } from "react-native";
 import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetailt";
 import DoctorBio from "../../components/DoctorProfile/DoctorBio";
 import BookAppointment from "../../components/DoctorProfile/BookAppointment";
 import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
 import { FontSize , FontFamily, Color, Padding , Border } from "../../GlobalStyles";
-import { useQuery , useQueryClient } from "react-query";
+import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
+import { useFetchOneDoctor } from "../../api/doctors/Doctors";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from '@react-navigation/native';
 
-const DoctorProfile = () => {
-    const fetchData = async () => {
-        try {
-          const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/1`);
-          if (!res.ok) throw new Error(res.statusText);
-          const jsonData = await res.json();
-          return jsonData;
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-      const { data, isError, isLoading, isSuccess } = useQuery('OneDoc', fetchData);
-       console.log(data, "DoctorProfile");
+interface DoctorData {
+  id?: number;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  specialty?: string;
+  profile_picture?: string;
+  phone_number?: string;
+  address?: string[];
+  bio?: string;
+}
+
+
+type YourRouteParamList = {
+  OneDoctor: {
+   id:number
+  };
+};
+
+type OneDoctorNavigationProp = StackNavigationProp<YourRouteParamList, 'OneDoctor'>;
+
+type OneDoctorRouteProp = RouteProp<YourRouteParamList, 'OneDoctor'>;
+
+type OneDoctorProps = {
+  navigation: OneDoctorNavigationProp;
+  route: OneDoctorRouteProp;
+
+};
+
+
+const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
+
+  
+     const [id,setId] = useState(route.params.id)
+  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+    // Extract id from context
+    const id = context.queryKey[1];  
+    // Check if id is defined
+    if (id !== undefined) {
+      // Call useFetchDocSpecialists with id
+      return useFetchOneDoctor(id);
+    } 
+    });
+      console.log(data, "DoctorProfile");
   return (
     <View style={[styles.profileDoctorRaja, styles.textFlexBox]}>
       <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
@@ -31,10 +65,8 @@ const DoctorProfile = () => {
           /> */}
           <ScrollView
             style={[styles.frameGroup, styles.frameFlexBox]}
-            
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-           
             contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} />}
