@@ -24,7 +24,7 @@ export const login = () => {
       const res: any = await signInWithEmailAndPassword(auth, object.email, object.password)
       console.log(res)
       const db = await axios.post(
-        `http://192.168.160.115:3000/users/signin`,
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin`,
         object
       );
       localStorage.setItem("user", JSON.stringify(res))
@@ -45,19 +45,31 @@ export const login = () => {
           const res = await createUserWithEmailAndPassword(auth, object.email, object.password);
   
           // Send email verification
+          // const user = res.user;
+          // await sendEmailVerification(user);
+          // Create user record in your backend with emailVerified as false
+          // const db = await axios.post(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`, object);
+          
+          // Send email verification
           const user = res.user;
           await sendEmailVerification(user);
-          // Create user record in your backend with emailVerified as false
           object.emailVerified = user.emailVerified;
-          const db = await axios.post(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`, object);
+        console.log("Verification email sent to:", user.email);
 
-          return { ...db.data, emailVerified: user.emailVerified };
-        } catch (error) {
-          console.error("Signup Error:", error);
-          throw error;
-        }
+        // Call your backend to create user
+        const db = await axios.post(
+          `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
+          object
+        );
+        console.log("Backend Response:", db.data);
+
+        return db.data;
+      } catch (error) {
+        console.error("Signup Error:", error);
+        throw error; // Rethrow the error for useMutation to handle
       }
-    });
+    }
+  });
     return query;
   };
   
@@ -74,8 +86,8 @@ const deleteuser = () => {
       const storeduser = localStorage.getItem('user')
       console.log(storeduser);
       if (storeduser) {
-        const parseduser = JSON.parse(storeduser)
-        await axios.delete(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${parseduser.data.id}`);
+        const parseduser=JSON.parse(storeduser)
+await axios.delete(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${parseduser.data.id}`);
         localStorage.removeItem('user')
       }
     },

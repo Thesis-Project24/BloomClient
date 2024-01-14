@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import SignIn from "./screens/Auth/SignIn";
 import SignUp from "./screens/Auth/SignUp";
 // import GetStart from "./screens/GetStart";
-import Profile from "./screens/Doctor/EditDoctorProfile";
+import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
 import Availability from "./screens/Booking/Availablity";
@@ -22,6 +22,8 @@ import Home from "./screens/Home";
 import CreateJournal from "./components/Journal/CreateJournal";
 import DiaryDetails from "./components/Journal/DiaryDetails";
 // import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
+import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
+
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -48,10 +50,17 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Back" >
-          <Stack.Screen name="Availability" component={Availability} />
-          <Stack.Screen name="AvailabilityW" component={AvailabilityW} />
-          {/* <Stack.Screen name="EmailVerificationConfirm" component={EmailVerificationConfirm} /> */}
+        <Stack.Navigator initialRouteName="Back">
+          <Stack.Screen
+            name="Availability"
+            component={Availability}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="AvailabilityW"
+            component={AvailabilityW}
+            options={{ headerShown: true }}
+          />
           <Stack.Screen
             name="Back"
             options={{
@@ -76,8 +85,8 @@ export default function App() {
           <Stack.Screen name="CreateJournal" component={CreateJournal} options={{ headerShown: true }} />
           <Stack.Screen name="DiaryDetails" component={DiaryDetails} options={{ headerShown: true }} />
           <Stack.Screen
-            name="Profile"
-            component={Profile}
+            name="EditDoctorProfile"
+            component={EditDoctorProfile}
             options={{ headerShown: true }}
           />
           <Stack.Screen
@@ -96,7 +105,16 @@ export default function App() {
             options={{ headerShown: false }}
           />
 
-          <Stack.Screen name="User" component={User} />
+          <Stack.Screen
+            name="User"
+            component={User}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="ConfirmAppointmentOnline"
+            component={ConfirmAppointmentOnline}
+            options={{ headerShown: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

@@ -16,6 +16,7 @@ import {
 } from "../../GlobalStyles";
 import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
+ import { Entypo } from "@expo/vector-icons";
 
 const User = () => {
   return (
@@ -46,22 +47,28 @@ const User = () => {
           />
         </View>
 
-        {/* <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
-            <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
-              How’s your mood today
-            </Text>
-            <View
-              style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}
-            >
-              <View style={styles.frameChildss} />
-              <View style={styles.frameShadowBox} />
-              <View style={styles.frameShadowBox} />
-              <View style={styles.frameShadowBox} />
+        <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
+          <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
+            How’s your mood today
+          </Text>
+          <View style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}>
+            <View style={styles.frameChildss}>
+              <Entypo name="emoji-happy" size={34} color="#729384" />
             </View>
-            <Text
-              style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
-            >{`Be happy you’re not a Tree `}</Text>
-          </View> */}
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-flirt" size={34} color="#729384" />
+            </View>
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-neutral" size={34} color="#729384" />
+            </View>
+            <View style={styles.frameShadowBox}>
+              <Entypo name="emoji-sad" size={34} color="#729384" />
+            </View>
+          </View>
+          <Text
+            style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
+          >{`Be happy you’re not a Tree `}</Text>
+        </View>
         <ButtonUser />
         <Ad />
       </View>
@@ -74,6 +81,7 @@ const styles = StyleSheet.create({
   parentFlexBox: {
     justifyContent: "center",
     alignItems: "center",
+    top: "5%",
   },
   myriamHermessiFlexBox: {
     textAlign: "center",
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
   myriamHermessiParent: {
     width: 347,
     height: 53,
-    marginTop: 160,
+    marginTop: 150,
   },
   frameGroup: {
     zIndex: 0,
@@ -165,6 +173,9 @@ const styles = StyleSheet.create({
   frameChildss: {
     height: 53,
     width: 68,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     shadowOpacity: 1,
     elevation: 4,
     shadowRadius: 4,
@@ -177,7 +188,10 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_lg,
   },
   frameShadowBox: {
-    marginLeft: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
     height: 53,
     width: 68,
     shadowOpacity: 1,
@@ -210,7 +224,7 @@ const styles = StyleSheet.create({
     width: 390,
     height: 159,
     marginHorizontal: "auto", // Center horizontally
-    marginTop: 40,
+    marginTop: 30,
     padding: Padding.p_3xs,
   },
 });

@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   createTypo: {
-    color: Color.colorGray_100,
+    color: "#729384",
     // fontFamily: FontFamily.latoBold,
     fontWeight: "700",
     flex: 1,
