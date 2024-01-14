@@ -5,7 +5,7 @@ import { View, Text, TextInput, Button } from "react-native";
 import io from "socket.io-client";
 import Chat from "./Chat";
 
-const socket = io.connect(`http://172.20.10.10:3000`);
+const socket = io.connect(`http://${process.env.EXPO_PUBLIC_ipadress}:3000`);
 
 
 interface AppProps {}

@@ -107,14 +107,11 @@ const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.frameScrollViewContent}
         >
-          {route.params.isSuccess
-            ? route.params.data.map((doc) => (
-                <CartDoctor
-                  propMarginTop={{ propMarginTop: 16 }}
-                  doctor={doc}
-                />
-              ))
-            : null}
+          {route.params.isSuccess &&
+            route.params.data.map((doc) => (
+              <CartDoctor propMarginTop={{ propMarginTop: 16 }} doctor={doc} />
+            ))}
+
         </ScrollView>
       </View>
     </View>

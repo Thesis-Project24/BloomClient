@@ -24,11 +24,10 @@ const Specialists = () => {
 
   return (
     <View style={styles.frameParent}>
-
       <TouchableOpacity
         onPress={() => {
-          refetch()
-          setSpecialty("Psychiatry")
+          refetch();
+          setSpecialty("Psychiatry");
           if (isSuccess && specialty) {
             navigation.navigate("DoctorListing", {
               data: data,
@@ -36,10 +35,11 @@ const Specialists = () => {
               refetch: refetch,
               isLoading: isLoading,
               isError: isError,
-            })
+            });
           }
         }}
-        style={[styles.frameWrapper, styles.frameWrapperLayout]}>
+        style={[styles.frameWrapper, styles.frameWrapperLayout]}
+      >
         <View style={styles.psychiatryFlexBox}>
           <Image
             style={styles.mentalHealthIcon}
@@ -47,26 +47,26 @@ const Specialists = () => {
             source={require("../../assets/mental-health.png")}
           />
           <Text style={[styles.psychiatry, styles.psychiatryFlexBox]}>
-            Psychiatry
+            Neuropsychiat
           </Text>
         </View>
       </TouchableOpacity>
 
-    <TouchableOpacity
+      <TouchableOpacity
         onPress={() => {
-          refetch()
-          setSpecialty("Neuropsychiatry")
+          refetch();
+          setSpecialty("Neuropsychiatry");
           navigation.navigate("DoctorListing", {
             data: data,
             isSuccess: isSuccess,
             refetch: refetch,
             isLoading: isLoading,
             isError: isError,
-          })
+          });
           console.log(data, "Neuropsychiatryyyyyyyyyyyyyyyyyyyy");
-
         }}
-        style={[styles.frameContainer, styles.frameWrapperLayout]}>
+        style={[styles.frameContainer, styles.frameWrapperLayout]}
+      >
         <View style={styles.psychiatryFlexBox}>
           <Image
             style={styles.artificialIntelligenceIcon}
@@ -74,57 +74,55 @@ const Specialists = () => {
             source={require("../../assets/artificial-intelligence.png")}
           />
           <Text style={[styles.psychiatry, styles.psychiatryFlexBox]}>
-
-            Neuropsychiatry
+            Psychiatry
           </Text>
         </View>
       </TouchableOpacity>
 
-
       <TouchableOpacity
         onPress={() => {
-
-          setSpecialty("Psychology")
+          setSpecialty("Psychology");
           navigation.navigate("DoctorListing", {
             data: data,
             isSuccess: isSuccess,
             refetch: refetch,
             isLoading: isLoading,
             isError: isError,
-
-          })
+          });
           console.log(data, "Psychologyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-          refetch()
+          refetch();
         }}
-        style={[styles.frameView, styles.frameWrapperLayout]}>
+        style={[styles.frameView, styles.frameWrapperLayout]}
+      >
         <View style={styles.psychiatryFlexBox}>
           <Image
             style={styles.psychologyIcon}
             contentFit="cover"
             source={require("../../assets/psychology.png")}
           />
-          <Text
-            style={[styles.psychiatry, styles.psychiatryFlexBox]}
-          > Psychology </Text>
+          <Text style={[styles.psychiatry, styles.psychiatryFlexBox]}>
+            {" "}
+            Psychology{" "}
+          </Text>
         </View>
       </TouchableOpacity>
 
-
       <TouchableOpacity
         onPress={() => {
-          setSpecialty("Psychotherapy")
+          setSpecialty("Psychotherapy");
           navigation.navigate("DoctorListing", {
             data: data,
             isSuccess: isSuccess,
             refetch: refetch,
             isLoading: isLoading,
             isError: isError,
-          })
+          });
 
           console.log(data, "Psychotherapyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-          refetch()
+          refetch();
         }}
-        style={[styles.frameWrapper1, styles.frameWrapperLayout]}>
+        style={[styles.frameWrapper1, styles.frameWrapperLayout]}
+      >
         <View style={styles.psychiatryFlexBox}>
           <Image
             style={styles.psychologyIcon}
@@ -137,16 +135,15 @@ const Specialists = () => {
         </View>
       </TouchableOpacity>
 
-
       <Image
         style={[styles.frameChild, styles.framePosition]}
         contentFit="cover"
-      // source={require("../../assets/Line 5.png")}
+        // source={require("../../assets/Line 5.png")}
       />
       <Image
         style={[styles.frameItem, styles.framePosition]}
         contentFit="cover"
-      // source={require("../../assets/Line 5.png")}
+        // source={require("../../assets/Line 5.png")}
       />
     </View>
   );

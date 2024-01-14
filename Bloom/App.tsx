@@ -23,7 +23,7 @@ import CreateJournal from "./components/Journal/CreateJournal";
 import DiaryDetails from "./components/Journal/DiaryDetails";
 // import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
-// import EditUserProfile from "./screens/UserProfile/EditUserProfile";
+import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
@@ -52,12 +52,12 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="PageSpecialists">
-          {/* <Stack.Screen
+        <Stack.Navigator initialRouteName="Back">
+          <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
             options={{ headerShown: true }}
-          /> */}
+          />
 
           <Stack.Screen
             name="Availability"

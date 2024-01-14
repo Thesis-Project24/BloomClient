@@ -94,7 +94,7 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
                 style={[styles.generalPhysician, styles.wednesdayTypo]}
                 numberOfLines={1}
               >
-                General{doctor.specialty}
+                {doctor.specialty}
               </Text>
             </View>
           </View>

@@ -15,28 +15,36 @@ const ButtonUser = () => {
     <View style={styles.frameParent}>
       <View style={[styles.frameWrapper, styles.frameWrapperShadowBox]}>
         <View style={styles.vectorParent}>
-          <Image
-            style={styles.vectorIcon}
-            resizeMode="cover"
-            source={require("../../assets/Journal.png")}
-          />
-          <Text style={[styles.journal, styles.journalFlexBox]}>Journal</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Journal" as never)}
+          >
+            <Image
+              style={styles.vectorIcon}
+              resizeMode="cover"
+              source={require("../../assets/Journal.png")}
+            />
+            <Text style={[styles.journal, styles.journalFlexBox]}>Journal</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={[styles.frameContainer, styles.frameWrapperShadowBox]}>
         <View style={styles.vectorParent}>
-          <Image
-            style={styles.vectorIcon1}
-            resizeMode="cover"
-            source={require("../../assets/vector1.png")}
-          />
-          <Text
-            style={[styles.reservation, styles.journalFlexBox]}
-            numberOfLines={1}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("PageSpecialists" as never)}
           >
-            {" "}
-            Reservation
-          </Text>
+            <Image
+              style={styles.vectorIcon1}
+              resizeMode="cover"
+              source={require("../../assets/vector1.png")}
+            />
+            <Text
+              style={[styles.reservation, styles.journalFlexBox]}
+              numberOfLines={1}
+            >
+              {" "}
+              Reservation
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={[styles.frameView, styles.frameWrapperShadowBox]}>
@@ -44,7 +52,8 @@ const ButtonUser = () => {
           <Image
             style={styles.vectorIcon2}
             resizeMode="cover"
-            source={require("../../assets/ppe-santizer-alt-1.png")}
+            source={require("../../assets/ppe-santizer-alt-1.png")
+        }
           />
           <Text style={[styles.journal, styles.journalFlexBox]}>Reminders</Text>
         </View>
@@ -112,6 +121,7 @@ const styles = StyleSheet.create({
     left: "50%",
   },
   vectorIcon: {
+    marginLeft: 10,
     width: 31,
     height: 34,
   },
@@ -133,6 +143,7 @@ const styles = StyleSheet.create({
   vectorIcon1: {
     width: 37,
     height: 37,
+    marginLeft: 30,
   },
   reservation: {
     lineHeight: 16,
@@ -143,7 +154,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   vectorIcon2: {
-    borderRadius: Border.br_12xs,
+  
+    
+
     width: 36,
     height: 35,
   },
