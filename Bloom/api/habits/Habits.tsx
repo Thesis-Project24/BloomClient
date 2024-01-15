@@ -1,4 +1,3 @@
-
 import { useMutation, useQuery } from "react-query";
 import axios, { AxiosResponse } from "axios";
 
@@ -45,7 +44,6 @@ export const useFetchHabitsUser = () => {
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getHabits/1`
       );
       const data = response.data;
-      console.log(data.userHabits);
 
       return data;
     },
@@ -86,12 +84,40 @@ export const useAssignMultiHabits = () => {
 
 export const useDeleteHabit = () => {
   return useMutation(
-    async ({ habitId, userId }: { habitId: number; userId: number }) => {
+    async ({
+      userHabitId,
+      userId,
+    }: {
+      userHabitId: number;
+      userId: number;
+    }) => {
       const response = await axios.delete(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/deleteAssignedHabit`,
         {
-          data: { habitId, userId },
+          data: { userHabitId, userId },
         }
+      );
+      return response.data;
+    }
+  );
+};
+// {Sending tracker} //
+export const useSubmitSatisfaction = () => {
+  return useMutation(
+    async ({
+      userHabitId,
+      userId,
+      rating,
+    }: {
+      userHabitId: number;
+      userId: number;
+      rating: number;
+    }) => {
+      console.log(rating, "test");
+
+      const response = await axios.put(
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/satisHabit`,
+        { userHabitId, userId, rating }
       );
       return response.data;
     }

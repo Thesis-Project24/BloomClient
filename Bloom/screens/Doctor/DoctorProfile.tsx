@@ -77,21 +77,7 @@ const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
           </ScrollView>
         </View>
       </View>
-       {/* <View style={[styles.doctorBioParent, styles.doctorPosition]}>
-        <Text style={styles.doctorBio} numberOfLines={1}>
-          Doctor Bio
-        </Text>
-        <Text style={[styles.drSarahWilliams, styles.textLayout]}>
-          Dr. Sarah Williams is a highly accomplished cardiologist renowned for
-          her expertise in the field of cardiovascular medicine. With over 20
-          years of experience, she has dedicated her career to providing
-          exceptional patient care and advancing the understanding and treatment
-          of heart-related conditions.
-        </Text>
-        <Text style={[styles.text, styles.textLayout]} numberOfLines={1}>
-          Read more
-        </Text>
-      </View> */}
+    
     </View>
   );
 };

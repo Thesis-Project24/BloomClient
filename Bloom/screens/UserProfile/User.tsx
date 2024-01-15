@@ -19,8 +19,15 @@ import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
  import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
+// import {fetchData} from "../../api/user/Editprofile";
 
 const User = () => {
+// const {
+//     data: userData,
+//     isLoading: userLoading,
+//     isError: usersError, 
+//   } = fetchData();
+// console.log(userData,"DFGSHGGEGWSGS")
    const navigation = useNavigation();
   return (
     <ScrollView>

@@ -59,14 +59,9 @@ type DoctorListingProps = {
 
 const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  console.log(
-    route,
-    "route from doctorlisting== ======================================================================================================================================================================================================================================================================================================================"
-  );
+
 
   const [data, setData] = useState<DoctorData[]>(route.params.data);
-
-  console.log(data, "data frpm                   ");
 
   return (
     <View style={styles.doctorListing}>
