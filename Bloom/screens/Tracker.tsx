@@ -5,15 +5,22 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  TouchableOpacity,
+  Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Habit from "../components/Trackers/Habit";
 import UserHabit from "../components/Trackers/UserHabit";
 import {
   useFetchHabits,
   useFetchHabitsUser,
   useAssignMultiHabits,
+  useDeleteHabit,
+  useSubmitSatisfaction,
 } from "../api/habits/Habits";
+import Garbage from "../components/Trackers/Garbage";
+import Satisfaction from "../components/UserProfile/Satisfaction";
+import { AntDesign } from "@expo/vector-icons";
 
 const Tracker = () => {
   const {
@@ -27,14 +34,36 @@ const Tracker = () => {
     isLoading: userHabitsLoading,
     isError: userHabitsError,
     isSuccess,
-    refetch,
+    refetch: refetchUserHabits,
   } = useFetchHabitsUser();
   const { assignMultiHabits, isAssigningMultipleHabits } =
     useAssignMultiHabits();
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState<boolean>(false);
   const [selectedHabits, setSelectedHabits] = useState<number[]>([]);
-  isSuccess && console.log(habitsUser, "=============================");
+  // const [habitsUserr, setHabitUserr] = useState<object>([]);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isDown, setIsDown] = useState<boolean>(false);
+  const [submitPressed, setSubmitPressed] = useState<boolean>(false);
+  // auto scroll
+  const [offset, setOffset] = useState(0);
 
+  const scrollViewRef = useRef<any>();
+
+  const slowlyScrollDown = () => {
+    const y = offset + 80;
+
+    scrollViewRef.current.scrollTo({ x: 0, y: -3000, animated: true });
+    setOffset(y);
+  };
+  // {handleing dragging start & end  }
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+  const handleDragEnd = () => {
+    setIsDragging(!isDragging);
+  };
+
+  // {handeling the habit Selection} //
   const handleHabitSelect = (habitId: number) => {
     setSelectedHabits((prevSelected) => {
       if (prevSelected.includes(habitId)) {
@@ -44,13 +73,33 @@ const Tracker = () => {
       }
     });
   };
-  console.log(selectedHabits, "sssssssssssssssssss");
+  // {habit deletion} //
+  const deleteHabitMutation = useDeleteHabit();
+  const handleDrop = async (habitId: any) => {
+    try {
+      console.log("habit picked Id :", habitId);
+      await deleteHabitMutation.mutateAsync({
+        userHabitId: habitId,
+        userId: 1,
+      });
+
+      console.log("Habit deleted successfully");
+
+      //                :o
+
+      refetchUserHabits();
+    } catch (error) {
+      console.error("Error deleting habit:", error);
+    }
+  };
+  // {handeling the habit submission}
 
   const submitSelectedHabits = async () => {
     try {
       await assignMultiHabits(1, selectedHabits);
-      refetch();
+      refetchUserHabits();
       console.log("Habits assigned successfully");
+      setSubmitPressed(true);
     } catch (error) {
       console.error("Error assigning habits:", error);
     }
@@ -64,16 +113,15 @@ const Tracker = () => {
     return <Text>Error loading habits</Text>;
   }
 
-  if (isSuccess) console.log(habitsUser.userHabits[0].habit.name, "taa user");
-
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <Image
           style={[styles.profileItem, styles.profilePosition]}
           // contentFit="cover"
           source={require("../assets/vector-1.png")}
         />
+
         <Text style={styles.init}> What Habit Do you Want to Track </Text>
         <View style={styles.habitsWrapper}>
           {habits &&
@@ -98,24 +146,71 @@ const Tracker = () => {
         </View>
         <View>
           <Text style={styles.T1}>My Habbits</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={true}
+            ref={scrollViewRef}
+          >
             <View style={styles.container}>
               {isSuccess &&
                 habitsUser.userHabits?.map((ele: any) => (
                   <UserHabit
+                    // data = {habitsUser.userHabits}
                     key={ele.id}
                     habitsUser={{
                       id: ele.id,
                       name: ele.habit.name,
                     }}
+                    onDrop={handleDrop}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
                   />
                 ))}
             </View>
           </ScrollView>
+          {<Garbage />}
         </View>
       </View>
       <View>
-        <Text style={styles.T1}>My Habits Stats</Text>
+        <View style={styles.drop}>
+          <Text style={styles.T1}>My Habits OverAll</Text>
+          {isDown && (
+            <TouchableOpacity onPress={() => setIsDown(!isDown)}>
+              <AntDesign
+                name="upcircleo"
+                size={24}
+                color="black"
+                style={styles.arrow}
+              />
+            </TouchableOpacity>
+          )}
+          {!isDown && (
+            <TouchableOpacity
+              onPress={() => {
+                slowlyScrollDown;
+                setIsDown(true);
+              }}
+            >
+              <AntDesign
+                name="downcircleo"
+                size={24}
+                color="black"
+                style={styles.arrow}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+        {isDown &&
+          habitsUser.userHabits?.map((ele: any) => (
+            <Satisfaction
+              key={ele.id}
+              habitsUser={{
+                id: ele.id,
+                name: ele.habit.name,
+                tracker: ele.tracker,
+              }}
+            />
+          ))}
       </View>
     </ScrollView>
   );
@@ -125,7 +220,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
+
     marginTop: 50,
+  },
+  arrow: {
+    marginTop: 32,
+    marginLeft: "50%",
+  },
+  drop: {
+    // justifyContent:"center",
+    flexDirection: "row",
   },
   init: {
     color: "black",

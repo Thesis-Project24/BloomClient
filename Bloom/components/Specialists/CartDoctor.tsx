@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View,TouchableOpacity } from "react-native";
+import { StyleSheet,  View,TouchableOpacity } from "react-native";
+import { Text } from "react-native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../../GlobalStyles";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 type SectionCard3Type = {
@@ -45,34 +46,37 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
     <View style={[styles.frameParent, frameView1Style]}>
       <View style={[styles.frameGroup, styles.frameLayout1]}>
         <View style={[styles.frameContainer, styles.parentFlexBox]}>
-        <TouchableOpacity
-               onPress={() => {navigation.navigate("DoctorProfile", {
-                id: doctor.id
-              })
-            console.log(doctor.id,"doctor.idddddddddddddddddddddddddd");
-          }
-          }   >
-               <Image
-            style={styles.frameChild}
-            contentFit="cover"
-            source={doctor.profile_picture}
-          />
-              </TouchableOpacity>
-         
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("DoctorProfile", {
+                id: doctor.id,
+              });
+              console.log(doctor.id, "doctor.idddddddddddddddddddddddddd");
+            }}
+          >
+            <Image
+              style={styles.frameChild}
+              contentFit="cover"
+              source={doctor.profile_picture}
+            />
+          </TouchableOpacity>
+
           <View style={styles.frameView}>
             <View style={[styles.frameParent1, styles.frameLayout]}>
-              {doctor.review && <View style={[styles.frameWrapper, styles.frameLayout]}>
-                <View style={styles.parentFlexBox}>
-                 
-                  <Image
-                    style={styles.ionheartSharpIcon}
-                    contentFit="cover"
-                    source={require("../../assets/ionheartsharp.png")}
-                  />
-
-                  <Text style={[styles.text, styles.textTypo]}>{doctor.review}</Text>
+              {doctor.review ? (
+                <View style={[styles.frameWrapper, styles.frameLayout]}>
+                  <View style={styles.parentFlexBox}>
+                    <Image
+                      style={styles.ionheartSharpIcon}
+                      contentFit="cover"
+                      source={require("../../assets/ionheartsharp.png")}
+                    />
+                    <Text style={[styles.text, styles.textTypo]}>
+                      {doctor.review}
+                    </Text>
+                  </View>
                 </View>
-              </View>}
+              ) : null}
               <Image
                 style={styles.chevronForwardIcon}
                 contentFit="cover"
@@ -90,7 +94,7 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
                 style={[styles.generalPhysician, styles.wednesdayTypo]}
                 numberOfLines={1}
               >
-                General {doctor.specialty}
+                {doctor.specialty}
               </Text>
             </View>
           </View>
@@ -119,31 +123,32 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
       </View>
       <View style={[styles.frameParent3, styles.frameParent3FlexBox]}>
         <View style={[styles.parent, styles.parentFrameFlexBox]}>
-          <Text style={[styles.text1, styles.text1Typo]}>${doctor.rate}</Text>
+          <Text style={[styles.text1, styles.text1Typo]}>{doctor.rate}</Text>
+
           <View style={styles.frameItem} />
         </View>
         <TouchableOpacity
-          onPress={() => {navigation.navigate("DoctorProfile", {
-            id: doctor.id
-          })
-        console.log(doctor.id,"doctor.idddddddddddddddddddddddddd");
-      }
-      }
-
-        style={[styles.patientButton, styles.frameParent3FlexBox]}>
-        <View style={[styles.stateLayer, styles.parentFlexBox]}>
-          <Image
-            style={styles.vectorIcon}
-            contentFit="cover"
-            source={require("../../assets/calander.png")}
-          />
-          <Text style={[styles.labelText, styles.wednesdaySpaceBlock]}>
-            Book Appointment
-          </Text>
-        </View>
-      </TouchableOpacity>
+          onPress={() => {
+            navigation.navigate("DoctorProfile", {
+              id: doctor.id,
+            });
+            console.log(doctor.id, "doctor.idddddddddddddddddddddddddd");
+          }}
+          style={[styles.patientButton, styles.frameParent3FlexBox]}
+        >
+          <View style={[styles.stateLayer, styles.parentFlexBox]}>
+            <Image
+              style={styles.vectorIcon}
+              contentFit="cover"
+              source={require("../../assets/calander.png")}
+            />
+            <Text style={[styles.labelText, styles.wednesdaySpaceBlock]}>
+              Book Appointment
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
-    </View >
   );
 };
 

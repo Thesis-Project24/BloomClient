@@ -11,7 +11,6 @@ import {
     TextInput,
     Pressable,
 } from "react-native";
-// import { TextInput as RNPTextInput, TextInput } from "react-native-paper";
 import {
     FontFamily,
     FontSize,
@@ -237,8 +236,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     textTypo1: {
-        // color: Color.colorGray_100,
-
+        
         fontFamily: FontFamily.subtitleBodyCaptionCaption1,
         fontWeight: "600",
         textAlign: "left",

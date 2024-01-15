@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, ScrollView, TextInput } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import { Image } from "expo-image";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import CartDoctor from "../../components/Specialists/CartDoctor";
-import { Border, FontFamily, Padding, FontSize, Color } from "../../GlobalStyles";
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { RouteProp } from '@react-navigation/native';
+import {
+  Border,
+  FontFamily,
+  Padding,
+  FontSize,
+  Color,
+} from "../../GlobalStyles";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { RouteProp } from "@react-navigation/native";
 import SearchDoctor from "../../components/Specialists/SearchDoctor";
 interface DoctorData {
   id?: number;
@@ -21,10 +34,9 @@ interface DoctorData {
   bio?: string;
 }
 
-
 type YourRouteParamList = {
   DoctorListing: {
-    specialty: string
+    specialty: string;
     data: DoctorData[];
     isError: boolean;
     isLoading: boolean;
@@ -33,42 +45,38 @@ type YourRouteParamList = {
   };
 };
 
-type DoctorListingNavigationProp = StackNavigationProp<YourRouteParamList, 'DoctorListing'>;
+type DoctorListingNavigationProp = StackNavigationProp<
+  YourRouteParamList,
+  "DoctorListing"
+>;
 
-type DoctorListingRouteProp = RouteProp<YourRouteParamList, 'DoctorListing'>;
+type DoctorListingRouteProp = RouteProp<YourRouteParamList, "DoctorListing">;
 
 type DoctorListingProps = {
   navigatio: DoctorListingNavigationProp;
   route: DoctorListingRouteProp;
-
 };
 
 const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  console.log(route, 'route from doctorlisting== ======================================================================================================================================================================================================================================================================================================================');
-
-  const [data, setData] = useState<DoctorData[]>(route.params.data)
-
-  console.log(data, 'data frpm                   ');
 
 
+  const [data, setData] = useState<DoctorData[]>(route.params.data);
 
   return (
     <View style={styles.doctorListing}>
       <View style={styles.frameParent}>
         <View style={styles.frameGroup}>
-
-
-
           <View style={[styles.frameContainer, styles.frameLayout3]}>
             <TouchableOpacity
               style={[styles.vectorWrapper, styles.vectorWrapperFlexBox]}
               onPress={() => {
-                route.params.refetch()
-                navigation.goBack()
-                console.log('refechhhhhhh   hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
-                setData([])
-
+                route.params.refetch();
+                navigation.goBack();
+                console.log(
+                  "refechhhhhhh   hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+                );
+                setData([]);
               }}
             >
               <Image
@@ -86,113 +94,19 @@ const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
           </View>
 
           <SearchDoctor />
-
         </View>
-
-
-
 
         <ScrollView
           style={[styles.frameScrollview, styles.frameLayout1]}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.frameScrollViewContent}
-        >  
+        >
           {route.params.isSuccess &&
             route.params.data.map((doc) => (
               <CartDoctor propMarginTop={{ propMarginTop: 16 }} doctor={doc} />
+            ))}
 
-            ))
-          }
-
-
-          {/* <View style={[styles.frameParent1, styles.frameLayout1]}>
-            <View style={[styles.frameParent2, styles.frameParentLayout]}>
-              <View style={[styles.frameParent3, styles.frameLayout2]}>
-                <Image
-                  style={styles.frameChild}
-                  contentFit="cover"
-                  source={require("../../assets/Doctor.png")}
-                />
-                <View style={[styles.frameParent4, styles.frameSpaceBlock]}>
-                  <View style={[styles.frameParent5, styles.frameLayout]}>
-                    <View style={[styles.frameWrapper1, styles.frameLayout]}>
-                      <View style={styles.ionheartSharpParent}>
-                        <Image
-                          style={styles.iconLayout}
-                          contentFit="cover"
-                          source={require("../../assets/ionheartsharp.png")}
-                        />
-                        <Text style={[styles.text2, styles.textTypo]}>4.9</Text>
-                      </View>
-                    </View>
-                    <Image
-                      style={styles.chevronForwardIcon}
-                      contentFit="cover"
-                      source={require("../../assets/chevronforward.png")}
-                    />
-                  </View>
-                  <View style={styles.drEmmaMiaParent}>
-                    <Text
-                      style={[styles.drEmmaMia, styles.drEmmaMiaTypo]}
-                      numberOfLines={1}
-                    >
-                      Dr. Emma Mia
-                    </Text>
-                    <Text
-                      style={[styles.generalPhysician, styles.amLayout]}
-                      numberOfLines={1}
-                    >
-                      General Physician
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={[styles.frameParent6, styles.parentFrameFlexBox]}>
-                <View style={[styles.iontimeOutlineParent, styles.textLayout]}>
-                  <Image
-                    style={styles.iontimeOutlineIcon}
-                    contentFit="cover"
-                    source={require("../../assets/iontimeoutline3.png")}
-                  />
-                  <Text
-                    style={[styles.wednesday, styles.amLayout]}
-                    numberOfLines={1}
-                  >
-                    Wednesday
-                  </Text>
-                  <Text
-                    style={[styles.oct272022, styles.amLayout]}
-                    numberOfLines={1}
-                  >
-                    Oct 27, 2022
-                  </Text>
-                </View>
-                <Text style={[styles.am, styles.amLayout]} numberOfLines={1}>
-                  9:00 - 9:30 am
-                </Text>
-              </View>
-            </View>
-            <View style={[styles.frameParent7, styles.frameParent7FlexBox]}>
-              <View style={[styles.parent, styles.parentFrameFlexBox]}>
-                <Text style={[styles.text3, styles.text3Typo]}>$ 100</Text>
-                <View style={styles.frameItem} />
-              </View>
-              <View style={[styles.patientButton, styles.frameParent7FlexBox]}>
-                <View style={[styles.stateLayer1, styles.stateLayer1FlexBox]}>
-                  <Image
-                    style={styles.icon}
-                    contentFit="cover"
-                    source={require("../../assets/vector11.png")}
-                  />
-                  <Text style={[styles.labelText2, styles.parentSpaceBlock]}>
-                    Book Appointment
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-           */}
         </ScrollView>
       </View>
     </View>
@@ -224,7 +138,7 @@ const styles = StyleSheet.create({
     minWidth: 340,
     flex: 1,
   },
- 
+
   vectorIcon: {
     width: 15,
     height: 14,
@@ -501,7 +415,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     // backgroundColor: "red",
   },
-
 
   frameParent: {
     position: "relative",

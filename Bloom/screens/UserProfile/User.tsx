@@ -5,6 +5,7 @@ import {
   View,
   Text,
   ScrollView,
+  TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import {
@@ -17,19 +18,32 @@ import {
 import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
  import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+// import {fetchData} from "../../api/user/Editprofile";
 
 const User = () => {
+// const {
+//     data: userData,
+//     isLoading: userLoading,
+//     isError: usersError, 
+//   } = fetchData();
+// console.log(userData,"DFGSHGGEGWSGS")
+   const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={[styles.Box, styles.user11WrapperFlexBox]}>
         <View style={[styles.frameParent, styles.parentFlexBox]}>
           <View style={styles.frameGroup}>
             <View style={[styles.user11Wrapper, styles.user11WrapperFlexBox]}>
-              <Image
-                style={styles.user11}
-                resizeMode="cover"
-                source={require("../../assets/user-1-1.png")}
-              />
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditUserProfile" as never)}
+              >
+                <Image
+                  style={styles.user11}
+                  resizeMode="cover"
+                  source={require("../../assets/user-1-1.png")}
+                />
+              </TouchableOpacity>
             </View>
             <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
               <Text

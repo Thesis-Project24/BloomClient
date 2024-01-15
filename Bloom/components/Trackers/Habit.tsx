@@ -31,7 +31,6 @@ const Habit = ({ habit, onHabitSelect }: HabitProps) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   habit: {
     borderWidth: 1,
