@@ -136,6 +136,6 @@ export {
   Window,
   Comment,
   Flair,
-  forumPost,
+  ForumPost,
   Group,
 };
