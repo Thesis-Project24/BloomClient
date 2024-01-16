@@ -20,7 +20,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../../firebase.config";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "react-query"
 
 type ImageprofileProps = {
   data: any;

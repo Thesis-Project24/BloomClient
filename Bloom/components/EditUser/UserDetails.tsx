@@ -82,8 +82,6 @@ const UserDetails: React.FC<UserDetailsProps> = ({ isSuccess,data,setUserData,us
                   styles.textlabelFlexBox,
                 ]}
               >
-                
-       
               </View>
             </View>
           </View>
