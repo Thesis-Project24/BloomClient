@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createJ, getJournals } from '../../api/journal/Journal';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Image } from "expo-image";
+
 
 
 
