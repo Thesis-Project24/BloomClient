@@ -12,10 +12,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import { ParamListBase, useNavigation } from "@react-navigation/core";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import PersonalUserDetails from "../../components/EditUser/PersonalUserDetails";
-// import SaveUpdateButtonUser from "../../components/EditUser/SaveUpdateButtonUser";
+
+import SaveUpdateButtonUser from "../../components/EditUser/SaveUpdateButtonUser";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Padding,
@@ -24,14 +25,13 @@ import {
   FontSize,
   Border,
 } from "../../GlobalStyles";
-import { useUpdateUser, fetchData } from "../../api/user/Editprofile";
-
+import { fetchData } from "../../api/user/Editprofile";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const EditUserProfile = () => {
   const [userData, setUserData] = useState({});
   const navigation = useNavigation();
   const { data, isLoading, isError, isSuccess } = fetchData();
-  const updateUserMutation = useUpdateUser();
 
   return (
     <ScrollView style={styles.profile}>
@@ -40,7 +40,8 @@ const EditUserProfile = () => {
         contentFit="cover"
         source={require("../../assets/vector-2.png")}
       />
-       <Image
+
+      <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
         // source={require("../assets/vector-1.png")}
@@ -61,9 +62,19 @@ const EditUserProfile = () => {
                 setUserData={setUserData}
                 userData={userData}
               />
-            
+
+              <SaveUpdateButtonUser upDateData={fetchData} />
             </View>
-          </View>  
+         
+          </View>
+
+          <Pressable
+            style={styles.buttonSaveprofileSelf}
+            // onPress={() => {
+            //   // Trigger the mutation here
+            //   UpdateUser.mutate(userData);
+            // }}
+          >
             <Text
               style={[
                 styles.textlabelLargeLabelMedium1,
@@ -72,6 +83,7 @@ const EditUserProfile = () => {
             >
               Save
             </Text>
+          </Pressable>
         </View>
       </View>
     </ScrollView>

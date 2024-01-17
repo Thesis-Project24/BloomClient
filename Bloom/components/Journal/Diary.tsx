@@ -30,7 +30,7 @@ const Diary = ({ diary, onDiaryDelete }: DiaryProps) => {
     });
   };
 
-  const renderRightActions = (progress, dragX) => {
+  const renderRightActions = (progress:any, dragX:any) => {
     const scale = dragX.interpolate({
       inputRange: [0, 50],
       outputRange: [0, 1],
