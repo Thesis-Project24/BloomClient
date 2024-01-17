@@ -11,12 +11,12 @@ import {
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 interface User {
   id: number;
   email: string;
   username: string;
-  first_name: string;
-  last_name: string;
+ fullName: string;
   profile_picture: string;
   phone_number: string;
   age: number;
@@ -32,17 +32,21 @@ export const login = () => {
         object.email,
         object.password
       );
-      console.log(res);
       const db = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin`,
         object
       );
-      localStorage.setItem("user", JSON.stringify(res));
+      console.log(db.data.id, 'dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      await AsyncStorage.setItem('user', JSON.stringify(db.data));
+      const item = await  AsyncStorage.getItem('user');
+      console.log(item, "in api");
+      
       return db;
     },
   });
   return query;
-};
+ };
+ 
 
 export const signup = () => {
   const query = useMutation({
@@ -50,8 +54,7 @@ export const signup = () => {
       email: string;
       password: string;
       username: string;
-      phone_number: string;
-      emailVerified: boolean;
+      fullName: string;
     }) => {
       try {
         const auth = getAuth(app);
@@ -60,27 +63,22 @@ export const signup = () => {
           object.email,
           object.password
         );
-        const user = res.user;
-        await sendEmailVerification(user);
-        object.emailVerified = user.emailVerified;
-        console.log("Verification email sent to:", user.email);
-
-        // Call your backend to create user
         const db = await axios.post(
           `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
           object
         );
         console.log("Backend Response:", db.data);
-
         return db.data;
       } catch (error) {
         console.error("Signup Error:", error);
-        throw error; // Rethrow the error for useMutation to handle
+        throw error; 
       }
     },
   });
   return query;
 };
+
+
 
 const deleteuser = () => {
   const query = useMutation({
