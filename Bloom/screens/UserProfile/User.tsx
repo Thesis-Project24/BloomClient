@@ -1,6 +1,8 @@
 import * as React from "react";
+import { Avatar } from "react-native-elements";
 import {
   Image,
+  
   StyleSheet,
   View,
   Text,
@@ -19,16 +21,23 @@ import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
  import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-// import {fetchData} from "../../api/user/Editprofile";
+import {fetchData} from "../../api/user/Editprofile";
+import Imageprofile from "../../components/EditUser/ImageProfile";
+import { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const User = () => {
-// const {
-//     data: userData,
-//     isLoading: userLoading,
-//     isError: usersError, 
-//   } = fetchData();
-// console.log(userData,"DFGSHGGEGWSGS")
-   const navigation = useNavigation();
+
+
+  const {
+    data: userData,
+    isLoading: userLoading,
+    isError: usersError,
+    isSuccess,
+  } = fetchData();
+  console.log(userData);
+  const navigation = useNavigation();
+//  const [userDataa, setUserDataa] = useState({});
   return (
     <ScrollView>
       <View style={[styles.Box, styles.user11WrapperFlexBox]}>
@@ -38,27 +47,29 @@ const User = () => {
               <TouchableOpacity
                 onPress={() => navigation.navigate("EditUserProfile" as never)}
               >
-                <Image
-                  style={styles.user11}
-                  resizeMode="cover"
-                  source={require("../../assets/user-1-1.png")}
-                />
+                <View  style={styles.user11}>
+                  <Image
+                   
+                    resizeMode="cover"
+                    source={require("../../assets/user-1-1.png")}
+                  />
+                </View>
               </TouchableOpacity>
             </View>
+            <Avatar
+              rounded
+              size={"large"}
+              source={{ uri: userData?.profile_picture }}
+            />
             <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
               <Text
                 style={[styles.myriamHermessi, styles.myriamHermessiFlexBox]}
               >
-                Myriam Hermessi
+                {userData?.first_name}
               </Text>
-              <Text>Mail</Text>
+              <Text>{userData?.email}</Text>
             </View>
           </View>
-          <Image
-            style={styles.frameChild}
-            resizeMode="cover"
-            source={require("../../assets/ellipse-21.png")}
-          />
         </View>
 
         <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
@@ -95,35 +106,39 @@ const styles = StyleSheet.create({
   parentFlexBox: {
     justifyContent: "center",
     alignItems: "center",
-    top: "5%",
+    top: "3%",
   },
   myriamHermessiFlexBox: {
     textAlign: "center",
     fontWeight: "800",
     flex: 1,
     alignSelf: "stretch",
+    // marginTop: 30,
   },
   user11: {
     borderRadius: Border.br_9xs,
     width: 25,
     height: 25,
+    top: 40,
   },
+
   user11Wrapper: {
     width: 355,
     flexDirection: "row",
     padding: Padding.p_3xs,
-    top: "30%",
+    marginTop: -50,
     justifyContent: "flex-end",
   },
   myriamHermessi: {
     fontSize: FontSize.size_5xl,
     fontFamily: FontFamily.tajawalMedium,
     color: Color.colorGray_200,
+    // marginTop: -30,
   },
   myriamHermessiParent: {
-    width: 347,
+    width: 247,
     height: 53,
-    marginTop: 150,
+    marginTop: 2,
   },
   frameGroup: {
     zIndex: 0,
@@ -137,8 +152,8 @@ const styles = StyleSheet.create({
     height: 100,
     zIndex: 1,
     position: "relative",
-    top: "-40%", // Center vertically
-    marginTop: -5, // Adjust half of the
+    top: "30%", 
+    marginTop: -4, 
   },
   frameParent: {
     borderRadius: Border.br_lg,
@@ -163,6 +178,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
+    marginTop: 80,
   },
   parentFlexBoxx: {
     justifyContent: "center",
@@ -218,6 +234,12 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0, 0, 0, 0.25)",
     backgroundColor: Color.colorWhite,
     borderRadius: Border.br_lg,
+  },
+  frameShadowBox2: {
+    top: -10,
+    width: "100%",
+    alignItems: "center",
+    height: "100%",
   },
   rectangleParent: {
     flexDirection: "row",

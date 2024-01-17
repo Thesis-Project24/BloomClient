@@ -15,6 +15,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 
+
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [passwordHidden, setPasswordHidden] = useState(true);

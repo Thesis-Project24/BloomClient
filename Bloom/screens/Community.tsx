@@ -1,11 +1,28 @@
 
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Image,Pressable } from "react-native";
+import { fetchForumPosts } from '../api/forum/Forum';
+import { ForumPost } from '../type';
+import ForumPostCard from '../components/forum/ForumPostCard';
+
 const Community = () => {
+  // const [forums,setForums] = React.useState<ForumPost[]>([])
+  const {
+    data: forumData,
+    isLoading: forumLoading,
+    isSuccess: forumSucess,
+    isError: forumError, 
+  } = fetchForumPosts();
+
+    
+    
   return (
     <View>
-       <Text style={[styles.textPosition]}>Community</Text>
+    
+     {forumData?<Text> {forumData.map((post:any)=> {return <ForumPostCard post={post}/> })}</Text> :null }
+     
+     
     </View>
   )
 }

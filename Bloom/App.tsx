@@ -56,9 +56,8 @@ export default function App() {
           <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name="Availability"
             component={Availability}
@@ -129,7 +128,7 @@ export default function App() {
           <Stack.Screen
             name="User"
             component={User}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ConfirmAppointmentOnline"
