@@ -51,7 +51,6 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
               navigation.navigate("DoctorProfile", {
                 id: doctor.id,
               });
-              console.log(doctor.id, "doctor.idddddddddddddddddddddddddd");
             }}
           >
             <Image
@@ -132,7 +131,6 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
             navigation.navigate("DoctorProfile", {
               id: doctor.id,
             });
-            console.log(doctor.id, "doctor.idddddddddddddddddddddddddd");
           }}
           style={[styles.patientButton, styles.frameParent3FlexBox]}
         >

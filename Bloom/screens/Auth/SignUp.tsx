@@ -17,6 +17,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase.config";
 
+
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [passwordHidden, setPasswordHidden] = useState(true);

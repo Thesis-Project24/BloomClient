@@ -12,11 +12,6 @@ const PageSpecialists = () => {
    
   return (
   <>
-  {/* <Image
-        style={[styles.specialistsChild, styles.specialistsPosition]}
-        contentFit="cover"
-        source={require("../assets/vector-1.png")}
-      /> */}
   <View style={styles.specialists}>
            
       <View style={[styles.specialistsInner, styles.specialistsPosition]}>

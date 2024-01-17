@@ -1,9 +1,26 @@
 
 
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from "react-native";
 import io from "socket.io-client";
 import Chat from "./Chat";
+import {
+  Padding,
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+} from "../../GlobalStyles";
+import { StyleSheet } from "react-native";
 
 const socket = io.connect(`http://${process.env.EXPO_PUBLIC_ipadress}:3000`);
 
@@ -22,41 +39,55 @@ const App: React.FC<AppProps> = () => {
     }
   };
 
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
-      {!showChat ? (
-        <View>
-          <Text style={{ fontSize: 24, marginBottom: 16 }}>Join A Chat</Text>
-          <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingLeft: 10,
-            }}
-            placeholder="John..."
-            onChangeText={(text) => setUsername(text)}
-          />
-          <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingLeft: 10,
-            }}
-            placeholder="Room ID..."
-            onChangeText={(text) => setRoom(text)}
-          />
-          <Button title="Join A Room" onPress={joinRoom} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{
+        flex: 1,
+      }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
+          {!showChat ? (
+            <View>
+              <Text style={{ fontSize: 24, marginBottom: 16 }}>
+                Join A Chat
+              </Text>
+              <TextInput
+                style={{
+                  height: 40,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  marginBottom: 10,
+                  paddingLeft: 10,
+                }}
+                placeholder="John..."
+                onChangeText={(text) => setUsername(text)}
+              />
+              <TextInput
+                style={{
+                  height: 40,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  marginBottom: 10,
+                  paddingLeft: 10,
+                }}
+                placeholder="Room ID..."
+                onChangeText={(text) => setRoom(text)}
+              />
+              <Button title="Join A Room" onPress={joinRoom} />
+            </View>
+          ) : (
+            <Chat socket={socket} username={username} room={room} />
+          )}
         </View>
-      ) : (
-        <Chat socket={socket} username={username} room={room} />
-      )}
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
-export default App;
 
+
+
+export default App;

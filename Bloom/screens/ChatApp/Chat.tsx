@@ -6,8 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-
-
+import {
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { StyleSheet } from "react-native";
 interface MessageData {
   id: number; 
   text: string; 
@@ -47,73 +53,83 @@ interface MessageData {
     }, [socket]);
 
     return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
-          <ScrollView style={{ flex: 1 }}>
-            {messageList.map((messageContent, index) => (
-              <View
-                key={index} // <-- Add a unique key here
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{
+                  flex: 1}}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
+              <ScrollView style={{ flex: 1 }}>
+                {messageList.map((messageContent, index) => (
+                  <View
+                    key={index} // <-- Add a unique key here
+                    style={{
+                      backgroundColor:
+                        username === messageContent.author
+                          ? "#b2d8b2"
+                          : "#d9d9d9",
+                      borderRadius: 8,
+                      padding: 10,
+                      marginBottom: 10,
+                      alignSelf:
+                        username === messageContent.author
+                          ? "flex-end"
+                          : "flex-start",
+                    }}
+                  >
+                    <Text>{messageContent.message}</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text>{messageContent.time}</Text>
+                      <Text>{messageContent.author}</Text>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10,
+                borderTopWidth: 1,
+                borderTopColor: "#ccc",
+              }}
+            >
+              <TextInput
                 style={{
-                  backgroundColor:
-                    username === messageContent.author ? "#b2d8b2" : "#d9d9d9",
-                  borderRadius: 8,
-                  padding: 10,
-                  marginBottom: 10,
-                  alignSelf:
-                    username === messageContent.author
-                      ? "flex-end"
-                      : "flex-start",
+                  flex: 1,
+                  marginRight: 10,
+                  height: 40,
+                  borderColor: "#ccc",
+                  borderWidth: 1,
+                  borderRadius: 5,
+                  padding: 8,
                 }}
+                value={currentMessage}
+                placeholder="Hey..."
+                onChangeText={(text) => setCurrentMessage(text)}
+              />
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#4CAF50",
+                  padding: 10,
+                  borderRadius: 5,
+                }}
+                onPress={sendMessage}
               >
-                <Text>{messageContent.message}</Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>{messageContent.time}</Text>
-                  <Text>{messageContent.author}</Text>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-            borderTopWidth: 1,
-            borderTopColor: "#ccc",
-          }}
-        >
-          <TextInput
-            style={{
-              flex: 1,
-              marginRight: 10,
-              height: 40,
-              borderColor: "#ccc",
-              borderWidth: 1,
-              borderRadius: 5,
-              padding: 8,
-            }}
-            value={currentMessage}
-            placeholder="Hey..."
-            onChangeText={(text) => setCurrentMessage(text)}
-          />
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#4CAF50",
-              padding: 10,
-              borderRadius: 5,
-            }}
-            onPress={sendMessage}
-          >
-            <Text style={{ color: "#fff" }}>&#9658;</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+                <Text style={{ color: "#fff" }}>&#9658;</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     );
   }
 
