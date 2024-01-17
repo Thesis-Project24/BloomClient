@@ -3,10 +3,18 @@ import { Text, StyleSheet, Image, View,Pressable } from "react-native";
 import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
+import { fetchData } from "../api/user/Editprofile";
+import { Avatar } from "react-native-elements";
 const Nav = () => {
   const navigation = useNavigation();
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
+  const {
+    data: userData,
+    isLoading: userLoading,
+    isError: usersError,
+    isSuccess,
+  } = fetchData();
   return (
     <View style={[styles.groupParent, styles.textPosition]}>
       <View style={styles.parent}></View>
@@ -31,11 +39,11 @@ const Nav = () => {
         <View style={[styles.frameParent, styles.wrapperGroupFlexBox]}>
           <View style={[styles.vectorWrapper, styles.wrapperGroupFlexBox]}>
             <Pressable onPress={() => navigation.navigate("User" as never)}>
-              <Image
-                style={styles.frameChild}
-                resizeMode="cover"
-                source={require("../assets/ellipse-2.png")}
-              />
+              <Avatar
+                rounded
+                size={"medium"}
+                source={{ uri: userData?.profile_picture }}
+              />  
             </Pressable>
           </View>
           <View style={[styles.groupGroup, styles.wrapperGroupFlexBox]}>

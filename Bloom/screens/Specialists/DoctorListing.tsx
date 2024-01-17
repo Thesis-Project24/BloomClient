@@ -24,6 +24,8 @@ import { RouteProp } from "@react-navigation/native";
 import SearchDoctor from "../../components/Specialists/SearchDoctor";
 import { QueryFunctionContext, useQuery } from "react-query";
 import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
+import { QueryFunctionContext, useQuery } from "react-query";
+import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
 interface DoctorData {
   id?: number;
   email?: string;
@@ -112,7 +114,6 @@ const DoctorListing = ({ route }: DoctorListingProps) => {
             list.map((doc: any) => (
               <CartDoctor propMarginTop={{ propMarginTop: 16 }} doctor={doc} />
             ))}
-
         </ScrollView>
       </View>
     </View>

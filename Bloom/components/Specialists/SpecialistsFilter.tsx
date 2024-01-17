@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import {
-    Padding,
-    Color,
-    Border,
-    FontSize,
-    FontFamily,
+  Padding,
+  Color,
+  Border,
+  FontSize,
+  FontFamily,
 } from "../../GlobalStyles";
+import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
+import { QueryFunctionContext } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigation } from "@react-navigation/core";
 const Specialists = () => {
     const navigation: any = useNavigation();

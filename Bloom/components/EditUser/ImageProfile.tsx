@@ -31,7 +31,7 @@ type ImageprofileProps = {
 const Imageprofile: React.FC<ImageprofileProps> = ({
   data,
   setUserData,
-  userData,
+ userData,
 }) => {
   const queryClient = useQueryClient();
 
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     height: 116,
     marginBottom: 10,
     borderRadius: 58,
-   
+
     padding: Padding.p_3xs,
   },
   profuleInner: {
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   },
 
   groupGroupIcon: {
-    width: 55,
-    height: 55,
+    width: 48,
+    height: 48,
   },
 });
 

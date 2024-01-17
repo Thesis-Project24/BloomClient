@@ -17,38 +17,37 @@ const Journal = () => {
     }, [refetch()]);
 
     return (
-        <View style={styles.container}>
-             <Image
-        style={styles.profileChild}
-        contentFit="cover"
-        source={require("../../assets/vector-2.png")}
-      />
-            <ScrollView 
-                style={styles.content}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-            >
-                <Text style={styles.headingText}>My Journal</Text>
-                <View style={styles.card}>
-                    {Journals?.map((ele: any) => (
-                        <Diary
-                            key={ele.id}
-                            diary={{ content: ele.content, title: ele.title, id: ele.id }}
-                        />
-                    ))}
-                </View>
-            </ScrollView>
-            <View style={styles.buttonContainer}>
-               <TouchableOpacity onPress={() => navigation.navigate('CreateJournal')}>
-                <Ionicons
-                    name='add-circle-sharp'
-                    size={54}
-                    color='#ADD8C4'
-                />
-                </TouchableOpacity>
-            </View>
+      <View style={styles.container}>
+        <Image
+          style={styles.profileChild}
+          contentFit="cover"
+          source={require("../../assets/vector-2.png")}
+        />
+        <ScrollView
+          style={styles.content}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Text style={styles.headingText}>My Journal</Text>
+          <View style={styles.card}>
+            {Journals?.map((ele: any) => (
+              <Diary
+                key={ele.id}
+                diary={{ content: ele.content, title: ele.title, id: ele.id }}
+                // onDiaryDelete={() => (ele.id)} // Pass the onDiaryDelete prop
+              />
+            ))}
+          </View>
+        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CreateJournal")}
+          >
+            <Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" />
+          </TouchableOpacity>
         </View>
+      </View>
     );
 }
 

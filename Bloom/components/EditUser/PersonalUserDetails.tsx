@@ -12,21 +12,26 @@ import { useQueryClient, useQuery } from "react-query";
 
 interface UserData {
   id?: number;
- age?: number;
-  phone_number?: string;
-  profile_picture?: string;
+  email?: string;
+  username: string;
   first_name?: string;
   last_name?: string;
-}
+  profile_picture?: string;
+  phone_number?: string;
+  age?: number }
+ 
 
-type PersonalUserDetailsProps = {
+type PersonalDetailsProps = {
   data: UserData;
   setUserData: (arg: UserData) => void;
-  userData: UserData;
-
+ userData: UserData;
 };
 
-const PersonalUserDetails: React.FC<PersonalUserDetailsProps> = ({data,setUserData,userData,}) => {
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({
+  data,
+  setUserData,
+  userData,
+}) => {
   const queryClient = useQueryClient();
 
   // const [password, setPassword] = useState("dd")
@@ -46,47 +51,26 @@ const PersonalUserDetails: React.FC<PersonalUserDetailsProps> = ({data,setUserDa
           <View
             style={[styles.textlabelEmailAddressParent, styles.textlabelLayout]}
           >
-            {/* <Text
-              style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
-              numberOfLines={1}
-            >
-              Age
-            </Text>
-            <View style={styles.textlabel450116Wrapper}>
-              <TextInput
-                // editable={true} selectTextOnFocus={true}
-                onChangeText={(number) => {
-                  // Use parseInt to convert the input value to a number
-                  setUserData({ ...userData, age: parseInt(number) || 0 });
-                }}
-                style={styles.textlabel450116}
-                placeholder={data?.first_name || "Username"}
-                multiline={true}
-                keyboardType="numeric" // Set keyboardType to 'numeric' to show the numeric keyboard
-                placeholderTextColor="#242424"
-              />
-            </View> */}
-          </View>
-          <View
-            style={[styles.textlabelEmailAddressParent, styles.textlabelLayout]}
-          >
             <Text
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Your Username
+             Your First Name
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
+                numberOfLines={1}
                 // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
                   setUserData({ ...userData, first_name: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.first_name || "Username"}
+                placeholder={"Username"}
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.first_name}
+              </TextInput>
             </View>
           </View>
           <View
@@ -104,32 +88,14 @@ const PersonalUserDetails: React.FC<PersonalUserDetailsProps> = ({data,setUserDa
                   setUserData({ ...userData, last_name: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.last_name || "Last Name"}
-                placeholderTextColor="#242424"
-              />
+                placeholder={"Last Name"}
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.last_name}
+              </TextInput>
             </View>
           </View>
           <View
-            style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
-          >
-            <Text
-              style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
-              numberOfLines={1}
-            >
-              Your Last Name
-            </Text>
-            <View style={styles.textlabel450116Border}>
-              <TextInput
-                onChangeText={(text) => {
-                  setUserData({ ...userData, phone_number: text });
-                }}
-                style={styles.textlabel450116}
-                placeholder={data?.phone_number || "phone Number"}
-                placeholderTextColor="#242424"
-              />
-            </View>
-          </View>
-          {/* <View
             style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
           >
             <Text
@@ -146,44 +112,37 @@ const PersonalUserDetails: React.FC<PersonalUserDetailsProps> = ({data,setUserDa
                 style={styles.textlabel450116}
                 placeholder={data?.email || "Email"}
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.email}
+              </TextInput>
             </View>
-          </View> */}
-          {/* <View style={[styles.frameView, styles.textlabelFlexBox]}>
+          </View>
+          <View
+            style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
+          >
             <Text
-              style={[styles.textlabelEmailAddress3, styles.textlabelTypo]}
+              style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Password
+              Phone Number
             </Text>
-            <View
-              style={[
-                styles.textlabel450116Wrapper1,
-                styles.textlabel450116Border,
-              ]}
-            >
+            <View style={styles.textlabel450116Border}>
               <TextInput
                 onChangeText={(text) => {
-                  // setPassword(text)
+                  setUserData({ ...userData, phone_number: text });
                 }}
                 style={styles.textlabel450116}
-                placeholder="Password"
+                placeholder={data?.phone_number || "Phone Number"}
                 multiline={true}
-                placeholderTextColor="#242424"
-              />
+                placeholderTextColor="#ADADAD"
+              >
+                {data?.phone_number}
+              </TextInput>
             </View>
-          </View> */}
+          </View>
 
-          {/* <Button
-            style={[styles.textlabelPassword, styles.textlabelFlexBox]}
-            disabled={false}
-            uppercase={false}
-            mode="text"
-            labelStyle={styles.textlabelPasswordBtn}
-          >
-            Change Password
-          </Button> */}
+          
         </View>
       </View>
       <View style={styles.frameChild} />
@@ -325,4 +284,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PersonalUserDetails;
+export default PersonalDetails;
