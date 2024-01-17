@@ -60,7 +60,7 @@ const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
         <View style={styles.frameParent}>
           {/* <StatusBar
             // style={styles.frameFlexBox}
-            barStyle="light-content"
+            barStyle="dark-content"
             translucent={true}
           /> */}
           <ScrollView
@@ -83,13 +83,6 @@ const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
 };
 
 const styles = StyleSheet.create({
-
-
-
-
-
-
-
 
   frameScrollViewContent: {
     minHeight: 1561,
