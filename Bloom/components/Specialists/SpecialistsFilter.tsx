@@ -1,42 +1,30 @@
 import React, { useState } from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Padding, Color, Border, FontSize, FontFamily } from "../../GlobalStyles";
+import {
+  Padding,
+  Color,
+  Border,
+  FontSize,
+  FontFamily,
+} from "../../GlobalStyles";
 import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
-import { QueryFunctionContext } from 'react-query';
+import { QueryFunctionContext } from "react-query";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigation } from "@react-navigation/core";
 const Specialists = () => {
-  const navigation: any = useNavigation()
-  const [specialty, setSpecialty] = useState<string>("")
-  const { data, isError, isLoading, isSuccess, refetch } = useQuery(['DoctorSpecialists', specialty], (context: QueryFunctionContext<["DoctorSpecialists", string]>) => {
-    // Extract specialty from context
-    const specialty = context.queryKey[1];
-    // Check if specialty is defined
-    if (specialty !== undefined) {
-      return useFetchDocSpecialists(specialty);
-    }     
-
-  });
-      
-   
-
+  const navigation: any = useNavigation();
+  const [specialty, setSpecialty] = useState<string>("");
 
   return (
     <View style={styles.frameParent}>
       <TouchableOpacity
         onPress={() => {
-          refetch();
           setSpecialty("Psychiatry");
-          if (isSuccess && specialty) {
-            navigation.navigate("DoctorListing", {
-              data: data,
-              isSuccess: isSuccess,
-              refetch: refetch,
-              isLoading: isLoading,
-              isError: isError,
-            });
-          }
+
+          navigation.navigate("DoctorListing", {
+            specialty: "Neuropsychiatry",
+          });
         }}
         style={[styles.frameWrapper, styles.frameWrapperLayout]}
       >
@@ -54,16 +42,10 @@ const Specialists = () => {
 
       <TouchableOpacity
         onPress={() => {
-          refetch();
           setSpecialty("Neuropsychiatry");
           navigation.navigate("DoctorListing", {
-            data: data,
-            isSuccess: isSuccess,
-            refetch: refetch,
-            isLoading: isLoading,
-            isError: isError,
+            specialty: "Psychiatry",
           });
-          console.log(data, "Neuropsychiatryyyyyyyyyyyyyyyyyyyy");
         }}
         style={[styles.frameContainer, styles.frameWrapperLayout]}
       >
@@ -83,14 +65,8 @@ const Specialists = () => {
         onPress={() => {
           setSpecialty("Psychology");
           navigation.navigate("DoctorListing", {
-            data: data,
-            isSuccess: isSuccess,
-            refetch: refetch,
-            isLoading: isLoading,
-            isError: isError,
+            specialty: "Psychology",
           });
-          console.log(data, "Psychologyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-          refetch();
         }}
         style={[styles.frameView, styles.frameWrapperLayout]}
       >
@@ -111,15 +87,8 @@ const Specialists = () => {
         onPress={() => {
           setSpecialty("Psychotherapy");
           navigation.navigate("DoctorListing", {
-            data: data,
-            isSuccess: isSuccess,
-            refetch: refetch,
-            isLoading: isLoading,
-            isError: isError,
+            specialty: "Psychotherapy",
           });
-
-          console.log(data, "Psychotherapyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-          refetch();
         }}
         style={[styles.frameWrapper1, styles.frameWrapperLayout]}
       >
@@ -134,16 +103,13 @@ const Specialists = () => {
           </Text>
         </View>
       </TouchableOpacity>
-
       <Image
         style={[styles.frameChild, styles.framePosition]}
         contentFit="cover"
-        // source={require("../../assets/Line 5.png")}
       />
       <Image
         style={[styles.frameItem, styles.framePosition]}
         contentFit="cover"
-        // source={require("../../assets/Line 5.png")}
       />
     </View>
   );
@@ -310,7 +276,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     // backgroundColor: "blue",
-    gap: 30
+    gap: 30,
   },
 });
 

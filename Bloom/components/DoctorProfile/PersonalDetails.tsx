@@ -23,7 +23,7 @@ interface DoctorData {
 }
 
 type PersonalDetailsProps = {
-  data: DoctorData;
+  data: DoctorData
   setDoctorData: (arg: DoctorData) => void;
   doctorData: DoctorData;
 };

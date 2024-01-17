@@ -22,6 +22,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
 import SearchDoctor from "../../components/Specialists/SearchDoctor";
+import { QueryFunctionContext, useQuery } from "react-query";
+import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
 interface DoctorData {
   id?: number;
   email?: string;
@@ -57,11 +59,25 @@ type DoctorListingProps = {
   route: DoctorListingRouteProp;
 };
 
-const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
+const DoctorListing = ({ route }: DoctorListingProps) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-
-
-  const [data, setData] = useState<DoctorData[]>(route.params.data);
+  const { specialty } = route.params;
+  const {
+    data: list,
+    isError,
+    isLoading,
+    isSuccess,
+    refetch,
+  } = useQuery(
+    ["DoctorSpecialists", specialty],
+    (context: QueryFunctionContext<["DoctorSpecialists", string]>) => {
+      // Check if specialty is defined
+      if (specialty !== undefined) {
+        //fetch data depending on specialty
+        return useFetchDocSpecialists(specialty);
+      }
+    }
+  );
 
   return (
     <View style={styles.doctorListing}>
@@ -71,12 +87,8 @@ const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
             <TouchableOpacity
               style={[styles.vectorWrapper, styles.vectorWrapperFlexBox]}
               onPress={() => {
-                route.params.refetch();
+                refetch();
                 navigation.goBack();
-                console.log(
-                  "refechhhhhhh   hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
-                );
-                setData([]);
               }}
             >
               <Image
@@ -102,11 +114,10 @@ const DoctorListing = ({ navigatio, route }: DoctorListingProps) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.frameScrollViewContent}
         >
-          {route.params.isSuccess &&
-            route.params.data.map((doc) => (
+          {isSuccess &&
+            list.map((doc: any) => (
               <CartDoctor propMarginTop={{ propMarginTop: 16 }} doctor={doc} />
             ))}
-
         </ScrollView>
       </View>
     </View>

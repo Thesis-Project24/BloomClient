@@ -15,7 +15,7 @@ import {
 import { ParamListBase, useNavigation } from "@react-navigation/core";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import PersonalUserDetails from "../../components/EditUser/PersonalUserDetails";
-import UserDetails from "../../components/EditUser/UserDetails";
+
 import SaveUpdateButtonUser from "../../components/EditUser/SaveUpdateButtonUser";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -25,13 +25,13 @@ import {
   FontSize,
   Border,
 } from "../../GlobalStyles";
-import { UpdateUser } from "../../api/user/Editprofile";
+import { fetchData } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 const EditUserProfile = () => {
   const [userData, setUserData] = useState({});
-  // const navigation = useNavigation();
-  const { data, isLoading, isError, isSuccess } = UpdateUser();
+  const navigation = useNavigation();
+  const { data, isLoading, isError, isSuccess } = fetchData();
 
   return (
     <ScrollView style={styles.profile}>
@@ -63,8 +63,9 @@ const EditUserProfile = () => {
                 userData={userData}
               />
 
-              <SaveUpdateButtonUser upDateData={UpdateUser} />
+              <SaveUpdateButtonUser upDateData={fetchData} />
             </View>
+         
           </View>
 
           <Pressable
