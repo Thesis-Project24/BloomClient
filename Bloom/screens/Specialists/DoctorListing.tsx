@@ -24,6 +24,7 @@ import { RouteProp } from "@react-navigation/native";
 import SearchDoctor from "../../components/Specialists/SearchDoctor";
 import { QueryFunctionContext, useQuery } from "react-query";
 import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
+
 interface DoctorData {
   id?: number;
   email?: string;
@@ -60,24 +61,18 @@ type DoctorListingProps = {
 };
 
 const DoctorListing = ({ route }: DoctorListingProps) => {
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  const { specialty } = route.params;
-  const {
-    data: list,
-    isError,
-    isLoading,
-    isSuccess,
-    refetch,
-  } = useQuery(
-    ["DoctorSpecialists", specialty],
-    (context: QueryFunctionContext<["DoctorSpecialists", string]>) => {
-      // Check if specialty is defined
-      if (specialty !== undefined) {
-        //fetch data depending on specialty
-        return useFetchDocSpecialists(specialty);
-      }
+  const {specialty} = route.params
+     const { data: list, isError, isLoading, isSuccess, refetch } = useQuery(['DoctorSpecialists', specialty], (context: QueryFunctionContext<["DoctorSpecialists", string]>) => {
+
+    // Check if specialty is defined
+    if (specialty !== undefined) {
+      //fetch data depending on specialty 
+      return useFetchDocSpecialists(specialty);
     }
-  );
+    
+  });
 
   return (
     <View style={styles.doctorListing}>
