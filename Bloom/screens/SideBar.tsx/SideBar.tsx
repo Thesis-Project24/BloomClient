@@ -12,6 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { Octicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 
 
@@ -21,7 +22,7 @@ type SideBarType = {
 };
 
 const SideBar = ({ state, navigation }: SideBarType) => {
-  console.log(state, "ziuhdiuhduzihduizhduihzudihziuhdziuhdui");
+  // console.log(state, "ziuhdiuhduzihduizhduihzudihziuhdziuhdui");
   // "routeNames": ["Back", "Nav", "Appi", "Tracker", "DiaryDetails", "DoctorProfile", "User", "PageSpecialists"], 
 
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
@@ -41,6 +42,8 @@ const SideBar = ({ state, navigation }: SideBarType) => {
   const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
   const historyColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
   const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const articalColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
+  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
 
 
 
@@ -131,6 +134,22 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                       numberOfLines={1}
                     >
                       History
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("Home")
+                    }}
+
+                    style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: articalBgColor, }]}
+                  >
+                    <MaterialIcons name="save-alt" size={22} color={articalColor} />
+                   
+                    <Text
+                      style={[styles.home, styles.homeLayout, { color: articalColor }]}
+                      numberOfLines={1}
+                    >
+                      Saved Artical
                     </Text>
                   </TouchableOpacity>
                   {/* <TouchableOpacity
