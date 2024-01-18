@@ -14,7 +14,7 @@ import {
 import { ParamListBase, useNavigation } from "@react-navigation/core";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import PersonalUserDetails from "../../components/EditUser/PersonalUserDetails";
-import UserDetails from "../../components/EditUser/UserDetails";
+// import UserDetails from "../../components/EditUser/UserDetails";
 import SaveUpdateButtonUser from "../../components/EditUser/SaveUpdateButtonUser";
 import { Ionicons } from "@expo/vector-icons";
 import {
