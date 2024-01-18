@@ -164,9 +164,11 @@ Happier You`}</Text>
                   </Text>
                   <Pressable
                     style={styles.vectorWrapper}
-                    onPress={() =>
+                    onPress={() =>{
+                      
                       mutation.mutate({ email: email, password: password })
-                    }
+                      navigation.navigate("Back");
+                    }}
                   >
                     <Image
                       style={styles.vectorIcon2}
