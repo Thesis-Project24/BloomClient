@@ -15,7 +15,7 @@ import {
 import { ParamListBase, useNavigation } from "@react-navigation/core";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import PersonalUserDetails from "../../components/EditUser/PersonalUserDetails";
-
+import UserDetails from "../../components/EditUser/UserDetails";
 import SaveUpdateButtonUser from "../../components/EditUser/SaveUpdateButtonUser";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -25,7 +25,7 @@ import {
   FontSize,
   Border,
 } from "../../GlobalStyles";
-import { fetchData } from "../../api/user/Editprofile";
+import { UpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 const EditUserProfile = () => {

@@ -19,14 +19,10 @@ const SignIn = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
-  const [first_name, setFirstName] = useState<string>("");
-  const [last_name, setLastName] = useState<string>("");
-  const [phone_number, setPhoneNumber] = useState<string>("");
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [frameCheckboxchecked, setFrameCheckboxchecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = login();
-  mutation.isSuccess && navigation.push("Home");
   const togglePasswordVisibility = () => {
     setPasswordHidden(!passwordHidden);
   };
@@ -146,7 +142,7 @@ Happier You`}</Text>
                         </View>
                       </View>
                       <Pressable
-                        onPress={() => navigation.navigate("ForgotPassword")}
+                        
                       >
                         <Text
                           style={[
@@ -181,7 +177,7 @@ Happier You`}</Text>
                 </View>
               </View>
               <Text style={[styles.dontHaveAnContainer, styles.eMailTypo]}>
-                {`Don’t have an account? `}
+                {`Don't have an account? `}
                 <Text onPress={() => navigation.navigate("SignUp")}>
                   Create
                 </Text>

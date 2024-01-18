@@ -14,6 +14,8 @@ import { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
+import { getAuth } from "firebase/auth";
+import { app } from "../../firebase.config";
 
 
 const SignUp = () => {
@@ -22,36 +24,27 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [first_name, setFirstName] = useState<string>("");
-  const [last_name, setLastName] = useState<string>("");
-  const [phone_number, setPhoneNumber] = useState<string>("");
-  const [emailVerified, setEmailVerified] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string>("");
+ 
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = signup();
 
-
-
-
-  
-  const handlePress = async () => {
-    setLoading(true);
-    try {
-      const response = await mutation.mutateAsync({
-        email: email,
-        password: password,
-        username: username,
-        phone_number: phone_number,
-        emailVerified:emailVerified,
-      });
-      // Navigate user to the app, regardless of email verification
-      navigation.navigate("User");
-    } catch (error) {
-      console.error("Signup Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // const handlePress = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await mutation.mutateAsync({
+  //       email: email,
+  //       password: password,
+  //       username: username,
+  //       fullName: fullName,
+  //     });
+  //     navigation.navigate('SignIn')
+  //   } catch (error) {
+  //     console.error("Signup Error:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }; 
   return (
     <ScrollView>
       <View style={[styles.SignUp, styles.SignUpLayout]}>
@@ -148,9 +141,8 @@ const SignUp = () => {
                       <View style={styles.userParent}>
                         <TextInput
                           style={[styles.eMail, styles.eMailLayout]}
-                          placeholder="Phone Number"
-                          keyboardType="phone-pad"
-                          onChangeText={(text) => setPhoneNumber(text)}
+                          placeholder="Full-Name"
+                          onChangeText={(text) => setFullName(text)}
                           placeholderTextColor="#c7c7c7"
                         />
                       </View>
@@ -164,9 +156,15 @@ const SignUp = () => {
               <Text style={[styles.create, styles.createTypo]}>{`Create`}</Text>
               <Pressable
                 style={styles.vectorWrapper}
-                onPress={async () => {
-                  await handlePress();
-                  alert("Verification email sent. Please check your inbox.");
+                onPress={ () => {
+                  // await handlePress();
+mutation.mutate({
+  email: email,
+  password: password,
+  username: username,
+  fullName: fullName,
+})
+                  // alert("Verification email sent. Please check your inbox.");
                 }}
               >
                 <Image
