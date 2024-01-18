@@ -102,7 +102,7 @@ export const useDeleteJournal = () => {
         {
           data: { authorid, id },
         }
-      );
+      )
       console.log("Delete response:", response.data);
       return response.data;
     },

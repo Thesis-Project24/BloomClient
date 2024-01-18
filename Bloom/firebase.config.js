@@ -21,7 +21,6 @@ export const firebaseConfig = {
   measurementId: "G-53JFX45BSY",
   clientId:"354790966478-mbqbjtk3k6g20tj3r0nnqjm6k6ib2t4d.apps.googleusercontent.com"
 };
-console.log("nice")
 // export const authh = initializeAuth(app, {
 //   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 // });

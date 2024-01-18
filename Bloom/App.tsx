@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import Nav from "./screens/Nav";
 import Tracker from "./screens/Tracker";
-import { createStackNavigator } from "@react-navigation/stack";
+import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
 // import Login from "./screens/Login";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import User from "./screens/UserProfile/User";
 import BottomTabNav from "./NavigationTab/BottomTabNav";
@@ -33,8 +33,32 @@ import DrawerRoot from "./DrawerNavigation";
 
 
 
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Community from "./screens/Community";
+import Journal from "./screens/UserProfile/Journal";
+// import Notifications from "./screens/Notification/Notifications"
+
+import PostDetails from "./components/forum/PostDetails";
 const queryClient = new QueryClient();
 export default function App() {
+  // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  // useEffect(() => {
+  //   const checkLogin = async () => {
+  //     const user = await AsyncStorage.getItem('user');
+  //     if (user) {
+  //       navigation.navigate('Journal')
+  //     } else {
+  //       navigation.navigate('SignIn')
+  //     }
+  //   };
+
+  //   checkLogin();
+  // }, []);
+
+
+
+
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -68,8 +92,9 @@ export default function App() {
           <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
-            options={{ headerShown: false }}
+            options={{ headerShown: true }}
           />
+
           <Stack.Screen
             name="Availability"
             component={Availability}
@@ -107,10 +132,20 @@ export default function App() {
             options={{ headerShown: true }}
           />
           <Stack.Screen
+            name="Journal"
+            component={Journal}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
             name="CreateJournal"
             component={CreateJournal}
             options={{ headerShown: true }}
           />
+          {/* <Stack.Screen
+            name="Notifications"
+            component={Notifications}
+            options={{ headerShown: true }}
+          /> */}
           <Stack.Screen
             name="DiaryDetails"
             component={DiaryDetails}
@@ -158,6 +193,21 @@ export default function App() {
             options={{ headerShown: true }}
           />
           
+          <Stack.Screen
+            name="Community"
+            component={Community}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="PostDetails"
+            component={PostDetails}
+            options={{ headerShown: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

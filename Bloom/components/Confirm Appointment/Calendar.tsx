@@ -34,7 +34,7 @@ const Calendar = ({ onSelectDate, selected,mutation,setWindows }:any) => {
             showsHorizontalScrollIndicator={false}
           >
             {dates.map((date, index) => (
-                <Pressable onPress={()=>{console.log(date)}}>
+                <Pressable onPress={()=>{console.log(date, "------------")}}>
                   <Date
                   key={index}
                   date={date}

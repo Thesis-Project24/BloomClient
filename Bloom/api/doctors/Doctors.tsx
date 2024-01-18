@@ -13,7 +13,6 @@ export const useFetchOneDoctor = async (id:number) => {
 
 export const useFetchDocSpecialists = async (specialty:string) => {
   try {
-    console.log(specialty, 'the specialty');
     
     const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/specialty/${specialty}`);
     if (!res.ok) throw new Error(res.statusText);
