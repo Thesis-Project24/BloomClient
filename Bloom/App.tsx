@@ -31,7 +31,7 @@ import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
-import Notification from "../Bloom/screens/Notification/Notifications";
+import Notifications from "./screens/Notification/Notifications";
 
 import PostDetails from "./components/forum/PostDetails";
 const queryClient = new QueryClient();
@@ -76,12 +76,12 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignUp">
-          {/* <Stack.Screen
+        <Stack.Navigator initialRouteName="Notifications">
+          <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
             options={{ headerShown: true }}
-          /> */}
+          />
 
           <Stack.Screen
             name="Availability"
