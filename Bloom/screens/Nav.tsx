@@ -14,7 +14,10 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 const Nav = () => {
   // const navigation = useNavigation();
   const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
- 
+  const openDrawer = () => {
+    navigation.openDrawer();
+  };
+
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
   const {
@@ -36,6 +39,7 @@ const Nav = () => {
               // navigation.dispatch(navigation.toggleDrawer)
               navigation.toggleDrawer()
               //  navigation.navigate('DrawerRoot')
+              // openDrawer()
             }} >
             <Entypo name="menu" size={33} color="#242424" />
 

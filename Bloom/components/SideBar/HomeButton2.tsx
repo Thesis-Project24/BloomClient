@@ -1,4 +1,4 @@
-import * as React from "react";
+import React , {useState} from "react";
 import {
   Pressable,
   StyleProp,
@@ -11,59 +11,60 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Border, Padding } from "../../GlobalStyles";
 import { Octicons } from '@expo/vector-icons';
-
-type FrameComponent5Type = {
+type FrameComponent4Type = {
   style?: StyleProp<ViewStyle>;
 };
 
-const FrameComponent5 = ({ style }: FrameComponent5Type) => {
+const FrameComponent4 = ({ style }: FrameComponent4Type) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-
+const [color,setColor] =useState(false)
   return (
     <Pressable
-      style={[styles.vectorParent, style]}
-      onPress={() => navigation.navigate("ProfileDoctorRaja")}
+      style={[styles.frameParent, style,  {backgroundColor: color ? 'green' : 'initial'}]}
+      onPress={() => {
+        setColor(!color)
+        navigation.navigate("Home")
+      }}
     >
-      <Octicons name="home" size={18} color={Color.colorGray_400} />
+      <Octicons name="home" size={18} color={color ? 'white' : 'black'} />
       {/* <Image
-        style={[styles.vectorIcon, styles.homeLayout]}
+        style={[styles.frameIcon, styles.projectsLayout]}
         contentFit="cover"
-        source={require("../assets/vector7.png")}
+        source={require("../assets/frame1.png")}
       /> */}
-      <Text style={[styles.home, styles.homeLayout]} numberOfLines={1}>
-        Home
+      <Text style={[styles.projects, styles.projectsLayout , {color: color} ]} numberOfLines={1}>
+      Home
       </Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  homeLayout: {
+  projectsLayout: {
     overflow: "hidden",
     height: "100%",
     flex: 1,
   },
-  vectorIcon: {
-    maxWidth: 16,
-    maxHeight: 16,
-    minWidth: 16,
-    minHeight: 16,
+  frameIcon: {
+    maxWidth: 20,
+    maxHeight: 20,
+    minWidth: 20,
+    minHeight: 20,
   },
-  home: {
+  projects: {
     fontSize: FontSize.size_sm,
     lineHeight: 16,
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
-    color: Color.colorGray_400,
     textAlign: "left",
     maxWidth: 168,
-    maxHeight: 16,
+    maxHeight: 25,
     marginLeft: 12,
   },
-  vectorParent: {
+  frameParent: {
     alignSelf: "stretch",
     borderRadius: Border.br_5xs,
-    backgroundColor: Color.neutralsWhite,
+    backgroundColor: Color.colorPaleturquoise_200,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: Padding.p_xs,
@@ -75,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FrameComponent5;
+export default FrameComponent4;

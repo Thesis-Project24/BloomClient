@@ -11,7 +11,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
+import { Octicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 
@@ -21,17 +24,35 @@ type SideBarType = {
 };
 
 const SideBar = ({ state, navigation }: SideBarType) => {
+  console.log(state, "ziuhdiuhduzihduizhduihzudihziuhdziuhdui");
+  // "routeNames": ["Back", "Nav", "Appi", "Tracker", "DiaryDetails", "DoctorProfile", "User", "PageSpecialists"], 
   const [drawerItemsNormal] = useState([
     <HomeButton2 />,
-   
+
   ]);
   const [drawerItemsActive] = useState([
     <HomeButton />,
-   
+
   ]);
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
     useState(true);
   const stateIndex = !state ? 0 : state.index - 1;
+  const activeRoute = state.routeNames[state.index];
+
+  const homeButtonColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
+  const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const notifColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
+  const notifBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const messColor = activeRoute === "Appi" ? Color.green : Color.colorGray_400;
+  const messBgColor = activeRoute === "Appi" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const trackerColor = activeRoute === "Tracker" ? Color.green : Color.colorGray_400;
+  const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const settingColor = activeRoute === "EditDoctorProfile" ? Color.green : Color.colorGray_400;
+  const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const historyColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
+  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+
+
 
   return (
     <SafeAreaView style={styles.sideBar}>
@@ -45,56 +66,57 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   onPress={() => navigation.goBack()}
                 >
                   <Ionicons name="chevron-back" size={24} color="black" />
-                  {/* <Image
-                    style={[styles.frameChild, styles.frameIconLayout]}
-                    contentFit="cover"
-                    source={require("../assets/frame-427319272.png")}
-                  /> */}
                   <Text style={styles.leftTitle}>Back</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.frameView}>
                 <View style={styles.frameParent1}>
-                  {stateIndex === 0
-                    ? drawerItemsActive[0]
-                    : drawerItemsNormal[0]}
-                  {stateIndex === 1
-                    ? drawerItemsActive[0]
-                    : drawerItemsNormal[0]}
+                  <TouchableOpacity
+                    style={[styles.homeButton, { backgroundColor: homeBgColor, }]}
+                    onPress={() => {
+                      navigation.navigate("Home")
+                    }}
+                  >
+                    <Octicons name="home" size={18} color={homeButtonColor} />
+
+                    <Text style={[styles.projects, styles.projectsLayout, { color: homeButtonColor }]} numberOfLines={1}>
+                      Home
+                    </Text>
+                  </TouchableOpacity>
+
                 </View>
                 <View style={[styles.frameItem, styles.frameFlexBox]} />
                 <View style={styles.frameFlexBox}>
-                  <TouchableOpacity style={styles.iconmenuIconParent}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("Home")
+                    }}
+                    style={[styles.iconmenuIconParent, { backgroundColor: notifBgColor, }]}>
                     <Ionicons
                       name="notifications-outline"
                       size={22}
-                      color={Color.colorGray_400} />
-                    {/* <Image
-                      style={[styles.iconmenuIcon, styles.iconsIconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/iconmenu-icon.png")}
-                    /> */}
+                      color={notifColor} />
+                   
                     <Text
-                      style={[styles.home, styles.homeLayout]}
+                      style={[styles.home, styles.homeLayout, { color: notifColor }]}
                       numberOfLines={1}
                     >
                       Notifacation
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.chatParent, styles.chatParentLayout]}
+                  onPress={() => {
+                    navigation.navigate("Appi")
+                  }}
+                    style={[styles.chatParent, styles.chatParentLayout, { backgroundColor: messBgColor, }]}
                   >
-                    <AntDesign 
-                    name="message1" 
-                    size={20} 
-                    color={Color.colorGray_400} />
+                    <AntDesign
+                      name="message1"
+                      size={20}
+                      color={messColor} />
 
-                    {/* <Image
-                      style={[styles.chatIcon, styles.iconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/chat.png")}
-                    /> */}
-                    <Text style={styles.messages} numberOfLines={1}>
+                   
+                    <Text style={[styles.messages, { color: messColor }]} numberOfLines={1}>
                       Messages
                     </Text>
                     <View style={styles.wrapper}>
@@ -102,20 +124,20 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.vectorGroup, styles.chatParentLayout]}
+                    onPress={() => {
+                      navigation.navigate("Home")
+                    }}
+
+                    style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: historyBgColor, }]}
                   >
                     <MaterialCommunityIcons
-                      // style={styles.iconLayout} 
+                     
                       name="calendar-clock-outline"
                       size={22}
-                      color={Color.colorGray_400} />
-                    {/* <Image
-                      style={styles.iconLayout}
-                      contentFit="cover"
-                      source={require("../assets/vector8.png")}
-                    /> */}
+                      color={historyColor} />
+                   
                     <Text
-                      style={[styles.home, styles.homeLayout]}
+                      style={[styles.home, styles.homeLayout, { color: historyColor }]}
                       numberOfLines={1}
                     >
                       History
@@ -148,64 +170,60 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                       Reminders
                     </Text>
                   </TouchableOpacity> */}
-                  
+
                   <TouchableOpacity
-                    style={[styles.chatParent, styles.chatParentLayout]}
+                    onPress={() => {
+                      navigation.navigate("Tracker")
+                    }}
+                    style={[styles.chatParent, styles.chatParentLayout, { backgroundColor: trackerBgColor, }]}
                   >
-                    {/* <Image
-                      style={[styles.frameIcon2, styles.iconsIconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/frame3.png")}
-                    /> */}
-                    <Text style={styles.messages} numberOfLines={1}>
+                    {/* <FontAwesome name="line-chart" size={20} color={Color.colorGray_400} /> */}
+                    <AntDesign name="linechart" size={23} color={trackerColor} />
+                   
+                    <Text style={[styles.messages, { color: trackerColor }]} numberOfLines={1}>
                       Stats
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.vectorGroup, styles.chatParentLayout]}
+                    onPress={() => {
+                      navigation.navigate("EditDoctorProfile")
+                    }}
+                    style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: settingBgColor }]}
                   >
-                    <AntDesign 
-                    name="setting" 
-                    size={24} 
-                    color={Color.colorGray_400} />
-                    {/* <Image
-                      style={styles.ppeSantizerAlt1Icon}
-                      contentFit="cover"
-                      source={require("../assets/ppe-santizer-alt-1.png")}
-                    /> */}
-                    <Text style={styles.reminders} numberOfLines={1}>
-                    Setting
+                    <AntDesign
+                      name="setting"
+                      size={24}
+                      color={settingColor} />
+                  
+                    <Text style={[styles.messages, { color: settingColor }]} numberOfLines={1}>
+                      Setting
                     </Text>
                   </TouchableOpacity>
-                  {/* {stateIndex === 1
-                    ? drawerItemsActive[1]
-                    : drawerItemsNormal[1]} */}
+               
                 </View>
               </View>
 
               <View style={styles.bottom}>
-                <TouchableOpacity style={styles.listManu}>
+                <TouchableOpacity
+                  // onPress={() => {
+                  //   navigation.navigate("Home")
+                  // }}
+                  style={styles.listManu}>
                   <View style={[styles.content, styles.frameFlexBox1]}>
-                  <MaterialCommunityIcons name="help-circle-outline" size={22} color={Color.green} />
-                    {/* <Image
-                      style={[styles.uiIconhelplight, styles.iconLayout1]}
-                      contentFit="cover"
-                      source={require("../assets/ui-iconhelplight.png")}
-                    /> */}
+                    <MaterialCommunityIcons name="help-circle-outline" size={22} color={Color.green} />
+                  
                     <Text style={styles.text1} numberOfLines={1}>
                       Help and Support
                     </Text>
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.listManu}>
+                <TouchableOpacity
+                  
+                  style={styles.listManu}>
                   <View style={[styles.content, styles.frameFlexBox1]}>
-                  <MaterialIcons name="logout" size={22} color={Color.grayShadesDarkGray} />
-                    {/* <Image
-                      style={[styles.icons, styles.iconsIconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/icons1.png")}
-                    /> */}
+                    <MaterialIcons name="logout" size={22} color={Color.grayShadesDarkGray} />
+                  
                     <Text
                       style={[styles.text2, styles.textLayout]}
                       numberOfLines={1}
@@ -217,15 +235,15 @@ const SideBar = ({ state, navigation }: SideBarType) => {
 
 
                 <TouchableOpacity
+
+                  onPress={() => {
+                    navigation.navigate("Home")
+                  }}
                   style={[styles.lightdarkControl, styles.listManu1Layout]}
                 >
                   <View style={[styles.content, styles.frameFlexBox1]}>
-                  <Feather name="sun" size={22} color={Color.grayShadesDarkGray} />
-                    {/* <Image
-                      style={[styles.icons1, styles.iconsIconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/icons2.png")}
-                    /> */}
+                    <Feather name="sun" size={22} color={Color.grayShadesDarkGray} />
+                   
                     <Text
                       style={[styles.text3, styles.textLayout]}
                       numberOfLines={1}
@@ -256,6 +274,46 @@ const SideBar = ({ state, navigation }: SideBarType) => {
 };
 
 const styles = StyleSheet.create({
+  projectsLayout: {
+    overflow: "hidden",
+    height: "100%",
+    flex: 1,
+  },
+  frameIcon: {
+    maxWidth: 20,
+    maxHeight: 20,
+    minWidth: 20,
+    minHeight: 20,
+  },
+  projects: {
+    fontSize: FontSize.size_sm,
+    lineHeight: 16,
+    fontWeight: "600",
+    fontFamily: FontFamily.interSemiBold,
+    textAlign: "left",
+    maxWidth: 168,
+    maxHeight: 17,
+    marginLeft: 12,
+  },
+  homeButton: {
+    alignSelf: "stretch",
+    borderRadius: Border.br_5xs,
+
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: Padding.p_xs,
+    paddingVertical: Padding.p_3xs,
+    minWidth: 140,
+    minHeight: 40,
+    maxHeight: 40,
+    flex: 1,
+  },
+
+
+
+
+
+
   mt8: {
     marginTop: 8,
   },
@@ -368,16 +426,20 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     fontFamily: FontFamily.subheadLgSHLgRegular,
     display: "flex",
-    marginLeft: 17,
+    marginLeft: 15,
     textAlign: "left",
     fontSize: 16,
     color: Color.black,
     alignSelf: "stretch",
     alignItems: "center",
     flex: 1,
+    maxWidth: 74,
+    width: "100%",
+    minWidth: 70,
   },
   frameGroup: {
-    width: 71,
+    maxWidth: 74,
+    width: "100%",
     alignItems: "center",
   },
   frameContainer: {
@@ -389,7 +451,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   frameParent1: {
-    height: 84,
+    minHeight:22,
+    // maxHeight: 84,
+    maxHeight: 38,
+    height: "100%",
     alignSelf: "stretch",
   },
   frameItem: {
@@ -481,7 +546,7 @@ const styles = StyleSheet.create({
   },
   reminders: {
     fontWeight: "700",
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.interSemiBold,
     maxHeight: 17,
     marginLeft: 8,
     maxWidth: 168,
@@ -609,7 +674,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "center",
     flex: 1,
-    width:"100%",
+    width: "100%",
   },
   inner: {
     position: "relative",

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React , {useState} from "react";
 import {
   Pressable,
   StyleProp,
@@ -17,19 +17,22 @@ type FrameComponent4Type = {
 
 const FrameComponent4 = ({ style }: FrameComponent4Type) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-
+const [color,setColor] =useState(Color.colorGray_400)
   return (
     <Pressable
       style={[styles.frameParent, style]}
-      onPress={() => navigation.navigate("ProfileDoctorRaja")}
+      onPress={() => {
+        setColor(Color.green)
+        navigation.navigate("Home")
+      }}
     >
-      <Octicons name="home" size={18} color={Color.green} />
+      <Octicons name="home" size={18} color={color} />
       {/* <Image
         style={[styles.frameIcon, styles.projectsLayout]}
         contentFit="cover"
         source={require("../assets/frame1.png")}
       /> */}
-      <Text style={[styles.projects, styles.projectsLayout]} numberOfLines={1}>
+      <Text style={[styles.projects, styles.projectsLayout , {color: color} ]} numberOfLines={1}>
       Home
       </Text>
     </Pressable>
@@ -53,7 +56,6 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
-    color: Color.green,
     textAlign: "left",
     maxWidth: 168,
     maxHeight: 25,

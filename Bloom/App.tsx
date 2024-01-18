@@ -27,266 +27,13 @@ import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import SideBar from "./screens/SideBar.tsx/SideBar";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useState } from "react";
+import DrawerRoot from "./DrawerNavigation";
+
+
+
+
+
 const queryClient = new QueryClient();
-const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
-
-function DrawerRoot({ navigation }: any) {
-  return (
-    <Drawer.Navigator
-      screenOptions={{ headerShown: false, drawerStyle: { 
-        // width: 265,
-        borderTopRightRadius: 100,
-        borderBottomRightRadius: 100, } }}
-      drawerContent={(props) => <SideBar {...props} />}
-    >
-       <Drawer.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
-         {/* <Drawer.Screen
-            name="EditDoctorProfile"
-            component={EditDoctorProfile}
-            options={{
-              header:()=><Text>helhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhlo</Text>
-             }}
-          /> */}
-         
-           <Drawer.Screen
-            name="EditUserProfile"
-            component={EditUserProfile}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="Availability"
-            component={Availability}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="AvailabilityW"
-            component={AvailabilityW}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="Back"
-            options={{
-              headerTitle: () => <Nav />,
-            }}
-            component={BottomTabNav}
-          />
-          <Drawer.Screen
-            name="Nav"
-            component={Nav}
-            options={{
-              headerShown: false,
-              headerTransparent: true,
-              cardStyle: { backgroundColor: "transparent" },
-            }}
-          />
-          <Drawer.Screen
-            name="Appi"
-            component={Appi}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="Tracker"
-            component={Tracker}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="CreateJournal"
-            component={CreateJournal}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="DiaryDetails"
-            component={DiaryDetails}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="EditDoctorProfile"
-            component={EditDoctorProfile}
-            options={{
-              header:()=><Text>helhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhlo</Text>
-             }}
-          />
-          <Drawer.Screen
-            name="DoctorProfile"
-            component={DoctorProfile}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{ headerShown: false }}
-          />
-
-          <Drawer.Screen
-            name="User"
-            component={User}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="ConfirmAppointmentOnline"
-            component={ConfirmAppointmentOnline}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="PageSpecialists"
-            component={PageSpecialists}
-            options={{ headerShown: true }}
-          />
-          <Drawer.Screen
-            name="DoctorListing"
-            component={DoctorListing}
-            options={{ headerShown: true }}
-          />
-    </Drawer.Navigator>
-  )
-}
-function BottomTabsRoot({ navigation }: any) {
-  // const [bottomTabItemsNormal] = useState([<Frame />]);
-  // const [bottomTabItemsActive] = useState([<Frame />]);
-  return (
-    <Tab.Navigator
-      screenOptions={{ headerShown: false }}
-      // tabBar={({ state, descriptors, navigation }: any) => {
-      //   const activeIndex = state.index;
-      //   return (
-      //     <View
-      //       style={{
-      //         width: 390,
-      //         height: 157,
-      //         flexDirection: "column",
-      //         alignItems: "center",
-      //         justifyContent: "flex-end",
-      //       }}
-      //     >
-      //       {bottomTabItemsNormal.map((item: any, index: any) => {
-      //         const isFocused = state.index === index;
-      //         return (
-      //           <Pressable
-      //             key={index}
-      //             onPress={() => {
-      //               navigation.navigate({
-      //                 name: state.routes[index].name,
-      //                 merge: true,
-      //               });
-      //             }}
-      //           >
-      //             {activeIndex === index
-      //               ? bottomTabItemsActive[index] || item
-      //               : item}
-      //           </Pressable>
-      //         );
-      //       })}
-      //     </View>
-      //   );
-      // }}
-    >
-      <Tab.Screen
-            name="EditUserProfile"
-            component={EditUserProfile}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="Availability"
-            component={Availability}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="AvailabilityW"
-            component={AvailabilityW}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="Back"
-            options={{
-              headerTitle: () => <Nav />,
-            }}
-            component={BottomTabNav}
-          />
-          <Tab.Screen
-            name="Nav"
-            component={Nav}
-            options={{
-              headerShown: false,
-              headerTransparent: true,
-              cardStyle: { backgroundColor: "transparent" },
-            }}
-          />
-          <Tab.Screen
-            name="Appi"
-            component={Appi}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="Tracker"
-            component={Tracker}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="CreateJournal"
-            component={CreateJournal}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="DiaryDetails"
-            component={DiaryDetails}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="EditDoctorProfile"
-            component={EditDoctorProfile}
-            options={{
-              header:()=><Text>helhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhlo</Text>
-             }}
-          />
-          <Tab.Screen
-            name="DoctorProfile"
-            component={DoctorProfile}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{ headerShown: false }}
-          />
-
-          <Tab.Screen
-            name="User"
-            component={User}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="ConfirmAppointmentOnline"
-            component={ConfirmAppointmentOnline}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="PageSpecialists"
-            component={PageSpecialists}
-            options={{ headerShown: true }}
-          />
-          <Tab.Screen
-            name="DoctorListing"
-            component={DoctorListing}
-            options={{ headerShown: true }}
-          />
-    </Tab.Navigator>
-  );
-}
 export default function App() {
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -308,13 +55,16 @@ export default function App() {
   });
   const Stack = createStackNavigator();
 
-
-  
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Back">
-        <Stack.Screen name="DrawerRoot" component={DrawerRoot} />
+        <Stack.Navigator initialRouteName="DrawerRoot">
+        <Stack.Screen
+            name="DrawerRoot"
+            component={DrawerRoot}
+            options={{ headerShown: false }}
+          />
+          
           <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
@@ -369,9 +119,7 @@ export default function App() {
           <Stack.Screen
             name="EditDoctorProfile"
             component={EditDoctorProfile}
-            options={{
-              header:()=><Text>helhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhlo</Text>
-             }}
+            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="DoctorProfile"
@@ -409,6 +157,7 @@ export default function App() {
             component={DoctorListing}
             options={{ headerShown: true }}
           />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
