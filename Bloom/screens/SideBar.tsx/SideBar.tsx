@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Switch } from "react-native";
-import { Image } from "expo-image";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color, Padding, Border, FontFamily, FontSize } from "../../GlobalStyles";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,11 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { Octicons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
+
 
 
 

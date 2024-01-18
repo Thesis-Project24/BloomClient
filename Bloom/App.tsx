@@ -3,6 +3,7 @@ import Nav from "./screens/Nav";
 import Tracker from "./screens/Tracker";
 import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
 // import Login from "./screens/Login";
+
 import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import User from "./screens/UserProfile/User";
@@ -78,9 +79,6 @@ export default function App() {
       <MentalHealth />
     );
   }
-
-
-
 
   return (
     <QueryClientProvider client={queryClient}>
