@@ -32,7 +32,6 @@ export const login = () => {
         object.email,
         object.password
       );
-      console.log(res);
       const db = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin`,
         object
