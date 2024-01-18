@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-// import FrameComponent4 from "./Frame29";
-import HomeButton from "../../components/SideBar/HomeButton";
-import HomeButton2 from "../../components/SideBar/HomeButton2";
 import { TouchableOpacity, StyleSheet, Text, View, Switch } from "react-native";
 import { Image } from "expo-image";
 import { SafeAreaView } from "react-native-safe-area-context";
