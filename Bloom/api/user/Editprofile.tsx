@@ -52,24 +52,13 @@ export const fetchData = () => {
 // };
 
 export const useUpdateUser = () => {
-  return useMutation(
-    async ({
-      age,
-      phone_number,
-      profile_picture,
-      first_name,
-      last_name,
-    }: {
-      age: number;
-      phone_number: string;
-      profile_picture: string;
-      first_name: string;
-      last_name: string;
-    }) => {
+  const mutation=  useMutation({
+    mutationFn: async(obj:{age:number,phone_number:number,fullName:string,profile_picture:string}) => {
       try {
+        
         const response = await axios.put(
-          `http://${process.env.EXPO_PUBLIC_ipaddress}:3000/users/1`,
-          { age, phone_number, profile_picture, first_name, last_name }
+          `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/update/1`,
+          obj
         );
         console.log(response.data);
         return response.data;
@@ -78,5 +67,6 @@ export const useUpdateUser = () => {
         throw error; // Rethrow the error for React Query to handle
       }
     }
-  );
+  })
+  return mutation
 };

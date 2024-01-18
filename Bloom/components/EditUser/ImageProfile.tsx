@@ -26,6 +26,7 @@ type ImageprofileProps = {
   data: any;
   setUserData: any;
   userData: any;
+
 };
 
 const Imageprofile: React.FC<ImageprofileProps> = ({
@@ -61,12 +62,13 @@ const Imageprofile: React.FC<ImageprofileProps> = ({
       await uploadBytes(storageRef, blob);
       // Get the download URL of the uploaded image
       const downloadURL = await getDownloadURL(storageRef);
-      console.log(downloadURL, "Firebase Storage URL");
+      console.log(downloadURL, "Firebase Storage URL---------------");
       Alert.alert("Photo uploaded!");
-      setUserData({ ...userData, profile_picture: downloadURL });
-      console.log(userData, "imge uploadeddddd");
+        //  await setImageUrl(downloadURL)
+      await setUserData({ ...userData, profile_picture: downloadURL });
+      console.log(userData, "img uploadedddddddddddddddddd");
     } catch (e) {
-      console.log("erro");
+     
 
       console.log(e);
     }
