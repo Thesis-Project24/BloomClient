@@ -152,34 +152,6 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                       Saved Artical
                     </Text>
                   </TouchableOpacity>
-                  {/* <TouchableOpacity
-                    style={[styles.vectorGroup, styles.chatParentLayout]}
-                  >
-                    <Image
-                      style={[styles.frameIcon1, styles.iconsIconLayout]}
-                      contentFit="cover"
-                      source={require("../assets/frame2.png")}
-                    />
-                    <Text
-                      style={[styles.home, styles.homeLayout]}
-                      numberOfLines={1}
-                    >
-                      Community
-                    </Text>
-                  </TouchableOpacity> */}
-                  {/* <TouchableOpacity
-                    style={[styles.vectorGroup, styles.chatParentLayout]}
-                  >
-                    <Image
-                      style={styles.ppeSantizerAlt1Icon}
-                      contentFit="cover"
-                      source={require("../assets/ppe-santizer-alt-1.png")}
-                    />
-                    <Text style={styles.reminders} numberOfLines={1}>
-                      Reminders
-                    </Text>
-                  </TouchableOpacity> */}
-
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("Tracker")
@@ -270,11 +242,7 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   />
                 </TouchableOpacity>
               </View>
-
-
             </View>
-
-
           </View>
         </View>
       </View>
