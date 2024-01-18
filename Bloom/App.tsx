@@ -30,6 +30,8 @@ import DoctorListing from "./screens/Specialists/DoctorListing";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Community from "./screens/Community";
+import Journal from "./screens/UserProfile/Journal";
+import Notification from "../Bloom/screens/Notification/Notifications";
 
 import PostDetails from "./components/forum/PostDetails";
 const queryClient = new QueryClient();
@@ -74,7 +76,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Community">
+        <Stack.Navigator initialRouteName="SignUp">
           {/* <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
@@ -118,8 +120,18 @@ export default function App() {
             options={{ headerShown: true }}
           />
           <Stack.Screen
+            name="Journal"
+            component={Journal}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
             name="CreateJournal"
             component={CreateJournal}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="Notifications"
+            component={Notifications}
             options={{ headerShown: true }}
           />
           <Stack.Screen
@@ -168,9 +180,14 @@ export default function App() {
             component={DoctorListing}
             options={{ headerShown: true }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="Community"
             component={Community}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
             options={{ headerShown: true }}
           />
           <Stack.Screen
