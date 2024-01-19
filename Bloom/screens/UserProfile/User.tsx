@@ -35,7 +35,7 @@ const User = () => {
     isError: usersError,
     isSuccess,
   } = fetchData();
-  console.log(userData,"--------------------------------------");
+
   const navigation = useNavigation();
 //  const [userDataa, setUserDataa] = useState({});
   return (

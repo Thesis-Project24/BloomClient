@@ -28,12 +28,10 @@ import { fetchData, useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 const EditUserProfile = () => {
-  const [imageUrl, setImageUrl] = React.useState("");
-  // const navigation = useNavigation();
-  const { data, isLoading, isError, isSuccess } = fetchData();
-  const [userData, setUserData] = useState(data);
+    const navigation = useNavigation();
+    const { data, isLoading, isError, isSuccess } = fetchData();
+    const [userData, setUserData] = useState(data);
     const mutation = useUpdateUser();
-    console.log(userData, "in pageeeeeeeeee");
 
     return (
         <ScrollView style={styles.profile}>
@@ -73,7 +71,6 @@ const EditUserProfile = () => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         userData && mutation.mutate(userData);
-                                        // console.log(userData);
                                     }}
                                     style={[
                                         styles.patientButton,
@@ -286,44 +283,44 @@ const styles = StyleSheet.create({
     },
 
     patientFlexBox: {
-      justifyContent: "center",
-      alignItems: "center",
+        justifyContent: "center",
+        alignItems: "center",
     },
     labelText: {
-      fontSize: FontSize.medium14_size,
-      fontWeight: "700",
-      fontFamily: FontFamily.headingsH6,
-      color: Color.black,
-      textAlign: "center",
+        fontSize: FontSize.medium14_size,
+        fontWeight: "700",
+        fontFamily: FontFamily.headingsH6,
+        color: Color.black,
+        textAlign: "center",
     },
     stateLayer: {
-      flex: 1,
-      backgroundColor: Color.sageGreen,
-      flexDirection: "row",
-      paddingHorizontal: Padding.p_5xl,
-      paddingVertical: Padding.p_3xs,
-      alignSelf: "stretch",
+        flex: 1,
+        backgroundColor: Color.sageGreen,
+        flexDirection: "row",
+        paddingHorizontal: Padding.p_5xl,
+        paddingVertical: Padding.p_3xs,
+        alignSelf: "stretch",
     },
     patientButton: {
-      borderRadius: Border.br_5xs,
-      backgroundColor: Color.orangeRangeOrange90,
-      width: 288,
-      height: 48,
-      maxWidth: 288,
-      maxHeight: 50,
-      overflow: "hidden",
-      alignItems: "center",
+        borderRadius: Border.br_5xs,
+        backgroundColor: Color.orangeRangeOrange90,
+        width: 288,
+        height: 48,
+        maxWidth: 288,
+        maxHeight: 50,
+        overflow: "hidden",
+        alignItems: "center",
     },
     patientButtonWrapper: {
-      height: 74,
-      paddingHorizontal: Padding.p_32xl,
-      paddingVertical: Padding.p_smi,
-      maxHeight: 75,
-      marginTop: 46,
-      overflow: "hidden",
-      alignItems: "center",
-      alignSelf: "stretch",
-    }
+        height: 74,
+        paddingHorizontal: Padding.p_32xl,
+        paddingVertical: Padding.p_smi,
+        maxHeight: 75,
+        marginTop: 46,
+        overflow: "hidden",
+        alignItems: "center",
+        alignSelf: "stretch",
+    },
 });
 
 export default EditUserProfile;
