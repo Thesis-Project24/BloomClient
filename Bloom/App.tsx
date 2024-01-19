@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { RootSiblingParent } from "react-native-root-siblings";
+import { Text, View, Image, StyleSheet } from "react-native";
 import Nav from "./screens/Nav";
 import Tracker from "./screens/Tracker";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -24,9 +25,12 @@ import DiaryDetails from "./components/Journal/DiaryDetails";
 // import EmailVerificationConfirm from "./components/auth/EmailVerificationConfirm";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
 import EditUserProfile from "./screens/UserProfile/EditUserProfile";
+import ArticleDet from "./components/articles/ArticleDet";
 
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
+import Articles from "./screens/Articles/Articles";
+import AddArticle from "./components/articles/AddArticle";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -50,104 +54,142 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Back">
-          <Stack.Screen
-            name="EditUserProfile"
-            component={EditUserProfile}
-            options={{ headerShown: true }}
-          />
+    <RootSiblingParent>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="User">
+            <Stack.Screen
+              name="EditUserProfile"
+              component={EditUserProfile}
+              options={{ headerShown: true }}
+            />
 
-          <Stack.Screen
-            name="Availability"
-            component={Availability}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="AvailabilityW"
-            component={AvailabilityW}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Back"
-            options={{
-              headerTitle: () => <Nav />,
-            }}
-            component={BottomTabNav}
-          />
-          <Stack.Screen
-            name="Nav"
-            component={Nav}
-            options={{
-              headerShown: false,
-              headerTransparent: true,
-              cardStyle: { backgroundColor: "transparent" },
-            }}
-          />
-          <Stack.Screen
-            name="Appi"
-            component={Appi}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Tracker"
-            component={Tracker}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="CreateJournal"
-            component={CreateJournal}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="DiaryDetails"
-            component={DiaryDetails}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="EditDoctorProfile"
-            component={EditDoctorProfile}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="DoctorProfile"
-            component={DoctorProfile}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{ headerShown: false }}
-          />
+            <Stack.Screen
+              name="Availability"
+              component={Availability}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="AvailabilityW"
+              component={AvailabilityW}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Back"
+              options={{
+                headerTitle: () => <Nav />,
+              }}
+              component={BottomTabNav}
+            />
+            <Stack.Screen
+              name="Nav"
+              component={Nav}
+              options={{
+                headerShown: false,
+                headerTransparent: true,
+                cardStyle: { backgroundColor: "transparent" },
+              }}
+            />
+            <Stack.Screen
+              name="Appi"
+              component={Appi}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Tracker"
+              component={Tracker}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="CreateJournal"
+              component={CreateJournal}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="DiaryDetails"
+              component={DiaryDetails}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="EditDoctorProfile"
+              component={EditDoctorProfile}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="DoctorProfile"
+              component={DoctorProfile}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AritcleDet"
+              component={ArticleDet}
+              options={{ headerShown: false }}
+            />
 
-          <Stack.Screen
-            name="User"
-            component={User}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="ConfirmAppointmentOnline"
-            component={ConfirmAppointmentOnline}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="PageSpecialists"
-            component={PageSpecialists}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="DoctorListing"
-            component={DoctorListing}
-            options={{ headerShown: true }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+            <Stack.Screen
+              name="User"
+              component={User}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="ConfirmAppointmentOnline"
+              component={ConfirmAppointmentOnline}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="PageSpecialists"
+              component={PageSpecialists}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="DoctorListing"
+              component={DoctorListing}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Articles"
+              component={Articles}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AddArticle"
+              component={AddArticle}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </RootSiblingParent>
   );
 }
+
+const styles = StyleSheet.create({
+  profilePosition: {
+    left: 0,
+    position: "relative",
+  },
+  profileItem: {
+    height: 91,
+    width: 390,
+    top: 0,
+    left: 0,
+  },
+});
