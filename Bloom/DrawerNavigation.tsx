@@ -25,7 +25,7 @@ export default function DrawerRoot({ navigation }: any) {
             <Drawer.Navigator initialRouteName="Back"
                 screenOptions={{
                     headerShown: true, drawerStyle: {
-                        // width: 265,
+                        
                         borderTopRightRadius: 100,
                         borderBottomRightRadius: 100,
 

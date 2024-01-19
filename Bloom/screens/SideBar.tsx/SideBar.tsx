@@ -18,9 +18,7 @@ type SideBarType = {
 };
 
 const SideBar = ({ state, navigation }: SideBarType) => {
-  // console.log(state, "ziuhdiuhduzihduizhduihzudihziuhdziuhdui");
-  // "routeNames": ["Back", "Nav", "Appi", "Tracker", "DiaryDetails", "DoctorProfile", "User", "PageSpecialists"], 
-
+  
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
     useState(true);
   const stateIndex = !state ? 0 : state.index - 1;
