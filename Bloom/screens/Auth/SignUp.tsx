@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+import { StyleSheet, Text, View, TextInput, Pressable,KeyboardAvoidingView } from "react-native";
 import IconsSignUp from "../../components/auth/IconsSIgnUp";
 import {
   Color,
@@ -14,6 +14,9 @@ import { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
+import { getAuth } from "firebase/auth";
+import { app } from "../../firebase.config";
+
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,164 +24,169 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [first_name, setFirstName] = useState<string>("");
-  const [last_name, setLastName] = useState<string>("");
-  const [phone_number, setPhoneNumber] = useState<string>("");
-  const [emailVerified, setEmailVerified] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string>("");
+ 
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = signup();
 
-
-
-
-  
-  const handlePress = async () => {
-    setLoading(true);
-    try {
-      const response = await mutation.mutateAsync({
-        email: email,
-        password: password,
-        username: username,
-        phone_number: phone_number,
-        emailVerified:emailVerified,
-      });
-      // Navigate user to the app, regardless of email verification
-      navigation.navigate("User");
-    } catch (error) {
-      console.error("Signup Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // const handlePress = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await mutation.mutateAsync({
+  //       email: email,
+  //       password: password,
+  //       username: username,
+  //       fullName: fullName,
+  //     });
+  //     navigation.navigate('SignIn')
+  //   } catch (error) {
+  //     console.error("Signup Error:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }; 
   return (
-    <ScrollView>
-      <View style={[styles.SignUp, styles.SignUpLayout]}>
-        <Image
-          style={[styles.SignUpChild, styles.SignUpChildPosition]}
-          contentFit="cover"
-          source={require("../../assets/vector-12.png")}
-        />
+    <KeyboardAvoidingView behavior={"height"}>
+      <ScrollView>
+        <View style={[styles.SignUp, styles.SignUpLayout]}>
+          <Image
+            style={[styles.SignUpChild, styles.SignUpChildPosition]}
+            contentFit="cover"
+            source={require("../../assets/vector-12.png")}
+          />
 
-        <Image
-          style={styles.SignUpItem}
-          contentFit="cover"
-          source={require("../../assets/vector-23.png")}
-        />
-        <View style={[styles.SignUpInner, styles.textPosition]}>
-          <View style={styles.frameParent}>
-            <View style={[styles.createAccountParent, styles.frameFlexBox]}>
-              <Text
-                style={[styles.createAccount, styles.createTypo]}
-                numberOfLines={1}
-              >
-                Create account
-              </Text>
-              <View style={[styles.frameGroup, styles.frameFlexBox]}>
-                <View style={styles.usernameParent}>
-                  <View style={[styles.username, styles.usernameLayout]}>
-                    <View style={styles.userParent}>
-                      <Image
-                        style={styles.userIcon}
-                        contentFit="cover"
-                        source={require("../../assets/group.png")}
-                      />
-                      <TextInput
-                        style={[styles.username1, styles.eMailLayout]}
-                        placeholder="Username"
-                        keyboardType="email-address"
-                        onChangeText={(text) => setUsername(text)}
-                        autoCapitalize="sentences"
-                        secureTextEntry={false}
-                        placeholderTextColor="#c7c7c7"
-                      />
-                    </View>
-                  </View>
-
-                  <View style={[styles.email, styles.emailSpaceBlock]}>
-                    <View style={styles.userParent}>
-                      <Image
-                        style={styles.icons}
-                        contentFit="cover"
-                        source={require("../../assets/icons1.png")}
-                      />
-                      <TextInput
-                        style={[styles.eMail, styles.eMailLayout]}
-                        onChangeText={(text) => setEmail(text)}
-                        placeholder="E-mail"
-                        multiline={true}
-                        placeholderTextColor="#c8c8c8"
-                      />
-                    </View>
-                  </View>
-                  <View style={[styles.password, styles.emailSpaceBlock]}>
-                    <View style={[styles.frameContainer, styles.frameFlexBox]}>
+          <Image
+            style={styles.SignUpItem}
+            contentFit="cover"
+            source={require("../../assets/vector-23.png")}
+          />
+          <View style={[styles.SignUpInner, styles.textPosition]}>
+            <View style={styles.frameParent}>
+              <View style={[styles.createAccountParent, styles.frameFlexBox]}>
+                <Text
+                  style={[styles.createAccount, styles.createTypo]}
+                  numberOfLines={1}
+                >
+                  Create account
+                </Text>
+                <View style={[styles.frameGroup, styles.frameFlexBox]}>
+                  <View style={styles.usernameParent}>
+                    <View style={[styles.username, styles.usernameLayout]}>
                       <View style={styles.userParent}>
                         <Image
                           style={styles.userIcon}
                           contentFit="cover"
-                          source={require("../../assets/vector3.png")}
+                          source={require("../../assets/group.png")}
                         />
                         <TextInput
-                          style={[styles.eMail, styles.eMailLayout]}
-                          placeholder="Password"
-                          onChangeText={(text) => setPassword(text)}
-                          multiline={false}
-                          secureTextEntry={true}
-                          placeholderTextColor="#c8c8c8"
-                        />
-                      </View>
-                      <Pressable
-                        onPress={() => {
-                          setPasswordHidden(!passwordHidden);
-                        }}
-                      >
-                        <Image
-                          style={styles.vectorIcon1}
-                          contentFit="cover"
-                          source={require("../../assets/vector4.png")}
-                        />
-                      </Pressable>
-                    </View>
-                  </View>
-
-                  <View style={[styles.password, styles.emailSpaceBlock]}>
-                    <View style={[styles.frameContainer, styles.frameFlexBox]}>
-                      <View style={styles.userParent}>
-                        <TextInput
-                          style={[styles.eMail, styles.eMailLayout]}
-                          placeholder="Phone Number"
-                          keyboardType="phone-pad"
-                          onChangeText={(text) => setPhoneNumber(text)}
+                          style={[styles.username1, styles.eMailLayout]}
+                          placeholder="Username"
+                          keyboardType="email-address"
+                          onChangeText={(text) => setUsername(text)}
+                          autoCapitalize="sentences"
+                          secureTextEntry={false}
                           placeholderTextColor="#c7c7c7"
                         />
                       </View>
                     </View>
+
+                    <View style={[styles.email, styles.emailSpaceBlock]}>
+                      <View style={styles.userParent}>
+                        <Image
+                          style={styles.icons}
+                          contentFit="cover"
+                          source={require("../../assets/icons1.png")}
+                        />
+                        <TextInput
+                          style={[styles.eMail, styles.eMailLayout]}
+                          onChangeText={(text) => setEmail(text)}
+                          placeholder="E-mail"
+                          multiline={true}
+                          placeholderTextColor="#c8c8c8"
+                        />
+                      </View>
+                    </View>
+                    <View style={[styles.password, styles.emailSpaceBlock]}>
+                      <View
+                        style={[styles.frameContainer, styles.frameFlexBox]}
+                      >
+                        <View style={styles.userParent}>
+                          <Image
+                            style={styles.userIcon}
+                            contentFit="cover"
+                            source={require("../../assets/vector3.png")}
+                          />
+                          <TextInput
+                            style={[styles.eMail, styles.eMailLayout]}
+                            placeholder="Password"
+                            onChangeText={(text) => setPassword(text)}
+                            multiline={false}
+                            secureTextEntry={true}
+                            placeholderTextColor="#c8c8c8"
+                          />
+                        </View>
+                        <Pressable
+                          onPress={() => {
+                            setPasswordHidden(!passwordHidden);
+                          }}
+                        >
+                          <Image
+                            style={styles.vectorIcon1}
+                            contentFit="cover"
+                            source={require("../../assets/vector4.png")}
+                          />
+                        </Pressable>
+                      </View>
+                    </View>
+
+                    <View style={[styles.password, styles.emailSpaceBlock]}>
+                      <View
+                        style={[styles.frameContainer, styles.frameFlexBox]}
+                      >
+                        <View style={styles.userParent}>
+                          <TextInput
+                            style={[styles.eMail, styles.eMailLayout]}
+                            placeholder="Full-Name"
+                            onChangeText={(text) => setFullName(text)}
+                            placeholderTextColor="#c7c7c7"
+                          />
+                        </View>
+                      </View>
+                    </View>
                   </View>
+                  <IconsSignUp />
                 </View>
-                <IconsSignUp />
               </View>
-            </View>
-            <View style={styles.createParent}>
-              <Text style={[styles.create, styles.createTypo]}>{`Create`}</Text>
-              <Pressable
-                style={styles.vectorWrapper}
-                onPress={async () => {
-                  await handlePress();
-                  alert("Verification email sent. Please check your inbox.");
-                }}
-              >
-                <Image
-                  style={styles.vectorIcon4}
-                  contentFit="cover"
-                  source={require("../../assets/vector6.png")}
-                />
-              </Pressable>
+              <View style={styles.createParent}>
+                <Text
+                  style={[styles.create, styles.createTypo]}
+                >{`Create`}</Text>
+                <Pressable
+                  style={styles.vectorWrapper}
+                  onPress={() => {
+                    // await handlePress();
+                    mutation.mutate({
+                      email: email,
+                      password: password,
+                      username: username,
+                      fullName: fullName,
+                    });
+                    navigation.navigate("SignIn")
+                    // alert("Verification email sent. Please check your inbox.");
+                  }}
+                >
+                  <Image
+                    style={styles.vectorIcon4}
+                    contentFit="cover"
+                    source={require("../../assets/vector6.png")}
+                  />
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

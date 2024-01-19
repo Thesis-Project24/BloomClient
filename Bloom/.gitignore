@@ -7,7 +7,7 @@ package-lock.json
 .expo/
 dist/
 web-build/
-Bloom/package-lock.json
+package-lock.json
 # Native
 *.orig.*
 *.jks

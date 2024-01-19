@@ -26,12 +26,13 @@ type ImageprofileProps = {
   data: any;
   setUserData: any;
   userData: any;
+
 };
 
 const Imageprofile: React.FC<ImageprofileProps> = ({
   data,
   setUserData,
-  userData,
+ userData,
 }) => {
   const queryClient = useQueryClient();
 
@@ -61,12 +62,13 @@ const Imageprofile: React.FC<ImageprofileProps> = ({
       await uploadBytes(storageRef, blob);
       // Get the download URL of the uploaded image
       const downloadURL = await getDownloadURL(storageRef);
-      console.log(downloadURL, "Firebase Storage URL");
+      console.log(downloadURL, "Firebase Storage URL---------------");
       Alert.alert("Photo uploaded!");
-      setUserData({ ...userData, profile_picture: downloadURL });
-      console.log(userData, "imge uploadeddddd");
+        //  await setImageUrl(downloadURL)
+      await setUserData({ ...userData, profile_picture: downloadURL });
+      console.log(userData, "img uploadedddddddddddddddddd");
     } catch (e) {
-      console.log("erro");
+     
 
       console.log(e);
     }
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     height: 116,
     marginBottom: 10,
     borderRadius: 58,
-   
+
     padding: Padding.p_3xs,
   },
   profuleInner: {
@@ -166,8 +168,8 @@ const styles = StyleSheet.create({
   },
 
   groupGroupIcon: {
-    width: 55,
-    height: 55,
+    width: 48,
+    height: 48,
   },
 });
 
