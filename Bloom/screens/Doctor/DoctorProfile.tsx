@@ -1,5 +1,5 @@
 import React , {useState} from "react";  
-import { StatusBar, StyleSheet, ScrollView, View, Text } from "react-native";
+import { StatusBar, StyleSheet, ScrollView, View, Text ,TouchableOpacity} from "react-native";
 import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetailt";
 import DoctorBio from "../../components/DoctorProfile/DoctorBio";
 import BookAppointment from "../../components/DoctorProfile/BookAppointment";
@@ -9,6 +9,7 @@ import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
 import { useFetchOneDoctor } from "../../api/doctors/Doctors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface DoctorData {
   id?: number;
@@ -40,17 +41,18 @@ type OneDoctorProps = {
 };
 
 
-const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
+const DoctorProfile = ({ navigation, route }: any) => {
 
   
-     const [id,setId] = useState(route.params.id)
-  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+  
+    //  const [id,setId] = useState(route.params.id)
+  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', 1], (context: QueryFunctionContext<["OneDoctor", number]>) => {
     // Extract id from context
     const id = context.queryKey[1];  
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
-      return useFetchOneDoctor(id);
+      return useFetchOneDoctor(1);
     } 
     });
       console.log(data, "DoctorProfile");
@@ -59,8 +61,8 @@ const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
       <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
         <View style={styles.frameParent}>
           {/* <StatusBar
-            // style={styles.frameFlexBox}
-            barStyle="dark-content"
+            // style={styles.frameFlrexBox}
+            barStyle="light-content"
             translucent={true}
           /> */}
           <ScrollView
@@ -70,8 +72,20 @@ const DoctorProfile = ({ navigation, route }: OneDoctorProps) => {
             contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} />}
+            
+            
             <View style={[styles.historyParent, styles.frameFlexBox]}>
               {isSuccess && <DoctorBio data={data} />}
+              <TouchableOpacity 
+          style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
+
+          onPress={()=>navigation.navigate("AddArticle")}
+        >
+          <View style={[styles.videoParent, styles.parentFlexBox]}>
+            
+            <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
+          </View>
+        </TouchableOpacity>
               <BookAppointment />
             </View>
           </ScrollView>
@@ -185,6 +199,74 @@ const styles = StyleSheet.create({
     backgroundColor: Color.neutralsWhite,
     height: 1461,
     width: "100%",
+  },
+  frameTouchableOpacity: {
+    backgroundColor: Color.green,
+  },
+  frameShadowBox: {
+    marginLeft: 13,
+    maxHeight: 38,
+    maxWidth: 102,
+    height: 38,
+    borderRadius: Border.br_5xs,
+    justifyContent: "center",
+    flex: 1,
+    shadowOpacity: 1,
+    elevation: 4,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    marginTop:25,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    alignItems: "center",
+  },
+  frameParentFlexBox1: {
+    alignSelf: "stretch",
+    alignItems: "center",
+  },
+  videoParent: {
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    shadowOpacity: 1,
+    elevation: 4,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+      
+    },
+    
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+  },
+  parentFlexBox: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  videoIcon: {
+    width: 20,
+    height: 20,
+  },
+  videoCall: {
+    maxWidth: 70,
+  },
+  callTypo: {
+    marginLeft: 3,
+    maxHeight: 53,
+    color: Color.neutralsWhite,
+    fontFamily: FontFamily.sFProDisplay,
+    lineHeight: 40,
+    fontSize: FontSize.size_2xs,
+    overflow: "hidden",
+    height: "100%",
+    justifyContent: "center",
+    display: "flex",
+    textAlign: "center",
+    fontWeight: "600",
+    flex: 1,
+    alignItems: "center",
   },
 });
 
