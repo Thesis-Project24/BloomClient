@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     top: 50,
     textAlign: "center",
     fontWeight: "800",
+    
   },
 });
 export default Home;

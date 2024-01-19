@@ -60,7 +60,7 @@ type DoctorListingProps = {
   route: DoctorListingRouteProp;
 };
 
-const DoctorListing = ({ route }: DoctorListingProps) => {
+const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingProps) => {
 
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const {specialty} = route.params
