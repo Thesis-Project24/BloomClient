@@ -73,6 +73,7 @@ export const BottomTabNav = () => {
         name="Community"
         options={{ headerShown: false }}
         component={Community}
+        
       />
     </Tab.Navigator>
   );

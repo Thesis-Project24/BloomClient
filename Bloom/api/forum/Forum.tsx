@@ -54,5 +54,41 @@ const downvotePost=()=>{
   return mutation
 }
 
-export {fetchForumPosts,upvotePost,downvotePost}
+const createForumPost = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (postData: { title: string, content: string,authorId:any }) => {
+      const response = await axios.post(`http://172.29.0.19:3000/forum/posts/sad`, postData);
+      return response.data;
+    },
+    onSuccess: () => {
+
+      queryClient.invalidateQueries('fetchForum');
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  return mutation;
+};
+
+const createComment = () => {
+  const mutationFn = async({ content, postId, userId }: any) => {
+    const response = await axios.post(`http://172.29.0.19:3000/forum/comments`, { content, postId, userId });
+    return response.data;
+  };
+ 
+  return useMutation(mutationFn);
+ };
+ const getComment = () => {
+  const mutationFn = async({postId}:any)=>{
+    const response = await axios.get(`http://172.29.0.19:3000/forum/comments/${postId},postId`)
+    return response.data
+  }
+
+}
+
+export {fetchForumPosts,upvotePost,downvotePost,createForumPost,createComment,getComment}
 
