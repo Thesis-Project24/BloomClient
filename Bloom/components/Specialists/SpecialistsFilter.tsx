@@ -23,7 +23,7 @@ const Specialists = () => {
                     setSpecialty("Psychiatry");
 
                     navigation.navigate("DoctorListing", {
-                        specialty: "Neuropsychiatry",
+                        specialty: "Psychiatry",
                     });
                 }}
                 style={[styles.frameWrapper, styles.frameWrapperLayout]}
@@ -35,7 +35,7 @@ const Specialists = () => {
                         source={require("../../assets/mental-health.png")}
                     />
                     <Text style={[styles.psychiatry, styles.psychiatryFlexBox]}>
-                        Neuropsychiatry
+                    Psychiatry
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -44,7 +44,7 @@ const Specialists = () => {
                 onPress={() => {
                     setSpecialty("Neuropsychiatry");
                     navigation.navigate("DoctorListing", {
-                        specialty: "Psychiatry",
+                        specialty: "Neuropsychiatry",
                     });
                 }}
                 style={[styles.frameContainer, styles.frameWrapperLayout]}
@@ -56,7 +56,7 @@ const Specialists = () => {
                         source={require("../../assets/artificial-intelligence.png")}
                     />
                     <Text style={[styles.psychiatry, styles.psychiatryFlexBox]}>
-                        Psychiatry
+                    Neuropsychiatry
                     </Text>
                 </View>
             </TouchableOpacity>

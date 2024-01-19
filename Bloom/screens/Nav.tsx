@@ -1,12 +1,23 @@
 import * as React from "react";
-import { Text, StyleSheet, Image, View,Pressable } from "react-native";
+import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
-import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { fetchData } from "../api/user/Editprofile";
 import { Avatar } from "react-native-elements";
+import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
+
+
+
 const Nav = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
+  const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
+  const openDrawer = () => {
+    navigation.openDrawer();
+  };
+
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
   const {
@@ -17,10 +28,25 @@ const Nav = () => {
   } = fetchData();
   return (
     <View style={[styles.groupParent, styles.textPosition]}>
-      <View style={styles.parent}></View>
+      {/* <View style={styles.parent}></View> */}
       <View style={styles.header}>
         <View style={[styles.more, styles.wrapperGroupFlexBox]}>
-          <Image
+          <TouchableOpacity
+            // style={styles.more}
+            activeOpacity={0.3}
+            onPress={() => {
+              // navigation.navigate('EditUserProfile');
+              // navigation.dispatch(navigation.toggleDrawer)
+              navigation.toggleDrawer()
+              //  navigation.navigate('DrawerRoot')
+              // openDrawer()
+            }} >
+            <Entypo name="menu" size={33} color="#242424" />
+
+          </TouchableOpacity>
+
+
+          {/* <Image
             style={styles.iconLayout}
             resizeMode="cover"
             source={require("../assets/path-16.png")}
@@ -34,24 +60,25 @@ const Nav = () => {
             style={[styles.path17Icon, styles.iconLayout]}
             resizeMode="cover"
             source={require("../assets/path-16.png")}
-          />
+          /> */}
         </View>
         <View style={[styles.frameParent, styles.wrapperGroupFlexBox]}>
           <View style={[styles.vectorWrapper, styles.wrapperGroupFlexBox]}>
-            <Pressable onPress={() => navigation.navigate("User" as never)}>
+            <TouchableOpacity onPress={() => navigation.navigate("User" as never)}>
               <Avatar
                 rounded
                 size={"medium"}
                 source={{ uri: userData?.profile_picture }}
-              />  
-            </Pressable>
+              />
+            </TouchableOpacity>
           </View>
           <View style={[styles.groupGroup, styles.wrapperGroupFlexBox]}>
-            <Image
+            <Ionicons name="notifications-outline" size={30} color="#242424" />
+            {/* <Image
               style={styles.groupIcon}
               resizeMode="cover"
               source={require("../assets/group1.png")}
-            />
+            /> */}
             <View style={[styles.wrapper, styles.wrapperGroupFlexBox]}>
               <Text style={[styles.text1, styles.textTypo]}>3</Text>
             </View>
@@ -66,7 +93,7 @@ const styles = StyleSheet.create({
   textPosition: {
     left: -18,
     top: -20,
-  
+
   },
   textTypo: {
     textAlign: "center",
@@ -116,8 +143,10 @@ const styles = StyleSheet.create({
     left: 305,
   },
   parent: {
-    width: 346,
-    height: 21,
+    alignItems: "flex-end",
+    width: "100%",
+    height: "100%",
+    // maxHeight:
   },
   path17Icon: {
     marginTop: 7,
@@ -135,21 +164,24 @@ const styles = StyleSheet.create({
     padding: Padding.p_3xs,
   },
   groupIcon: {
-    height: 25,
-    width: 20,
+    height: 26,
+    width: 19,
   },
   text1: {
-    fontSize: FontSize.size_xs,
+    fontSize: 11,
     fontFamily: FontFamily.epilogueMedium,
     color: Color.colorGray_100,
   },
   wrapper: {
     borderRadius: Border.br_2xs,
     backgroundColor: Color.colorChocolate,
-    width: 22,
-    height: 22,
-    marginLeft: -7,
+    width: 17,
+    height: 17,
+    marginLeft: -13,
+    marginBottom: 7,
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   groupGroup: {
     width: 40,
@@ -163,7 +195,7 @@ const styles = StyleSheet.create({
   header: {
     width: 357,
     justifyContent: "space-between",
-    paddingHorizontal: Padding.p_9xs,
+    paddingHorizontal: 10,
     paddingVertical: 0,
     marginTop: 10,
     flexDirection: "row",
@@ -172,11 +204,15 @@ const styles = StyleSheet.create({
   groupParent: {
     borderRadius: Border.br_3xl,
     backgroundColor: Color.beige,
-    width: 390,
-    height: 97,
+    minWidth: 430,
+    width: "100%",
+    maxWidth: 450,
+    height: "100%",
+    maxHeight: 300,
+    minHeight: 100,
     padding: Padding.p_3xs,
     alignItems: "center",
   },
 });
 
-export default Nav ;
+export default Nav;

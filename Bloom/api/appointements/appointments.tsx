@@ -26,7 +26,7 @@ const getWindowsByDate = () => {
     const mutation = useMutation({
         mutationFn: async (date: Date) => {
             const response = await axios.get(
-                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}`
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}/1`
             );
             const data = response.data;
             return data;
