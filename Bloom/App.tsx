@@ -93,7 +93,7 @@ export default function App() {
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="User">
+          <Stack.Navigator initialRouteName="DrawerRoot">
           <Stack.Screen
             name="DrawerRoot"
             component={DrawerRoot}
@@ -142,11 +142,11 @@ export default function App() {
               options={{ headerShown: true }}
             />
             
-    //       {/* <Stack.Screen
-    //         name="Notifications"
-    //         component={Notifications}
-    //         options={{ headerShown: true }}
-    //       /> */}
+          {/* <Stack.Screen
+            name="Notifications"
+           component={Notifications}
+            options={{ headerShown: true }}
+          /> */}
             <Stack.Screen
               name="CreateJournal"
               component={CreateJournal}
