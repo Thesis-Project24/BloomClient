@@ -13,9 +13,8 @@ import { useQueryClient, useQuery } from "react-query";
 interface UserData {
   id?: number;
   email?: string;
-  username: string;
-  first_name?: string;
-  last_name?: string;
+  username?: string;
+  fullName?:string
   profile_picture?: string;
   phone_number?: string;
   age?: number }
@@ -35,7 +34,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
   const queryClient = useQueryClient();
 
   // const [password, setPassword] = useState("dd")
-
+  console.log(userData,"******************")
   return (
     <View
       style={[
@@ -55,25 +54,25 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-             Your First Name
+             Your Full Name
             </Text>
             <View style={styles.textlabel450116Wrapper}>
               <TextInput
                 numberOfLines={1}
                 // editable={true} selectTextOnFocus={true}
                 onChangeText={(text) => {
-                  setUserData({ ...userData, first_name: text });
+                  setUserData({ ...userData, fullName: text });
                 }}
                 style={styles.textlabel450116}
                 placeholder={"Username"}
                 multiline={true}
                 placeholderTextColor="#ADADAD"
               >
-                {data?.first_name}
+                {data?.fullName}
               </TextInput>
             </View>
           </View>
-          <View
+          {/* <View
             style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
           >
             <Text
@@ -94,7 +93,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
                 {data?.last_name}
               </TextInput>
             </View>
-          </View>
+          </View> */}
           <View
             style={[styles.textlabelEmailAddressGroup, styles.textlabelFlexBox]}
           >
@@ -107,10 +106,10 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
             <View style={styles.textlabel450116Border}>
               <TextInput
                 onChangeText={(text) => {
-                  setUserData({ ...userData, email: text });
+                  setUserData({ ...userData, age: +text });
                 }}
                 style={styles.textlabel450116}
-                placeholder={data?.email || "Email"}
+                placeholder={data?.age?.toString() || "Age"}
                 multiline={true}
                 placeholderTextColor="#ADADAD"
               >

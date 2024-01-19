@@ -4,6 +4,8 @@ import moment from 'moment'
 
 
 const Date = ({ date, onSelectDate, selected,mutation,setWindows}:any) => {
+  
+  
   /**
    * use moment to compare the date to today
    * if today, show 'Today'

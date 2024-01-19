@@ -31,7 +31,7 @@ import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
-import Notifications from "./screens/Notification/Notifications";
+// import Notifications from "./screens/Notification/Notifications";
 
 import PostDetails from "./components/forum/PostDetails";
 const queryClient = new QueryClient();
@@ -76,7 +76,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Notifications">
+        <Stack.Navigator initialRouteName="SignUp">
           <Stack.Screen
             name="EditUserProfile"
             component={EditUserProfile}
@@ -129,11 +129,11 @@ export default function App() {
             component={CreateJournal}
             options={{ headerShown: true }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Notifications"
             component={Notifications}
             options={{ headerShown: true }}
-          />
+          /> */}
           <Stack.Screen
             name="DiaryDetails"
             component={DiaryDetails}
