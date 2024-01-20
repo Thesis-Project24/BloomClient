@@ -35,12 +35,12 @@ import AddArticle from "./components/articles/AddArticle";
 import DrawerRoot from "./DrawerNavigation";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Community from "./screens/Community";
+// import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
 import Notifications from "./screens/Notification/Notifications";
 
-import PostDetails from "./components/forum/PostDetails";
-import CreatePost from "./components/forum/CreatePost";
+// import PostDetails from "./components/forum/PostDetails";
+// import CreatePost from "./components/forum/CreatePost";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -118,7 +118,7 @@ export default function App() {
               component={AvailabilityW}
               options={{ headerShown: true }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               name="PostDetails"
               component={PostDetails}
               options={{ headerShown: false }}
@@ -127,7 +127,7 @@ export default function App() {
               name="CreatePost"
               component={CreatePost}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen
               name="Back"
               options={{
