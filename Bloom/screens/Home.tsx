@@ -12,7 +12,7 @@ const Home = () => {
   const navigation = useNavigation();
   return (
     <View>
-      <Text style={[styles.textPosition]}>Ahla bikom ness koll marhbee marhbeee</Text>
+      <Text style={[styles.textPosition]}>Click</Text>
 
 
       <View style={[styles.frameContainer, styles.frameWrapperShadowBox]}>

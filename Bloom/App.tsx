@@ -1,12 +1,8 @@
 import { RootSiblingParent } from "react-native-root-siblings";
 import { Text, View, Image, StyleSheet } from "react-native";
 import Nav from "./screens/Nav";
-
-
 import Tracker from "./screens/Tracker";
 import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
-// import Login from "./screens/Login";
-
 import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import User from "./screens/UserProfile/User";
@@ -29,20 +25,22 @@ import DiaryDetails from "./components/Journal/DiaryDetails";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
 import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 import ArticleDet from "./components/articles/ArticleDet";
-
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
 import Articles from "./screens/Articles/Articles";
 import AddArticle from "./components/articles/AddArticle";
+// import Test from "./screens/Notification/Test"
 
 
 import DrawerRoot from "./DrawerNavigation";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Community from "./screens/Community";
+// import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
-// import Notifications from "./screens/Notification/Notifications"
-import PostDetails from "./components/forum/PostDetails";
+import Notifications from "./screens/Notification/Notifications";
+
+// import PostDetails from "./components/forum/PostDetails";
+// import CreatePost from "./components/forum/CreatePost";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -94,16 +92,21 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="DrawerRoot">
-          <Stack.Screen
-            name="DrawerRoot"
-            component={DrawerRoot}
-            options={{ headerShown: false }}
-          />
+            <Stack.Screen
+              name="DrawerRoot"
+              component={DrawerRoot}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="EditUserProfile"
               component={EditUserProfile}
               options={{ headerShown: true }}
             />
+            {/* <Stack.Screen
+              name="Test"
+              component={Test}
+              options={{ headerShown: true }}
+            /> */}
 
             <Stack.Screen
               name="Availability"
@@ -115,6 +118,16 @@ export default function App() {
               component={AvailabilityW}
               options={{ headerShown: true }}
             />
+            {/* <Stack.Screen
+              name="PostDetails"
+              component={PostDetails}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CreatePost"
+              component={CreatePost}
+              options={{ headerShown: false }}
+            /> */}
             <Stack.Screen
               name="Back"
               options={{
@@ -134,43 +147,75 @@ export default function App() {
             <Stack.Screen
               name="Appi"
               component={Appi}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Tracker"
               component={Tracker}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
-            
-          {/* <Stack.Screen
-            name="Notifications"
-           component={Notifications}
-            options={{ headerShown: true }}
-          /> */}
+
+            <Stack.Screen
+              name="Notifications"
+              component={Notifications}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
+            />
             <Stack.Screen
               name="CreateJournal"
               component={CreateJournal}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="Journal"
               component={Journal}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="DiaryDetails"
               component={DiaryDetails}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="EditDoctorProfile"
               component={EditDoctorProfile}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="DoctorProfile"
               component={DoctorProfile}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="SignUp"
@@ -191,12 +236,12 @@ export default function App() {
             <Stack.Screen
               name="User"
               component={User}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="ConfirmAppointmentOnline"
               component={ConfirmAppointmentOnline}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="PageSpecialists"
@@ -206,7 +251,7 @@ export default function App() {
             <Stack.Screen
               name="DoctorListing"
               component={DoctorListing}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Articles"
@@ -226,26 +271,22 @@ export default function App() {
                 ),
               }}
             />
-         <Stack.Screen
-             name="Community"
-             component={Community}
-             options={{ headerShown: true }}
-           />
-           <Stack.Screen
-            name="Home"
-             component={Home}
-          options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="PostDetails"
-            component={PostDetails}
-           options={{ headerShown: true }}
-           /> 
+
+            <Stack.Screen
+              name="Community"
+              component={Community}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: true }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </QueryClientProvider>
     </RootSiblingParent>
-  
   );
 }
 

@@ -39,7 +39,7 @@ export const fetchData = () => {
 //   return useMutation(async (userData) => {
 //     try {
 //       const response = await axios.put(
-//         `http://${process.env.EXPO_PUBLIC_ipaddress}:3000/users/1`,
+//         http://${process.env.EXPO_PUBLIC_ipaddress}:3000/users/1,
 //         userData
 //       );
 //       console.log(response.data);
@@ -55,7 +55,7 @@ export const useUpdateUser = () => {
   const mutation=  useMutation({
     mutationFn: async(obj:{age:number,phone_number:number,fullName:string,profile_picture:string}) => {
       try {
-        
+
         const response = await axios.put(
           `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/update/1`,
           obj
