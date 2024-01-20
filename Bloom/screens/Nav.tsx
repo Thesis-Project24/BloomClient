@@ -14,9 +14,9 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 const Nav = () => {
   // const navigation = useNavigation();
   const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
-  const openDrawer = () => {
-    navigation.openDrawer();
-  };
+  // const openDrawer = () => {
+  //   navigation.openDrawer();
+  // };
 
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);

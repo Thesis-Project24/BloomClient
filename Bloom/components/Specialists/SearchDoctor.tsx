@@ -58,7 +58,7 @@ const SearchDoctor = () => {
 
 
 
-            <View style={[styles.frameView, styles.frameLayout2]}>
+            {/* <View style={[styles.frameView, styles.frameLayout2]}>
                 <View style={[styles.clearAllWrapper, styles.stateLayer1FlexBox]}>
                     <Text
                         style={[styles.clearAll, styles.textLayout]}
@@ -125,7 +125,7 @@ const SearchDoctor = () => {
                         source={require("../../assets/ionclose2.png")}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

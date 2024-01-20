@@ -73,7 +73,7 @@ const EditUserProfile = () => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         userData && mutation.mutate(userData);
-                                        // console.log(userData);
+                                 
                                     }}
                                     style={[
                                         styles.patientButton,

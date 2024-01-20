@@ -101,7 +101,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
               style={[styles.textlabelEmailAddress, styles.textlabelTypo]}
               numberOfLines={1}
             >
-              Email Address
+             age
             </Text>
             <View style={styles.textlabel450116Border}>
               <TextInput
@@ -113,7 +113,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
                 multiline={true}
                 placeholderTextColor="#ADADAD"
               >
-                {data?.email}
+                {data?.age}
               </TextInput>
             </View>
           </View>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textlabelLayout: {
-    minHeight: 68,
+    minHeight: 30,
     alignItems: "center",
   },
   textlabelTypo: {
@@ -226,15 +226,15 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   textlabelEmailAddressParent: {
-    justifyContent: "space-between",
-    minHeight: 68,
+    // justifyContent: "space-between",
+    minHeight: 30,
     flex: 1,
     alignSelf: "stretch",
   },
   textlabelEmailAddressGroup: {
-    minHeight: 68,
+    minHeight: 30,
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
   },
   textlabelEmailAddress3: {
     height: 15,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   frameView: {
-    minHeight: 68,
+    minHeight: 20,
     alignItems: "center",
   },
   textlabelPassword: {

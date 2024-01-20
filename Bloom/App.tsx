@@ -91,7 +91,7 @@ export default function App() {
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="">
+          <Stack.Navigator initialRouteName="DrawerRoot">
             <Stack.Screen
               name="DrawerRoot"
               component={DrawerRoot}
@@ -147,43 +147,75 @@ export default function App() {
             <Stack.Screen
               name="Appi"
               component={Appi}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Tracker"
               component={Tracker}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
 
             <Stack.Screen
-            name="Notifications"
-           component={Notifications}
-            options={{ headerShown: true }}
-          /> 
+              name="Notifications"
+              component={Notifications}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
+            />
             <Stack.Screen
               name="CreateJournal"
               component={CreateJournal}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="Journal"
               component={Journal}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="DiaryDetails"
               component={DiaryDetails}
-              options={{ headerShown: true }}
+              options={{
+                header: () => (
+                  <Image
+                    style={[styles.profileItem, styles.profilePosition]}
+                    // contentFit="cover"
+                    source={require("./assets/vector-1.png")}
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="EditDoctorProfile"
               component={EditDoctorProfile}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="DoctorProfile"
               component={DoctorProfile}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="SignUp"
@@ -204,12 +236,12 @@ export default function App() {
             <Stack.Screen
               name="User"
               component={User}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="ConfirmAppointmentOnline"
               component={ConfirmAppointmentOnline}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="PageSpecialists"
@@ -219,7 +251,7 @@ export default function App() {
             <Stack.Screen
               name="DoctorListing"
               component={DoctorListing}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Articles"
