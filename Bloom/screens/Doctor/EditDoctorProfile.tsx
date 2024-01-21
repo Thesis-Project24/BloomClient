@@ -4,15 +4,16 @@ import { StyleSheet, Pressable, Text, View, StatusBar, SafeAreaView, ScrollView,
 import PersonalDetails from "../../components/DoctorProfile/PersonalDetails";
 import DoctorDetails from "../../components/DoctorProfile/DoctorDetails";
 import BusinessAddressDetails from "../../components/DoctorProfile/BusinessAddressDetails";
-import { Padding , Color, FontFamily, FontSize, Border } from "../../GlobalStyles";
+import { Padding, Color, FontFamily, FontSize, Border } from "../../GlobalStyles";
 import Imageprofile from "../../components/DoctorProfile/ImageProfile";
-import { useQuery, useQueryClient  , QueryFunctionContext} from "react-query";
+import { useQuery, useQueryClient, QueryFunctionContext } from "react-query";
 import SaveUpdateButton from "../../components/DoctorProfile/SaveUpdateButton";
 import { Ionicons } from '@expo/vector-icons';
 import { useFetchOneDoctor } from "../../api/doctors/Doctors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from '@react-navigation/native';
-
+import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
 interface DoctorData {
   id?: number;
   email?: string;
@@ -28,7 +29,7 @@ interface DoctorData {
 
 type YourRouteParamList = {
   OneDoctor: {
-   id:number
+    id: number
   };
 };
 
@@ -48,20 +49,20 @@ type OneDoctorProps = {
 const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
   const queryClient = useQueryClient();
   const [doctorData, setDoctorData] = useState({});
-  const [id,setId] = useState(route.params.id)
-  const { data, isError, isLoading, isSuccess , refetch } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+  const [id, setId] = useState(route.params.id)
+  const { data, isError, isLoading, isSuccess, refetch } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
     // Extract id from context
-    const id = context.queryKey[1];  
+    const id = context.queryKey[1];
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
       return useFetchOneDoctor(id);
-    } 
-    });
+    }
+  });
   // const { data, isError, isLoading, isSuccess ,refetch } = useQuery('OneDoctor', useFetchOneDoctor);
-console.log(data,"data from edit doctors");
+  console.log(data, "data from edit doctors");
 
-  const upDateData = (id:number) => {
+  const upDateData = (id: number) => {
     console.log({ id: id, ...data, ...doctorData }, "update data in fnc ");
     fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/update`, {
       method: "PUT",
@@ -86,43 +87,48 @@ console.log(data,"data from edit doctors");
       });
   };
   return (
+    <DrawerScreen>
+    <NavBarEdit/>
+   
     <ScrollView style={styles.profile}>
       <Image
         style={styles.profileChild}
         contentFit="cover"
         source={require("../../assets/vector-2.png")}
       />
-      <Image
+      {/* <Image
         style={[styles.profileItem, styles.profilePosition]}
         contentFit="cover"
         source={require("../../assets/vector-1.png")}
       />
-     
+
       <View style={styles.vectorParent}>
         <TouchableOpacity
-        onPress={() => navigation.goBack()}
+          onPress={() => navigation.goBack()}
         >
-        <Ionicons
-        style={styles.frameChild}
-      name="chevron-back" 
-      size={35} 
-      color={Color.black} />
+          <Ionicons
+            style={styles.frameChild}
+            name="chevron-back"
+            size={35}
+            color={Color.black} />
         </TouchableOpacity>
-     
-       
+
+
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
           Your Profile
         </Text>
-      </View>
+      </View> */}
+
+
 
       <View style={[styles.profuleWrapper, styles.profilePosition]}>
         <View style={[styles.profule, styles.chatFlexBox]}>
           {/* {isSuccess && ( */}
-            <Imageprofile
-              data={data}
-              setDoctorData={setDoctorData}
-              doctorData={doctorData}
-            />
+          <Imageprofile
+            data={data}
+            setDoctorData={setDoctorData}
+            doctorData={doctorData}
+          />
           {/* // )} */}
 
           <View style={styles.frameView}>
@@ -165,11 +171,12 @@ console.log(data,"data from edit doctors");
               </Text>
             </Pressable>
 
-            
+
           </View>
         </View>
       </View>
     </ScrollView>
+    </DrawerScreen>
   );
 };
 
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
   },
 
   profilePosition: {
-    left: 0,
+    // left: 0,
     position: "relative",
   },
   yourProfileFlexBox: {
@@ -234,10 +241,24 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   profileItem: {
+    // paddingBottom:50,
+    // marginBottom:50,
     height: 91,
-    width: 390,
+    width: "100%",
+    // backgroundColor:"red",
     top: 0,
     left: 0,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOffset: {
+      width: 10,
+      height: 4,
+    },
+
+    // position: "absolute",
+
+    shadowRadius: 4,
+    elevation: 4,
+    shadowOpacity: 1,
   },
   frameChild: {
     borderRadius: Border.br_10xs,
@@ -257,15 +278,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   vectorParent: {
-    top: 46,
-    height: 38,
+    // top: 46,
+    // height: 38,
+    // marginTop:20,
     alignItems: "flex-end",
     paddingHorizontal: 26,
     paddingVertical: 0,
     flexDirection: "row",
-    width: 390,
-    left: 0,
-    position: "absolute",
+    width: "100%",
+    // left: 0,
+    // position: "absolute",
   },
   profuleChild: {
     maxWidth: "100%",
@@ -325,17 +347,18 @@ const styles = StyleSheet.create({
 
   // HEDHA TEAABA IMG
   profuleWrapper: {
-    marginTop: 40,
+    // marginTop: 40,
     paddingHorizontal: Padding.p_5xl,
     paddingVertical: 12,
     width: "100%",
-
+    height: "100%",
     flexDirection: "row",
     overflow: "hidden",
     // backgroundColor: "red",
   },
 
   profile: {
+    // minHeight:1000,
     width: "100%",
     height: "100%",
     overflow: "hidden",

@@ -8,10 +8,15 @@ import {
   FontFamily,
 } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
+import Nav from "./Nav";
 const Home = () => {
   const navigation = useNavigation();
   return (
-    <View>
+    <View style={{
+      flex: 1,
+      backgroundColor: "#f3f0ea",
+    }}>
+      <Nav/>
       <Text style={[styles.textPosition]}>Ahla bikom ness koll marhbee marhbeee</Text>
 
 

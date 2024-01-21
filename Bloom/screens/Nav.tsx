@@ -8,15 +8,12 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
-
+import DrawerScreen from "./SideBar.tsx/DrawerScreen";
 
 
 const Nav = () => {
-  // const navigation = useNavigation();
+
   const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
-  const openDrawer = () => {
-    navigation.openDrawer();
-  };
 
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
@@ -26,41 +23,28 @@ const Nav = () => {
     isError: usersError,
     isSuccess,
   } = fetchData();
+
   return (
-    <View style={[styles.groupParent, styles.textPosition]}>
-      {/* <View style={styles.parent}></View> */}
+
+    <View style={ styles.textPosition} >
+    <View style={[styles.groupParent]}>
+      {/* <View style={styles.parent}></View> */} 
       <View style={styles.header}>
         <View style={[styles.more, styles.wrapperGroupFlexBox]}>
           <TouchableOpacity
-            // style={styles.more}
             activeOpacity={0.3}
             onPress={() => {
+
               // navigation.navigate('EditUserProfile');
               // navigation.dispatch(navigation.toggleDrawer)
               navigation.toggleDrawer()
               //  navigation.navigate('DrawerRoot')
               // openDrawer()
-            }} >
+            }}>
             <Entypo name="menu" size={33} color="#242424" />
 
           </TouchableOpacity>
 
-
-          {/* <Image
-            style={styles.iconLayout}
-            resizeMode="cover"
-            source={require("../assets/path-16.png")}
-          />
-          <Image
-            style={[styles.path17Icon, styles.iconLayout]}
-            resizeMode="cover"
-            source={require("../assets/path-16.png")}
-          />
-          <Image
-            style={[styles.path17Icon, styles.iconLayout]}
-            resizeMode="cover"
-            source={require("../assets/path-16.png")}
-          /> */}
         </View>
         <View style={[styles.frameParent, styles.wrapperGroupFlexBox]}>
           <View style={[styles.vectorWrapper, styles.wrapperGroupFlexBox]}>
@@ -74,11 +58,7 @@ const Nav = () => {
           </View>
           <View style={[styles.groupGroup, styles.wrapperGroupFlexBox]}>
             <Ionicons name="notifications-outline" size={30} color="#242424" />
-            {/* <Image
-              style={styles.groupIcon}
-              resizeMode="cover"
-              source={require("../assets/group1.png")}
-            /> */}
+         
             <View style={[styles.wrapper, styles.wrapperGroupFlexBox]}>
               <Text style={[styles.text1, styles.textTypo]}>3</Text>
             </View>
@@ -86,13 +66,14 @@ const Nav = () => {
         </View>
       </View>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   textPosition: {
-    left: -18,
-    top: -20,
+    // left: -18,
+    // top: -20,
 
   },
   textTypo: {
@@ -196,21 +177,23 @@ const styles = StyleSheet.create({
     width: 357,
     justifyContent: "space-between",
     paddingHorizontal: 10,
-    paddingVertical: 0,
-    marginTop: 10,
+    // paddingVertical: 0,
+    marginTop: 25,
     flexDirection: "row",
     alignItems: "center",
   },
   groupParent: {
-    borderRadius: Border.br_3xl,
+    // borderRadius: Border.br_3xl,
     backgroundColor: Color.beige,
-    minWidth: 430,
-    width: "100%",
-    maxWidth: 450,
-    height: "100%",
-    maxHeight: 300,
-    minHeight: 100,
-    padding: Padding.p_3xs,
+    // minWidth: 430,
+    // width: "100%",
+    // maxWidth: 450,
+    // height: "100%",
+    // maxHeight: 300,
+    // minHeight: 100,
+
+     paddingHorizontal: 0,
+    paddingVertical: 10,
     alignItems: "center",
   },
 });

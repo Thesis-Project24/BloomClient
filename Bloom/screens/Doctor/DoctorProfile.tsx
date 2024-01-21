@@ -10,7 +10,8 @@ import { useFetchOneDoctor } from "../../api/doctors/Doctors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-
+import Nav from "../Nav";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
 interface DoctorData {
   id?: number;
   email?: string;
@@ -57,19 +58,25 @@ const DoctorProfile = ({ navigation, route }: any) => {
     });
       console.log(data, "DoctorProfile");
   return (
-    <View style={[styles.profileDoctorRaja, styles.textFlexBox]}>
-      <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
-        <View style={styles.frameParent}>
-          {/* <StatusBar
-            // style={styles.frameFlrexBox}
-            barStyle="light-content"
-            translucent={true}
-          /> */}
-          <ScrollView
-            style={[styles.frameGroup, styles.frameFlexBox]}
+    <DrawerScreen>
+      <Nav/>
+   
+    <ScrollView 
+    style={[styles.profileDoctorRaja, styles.textFlexBox]}
+    // style={[styles.frameGroup, styles.frameFlexBox]}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.frameScrollViewContent}
+    
+    
+    >
+      <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
+        <View style={styles.frameParent}>
+          <View
+            style={[styles.frameGroup, styles.frameFlexBox]}
+            // showsVerticalScrollIndicator={false}
+            // showsHorizontalScrollIndicator={false}
+            // contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} />}
             
@@ -88,11 +95,12 @@ const DoctorProfile = ({ navigation, route }: any) => {
         </TouchableOpacity>
               <BookAppointment />
             </View>
-          </ScrollView>
+          </View>
         </View>
       </View>
     
-    </View>
+    </ScrollView>
+    </DrawerScreen>
   );
 };
 

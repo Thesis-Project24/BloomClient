@@ -311,14 +311,15 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   sideBar: {
-    borderTopRightRadius: Border.br_81xl,
-    borderBottomRightRadius: Border.br_81xl,
+    // borderTopRightRadius: Border.br_81xl,
+    // borderBottomRightRadius: Border.br_81xl,
+    
     overflow: "hidden",
     // backgroundColor: "red",
     // backgroundColor: Color.neutralsWhite,
     flex: 1,
     height: "100%",
-    // width: 265,
+     width: "100%",
   },
   viewLayout: {
     height: "100%",
@@ -483,7 +484,10 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: Color.neutralsWhite,
+    justifyContent: "flex-start",
+
+    // backgroundColor: Color.neutralsWhite, 
+
     flex: 1,
   },
   chatIcon: {
@@ -700,8 +704,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   view: {
-    borderTopRightRadius: Border.br_81xl,
-    borderBottomRightRadius: Border.br_81xl,
+    // borderTopRightRadius: Border.br_81xl,
+    // borderBottomRightRadius: Border.br_81xl,
     overflow: "hidden",
     // backgroundColor: Color.neutralsWhite,
     // backgroundColor: "blue",

@@ -11,6 +11,9 @@ import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SideBar from "./screens/SideBar.tsx/SideBar";
 import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
+import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
+import DrawerScreen from "./screens/SideBar.tsx/DrawerScreen";
+
 const queryClient = new QueryClient();
 const Drawer = createDrawerNavigator();
 
@@ -24,32 +27,45 @@ export default function DrawerRoot({ navigation }: any) {
 
             <Drawer.Navigator initialRouteName="Back"
                 screenOptions={{
-                    headerShown: true, drawerStyle: {
-                        
-                        borderTopRightRadius: 100,
-                        borderBottomRightRadius: 100,
-
+                    headerShown: false, 
+                    drawerStyle: {
+                        backgroundColor: '#fff',
+                        width:"60%",
+                        // borderTopRightRadius: 100,
+                        // borderBottomRightRadius: 100,
+                    },
+                    drawerActiveBackgroundColor:"red",
+                    overlayColor:"transparent",
+                    drawerHideStatusBarOnOpen:true,
+                    sceneContainerStyle:{ 
+                        backgroundColor: '#fff',
                     }
+
+                        
+
 
                 }}
                 drawerContent={(props) => <SideBar {...props} />}
             >
+                
                 <Drawer.Screen
                     name="Back"
                     options={{
-                        headerTitle: () => <Nav />,
-                        headerLeft: () => null,
+                        // headerShown: false,
+                        header: () => <Nav />,
+                        // headerLeft: () => null,
                     }}
                     component={BottomTabNav}
                 />
-                <Drawer.Screen
+                {/* <Drawer.Screen
                     name="Home"
                     component={Home}
                     options={{
-                        headerTitle: () => <Nav />,
+                        header: () => <Nav />,
                         headerLeft: () => null,
+
                     }}
-                />
+                /> */}
                 <Drawer.Screen
                     name="Nav"
                     component={Nav}
@@ -57,24 +73,24 @@ export default function DrawerRoot({ navigation }: any) {
                         headerShown: false,
                         headerTransparent: true,
                         // cardStyle: { backgroundColor: "transparent" },
-                        headerTitle: () => <Nav />,
+                        header: () => <Nav />,
                         headerLeft: () => null,
 
                     }}
                 />
-                <Drawer.Screen
+                {/* <Drawer.Screen
                     name="Appi"
                     component={Appi}
                     options={{
-                        headerTitle: () => <Nav />,
+                        // header: () => <Nav />,
                         headerLeft: () => null,
                     }}
-                />
+                /> */}
                 <Drawer.Screen
                     name="Tracker"
                     component={Tracker}
                     options={{
-                        headerTitle: () => <Nav />,
+                        // header: () => <Nav />,
                         headerLeft: () => null,
                     }}
                 />
@@ -89,7 +105,7 @@ export default function DrawerRoot({ navigation }: any) {
                     name="DoctorProfile"
                     component={DoctorProfile}
                     options={{
-                        headerTitle: () => <Nav />,
+                        // header: () => <Nav />,
                         headerLeft: () => null,
                     }}
                 />
@@ -97,7 +113,7 @@ export default function DrawerRoot({ navigation }: any) {
                     name="User"
                     component={User}
                     options={{
-                        headerTitle: () => <Nav />,
+                        // header: () => <Nav />,
                         headerLeft: () => null,
                     }}
                 />
@@ -105,15 +121,19 @@ export default function DrawerRoot({ navigation }: any) {
                     name="PageSpecialists"
                     component={PageSpecialists}
                     options={{
-                        headerTitle: () => <Nav />,
-                        headerLeft: () => null,
+                        headerShown: false
+                        // header: () => <Nav />,
+                        // headerLeft: () => null,
                     }}
                 />
                 <Drawer.Screen
                     name="EditDoctorProfile"
                     component={EditDoctorProfile}
-                    options={{ headerTitle: () => <Nav />,
-                    headerLeft: () => null, }}
+                    options={{
+                        // header: () => <NavBarEdit />,
+                        headerLeft: () => null,
+                        // headerShown: true
+                    }}
                 />
             </Drawer.Navigator>
 
