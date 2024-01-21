@@ -272,13 +272,12 @@ export default function App() {
               }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Community"
               component={Community}
               options={{ headerShown: false }}
-            />
-
-            <Stack.Screen
+            /> */}
+           <Stack.Screen
               name="Home"
               component={Home}
               options={{ headerShown: true }}
