@@ -59,7 +59,7 @@ const SearchDoctor: React.FC<{ setSearch: React.Dispatch<React.SetStateAction<st
 
 
 
-            <View style={[styles.frameView, styles.frameLayout2]}>
+            {/* <View style={[styles.frameView, styles.frameLayout2]}>
                 <View style={[styles.clearAllWrapper, styles.stateLayer1FlexBox]}>
                     <Text
                         style={[styles.clearAll, styles.textLayout]}
@@ -126,7 +126,7 @@ const SearchDoctor: React.FC<{ setSearch: React.Dispatch<React.SetStateAction<st
                         source={require("../../assets/ionclose2.png")}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

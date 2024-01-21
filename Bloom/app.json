@@ -2,12 +2,11 @@
   "expo": {
     "name": "Bloom",
     "slug": "Bloom",
-
     "version": "1.0.0",
-     "fonts": {
-     "Inter-Black": "./assets/fonts/Roboto-Medium.ttf",
-     "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
-   },
+    "fonts": {
+      "Inter-Black": "./assets/fonts/Roboto-Medium.ttf",
+      "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
+    },
     "orientation": "portrait",
     "icon": "./assets/group-123@3x.png",
     "userInterfaceStyle": "light",
@@ -33,6 +32,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "806a4a79-4b01-4670-bcae-60843b94e8a6"
+      }
     }
   }
 }
