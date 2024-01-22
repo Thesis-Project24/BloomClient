@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import { useState, useEffect } from "react";
@@ -7,13 +6,25 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
+import {
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+  Padding,
+} from "../../GlobalStyles";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import Nav from "../Nav";
+import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
+
+const ViewDetailsCancled = () => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
 
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -46,7 +57,7 @@ Notifications.setNotificationHandler({
         alert("Failed to get push token for push notification!");
         return;
       }
-      
+
       token = (
         await Notifications.getExpoPushTokenAsync({
           projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
@@ -95,7 +106,7 @@ Notifications.setNotificationHandler({
     setDateTimePickerVisible(false);
   };
 
-  const handleDateChange = (selectedDate:any) => {
+  const handleDateChange = (selectedDate: any) => {
     hideDateTimePicker();
     if (selectedDate) {
       setScheduledTime(selectedDate);
@@ -103,10 +114,55 @@ Notifications.setNotificationHandler({
   };
 
   return (
-    <View style={{ marginTop: 100, alignItems: "center" }}>
-      <Text style={{ marginVertical: 30 }}>Expo RN Push Notifications</Text>
-      <Button title="Send push notification" onPress={sendNotification} />
-    </View>
+    <>
+      <DrawerScreen>
+        {/* <Nav/> */}
+        <NavBarEdit page={"Notifaction"} />
+        <View style={styles.viewDetailsCancled}>
+          <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
+            <View style={styles.appointmentHeader}>
+              <Text
+                style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}
+              >
+                Notifications
+              </Text>
+              <TextInput
+                style={{
+                  height: 40,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  marginBottom: 20,
+                  paddingHorizontal: 10,
+                }}
+                placeholder="Enter notification message"
+                value={notificationMessage}
+                onChangeText={(text) => setNotificationMessage(text)}
+              />
+              <Button
+                title="Send push notification"
+                onPress={sendNotification}
+              />
+            </View>
+            <View style={[styles.dateTime, styles.fabsSpaceBlock]}>
+              <TouchableOpacity onPress={showDateTimePicker}>
+                <Text style={[styles.date1, styles.date1Typo]}>
+                  Date & Time
+                </Text>
+                <Text style={[styles.text1, styles.text1Typo]}>
+                  {scheduledTime.toLocaleString()}
+                </Text>
+              </TouchableOpacity>
+              <DateTimePickerModal
+                isVisible={isDateTimePickerVisible}
+                mode="datetime"
+                onConfirm={handleDateChange}
+                onCancel={hideDateTimePicker}
+              />
+            </View>
+          </View>
+        </View>
+      </DrawerScreen>
+    </>
   );
 };
 
