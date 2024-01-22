@@ -32,7 +32,7 @@ const EditUserProfile = ({route}) => {
     const [user,setUser]= React.useState(route.params.data)
     console.log(user,"useeeeeeeeeeeeeeeeeeeeeeeeeeeer")
     const navigation = useNavigation();
-    navigation.goBack()
+    // navigation.goBack()
     const { data, isLoading, isError, isSuccess } = fetchData(user.id);
     const [userData, setUserData] = useState(route.params.data);
     const mutation = useUpdateUser(user.id);

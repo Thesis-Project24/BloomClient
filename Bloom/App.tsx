@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { Text, View, Image, StyleSheet } from "react-native";
@@ -37,8 +36,13 @@ import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
-// import Notifications from "./screens/Notification/Notifications"
-import PostDetails from "./components/forum/PostDetails";
+import Notifications from "./screens/Notification/Notifications"
+// import PostDetails from "./components/forum/PostDetails";
+import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
+
+
+
+
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -63,9 +67,9 @@ export default function App() {
 
   //   checkLogin();
   // }, []);
-  
 
- 
+
+
 
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -106,20 +110,36 @@ export default function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="DrawerRoot">
-        <Stack.Screen
-            name="DrawerRoot"
-            component={DrawerRoot}
-            options={{ headerShown: false }}
-          />
-          
-          <Stack.Screen
-            name="EditUserProfile"
-            component={EditUserProfile}
-            options={{ headerShown: true }}
-          />
+    <RootSiblingParent>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          {hideSplashScreen ? (
+            <Stack.Navigator initialRouteName="ArticleDet">
+                {/* <Stack.Screen
+                name="DiaryDetails"
+                component={DiaryDetails}
+                options={{
+                  headerShown: false
+                  // header: () => (
+                  //   <Image
+                  //     style={[styles.profileItem, styles.profilePosition]}
+                  //     // contentFit="cover"
+                  //     source={require("./assets/vector-1.png")}
+                  //   />
+                  // ),
+                }}
+              /> */}
+             
+              <Stack.Screen
+                name="DrawerRoot"
+                component={DrawerRoot}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="EditUserProfile"
+                component={EditUserProfile}
+                options={{ headerShown: true }}
+              />
 
               <Stack.Screen
                 name="Availability"
