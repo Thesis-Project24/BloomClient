@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "expo-image";
+
 import {
     StyleSheet,
     View,
@@ -23,13 +24,13 @@ import { app } from "../../firebase.config";
 import { useQueryClient } from "react-query";
 
 type ImageprofileProps = {
-    data: any;
+    // data: any;
     setUserData: any;
     userData: any;
 };
 
 const Imageprofile: React.FC<ImageprofileProps> = ({
-    data,
+    // data,
     setUserData,
     userData,
 }) => {
@@ -91,7 +92,7 @@ const Imageprofile: React.FC<ImageprofileProps> = ({
                 <Image
                     style={styles.frameChild}
                     contentFit="cover"
-                    source={image ? { uri: image.uri } : data?.profile_picture}
+                    source={image ? { uri: image.uri } : userData?.profile_picture}
                     // source={require("../assets/frame-26086392.png")}
                 />
                 <TouchableOpacity

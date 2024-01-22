@@ -28,15 +28,18 @@ import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
 import DrawerRoot from "./DrawerNavigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
 // import Notifications from "./screens/Notification/Notifications"
 import PostDetails from "./components/forum/PostDetails";
+import { getAuth } from "firebase/auth";
+import { app } from "./firebase.config";
 
 const queryClient = new QueryClient();
 export default function App() {
+  const [user,setUser] = useState({})
   // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   // useEffect(() => {
   //   const checkLogin = async () => {
@@ -50,9 +53,14 @@ export default function App() {
 
   //   checkLogin();
   // }, []);
+  useEffect(()=>{
+    const auth= getAuth(app)
+     auth.onAuthStateChanged(async (user)=>{
+     setUser(user)
+    })
+  },[])
 
-
-
+ 
 
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -79,11 +87,27 @@ export default function App() {
       <MentalHealth />
     );
   }
-
+  if(!user){
+    return (
+      <QueryClientProvider client={queryClient}>
+         <NavigationContainer>
+         <Stack.Navigator initialRouteName="signIn">
+        <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ headerShown: false }}
+          />
+      </Stack.Navigator>
+      </NavigationContainer>
+      </QueryClientProvider>
+     
+     
+    )
+  }
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="DrawerRoot">
+        <Stack.Navigator initialRouteName="User">
         <Stack.Screen
             name="DrawerRoot"
             component={DrawerRoot}

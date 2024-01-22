@@ -166,7 +166,7 @@ Happier You`}</Text>
                     style={styles.vectorWrapper}
                     onPress={() =>{
                       
-                      mutation.mutate({ email: email, password: password })
+                      mutation.mutate({ email: email, password: password, role:"user" })
                       navigation.navigate("Back");
                     }}
                   >

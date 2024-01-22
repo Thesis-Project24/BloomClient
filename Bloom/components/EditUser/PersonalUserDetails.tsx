@@ -14,23 +14,25 @@ interface UserData {
     id?: number;
     email?: string;
     username?: string;
-    fullName?: string;
+    first_name?: string;
+    last_name?:string;
     profile_picture?: string;
     phone_number?: string;
     age?: number;
 }
 
 type PersonalDetailsProps = {
-    data: UserData;
+    // data: UserData;
     setUserData: (arg: UserData) => void;
     userData: UserData;
 };
 
 const PersonalDetails: React.FC<PersonalDetailsProps> = ({
-    data,
+    // data,
     setUserData,
     userData,
 }) => {
+    console.log(userData,"/////////////////////////////////////")
     return (
         <View
             style={[
@@ -56,24 +58,23 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
                             ]}
                             numberOfLines={1}
                         >
-                            Your Full Name
+                            Your First Name
                         </Text>
                         <View style={styles.textlabel450116Wrapper}>
                             <TextInput
                                 numberOfLines={1}
-                                // editable={true} selectTextOnFocus={true}
                                 onChangeText={(text) => {
                                     setUserData({
                                         ...userData,
-                                        fullName: text,
+                                        first_name: text,
                                     });
                                 }}
                                 style={styles.textlabel450116}
-                                placeholder={"Username"}
+                                placeholder={userData.first_name}
                                 multiline={true}
                                 placeholderTextColor="#ADADAD"
                             >
-                                {data?.fullName}
+                                {userData?.first_name}
                             </TextInput>
                         </View>
                     </View>
@@ -98,11 +99,11 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
                                     setUserData({ ...userData, age: +text });
                                 }}
                                 style={styles.textlabel450116}
-                                placeholder={data?.age?.toString() || "Age"}
+                                placeholder={userData?.age?.toString() || "Age"}
                                 multiline={true}
                                 placeholderTextColor="#ADADAD"
                             >
-                                {data?.age}
+                                {userData?.age}
                             </TextInput>
                         </View>
                     </View>
@@ -131,12 +132,12 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
                                 }}
                                 style={styles.textlabel450116}
                                 placeholder={
-                                    data?.phone_number || "Phone Number"
+                                    userData?.phone_number || "Phone Number"
                                 }
                                 multiline={true}
                                 placeholderTextColor="#ADADAD"
                             >
-                                {data?.phone_number}
+                                {userData?.phone_number}
                             </TextInput>
                         </View>
                     </View>

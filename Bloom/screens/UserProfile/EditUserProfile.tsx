@@ -26,12 +26,16 @@ import {
 } from "../../GlobalStyles";
 import { fetchData, useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditUserProfile = () => {
+const EditUserProfile = ({route}) => {
+    const [user,setUser]= React.useState(route.params.data)
+    console.log(user,"useeeeeeeeeeeeeeeeeeeeeeeeeeeer")
     const navigation = useNavigation();
-    const { data, isLoading, isError, isSuccess } = fetchData();
-    const [userData, setUserData] = useState(data);
-    const mutation = useUpdateUser();
+    navigation.goBack()
+    const { data, isLoading, isError, isSuccess } = fetchData(user.id);
+    const [userData, setUserData] = useState(route.params.data);
+    const mutation = useUpdateUser(user.id);
 
     return (
         <ScrollView style={styles.profile}>
@@ -50,14 +54,14 @@ const EditUserProfile = () => {
             <View style={[styles.profuleWrapper, styles.profilePosition]}>
                 <View style={[styles.profule, styles.chatFlexBox]}>
                     <Imageprofile
-                        data={data}
+                        // data={data}
                         userData={userData}
                         setUserData={setUserData}
                     />
                     <View style={styles.frameView}>
                         <View style={styles.frameParent1}>
                             <PersonalUserDetails
-                                data={data}
+                                // data={data}
                                 setUserData={setUserData}
                                 userData={userData}
                             />
