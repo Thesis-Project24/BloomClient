@@ -15,6 +15,7 @@ import Appi from "./screens/ChatApp/Appi";
 import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
+
 import Availability from "./screens/Booking/Availablity";
 import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
@@ -32,6 +33,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Community from "./screens/Community";
 
 import PostDetails from "./components/forum/PostDetails";
+import CreatePost from "./components/forum/CreatePost";
 const queryClient = new QueryClient();
 export default function App() {
   // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -171,11 +173,16 @@ export default function App() {
            <Stack.Screen
             name="Community"
             component={Community}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PostDetails"
             component={PostDetails}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="CreatePost"
+            component={CreatePost}
             options={{ headerShown: true }}
           />
         </Stack.Navigator>
