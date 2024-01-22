@@ -19,9 +19,7 @@ const SaveUpdateButtonUser = ({ upDateData }: { upDateData: any }) => {
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
       <TouchableOpacity
         onPress={() => {
-          upDateData.mutate()
-          console.log("test");
-          
+          upDateData.mutate() 
         }}
         style={[styles.patientButton, styles.patientFlexBox]}
       >

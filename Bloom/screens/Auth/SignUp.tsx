@@ -29,22 +29,7 @@ const SignUp = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = signup();
 
-  // const handlePress = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await mutation.mutateAsync({
-  //       email: email,
-  //       password: password,
-  //       username: username,
-  //       fullName: fullName,
-  //     });
-  //     navigation.navigate('SignIn')
-  //   } catch (error) {
-  //     console.error("Signup Error:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }; 
+ 
   return (
     <KeyboardAvoidingView behavior={"height"}>
       <ScrollView>
@@ -164,14 +149,12 @@ const SignUp = () => {
                 <Pressable
                   style={styles.vectorWrapper}
                   onPress={() => {
-                    // await handlePress();
                     mutation.mutate({
                       email: email,
                       password: password,
-                      username: username,
-                      fullName: fullName,
+                      username: username
                     });
-                    navigation.navigate("SignIn")
+                    navigation.navigate("signIn")
                     // alert("Verification email sent. Please check your inbox.");
                   }}
                 >

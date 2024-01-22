@@ -26,14 +26,16 @@ import {
 } from "../../GlobalStyles";
 import { fetchData, useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditUserProfile = () => {
-  const [imageUrl, setImageUrl] = React.useState("");
-  // const navigation = useNavigation();
-  const { data, isLoading, isError, isSuccess } = fetchData();
-  const [userData, setUserData] = useState(data);
-    const mutation = useUpdateUser();
-    console.log(userData, "in pageeeeeeeeee");
+const EditUserProfile = ({route}) => {
+    const [user,setUser]= React.useState(route.params.data)
+    console.log(user,"useeeeeeeeeeeeeeeeeeeeeeeeeeeer")
+    const navigation = useNavigation();
+    // navigation.goBack()
+    const { data, isLoading, isError, isSuccess } = fetchData(user.id);
+    const [userData, setUserData] = useState(route.params.data);
+    const mutation = useUpdateUser(user.id);
 
     return (
         <ScrollView style={styles.profile}>
@@ -52,14 +54,14 @@ const EditUserProfile = () => {
             <View style={[styles.profuleWrapper, styles.profilePosition]}>
                 <View style={[styles.profule, styles.chatFlexBox]}>
                     <Imageprofile
-                        data={data}
+                        // data={data}
                         userData={userData}
                         setUserData={setUserData}
                     />
                     <View style={styles.frameView}>
                         <View style={styles.frameParent1}>
                             <PersonalUserDetails
-                                data={data}
+                                // data={data}
                                 setUserData={setUserData}
                                 userData={userData}
                             />
@@ -73,7 +75,6 @@ const EditUserProfile = () => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         userData && mutation.mutate(userData);
-                                 
                                     }}
                                     style={[
                                         styles.patientButton,
@@ -286,44 +287,44 @@ const styles = StyleSheet.create({
     },
 
     patientFlexBox: {
-      justifyContent: "center",
-      alignItems: "center",
+        justifyContent: "center",
+        alignItems: "center",
     },
     labelText: {
-      fontSize: FontSize.medium14_size,
-      fontWeight: "700",
-      fontFamily: FontFamily.headingsH6,
-      color: Color.black,
-      textAlign: "center",
+        fontSize: FontSize.medium14_size,
+        fontWeight: "700",
+        fontFamily: FontFamily.headingsH6,
+        color: Color.black,
+        textAlign: "center",
     },
     stateLayer: {
-      flex: 1,
-      backgroundColor: Color.sageGreen,
-      flexDirection: "row",
-      paddingHorizontal: Padding.p_5xl,
-      paddingVertical: Padding.p_3xs,
-      alignSelf: "stretch",
+        flex: 1,
+        backgroundColor: Color.sageGreen,
+        flexDirection: "row",
+        paddingHorizontal: Padding.p_5xl,
+        paddingVertical: Padding.p_3xs,
+        alignSelf: "stretch",
     },
     patientButton: {
-      borderRadius: Border.br_5xs,
-      backgroundColor: Color.orangeRangeOrange90,
-      width: 288,
-      height: 48,
-      maxWidth: 288,
-      maxHeight: 50,
-      overflow: "hidden",
-      alignItems: "center",
+        borderRadius: Border.br_5xs,
+        backgroundColor: Color.orangeRangeOrange90,
+        width: 288,
+        height: 48,
+        maxWidth: 288,
+        maxHeight: 50,
+        overflow: "hidden",
+        alignItems: "center",
     },
     patientButtonWrapper: {
-      height: 74,
-      paddingHorizontal: Padding.p_32xl,
-      paddingVertical: Padding.p_smi,
-      maxHeight: 75,
-      marginTop: 46,
-      overflow: "hidden",
-      alignItems: "center",
-      alignSelf: "stretch",
-    }
+        height: 74,
+        paddingHorizontal: Padding.p_32xl,
+        paddingVertical: Padding.p_smi,
+        maxHeight: 75,
+        marginTop: 46,
+        overflow: "hidden",
+        alignItems: "center",
+        alignSelf: "stretch",
+    },
 });
 
 export default EditUserProfile;

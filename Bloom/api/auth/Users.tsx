@@ -7,10 +7,11 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   sendEmailVerification,
-  onAuthStateChanged,
+  signInWithCustomToken,
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 interface User {
   id: number;
@@ -24,51 +25,70 @@ interface User {
 }
 
 export const login = () => {
-  const query = useMutation({
-    mutationFn: async (object: { email: string; password: string }) => {
+  const mutation = useMutation({
+    mutationFn: async (object: { email: string; password: string, role: string  }) => {
+      const {email,password,role} = object
       const auth = getAuth(app);
-      const res: any = await signInWithEmailAndPassword(
-        auth,
-        object.email,
-        object.password
-      );
-      const db = await axios.post(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin`,
+      await signInWithEmailAndPassword(auth,email,password)
+      .then(async()=>{
+        const res = await axios.post(
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin/${role}`,
         object
-      );
-      console.log(db.data.id, 'dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-      await AsyncStorage.setItem('user', JSON.stringify(db.data));
-      const item = await  AsyncStorage.getItem('user');
-      console.log(item, "in api");
-      
-      return db;
+        );
+        AsyncStorage.setItem(res.data.role,JSON.stringify(res.data))
+        const item = await AsyncStorage.getItem(role)
+        // console.log(item, "*/*/*/*/*/*/*/*/*/*/*/*", AsyncStorage)
+      })
+      .catch((error:any)=>{
+        console.log(error)
+      }) 
     },
   });
-  return query;
+  return mutation;
  };
  
 
 export const signup = () => {
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const query = useMutation({
     mutationFn: async (object: {
       email: string;
       password: string;
       username: string;
-      fullName: string;
     }) => {
       try {
         const auth = getAuth(app);
-        const res = await createUserWithEmailAndPassword(
-          auth,
-          object.email,
-          object.password
-        );
-        const db = await axios.post(
-          `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
-          object
-        );
-        console.log("Backend Response:", db.data);
-        return db.data;
+        const {email,password,username}= object
+        await axios.post(
+            `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
+            {email:object.email,username:object.username}
+          );
+        await createUserWithEmailAndPassword(auth,email,password)
+        .then((credentials:any)=>{
+          console.log(credentials.user)
+          sendEmailVerification(credentials.user)
+        })
+        .then(()=>{
+          alert("verification mail")
+          if(!auth.currentUser?.emailVerified){
+            console.log("triggered")
+          }
+        })
+        .then(()=>{
+          console.log(auth.currentUser?.emailVerified)
+          navigation.navigate("signIn")
+        })
+        
+        
+        
+        
+  
+        // const db = await axios.post(
+        //   `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
+        //   object
+        // );
+        // console.log("Backend Response:", db.data);
+        // return db.data;
       } catch (error) {
         console.error("Signup Error:", error);
         throw error; 
