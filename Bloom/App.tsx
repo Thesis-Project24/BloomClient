@@ -40,7 +40,7 @@ import Journal from "./screens/UserProfile/Journal";
 import Notifications from "./screens/Notification/Notifications"
 // import PostDetails from "./components/forum/PostDetails";
 import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
-import { BottomTab } from "./TapBarBottom";
+
 
 
 
