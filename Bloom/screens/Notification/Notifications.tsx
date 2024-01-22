@@ -1,6 +1,6 @@
 import * as React from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Device from "expo-device";
@@ -14,7 +14,6 @@ import {
   Padding,
 } from "../../GlobalStyles";
 import DrawerScreen from "../SideBar.tsx/DrawerScreen";
-import Nav from "../Nav";
 import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
 
 const ViewDetailsCancled = () => {
@@ -31,7 +30,8 @@ const ViewDetailsCancled = () => {
   const [scheduledTime, setScheduledTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isDateTimePickerVisible, setDateTimePickerVisible] = useState(false);
-
+ 
+const dateTimePickerRef = useRef<DateTimePickerModal>(null);
   useEffect(() => {
     console.log("Registering for push notifications...");
     registerForPushNotificationsAsync()
@@ -93,6 +93,11 @@ const ViewDetailsCancled = () => {
       });
 
       console.log("Notification scheduled successfully:", result);
+
+      // Show the DateTimePickerModal after scheduling the notification
+     if (dateTimePickerRef.current) {
+       dateTimePickerRef.current.showPicker();
+     }
     } catch (error) {
       console.error("Error scheduling notification:", error);
     }
@@ -116,8 +121,7 @@ const ViewDetailsCancled = () => {
   return (
     <>
       <DrawerScreen>
-        {/* <Nav/> */}
-        <NavBarEdit page={"Notifaction"} />
+        <NavBarEdit page={"Notification"} />
         <View style={styles.viewDetailsCancled}>
           <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
             <View style={styles.appointmentHeader}>
@@ -153,6 +157,7 @@ const ViewDetailsCancled = () => {
                 </Text>
               </TouchableOpacity>
               <DateTimePickerModal
+                ref={dateTimePickerRef}
                 isVisible={isDateTimePickerVisible}
                 mode="datetime"
                 onConfirm={handleDateChange}
@@ -165,7 +170,6 @@ const ViewDetailsCancled = () => {
     </>
   );
 };
-
 const styles = StyleSheet.create({
   smallFabShadowBox: {
     shadowOpacity: 1,
