@@ -16,7 +16,7 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 
 
 
-const NavBarEdit = () => {
+const NavBarEdit = ({page} : {page?:string}) => {
     const navigation = useNavigation();
     StatusBar.setBarStyle("dark-content");
     StatusBar.setHidden(false);
@@ -42,7 +42,7 @@ const NavBarEdit = () => {
 
 
         <Text style={[styles.yourProfile, styles.yourProfileFlexBox]}>
-          Your Profile
+        {page}
         </Text>
       </View>
 

@@ -17,27 +17,30 @@ type SideBarType = {
   navigation?: any;
 };
 
-const SideBar = ({ state, navigation }: SideBarType) => {
+const SideBar = ({ state, navigation , }: SideBarType) => {
+  //  console.log(navigation.route,"routtttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
   
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
     useState(true);
   const stateIndex = !state ? 0 : state.index - 1;
   const activeRoute = state.routeNames[state.index];
+  //         console.log(activeRoute,",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+  
 
   const homeButtonColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
-  const notifColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const notifBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
-  const messColor = activeRoute === "Appi" ? Color.green : Color.colorGray_400;
-  const messBgColor = activeRoute === "Appi" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
+  const notifColor = activeRoute === "Notifications" ? Color.green : Color.colorGray_400;
+  const notifBgColor = activeRoute === "Notifications" ? Color.colorPaleturquoise_200 : "transparent";
+  const messColor = activeRoute === "Appi"  ? Color.green : Color.colorGray_400;
+  const messBgColor = activeRoute === "Appi" ? Color.colorPaleturquoise_200 : "transparent";
   const trackerColor = activeRoute === "Tracker" ? Color.green : Color.colorGray_400;
-  const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : "transparent";
   const settingColor = activeRoute === "EditDoctorProfile" ? Color.green : Color.colorGray_400;
-  const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : "transparent";
   const historyColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
   const articalColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
 
 
 
@@ -68,7 +71,7 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   <TouchableOpacity
                     style={[styles.homeButton, { backgroundColor: homeBgColor, }]}
                     onPress={() => {
-                      navigation.navigate("Back")
+                      navigation.navigate("Home")
                     }}
                   >
                     <Octicons name="home" size={18} color={homeButtonColor} />
@@ -146,7 +149,8 @@ const SideBar = ({ state, navigation }: SideBarType) => {
 
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: articalBgColor, }]}
                   >
-                    <MaterialIcons name="save-alt" size={22} color={articalColor} />
+                     <Feather name="bookmark" size={22} color={articalColor} />
+                    {/* <MaterialIcons name="save-alt" size={22} color={articalColor} /> */}
                    
                     <Text
                       style={[styles.home, styles.homeLayout, { color: articalColor }]}
@@ -170,7 +174,7 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("EditDoctorProfile")
+                      // navigation.navigate("EditDoctorProfile")
                     }}
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: settingBgColor }]}
                   >

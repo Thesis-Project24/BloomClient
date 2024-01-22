@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 140,
   },
   headingText: {
     fontSize: 36,

@@ -9,9 +9,12 @@ import {
 } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
 import Nav from "./Nav";
+import DrawerScreen from "./SideBar.tsx/DrawerScreen";
+
 const Home = () => {
   const navigation = useNavigation();
   return (
+    <DrawerScreen>
     <View style={{
       flex: 1,
       backgroundColor: "#f3f0ea",
@@ -41,6 +44,7 @@ const Home = () => {
         </View>
       </View>
     </View>
+    </DrawerScreen>
   );
 };
 const styles = StyleSheet.create({

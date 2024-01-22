@@ -56,13 +56,16 @@ const Nav = () => {
               />
             </TouchableOpacity>
           </View>
-          <View style={[styles.groupGroup, styles.wrapperGroupFlexBox]}>
+
+          <TouchableOpacity 
+          onPress={() => navigation.navigate("Notifications" as never)}
+          style={[styles.groupGroup, styles.wrapperGroupFlexBox]}>
             <Ionicons name="notifications-outline" size={30} color="#242424" />
          
             <View style={[styles.wrapper, styles.wrapperGroupFlexBox]}>
               <Text style={[styles.text1, styles.textTypo]}>3</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

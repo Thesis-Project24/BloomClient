@@ -88,7 +88,7 @@ const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
   };
   return (
     <DrawerScreen>
-    <NavBarEdit/>
+     <NavBarEdit page={"Your Profile"}/>
    
     <ScrollView style={styles.profile}>
       <Image

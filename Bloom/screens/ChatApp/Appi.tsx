@@ -23,6 +23,8 @@ import {
 } from "../../GlobalStyles";
 import { StyleSheet } from "react-native";
 import Nav from "../Nav";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+
 const socket = io.connect(`http://${process.env.EXPO_PUBLIC_ipadress}:3000`);
 
 
@@ -42,7 +44,9 @@ const App: React.FC<AppProps> = () => {
 
 
   return (
+    // <DrawerScreen>
     <View style={styles.sideBar}>
+
 <Nav/>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,6 +93,7 @@ const App: React.FC<AppProps> = () => {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
     </View>
+    // </DrawerScreen>
   );
 };
 const styles = StyleSheet.create({

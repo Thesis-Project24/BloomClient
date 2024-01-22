@@ -5,9 +5,11 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
+import NavBarEdit from '../DoctorProfile/NavBarEditDoctor';
+import DrawerScreen from '../../screens/SideBar.tsx/DrawerScreen';
 
 const DiaryDetails = ({ navigation, route }: { navigation: string; route: { params: { id: number } } }) => {
-  const { id } = route.params
+  const  id  = 1
   const { data, isLoading, isError, isFetched } = getOneJournal(id);
   const [content, setContent] = useState<string>(data?.content)
   const [title, setTitle] = useState<string>(data?.title)
@@ -41,6 +43,10 @@ const DiaryDetails = ({ navigation, route }: { navigation: string; route: { para
   }
 
   return (
+
+    <>
+    {/* <DrawerScreen> */}
+    <NavBarEdit page = {"Creat Your Journal "} />
     <ScrollView
       style={styles.primaryContainer}
       keyboardShouldPersistTaps={'always'}
@@ -86,6 +92,8 @@ const DiaryDetails = ({ navigation, route }: { navigation: string; route: { para
 
       />
     </ScrollView>
+    {/* </DrawerScreen> */}
+    </>
   )
 }
 
