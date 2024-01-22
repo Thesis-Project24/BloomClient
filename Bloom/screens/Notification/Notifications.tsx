@@ -3,7 +3,9 @@ import { Button, Text, View } from "react-native";
 import { useState, useEffect } from "react";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import Nav from "../Nav";
+import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -12,7 +14,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+export default function PageNotifications() {
   const [expoPushToken, setExpoPushToken] = useState("");
 
   useEffect(() => {
@@ -88,9 +90,23 @@ export default function App() {
   };
 
   return (
-    <View style={{ marginTop: 100, alignItems: "center" }}>
-      <Text style={{ marginVertical: 30 }}>Expo RN Push Notifications</Text>
+    <>
+    <DrawerScreen>
+      {/* <Nav/> */}
+      <NavBarEdit page={"Notifaction"}/>
+      <View style={{backgroundColor : "#f3f0ea", height : "100%" , width: "100%", flex : 1 , justifyContent:"flex-start", gap:20 , flexDirection:"column", alignItems: "center", }}>
+    <View style={{ 
+      marginTop:50, 
+      gap:30,
+      alignItems: "center",  }}>
+      <Text style={{ 
+        // marginVertical: 30
+         }}>Expo RN Push Notifications</Text>
       <Button title="Send push notification" onPress={sendNotification} />
     </View>
+    </View>
+    </DrawerScreen>
+    </>
+    
   );
 }

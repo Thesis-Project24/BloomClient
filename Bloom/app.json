@@ -12,8 +12,8 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/group-123@3x.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "300",
+      "backgroundColor": "#f3f0ea"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -27,7 +27,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/group-123@3x.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#f3f0ea"
       }
     },
     "web": {

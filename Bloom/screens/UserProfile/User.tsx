@@ -25,7 +25,8 @@ import {fetchData} from "../../api/user/Editprofile";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import Nav from "../Nav";
 const User = () => {
 
 
@@ -39,6 +40,9 @@ const User = () => {
   const navigation = useNavigation();
 //  const [userDataa, setUserDataa] = useState({});
   return (
+    <>
+   <DrawerScreen>
+    <Nav/>
     <ScrollView>
       <View style={[styles.Box, styles.user11WrapperFlexBox]}>
         <View style={[styles.frameParent, styles.parentFlexBox]}>
@@ -98,6 +102,8 @@ const User = () => {
         <Ad />
       </View>
     </ScrollView>
+    </DrawerScreen>
+    </>
   );
 };
 
