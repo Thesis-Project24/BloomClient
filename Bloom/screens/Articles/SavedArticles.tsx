@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useFetchSavedArticles } from "../../api/articles/Articles";
-import SavedArticle from "./SavedArticle";
+import SavedArticle from "../../components/articles/SavedArticle";
 const SavedArticles = () => {
   const userId = 1;
   const { data, isLoading, isError, isSuccess } = useFetchSavedArticles(userId);

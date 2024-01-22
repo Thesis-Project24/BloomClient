@@ -21,6 +21,7 @@ import {
 import Garbage from "../components/Trackers/Garbage";
 import Satisfaction from "../components/UserProfile/Satisfaction";
 import { AntDesign } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Tracker = () => {
   const {
@@ -125,7 +126,7 @@ const Tracker = () => {
         <Text style={styles.init}> What Habit Do you Want to Track </Text>
         <View style={styles.habitsWrapper}>
           {habits &&
-            habits.habits?.map((ele: any) => (
+            habits.habits?.map((ele: any,index:number) => (
               <Habit
                 key={ele.id}
                 habit={{
@@ -133,6 +134,7 @@ const Tracker = () => {
                   name: ele.name,
                 }}
                 onHabitSelect={handleHabitSelect}
+                style={index < 3 ? styles.habitGroup1 : index < 6 ? styles.habitGroup2 : styles.habitGroup3}
               />
             ))}
         </View>
@@ -168,7 +170,7 @@ const Tracker = () => {
                 ))}
             </View>
           </ScrollView>
-          {<Garbage />}
+          {isDragging && <Garbage />}
         </View>
       </View>
       <View>
@@ -209,6 +211,7 @@ const Tracker = () => {
                 name: ele.habit.name,
                 tracker: ele.tracker,
               }}
+              reload={refetchUserHabits}
             />
           ))}
       </View>
@@ -277,6 +280,36 @@ const styles = StyleSheet.create({
   profilePosition: {
     left: 0,
     position: "relative",
+  },
+  habitGroup1: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#729384",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
+  },
+  habitGroup2: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#ADD8C4",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
+  },
+  habitGroup3: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#ADD8C4",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
   },
 });
 

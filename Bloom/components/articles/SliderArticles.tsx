@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Animated, FlatList, Text } from 'react-native';
+import { View, Animated, FlatList, Text, Pressable,TouchableOpacity } from 'react-native';
 import images from '../../assets/images/Articles/images';
 import SlideImage from './SlideImage';
 
-const SliderArticles = () => {
+const SliderArticles = ({disabled}:any) => {
+  
+ const handlePress = () => {
+  if (disabled) {
+    return;
+  }
+};
  const scrollX = useRef(new Animated.Value(0)).current;
 
  useEffect(() => {
@@ -31,6 +37,7 @@ const SliderArticles = () => {
  };
 
  return (
+  <TouchableOpacity onPress={handlePress}>
   <View>
     <Animated.FlatList
       data={images}
@@ -47,6 +54,7 @@ const SliderArticles = () => {
       )}
     />
   </View>
+  </TouchableOpacity>
  );
 };
 

@@ -132,7 +132,7 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Home")
+                      navigation.navigate("SavedArticles")
                     }}
 
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: articalBgColor, }]}

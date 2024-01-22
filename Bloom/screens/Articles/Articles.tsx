@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import React, { useState,useEffect } from "react";
 import {  useSearchArticles } from "../../api/articles/Articles";
 import { FontFamily } from "../../GlobalStyles";
@@ -7,7 +7,7 @@ import SliderArticles from "../../components/articles/SliderArticles";
 import Article from "../../components/articles/Article";
 import ArticleDet from "../../components/articles/ArticleDet";
 import AddArticle from "../../components/articles/AddArticle";
-import SavedArticles from "../../components/articles/SavedArticles";
+import SavedArticles from "./SavedArticles";
 import { SearchBar } from "@rneui/themed";
 const Articles = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -39,14 +39,20 @@ const Articles = () => {
   }
   return (
     <View style={styles.bigContainer}>
-      <ScrollView>
+      <ScrollView
+       showsVerticalScrollIndicator={false}
+       showsHorizontalScrollIndicator={false}
+      
+      >
         <Image
           style={[styles.profileItem, styles.profilePosition]}
           // contentFit="cover"
           source={require("../../assets/vector-1.png")}
         />
         {/* image carrossel  */}
-        <SliderArticles />
+        
+        <SliderArticles disabled = {true} />
+    
         <SearchBar
          placeholder="Look for your article"
          containerStyle={{ backgroundColor: "#ADD8C4", borderRadius: 30 }}
