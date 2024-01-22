@@ -1,6 +1,6 @@
 import React from "react";
 import { View, FlatList, StyleSheet, Button } from "react-native";
-import PostForum from "../components/forum/PostForum";
+// import PostForum from "../components/forum/PostForum";
 
 const Community = () => {
   const posts = [
@@ -24,7 +24,7 @@ const Community = () => {
     <View style={styles.container}>
       <FlatList
         data={posts}
-        renderItem={({ item }) => <PostForum post={item} />}
+        // renderItem={({ item }) => <PostForum post={item} />}
         keyExtractor={(item) => item.id.toString()}
       />
       <Button
