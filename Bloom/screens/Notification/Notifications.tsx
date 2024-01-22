@@ -1,202 +1,397 @@
-// import React, { useState, useEffect } from "react";
-// import { Button, Text, View, Alert, TextInput, Switch } from "react-native";
-// import { Platform } from "react-native";
-// import * as Device from "expo-device";
-// import * as Notifications from "expo-notifications";
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as React from "react";
+import { StyleSheet, View, Text, TextInput, Button } from "react-native";
+import { useState, useEffect } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
-// import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+  Padding,
+} from "../../GlobalStyles";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import Nav from "../Nav";
+import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
 
-// export default function Notification() {
-//   const [expoPushToken, setExpoPushToken] = useState<string>("");
-//   const [message, setMessage] = useState<string>("");
-//   const [enableDailyReminder, setEnableDailyReminder] =
-//     useState<boolean>(false);
-//   const [dailyReminderTime, setDailyReminderTime] = useState<Date>(
-//     new Date() // Default time is set to the current time
-//   );
-//   const [notificationId, setNotificationId] = useState<string | null>(null);
-//   const [isTimePickerVisible, setTimePickerVisible] = useState<boolean>(false);
+const ViewDetailsCancled = () => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
 
-//   useEffect(() => {
-//     console.log("Registering for push notifications...");
-//     registerForPushNotificationsAsync()
-//       .then((token: string) => {
-//         console.log("token: ", token);
-//         setExpoPushToken(token);
-//       })
-//       .catch((err) => console.log(err));
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [scheduledTime, setScheduledTime] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isDateTimePickerVisible, setDateTimePickerVisible] = useState(false);
 
-//     // Check if there is a scheduled daily reminder
-//     checkScheduledNotification();
-//   }, []);
+  useEffect(() => {
+    console.log("Registering for push notifications...");
+    registerForPushNotificationsAsync()
+      .then((token) => {
+        console.log("token: ", token);
+        setExpoPushToken(token);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-//   async function registerForPushNotificationsAsync(): Promise<string> {
-//     let token: string;
+  async function registerForPushNotificationsAsync() {
+    let token;
 
-//     if (Platform.OS === "android") {
-//       await Notifications.setNotificationChannelAsync("default", {
-//         name: "default",
-//         importance: Notifications.AndroidImportance.MAX,
-//         vibrationPattern: [0, 250, 250, 250],
-//         lightColor: "#FF231F7C",
-//       });
-//     }
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
 
-//     if (Device.isDevice) {
-//       const { status: existingStatus } =
-//         await Notifications.getPermissionsAsync();
-//       let finalStatus = existingStatus;
-//       if (existingStatus !== "granted") {
-//         const { status } = await Notifications.requestPermissionsAsync();
-//         finalStatus = status;
-//       }
-//       if (finalStatus !== "granted") {
-//         alert("Failed to get push token for push notification!");
-//         return "";
-//       }
+      token = (
+        await Notifications.getExpoPushTokenAsync({
+          projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
+        })
+      ).data;
+      console.log(token);
+    } else {
+      alert("Must use a physical device for Push Notifications");
+    }
 
-//       token = (
-//         await Notifications.getExpoPushTokenAsync({
-//           projectId: "47c3fc3a-eb39-414f-be49-69e04fa668a3",
-//         })
-//       ).data;
-//       console.log(token, "rrrrrrrrrrrrrr");
-//     } else {
-//       alert("Must use a physical device for Push Notifications");
-//       return "";
-//     }
+    return token;
+  }
 
-//     return token;
-//   }
-//   const showTimePicker = () => {
-//     setTimePickerVisible(true);
-//   };
+  const sendNotification = async () => {
+    console.log("Scheduling push notification...");
 
-//   const hideTimePicker = () => {
-//     setTimePickerVisible(false);
-//   };
+    // notification message
+    const message = {
+      to: expoPushToken,
+      sound: "default",
+      title: "Scheduled Push Notification",
+      body: notificationMessage || "Default notification message",
+    };
 
-//   const handleTimeConfirm = (selectedTime: Date) => {
-//     if (selectedTime) {
-//       setDailyReminderTime(selectedTime);
-//       hideTimePicker();
-//     }
-//   };
+    const schedulingOptions = {
+      time: scheduledTime.getTime(), // Convert the scheduled time to milliseconds
+    };
 
-//   const scheduleDailyReminder = async () => {
-//     console.log("Scheduling daily reminder...");
+    try {
+      const result = await Notifications.scheduleNotificationAsync({
+        content: message,
+        trigger: schedulingOptions,
+      });
 
-//     const now = new Date();
-//     const scheduledTime = new Date(
-//       now.getFullYear(),
-//       now.getMonth(),
-//       now.getDate(),
-//       dailyReminderTime.getHours(),
-//       dailyReminderTime.getMinutes()
-//     );
+      console.log("Notification scheduled successfully:", result);
+    } catch (error) {
+      console.error("Error scheduling notification:", error);
+    }
+  };
 
-//     if (scheduledTime.getTime() < now.getTime()) {
-//       scheduledTime.setDate(scheduledTime.getDate() + 1);
-//     }
+  const showDateTimePicker = () => {
+    setDateTimePickerVisible(true);
+  };
 
-//     const pushMessage = {
-//       to: expoPushToken,
-//       sound: "default",
-//       title: "Daily Reminder",
-//       body: message || "Default notification message",
-//       data: { scheduledTime: scheduledTime.getTime() },
-//     };
+  const hideDateTimePicker = () => {
+    setDateTimePickerVisible(false);
+  };
 
-//     const scheduledNotification = await Notifications.scheduleNotificationAsync(
-//       {
-//         content: pushMessage,
-//         trigger: { date: scheduledTime },
-//       }
-//     );
+  const handleDateChange = (selectedDate: any) => {
+    hideDateTimePicker();
+    if (selectedDate) {
+      setScheduledTime(selectedDate);
+    }
+  };
 
-//     setNotificationId(scheduledNotification.identifier);
+  return (
+    <>
+      <DrawerScreen>
+        {/* <Nav/> */}
+        <NavBarEdit page={"Notifaction"} />
+        <View style={styles.viewDetailsCancled}>
+          <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
+            <View style={styles.appointmentHeader}>
+              <Text
+                style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}
+              >
+                Notifications
+              </Text>
+              <TextInput
+                style={{
+                  height: 40,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  marginBottom: 20,
+                  paddingHorizontal: 10,
+                }}
+                placeholder="Enter notification message"
+                value={notificationMessage}
+                onChangeText={(text) => setNotificationMessage(text)}
+              />
+              <Button
+                title="Send push notification"
+                onPress={sendNotification}
+              />
+            </View>
+            <View style={[styles.dateTime, styles.fabsSpaceBlock]}>
+              <TouchableOpacity onPress={showDateTimePicker}>
+                <Text style={[styles.date1, styles.date1Typo]}>
+                  Date & Time
+                </Text>
+                <Text style={[styles.text1, styles.text1Typo]}>
+                  {scheduledTime.toLocaleString()}
+                </Text>
+              </TouchableOpacity>
+              <DateTimePickerModal
+                isVisible={isDateTimePickerVisible}
+                mode="datetime"
+                onConfirm={handleDateChange}
+                onCancel={hideDateTimePicker}
+              />
+            </View>
+          </View>
+        </View>
+      </DrawerScreen>
+    </>
+  );
+};
 
-//     Alert.alert(
-//       "Notification Scheduled",
-//       "Your daily reminder has been scheduled!"
-//     );
-//   };
+const styles = StyleSheet.create({
+  smallFabShadowBox: {
+    shadowOpacity: 1,
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+  drPoppenschmitzFlexBox: {
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  date1Typo: {
+    fontFamily: FontFamily.poppinsRegular,
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  sliderFlexBox: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  date1Layout: {
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  phoneAltIconLayout: {
+    height: 12,
+    width: 12,
+    overflow: "hidden",
+  },
+  fabsSpaceBlock: {
+    marginTop: 24,
+    alignSelf: "stretch",
+  },
+  text1Typo: {
+    fontSize: FontSize.size_sm,
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+    letterSpacing: 1,
+  },
+  text3Position: {
+    left: 0,
+    top: 0,
+    position: "absolute",
+  },
+  smallFabFlexBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  drPoppenschmitz: {
+    fontSize: FontSize.size_lg,
+    color: Color.darkGreen,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+  },
+  templesThrobbingCouldnt: {
+    marginTop: 8,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+    color: Color.darkGreen,
+  },
+  poppenschmitzaolde: {
+    fontWeight: "200",
+    fontFamily: FontFamily.poppinsExtraLight,
+    marginLeft: 2,
+    color: Color.textMain,
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  phoneAltIcon: {
+    marginLeft: 2,
+  },
+  contactDetails: {
+    display: "none",
+    marginTop: 8,
+    alignSelf: "stretch",
+  },
+  appointmentHeader: {
+    alignSelf: "stretch",
+  },
+  date1: {
+    color: Color.brown,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  text1: {
+    color: Color.brown,
+    marginTop: 8,
+  },
+  time: {
+    marginLeft: 20,
+  },
+  dateTime: {
+    flexDirection: "row",
+  },
+  painLevel: {
+    color: Color.textMain,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  sliderBar: {
+    left: -197,
+    backgroundColor: Color.secondaryColorDark,
+    top: 0,
+    height: 10,
+    width: 200,
+    borderRadius: Border.br_3xs,
+    position: "absolute",
+  },
+  sliderBarMask: {
+    top: 5,
+    left: 3,
+    backgroundColor: Color.accentColorVibrantBlue,
+    height: 10,
+    width: 200,
+    borderRadius: Border.br_3xs,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  sliderControlIcon: {
+    width: 20,
+    height: 20,
+  },
+  sliderBarMaskParent: {
+    width: 203,
+    height: 20,
+  },
+  text3: {
+    fontSize: FontSize.size_base,
+    textAlign: "center",
+    color: Color.textMain,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+    letterSpacing: 1,
+    left: 0,
+  },
+  numbers: {
+    width: 17,
+    height: 24,
+    marginLeft: 20,
+    overflow: "hidden",
+  },
+  googlemapsIcon1: {
+    width: 22,
+    height: 22,
+    display: "none",
+  },
+  winklergasse4510117: {
+    marginLeft: 5,
+    color: Color.textMain,
+    display: "none",
+  },
+  addressGoogleMapsIcon: {
+    flexDirection: "row",
+  },
+  openInGoogle: {
+    fontSize: FontSize.size_7xs,
+    lineHeight: 9,
+    color: Color.colorMediumblue,
+    display: "none",
+  },
+  addressGoogleMaps: {
+    display: "none",
+  },
+  addressSection: {
+    display: "none",
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  stateLayer: {
+    padding: Padding.p_5xs,
+  },
+  smallFab: {
+    borderRadius: Border.br_xs,
+    width: 40,
+    height: 40,
+    shadowOpacity: 1,
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+  fabs: {
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+  },
+  symptomContentBox: {
+    top: 81,
+    left: 41,
+    borderRadius: Border.br_13xl,
+    width: 308,
+    padding: Padding.p_11xl,
+    position: "absolute",
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+  },
+  viewDetailsCancled: {
+    flex: 1,
+    width: "100%",
+    height: 844,
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+});
 
-//   const cancelDailyReminder = async () => {
-//     console.log("Canceling daily reminder...");
-
-//     if (notificationId) {
-//       await Notifications.cancelScheduledNotificationAsync(notificationId);
-//       setNotificationId(null);
-//     }
-
-//     // Clear all scheduled notifications
-//     await Notifications.cancelAllScheduledNotificationsAsync();
-
-//     Alert.alert(
-//       "Notification Canceled",
-//       "Your daily reminder has been canceled!"
-//     );
-//   };
-
-//   const checkScheduledNotification = async () => {
-//     const scheduledNotifications =
-//       await Notifications.getAllScheduledNotificationsAsync();
-//     const dailyReminder = scheduledNotifications.find(
-//       (notification) => notification.content.title === "Daily Reminder"
-//     );
-
-//     if (dailyReminder) {
-//       setNotificationId(dailyReminder.identifier);
-//     }
-//   };
-
-//   return (
-//     <View style={{ marginTop: 100, alignItems: "center" }}>
-//       <Text style={{ marginVertical: 30 }}>Expo RN Push Notifications</Text>
-//       <TextInput
-//         style={{
-//           height: 40,
-//           borderColor: "gray",
-//           borderWidth: 1,
-//           marginBottom: 10,
-//           padding: 10,
-//         }}
-//         placeholder="Enter message"
-//         onChangeText={(text) => setMessage(text)}
-//         value={message}
-//       />
-//       <View
-//         style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}
-//       >
-//         <Text>Enable Daily Reminder:</Text>
-//         <Switch
-//           value={enableDailyReminder}
-//           onValueChange={(value) => setEnableDailyReminder(value)}
-//         />
-//       </View>
-//       {enableDailyReminder && (
-//         <>
-//           <TouchableOpacity onPress={showTimePicker}>
-//             <Text>
-//               Select Daily Reminder Time:{" "}
-//               {dailyReminderTime.toLocaleTimeString([], {
-//                 hour: "2-digit",
-//                 minute: "2-digit",
-//               })}
-//             </Text>
-//           </TouchableOpacity>
-//           <DateTimePickerModal
-//             isVisible={isTimePickerVisible}
-//             mode="time"
-//             onConfirm={handleTimeConfirm}
-//             onCancel={hideTimePicker}
-//           />
-//         </>
-//       )}
-//       <Button title="Set Daily Reminder" onPress={scheduleDailyReminder} />
-//       <Button title="Cancel Daily Reminder" onPress={cancelDailyReminder} />
-//     </View>
-//   );
-// }
+export default ViewDetailsCancled;

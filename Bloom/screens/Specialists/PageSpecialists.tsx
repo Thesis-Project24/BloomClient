@@ -5,6 +5,7 @@ import Specialists from "../../components/Specialists/SpecialistsFilter";
 import ImageSpecialists from "../../components/Specialists/ImageSpecialists";
 import { FontSize, FontFamily, Color, Padding } from "../../GlobalStyles";
 import { useQuery , useQueryClient } from "react-query";
+import Nav from "../Nav";
      
 const PageSpecialists = () => {
 
@@ -12,6 +13,7 @@ const PageSpecialists = () => {
    
   return (
   <>
+  <Nav/>
   <View style={styles.specialists}>
            
       <View style={[styles.specialistsInner, styles.specialistsPosition]}>
@@ -28,11 +30,11 @@ const PageSpecialists = () => {
         </View>         
       </View>
       
-      <Image
+      {/* <Image
         style={styles.specialistsItem}
         contentFit="cover"
         source={require("../../assets/vector-2.png")}
-      />
+      /> */}
     </View>
   </>
     
@@ -65,17 +67,22 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal: Padding.p_7xl,
     paddingVertical: 0,
-    minHeight: 35,
+    minHeight: 20,
     maxWidth: 410,
-    maxHeight: 38,
+    maxHeight: 30,
     flexDirection: "row",
     width: "100%",
     // backgroundColor:"red",
   },
   frameGroup: {
-    marginTop: 38,
+    marginTop: 8,
     alignSelf: "stretch",
+    alignItems: "center",
+    justifyContent: "space-between" ,
+    gap : 22 ,
     flex: 1,
+    height: "100%",
+    width: "100%",
   },
   frameParent: {
 
@@ -87,8 +94,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   specialistsInner: {
-    paddingTop: 50,
-    paddingBottom: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
     flexDirection: "row",
     height: "100%",
   },

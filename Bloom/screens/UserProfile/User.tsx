@@ -56,6 +56,9 @@ const User =  () => {
  
   const navigation:any = useNavigation();
   return (
+    <>
+   <DrawerScreen>
+    <Nav/>
     <ScrollView>
       <View style={[styles.Box, styles.user11WrapperFlexBox]}>
         <View style={[styles.frameParent, styles.parentFlexBox]}>
@@ -115,6 +118,8 @@ const User =  () => {
         <Ad />
       </View>
     </ScrollView>
+    </DrawerScreen>
+    </>
   );
 };
 

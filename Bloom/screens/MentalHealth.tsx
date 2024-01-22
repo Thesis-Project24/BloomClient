@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
   mentalHealth1: {
     fontSize: FontSize.size_18xl,
     fontWeight: "700",
-    fontFamily: FontFamily.dMSansBold,
+    fontFamily: FontFamily.interBold,
     color: Color.black,
   },
   healthyLifeIs: {
     fontSize: FontSize.regular16_size,
-    fontFamily: FontFamily.dMSansRegular,
+    fontFamily: FontFamily.montserratRegular,
     color: Color.brown,
   },
   groupParent: {

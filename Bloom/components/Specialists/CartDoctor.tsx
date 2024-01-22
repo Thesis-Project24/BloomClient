@@ -99,6 +99,7 @@ const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Ty
           </View>
         </View>
         <View style={[styles.frameParent2, styles.parentFrameFlexBox]}>
+        
           <View style={[styles.iontimeOutlineParent, styles.parentFlexBox]}>
             <Image
               style={styles.iontimeOutlineIcon}

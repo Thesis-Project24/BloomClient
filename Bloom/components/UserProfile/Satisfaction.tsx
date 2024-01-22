@@ -36,11 +36,11 @@ const Satisfaction = ({ habitsUser }: SatisfactionProps) => {
 
   // { satisfaction submisssion } //
   const satisMuttation = useSubmitSatisfaction();
-  const handleSatisfactionPress = async (n: number) => {
+  const handleSatisfactionPress =  (n: number) => {
     try {
       console.log("aand el satisfaction while submitting", habitsUser.id);
 
-      await satisMuttation.mutateAsync({
+       satisMuttation.mutateAsync({
         userHabitId: habitsUser.id,
         userId: 1,
         rating: n,
