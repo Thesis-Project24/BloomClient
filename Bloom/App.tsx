@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { Text, View, Image, StyleSheet } from "react-native";
