@@ -13,7 +13,6 @@ const addWindow = () => {
                 `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/1`,
                 windows
             );
-            console.log(slots.data, "slots in mutation");
             return slots.data;
         },
         onError: (error) => {
@@ -27,7 +26,7 @@ const getWindowsByDate = () => {
     const mutation = useMutation({
         mutationFn: async (date: Date) => {
             const response = await axios.get(
-                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}`
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}/1`
             );
             const data = response.data;
             return data;
@@ -55,7 +54,6 @@ const getSlotsByWindow = () => {
 const bookAppointment = ()=> {
     const mutation = useMutation({
         mutationFn: async (object:{patientId:number,doctorId:number,slotId:number,appDetails:string}) => {
-          console.log(object)
             const response =  await axios.post(
                 `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointemnt/appointments/add`,object
             );

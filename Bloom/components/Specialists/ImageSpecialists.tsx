@@ -18,21 +18,30 @@ const ImageSpecialists = () => {
 const styles = StyleSheet.create({
   planFlexBox: {
     flex: 1,
-    width: "100%",
+    // width: "100%",
   },
   planDeTravail22x81: {
+    // marginTop: 10,
+    
     alignSelf: "stretch",
-    maxWidth: "100%",
+    // maxWidth: "100%",
+    height: "100%",
     overflow: "hidden",
-    maxHeight: "100%",
+    justifyContent: "flex-start" ,
+    alignItems: "flex-start",
+    // maxHeight: "100%",
   },
   planDeTravail22x81Wrapper: {
     padding: Padding.p_3xs,
     minWidth: 300,
-    minHeight: 299,
+    minHeight: 330,
     maxWidth: 430,
-    maxHeight: 374,
-    marginTop: 10,
+    maxHeight: 354,
+    // marginTop: 10,
+    height: "100%",
+    width: "100%",
+    justifyContent: "flex-start" ,
+    alignItems: "flex-start",
   },
 });
 

@@ -22,7 +22,7 @@ const MentalHealth = () => {
             <Image
               style={styles.frameChild}
               contentFit="cover"
-            //   source={require("../assets/group-1231.png")}
+             source={require("../assets/group-1231.png")}
             />
             <Text
               style={[styles.mentalHealth1, styles.mentalHealth1FlexBox]}
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
   mentalHealth1: {
     fontSize: FontSize.size_18xl,
     fontWeight: "700",
-    fontFamily: FontFamily.dMSansBold,
+    fontFamily: FontFamily.interBold,
     color: Color.black,
   },
   healthyLifeIs: {
     fontSize: FontSize.regular16_size,
-    fontFamily: FontFamily.dMSansRegular,
+    fontFamily: FontFamily.montserratRegular,
     color: Color.brown,
   },
   groupParent: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   mentalHealthInner: {
-    width: 353,
+    width: "100%",
     flexDirection: "row",
     paddingHorizontal: Padding.p_3xs,
     paddingVertical: 38,
@@ -94,15 +94,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     left: 0,
     top: 0,
-    position: "absolute",
+    position: "relative",
     overflow: "hidden",
-    height: 849,
+    height: "100%",
   },
   mentalHealth: {
     backgroundColor: Color.beige,
     width: "100%",
     overflow: "hidden",
-    height: 849,
+    height: "100%",
     flex: 1,
   },
 });

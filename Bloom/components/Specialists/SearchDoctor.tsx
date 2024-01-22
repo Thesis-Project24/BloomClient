@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { TouchableOpacity, StyleSheet, Text, View, ScrollView, TextInput } from "react-native";
 import { Image } from "expo-image";
 import { Border, FontFamily, Padding, FontSize, Color } from "../../GlobalStyles";
@@ -11,7 +11,9 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
 
 
-const SearchDoctor = () => {
+const SearchDoctor: React.FC<{ setSearch: React.Dispatch<React.SetStateAction<string>> }>  = ({setSearch}) => {
+
+
 
     return (
         <View >
@@ -30,8 +32,7 @@ const SearchDoctor = () => {
                                 <View style={styles.labelText}>
                                     <TextInput
                                         onChangeText={(text) => {
-
-                                            // setData({ ...data});
+                                            setSearch(text)                                           
                                         }}
                                         placeholder="Physician"
                                         placeholderTextColor="#ADADAD"
@@ -58,7 +59,7 @@ const SearchDoctor = () => {
 
 
 
-            <View style={[styles.frameView, styles.frameLayout2]}>
+            {/* <View style={[styles.frameView, styles.frameLayout2]}>
                 <View style={[styles.clearAllWrapper, styles.stateLayer1FlexBox]}>
                     <Text
                         style={[styles.clearAll, styles.textLayout]}
@@ -125,7 +126,7 @@ const SearchDoctor = () => {
                         source={require("../../assets/ionclose2.png")}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

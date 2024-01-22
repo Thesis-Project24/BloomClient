@@ -20,32 +20,52 @@ import {
 import ButtonUser from "../../components/UserProfile/ButtonUser";
 import Ad from "../../components/UserProfile/Ad";
  import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 import {fetchData} from "../../api/user/Editprofile";
 import Imageprofile from "../../components/EditUser/ImageProfile";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "react-query";
 
-const User = () => {
+const User =  () => {
+  const [data,setData]= React.useState({})
 
-
-  const {
+  const retrieveData = async () => {
+    try {
+        const valueString = await AsyncStorage.getItem('user');
+        const value = JSON.parse(valueString);
+        if (JSON.stringify(value) !== JSON.stringify(data)) {
+          setData(value);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    React.useEffect(() => {
+        retrieveData();
+      }, []);
+  //  console.log(data)
+      const {
     data: userData,
     isLoading: userLoading,
     isError: usersError,
     isSuccess,
-  } = fetchData();
-  console.log(userData);
-  const navigation = useNavigation();
-//  const [userDataa, setUserDataa] = useState({});
+  } = useQuery([4], ()=>fetchData(4));
+   isSuccess && console.log(userData, '/////*-*--*--*-*-*-*--*-*-*');
+ 
+  const navigation:any = useNavigation();
   return (
+    <>
+   <DrawerScreen>
+    <Nav/>
     <ScrollView>
       <View style={[styles.Box, styles.user11WrapperFlexBox]}>
         <View style={[styles.frameParent, styles.parentFlexBox]}>
-          <View style={styles.frameGroup}>
+         {data &&  <View style={styles.frameGroup}>
             <View style={[styles.user11Wrapper, styles.user11WrapperFlexBox]}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("EditUserProfile" as never)}
+                onPress={() => navigation.navigate("EditUserProfile",{data:data})}
               >
                 <View  style={styles.user11}>
                   <Image
@@ -59,17 +79,17 @@ const User = () => {
             <Avatar
               rounded
               size={"large"}
-              source={{ uri: userData?.profile_picture }}
+              source={{ uri: data?.profile_picture }}
             />
             <View style={[styles.myriamHermessiParent, styles.parentFlexBox]}>
               <Text
                 style={[styles.myriamHermessi, styles.myriamHermessiFlexBox]}
               >
-                {userData?.first_name}
+                {data?.first_name}
               </Text>
-              <Text>{userData?.email}</Text>
+              <Text>{data?.email}</Text>
             </View>
-          </View>
+          </View>}
         </View>
 
         <View style={[styles.howsYourMoodTodayParent, styles.parentFlexBoxx]}>
@@ -98,6 +118,8 @@ const User = () => {
         <Ad />
       </View>
     </ScrollView>
+    </DrawerScreen>
+    </>
   );
 };
 
