@@ -8,11 +8,19 @@ import {
   FontFamily,
 } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
+import Nav from "./Nav";
+import DrawerScreen from "./SideBar.tsx/DrawerScreen";
+
 const Home = () => {
   const navigation = useNavigation();
   return (
-    <View>
-      <Text style={[styles.textPosition]}>Click</Text>
+    <DrawerScreen>
+    <View style={{
+      flex: 1,
+      backgroundColor: "#f3f0ea",
+    }}>
+      <Nav/>
+      <Text style={[styles.textPosition]}>Ahla bikom ness koll marhbee marhbeee</Text>
 
 
       <View style={[styles.frameContainer, styles.frameWrapperShadowBox]}>
@@ -36,6 +44,7 @@ const Home = () => {
         </View>
       </View>
     </View>
+    </DrawerScreen>
   );
 };
 const styles = StyleSheet.create({

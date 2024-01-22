@@ -7,23 +7,13 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-import {
-  Color,
-  FontFamily,
-  FontSize,
-  Border,
-  Padding,
-} from "../../GlobalStyles";
-
-
-const ViewDetailsCancled = () => {
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-      shouldSetBadge: false,
-    }),
-  });
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -113,41 +103,9 @@ const ViewDetailsCancled = () => {
   };
 
   return (
-    <View style={styles.viewDetailsCancled}>
-      <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
-        <View style={styles.appointmentHeader}>
-          <Text style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}>
-            Notifications
-          </Text>
-          <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              marginBottom: 20,
-              paddingHorizontal: 10,
-            }}
-            placeholder="Enter notification message"
-            value={notificationMessage}
-            onChangeText={(text) => setNotificationMessage(text)}
-          />
-          <Button title="Send push notification" onPress={sendNotification} />
-        </View>
-        <View style={[styles.dateTime, styles.fabsSpaceBlock]}>
-          <TouchableOpacity onPress={showDateTimePicker}>
-            <Text style={[styles.date1, styles.date1Typo]}>Date & Time</Text>
-            <Text style={[styles.text1, styles.text1Typo]}>
-              {scheduledTime.toLocaleString()}
-            </Text>
-          </TouchableOpacity>
-          <DateTimePickerModal
-            isVisible={isDateTimePickerVisible}
-            mode="datetime"
-            onConfirm={handleDateChange}
-            onCancel={hideDateTimePicker}
-          />
-        </View>
-      </View>
+    <View style={{ marginTop: 100, alignItems: "center" }}>
+      <Text style={{ marginVertical: 30 }}>Expo RN Push Notifications</Text>
+      <Button title="Send push notification" onPress={sendNotification} />
     </View>
   );
 };
