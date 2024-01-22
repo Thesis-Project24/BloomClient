@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 /* fonts */
 export const FontFamily = {
-  
   robotoMedium: "Roboto-Medium",
   epilogueMedium: "Epilogue-Medium",
   poppinsMedium: "Poppins-Medium",
@@ -30,6 +29,9 @@ export const FontFamily = {
   subheadLgSHLgRegular: "Poppins-Regular",
   headingsH6: "Manrope-Bold",
   soraRegular: "Sora-Regular",
+  
+  poppinsSemiBold: "Poppins-SemiBold",
+  poppinsExtraLight: "Poppins-ExtraLight",
   soraSemiBold: "Sora-SemiBold",
   // epilogueMedium: "Epilogue-Medium",
 };
@@ -55,8 +57,11 @@ export const FontSize = {
   headingsH5_size: 20,
   size_3xl: 22,
   size_2xs: 11,
+   size_7xs: 6,
 
 };
+
+
 /* Colors */
 export const Color = {
   colorGray_100: "#fbfbfb",
@@ -71,7 +76,7 @@ export const Color = {
   colorBlack: "#000",
   colorOrange: "#fdb812",
   colorMediumblue: "#0303b3",
-   colorGray_1000: "#262626",
+  colorGray_1000: "#262626",
   bleck: "#242424",
   lightGray10: "#212121",
   // colorGray_300: "rgba(255, 255, 255, 0.8)",
@@ -107,6 +112,14 @@ export const Color = {
   darkPurple: "#240046",
   colorPaleturquoise_400: "rgba(173, 216, 196, 0.4)",
   colorPaleturquoise_300: "rgba(173, 216, 196, 0.6)",
+  neutralBackground: "#fff",
+  eee: "#1e33ec",
+  textMain: "#003f5f",
+  accentColorVibrantBlue: "#0099ff",
+  secondaryColorDark: "#96416b",
+
+  darkGreen: "#729384",
+  m3SurfacesLightSurface3: "#fafdfd",
 };
 
 /* Paddings */
@@ -143,7 +156,8 @@ export const Padding = {
   p_32xl: 51,
   p_10xs: 3,
   p_12xs: 1,
-  p_8xs:5,
+  p_8xs: 5,
+  p_11xl: 30,
 
 };
 /* border radiuses */
@@ -175,7 +189,9 @@ export const Border = {
   br_2xl: 21,
   br_13xl: 32,
   br_xl: 20,
- 
+
+
+
 };
 export const globalStyles = StyleSheet.create({
   primaryInput: {
@@ -228,3 +244,6 @@ export const globalStyles = StyleSheet.create({
      textAlign: 'center'
   }
 })
+
+
+ 

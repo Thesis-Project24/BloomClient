@@ -102,12 +102,7 @@ export default function App() {
               component={EditUserProfile}
               options={{ headerShown: true }}
             />
-            {/* <Stack.Screen
-              name="Test"
-              component={Test}
-              options={{ headerShown: true }}
-            /> */}
-
+        
             <Stack.Screen
               name="Availability"
               component={Availability}

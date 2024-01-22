@@ -1,19 +1,35 @@
 
-import { Button, Text, View } from "react-native";
+import * as React from "react";
+import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import { useState, useEffect } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
+import {
+  Color,
+  FontFamily,
+  FontSize,
+  Border,
+  Padding,
+} from "../../GlobalStyles";
 
-export default function App() {
+
+const ViewDetailsCancled = () => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [scheduledTime, setScheduledTime] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isDateTimePickerVisible, setDateTimePickerVisible] = useState(false);
 
   useEffect(() => {
     console.log("Registering for push notifications...");
@@ -28,15 +44,6 @@ export default function App() {
   async function registerForPushNotificationsAsync() {
     let token;
 
-    if (Platform.OS === "android") {
-      await Notifications.setNotificationChannelAsync("default", {
-        name: "default",
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
-      });
-    }
-
     if (Device.isDevice) {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
@@ -49,48 +56,328 @@ export default function App() {
         alert("Failed to get push token for push notification!");
         return;
       }
-      // Learn more about projectId:
-      // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+      
       token = (
         await Notifications.getExpoPushTokenAsync({
-          projectId: "806a4a79-4b01-4670-bcae-60843b94e8a6",
+          projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
         })
       ).data;
       console.log(token);
     } else {
-      alert("Must use physical device for Push Notifications");
+      alert("Must use a physical device for Push Notifications");
     }
 
     return token;
   }
 
   const sendNotification = async () => {
-    console.log("Sending push notification...");
+    console.log("Scheduling push notification...");
 
     // notification message
     const message = {
       to: expoPushToken,
       sound: "default",
-      title: "My first push notification!",
-      body: "This is my first push notification made with expo rn app",
+      title: "Scheduled Push Notification",
+      body: notificationMessage || "Default notification message",
     };
 
-    await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        host: "exp.host",
-        accept: "application/json",
-        "accept-encoding": "gzip, deflate",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
+    const schedulingOptions = {
+      time: scheduledTime.getTime(), // Convert the scheduled time to milliseconds
+    };
+
+    try {
+      const result = await Notifications.scheduleNotificationAsync({
+        content: message,
+        trigger: schedulingOptions,
+      });
+
+      console.log("Notification scheduled successfully:", result);
+    } catch (error) {
+      console.error("Error scheduling notification:", error);
+    }
+  };
+
+  const showDateTimePicker = () => {
+    setDateTimePickerVisible(true);
+  };
+
+  const hideDateTimePicker = () => {
+    setDateTimePickerVisible(false);
+  };
+
+  const handleDateChange = (selectedDate:any) => {
+    hideDateTimePicker();
+    if (selectedDate) {
+      setScheduledTime(selectedDate);
+    }
   };
 
   return (
-    <View style={{ marginTop: 100, alignItems: "center" }}>
-      <Text style={{ marginVertical: 30 }}>Expo RN Push Notifications</Text>
-      <Button title="Send push notification" onPress={sendNotification} />
+    <View style={styles.viewDetailsCancled}>
+      <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
+        <View style={styles.appointmentHeader}>
+          <Text style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}>
+            Notifications
+          </Text>
+          <TextInput
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              marginBottom: 20,
+              paddingHorizontal: 10,
+            }}
+            placeholder="Enter notification message"
+            value={notificationMessage}
+            onChangeText={(text) => setNotificationMessage(text)}
+          />
+          <Button title="Send push notification" onPress={sendNotification} />
+        </View>
+        <View style={[styles.dateTime, styles.fabsSpaceBlock]}>
+          <TouchableOpacity onPress={showDateTimePicker}>
+            <Text style={[styles.date1, styles.date1Typo]}>Date & Time</Text>
+            <Text style={[styles.text1, styles.text1Typo]}>
+              {scheduledTime.toLocaleString()}
+            </Text>
+          </TouchableOpacity>
+          <DateTimePickerModal
+            isVisible={isDateTimePickerVisible}
+            mode="datetime"
+            onConfirm={handleDateChange}
+            onCancel={hideDateTimePicker}
+          />
+        </View>
+      </View>
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  smallFabShadowBox: {
+    shadowOpacity: 1,
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+  drPoppenschmitzFlexBox: {
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  date1Typo: {
+    fontFamily: FontFamily.poppinsRegular,
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  sliderFlexBox: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  date1Layout: {
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  phoneAltIconLayout: {
+    height: 12,
+    width: 12,
+    overflow: "hidden",
+  },
+  fabsSpaceBlock: {
+    marginTop: 24,
+    alignSelf: "stretch",
+  },
+  text1Typo: {
+    fontSize: FontSize.size_sm,
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+    letterSpacing: 1,
+  },
+  text3Position: {
+    left: 0,
+    top: 0,
+    position: "absolute",
+  },
+  smallFabFlexBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  drPoppenschmitz: {
+    fontSize: FontSize.size_lg,
+    color: Color.darkGreen,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+  },
+  templesThrobbingCouldnt: {
+    marginTop: 8,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+    color: Color.darkGreen,
+  },
+  poppenschmitzaolde: {
+    fontWeight: "200",
+    fontFamily: FontFamily.poppinsExtraLight,
+    marginLeft: 2,
+    color: Color.textMain,
+    textAlign: "left",
+    letterSpacing: 1,
+  },
+  phoneAltIcon: {
+    marginLeft: 2,
+  },
+  contactDetails: {
+    display: "none",
+    marginTop: 8,
+    alignSelf: "stretch",
+  },
+  appointmentHeader: {
+    alignSelf: "stretch",
+  },
+  date1: {
+    color: Color.brown,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  text1: {
+    color: Color.brown,
+    marginTop: 8,
+  },
+  time: {
+    marginLeft: 20,
+  },
+  dateTime: {
+    flexDirection: "row",
+  },
+  painLevel: {
+    color: Color.textMain,
+    lineHeight: 16,
+    fontSize: FontSize.size_3xs,
+  },
+  sliderBar: {
+    left: -197,
+    backgroundColor: Color.secondaryColorDark,
+    top: 0,
+    height: 10,
+    width: 200,
+    borderRadius: Border.br_3xs,
+    position: "absolute",
+  },
+  sliderBarMask: {
+    top: 5,
+    left: 3,
+    backgroundColor: Color.accentColorVibrantBlue,
+    height: 10,
+    width: 200,
+    borderRadius: Border.br_3xs,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  sliderControlIcon: {
+    width: 20,
+    height: 20,
+  },
+  sliderBarMaskParent: {
+    width: 203,
+    height: 20,
+  },
+  text3: {
+    fontSize: FontSize.size_base,
+    textAlign: "center",
+    color: Color.textMain,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    lineHeight: 24,
+    letterSpacing: 1,
+    left: 0,
+  },
+  numbers: {
+    width: 17,
+    height: 24,
+    marginLeft: 20,
+    overflow: "hidden",
+  },
+  googlemapsIcon1: {
+    width: 22,
+    height: 22,
+    display: "none",
+  },
+  winklergasse4510117: {
+    marginLeft: 5,
+    color: Color.textMain,
+    display: "none",
+  },
+  addressGoogleMapsIcon: {
+    flexDirection: "row",
+  },
+  openInGoogle: {
+    fontSize: FontSize.size_7xs,
+    lineHeight: 9,
+    color: Color.colorMediumblue,
+    display: "none",
+  },
+  addressGoogleMaps: {
+    display: "none",
+  },
+  addressSection: {
+    display: "none",
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  stateLayer: {
+    padding: Padding.p_5xs,
+  },
+  smallFab: {
+    borderRadius: Border.br_xs,
+    width: 40,
+    height: 40,
+    shadowOpacity: 1,
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+  fabs: {
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+  },
+  symptomContentBox: {
+    top: 81,
+    left: 41,
+    borderRadius: Border.br_13xl,
+    width: 308,
+    padding: Padding.p_11xl,
+    position: "absolute",
+    elevation: 3,
+    shadowRadius: 3,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: "#dadada",
+  },
+  viewDetailsCancled: {
+    flex: 1,
+    width: "100%",
+    height: 844,
+    overflow: "hidden",
+    backgroundColor: Color.neutralBackground,
+  },
+});
+
+export default ViewDetailsCancled;
