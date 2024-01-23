@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 
-export const useFetchOneDoctor = async (id:number) => {
+export const useFetchOneDoctor = async (id:string) => {
   try {
     const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/${id}`);
     if (!res.ok) throw new Error(res.statusText);

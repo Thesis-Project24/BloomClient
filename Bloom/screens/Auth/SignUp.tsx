@@ -154,7 +154,7 @@ const SignUp = () => {
                       password: password,
                       username: username
                     });
-                    navigation.navigate("signIn")
+                    // navigation.navigate("signIn")
                     // alert("Verification email sent. Please check your inbox.");
                   }}
                 >

@@ -62,14 +62,14 @@ const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
   // const { data, isError, isLoading, isSuccess ,refetch } = useQuery('OneDoctor', useFetchOneDoctor);
   console.log(data, "data from edit doctors");
 
-  const upDateData = (id: number) => {
+  const upDateData = (id: string) => {
     console.log({ id: id, ...data, ...doctorData }, "update data in fnc ");
     fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: 1, ...data, ...doctorData }),
+      body: JSON.stringify({ id: id, ...data, ...doctorData }),
     })
       .then((res) => {
         console.log(res);

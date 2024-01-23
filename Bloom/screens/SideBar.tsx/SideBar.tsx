@@ -8,6 +8,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -212,7 +213,15 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  
+                  onPress={async()=>{
+                    try {
+                      await AsyncStorage.removeItem("user");
+                      return true;
+                  }
+                  catch(error) {
+                      return false;
+                  }
+                  }}
                   style={styles.listManu}>
                   <View style={[styles.content, styles.frameFlexBox1]}>
                     <MaterialIcons name="logout" size={22} color={Color.grayShadesDarkGray} />

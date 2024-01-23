@@ -6,11 +6,11 @@ import {
 } from "react-query";
 import axios from "axios";
 
-const addWindow = () => {
+const addWindow = (id:string) => {
     const mutation = useMutation({
         mutationFn: async (windows: any[]) => {
             const slots = await axios.post(
-                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/1`,
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${id}`,
                 windows
             );
             return slots.data;
@@ -22,11 +22,11 @@ const addWindow = () => {
     return mutation;
 };
 
-const getWindowsByDate = () => {
+const getWindowsByDate = (id:string) => {
     const mutation = useMutation({
         mutationFn: async (date: Date) => {
             const response = await axios.get(
-                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}/1`
+                `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointment/windows/${date}/${id}`
             );
             const data = response.data;
             return data;

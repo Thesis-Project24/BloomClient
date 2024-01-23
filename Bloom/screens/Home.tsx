@@ -14,7 +14,7 @@ import DrawerScreen from "./SideBar.tsx/DrawerScreen";
 const Home = () => {
   const navigation = useNavigation();
   return (
-    <DrawerScreen>
+    // <DrawerScreen>
     <View style={{
       flex: 1,
       backgroundColor: "#f3f0ea",
@@ -44,7 +44,7 @@ const Home = () => {
         </View>
       </View>
     </View>
-    </DrawerScreen>
+    // </DrawerScreen>
   );
 };
 const styles = StyleSheet.create({

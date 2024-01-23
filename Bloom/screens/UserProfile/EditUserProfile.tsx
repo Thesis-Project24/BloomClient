@@ -24,21 +24,23 @@ import {
     FontSize,
     Border,
 } from "../../GlobalStyles";
-import { fetchData, useUpdateUser } from "../../api/user/Editprofile";
+import { useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "react-query";
 
-const EditUserProfile = ({route}) => {
-    const [user,setUser]= React.useState(route.params.data)
-    console.log(user,"useeeeeeeeeeeeeeeeeeeeeeeeeeeer")
+const EditUserProfile = ({route}:any) => {
+
     const navigation = useNavigation();
-    // navigation.goBack()
-    // const { data, isLoading, isError, isSuccess } = useQuery([4], () =>
-    //   fetchData(4)
-    // );
-    const [userData, setUserData] = useState(route.params.data);
-    const mutation = useUpdateUser(user.id);
+    const [userData, setUserData] = useState({});
+    useEffect(() => {
+        if (route.params && route.params.userData) {
+            setUserData(route.params.userData);
+        }
+    }, [route.params]);
+    
+    console.log(route.params.userData,'login');
+    const mutation = useUpdateUser(userData?.id);
 
     return (
         <ScrollView style={styles.profile}>
