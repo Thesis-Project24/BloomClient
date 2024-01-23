@@ -27,6 +27,7 @@ import {
 import { useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "react-query";
 
 const EditUserProfile = ({route}:any) => {
 
