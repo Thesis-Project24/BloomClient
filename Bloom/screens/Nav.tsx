@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import DrawerScreen from "./SideBar.tsx/DrawerScreen";
+import { useQuery } from "react-query";
 
 
 const Nav = () => {
@@ -17,12 +18,12 @@ const Nav = () => {
 
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
-  const {
-    data: userData,
-    isLoading: userLoading,
-    isError: usersError,
-    isSuccess,
-  } = fetchData();
+  // const {
+  //   data: userData,
+  //   isLoading: userLoading,
+  //   isError: usersError,
+  //   isSuccess,
+  // } = useQuery([4], () => fetchData(4));
 
   return (
 
@@ -52,7 +53,7 @@ const Nav = () => {
               <Avatar
                 rounded
                 size={"medium"}
-                source={{ uri: userData?.profile_picture }}
+                // source={{ uri: userData?.profile_picture }}
               />
             </TouchableOpacity>
           </View>
@@ -202,3 +203,4 @@ const styles = StyleSheet.create({
 });
 
 export default Nav;
+   

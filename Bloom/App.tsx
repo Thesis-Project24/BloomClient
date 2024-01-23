@@ -54,23 +54,6 @@ export default function App() {
   }, []);
 
 
-  // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  // useEffect(() => {
-  //   const checkLogin = async () => {
-  //     const user = await AsyncStorage.getItem('user');
-  //     if (user) {
-  //       navigation.navigate('Journal')
-  //     } else {
-  //       navigation.navigate('SignIn')
-  //     }
-  //   };
-
-  //   checkLogin();
-  // }, []);
-
-
-
-
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),

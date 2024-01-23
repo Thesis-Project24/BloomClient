@@ -27,13 +27,16 @@ import {
 import { fetchData, useUpdateUser } from "../../api/user/Editprofile";
 import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "react-query";
 
 const EditUserProfile = ({route}) => {
     const [user,setUser]= React.useState(route.params.data)
     console.log(user,"useeeeeeeeeeeeeeeeeeeeeeeeeeeer")
     const navigation = useNavigation();
     // navigation.goBack()
-    const { data, isLoading, isError, isSuccess } = fetchData(user.id);
+    // const { data, isLoading, isError, isSuccess } = useQuery([4], () =>
+    //   fetchData(4)
+    // );
     const [userData, setUserData] = useState(route.params.data);
     const mutation = useUpdateUser(user.id);
 

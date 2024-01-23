@@ -1,10 +1,13 @@
-import * as React from "react";
-import { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import React, { useState, useEffect } from "react";
+import { Button, Text, View, Alert, TextInput, Switch } from "react-native";
+import { Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
+import { StyleSheet } from "react-native";
+
+
 
 import {
   Color,
@@ -15,35 +18,60 @@ import {
 } from "../../GlobalStyles";
 import DrawerScreen from "../SideBar.tsx/DrawerScreen";
 import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
-const ViewDetailsCancled = () => {
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-      shouldSetBadge: false,
-    }),
-  });
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [scheduledTime, setScheduledTime] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [isDateTimePickerVisible, setDateTimePickerVisible] = useState(false);
- 
-const dateTimePickerRef = useRef<DateTimePickerModal>(null);
+export default function Notification() {
+  const [expoPushToken, setExpoPushToken] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [enableDailyReminder, setEnableDailyReminder] =
+    useState<boolean>(false);
+  const [dailyReminderTime, setDailyReminderTime] = useState<Date>(
+    new Date() // Default time is set to the current time
+  );
+  const [notificationId, setNotificationId] = useState<string | null>(null);
+  const [reminderSet, setReminderSet] = useState<boolean>(false);
+  const [scheduledNotifications, setScheduledNotifications] = useState<any[]>(
+    []
+  );
+
   useEffect(() => {
     console.log("Registering for push notifications...");
     registerForPushNotificationsAsync()
-      .then((token) => {
+      .then((token: string) => {
         console.log("token: ", token);
         setExpoPushToken(token);
       })
       .catch((err) => console.log(err));
+
+    // Check if there are any scheduled notifications
+    checkScheduledNotifications();
   }, []);
 
-  async function registerForPushNotificationsAsync() {
-    let token;
+  async function registerForPushNotificationsAsync(): Promise<string> {
+    let token: string;
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
 
     if (Device.isDevice) {
       const { status: existingStatus } =
@@ -55,7 +83,7 @@ const dateTimePickerRef = useRef<DateTimePickerModal>(null);
       }
       if (finalStatus !== "granted") {
         alert("Failed to get push token for push notification!");
-        return;
+        return "";
       }
 
       token = (
@@ -63,59 +91,154 @@ const dateTimePickerRef = useRef<DateTimePickerModal>(null);
           projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
         })
       ).data;
-      console.log(token);
+      console.log(token, "rrrrrrrrrrrrrr");
     } else {
       alert("Must use a physical device for Push Notifications");
+      return "";
     }
 
     return token;
   }
 
-  const sendNotification = async () => {
-    console.log("Scheduling push notification...");
+  const scheduleDailyReminder = async () => {
+    console.log("Scheduling daily reminder...");
 
-    // notification message
-    const message = {
+    const now = new Date();
+    const scheduledTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      dailyReminderTime.getHours(),
+      dailyReminderTime.getMinutes()
+    );
+
+    if (scheduledTime.getTime() < now.getTime()) {
+      scheduledTime.setDate(scheduledTime.getDate() + 1);
+    }
+
+    const pushMessage = {
       to: expoPushToken,
       sound: "default",
-      title: "Scheduled Push Notification",
-      body: notificationMessage || "Default notification message",
+      title: "Daily Reminder",
+      body: message || "Default notification message",
+      data: { scheduledTime: scheduledTime.getTime() },
     };
 
-    const schedulingOptions = {
-      time: scheduledTime.getTime(), // Convert the scheduled time to milliseconds
+      const scheduledNotification =
+        await Notifications.scheduleNotificationAsync({
+          content: pushMessage,
+          trigger: { date: scheduledTime },
+        });
+
+      setNotificationId(scheduledNotification.identifier);
+      setReminderSet(true);
+
+      // Update the scheduled notifications state
+      setScheduledNotifications([
+        ...scheduledNotifications,
+        {
+          id: scheduledNotification.identifier,
+          message: message,
+          scheduledTime: scheduledTime.getTime(),
+        },
+      ]);
+
+    Alert.alert(
+      "Notification Scheduled",
+      "Your daily reminder has been scheduled!",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
+        },
+      ]
+    );
+  };
+const cancelSpecificReminder = async (id:any) => {
+  console.log(`Canceling reminder with ID: ${id}`);
+
+  // Cancel the specific reminder
+  await Notifications.cancelScheduledNotificationAsync(id);
+
+  // Remove the canceled reminder from the state
+  setScheduledNotifications(
+    scheduledNotifications.filter((item) => item.id !== id)
+  );
+
+  Alert.alert("Reminder Canceled", "The reminder has been canceled!", [
+    {
+      text: "OK",
+      onPress: () => console.log("OK Pressed"),
+    },
+  ]);
+};
+
+  const cancelDailyReminder = async () => {
+    console.log("Canceling daily reminder...");
+
+    if (notificationId) {
+      await Notifications.cancelScheduledNotificationAsync(notificationId);
+      setNotificationId(null);
+      setReminderSet(false);
+    }
+
+    // Clear all scheduled notifications
+    await Notifications.cancelAllScheduledNotificationsAsync();
+
+    // Reset reminderSet to allow setting a new notification
+    setReminderSet(false);
+
+    // Remove the canceled notification from the state
+    setScheduledNotifications(
+      scheduledNotifications.filter((item) => item.id !== notificationId)
+    );
+
+    Alert.alert(
+      "Notification Canceled",
+      "Your daily reminder has been canceled!",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
+        },
+      ]
+    );
+  };
+
+  const checkScheduledNotifications = async () => {
+    const notifications =
+      await Notifications.getAllScheduledNotificationsAsync();
+    setScheduledNotifications(
+      notifications.map((notification) => ({
+        id: notification.identifier,
+        message: notification.content.body || "",
+      }))
+    );
+  };
+
+  const sendNotification = async () => {
+    console.log("Sending push notification...");
+
+    const pushMessage = {
+      to: expoPushToken,
+      sound: "default",
+      title: "My first push notification!",
+      body: "This is my first push notification made with expo rn app",
     };
 
-    try {
-      const result = await Notifications.scheduleNotificationAsync({
-        content: message,
-        trigger: schedulingOptions,
-      });
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        host: "exp.host",
+        accept: "application/json",
+        "accept-encoding": "gzip, deflate",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(pushMessage),
+    });
 
-      console.log("Notification scheduled successfully:", result);
-
-      // Show the DateTimePickerModal after scheduling the notification
-     if (dateTimePickerRef.current) {
-       dateTimePickerRef.current.showPicker();
-     }
-    } catch (error) {
-      console.error("Error scheduling notification:", error);
-    }
-  };
-
-  const showDateTimePicker = () => {
-    setDateTimePickerVisible(true);
-  };
-
-  const hideDateTimePicker = () => {
-    setDateTimePickerVisible(false);
-  };
-
-  const handleDateChange = (selectedDate: any) => {
-    hideDateTimePicker();
-    if (selectedDate) {
-      setScheduledTime(selectedDate);
-    }
+    // Update the scheduled notifications
+    checkScheduledNotifications();
   };
 
   return (
@@ -135,41 +258,79 @@ const dateTimePickerRef = useRef<DateTimePickerModal>(null);
                   height: 40,
                   borderColor: "gray",
                   borderWidth: 1,
-                  marginBottom: 20,
-                  paddingHorizontal: 10,
+                  marginBottom: 10,
+                  padding: 10,
                 }}
-                placeholder="Enter notification message"
-                value={notificationMessage}
-                onChangeText={(text) => setNotificationMessage(text)}
+                placeholder="Enter message"
+                onChangeText={(text) => setMessage(text)}
+                value={message}
               />
-              <Button
-                title="Send push notification"
-                onPress={sendNotification}
-              />
-            </View>
-            <View style={[styles.dateTime, styles.fabsSpaceBlock]}>
-              <TouchableOpacity onPress={showDateTimePicker}>
-                <Text style={[styles.date1, styles.date1Typo]}>
-                  Date & Time
-                </Text>
-                <Text style={[styles.text1, styles.text1Typo]}>
-                  {scheduledTime.toLocaleString()}
-                </Text>
-              </TouchableOpacity>
-              <DateTimePickerModal
-                ref={dateTimePickerRef}
-                isVisible={isDateTimePickerVisible}
-                mode="datetime"
-                onConfirm={handleDateChange}
-                onCancel={hideDateTimePicker}
-              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 20,
+                }}
+              >
+                <Text>Enable Daily Reminder:</Text>
+                <Switch
+                  value={enableDailyReminder}
+                  onValueChange={(value) => setEnableDailyReminder(value)}
+                />
+              </View>
+              {enableDailyReminder && (
+                <>
+                  {/* Replace TouchableOpacity with DateTimePicker for time selection */}
+                  <DateTimePicker
+                    value={dailyReminderTime}
+                    onChange={(event, date) => {
+                      if (date) {
+                        setDailyReminderTime(date);
+                      }
+                    }}
+                    mode="time"
+                    display="spinner"
+                  />
+
+                  {reminderSet ? (
+                    <Text style={{ marginBottom: 20 }}>Reminder set!</Text>
+                  ) : (
+                    <Button
+                      title="Set Daily Reminder"
+                      onPress={scheduleDailyReminder}
+                    />
+                  )}
+                </>
+              )}
+              {reminderSet && (
+                <Button
+                  title="Cancel Daily Reminder"
+                  onPress={cancelDailyReminder}
+                />
+              )}
+
+              {/* Display all scheduled reminders */}
+              {scheduledNotifications.map((reminder) => (
+                <View key={reminder.id} style={{ marginTop: 10 }}>
+                  <Text>{`Message: ${reminder.message}`}</Text>
+                  <Text>{`Time: ${new Date(
+                    parseInt(reminder.scheduledTime)
+                  ).toLocaleTimeString()}`}</Text>
+                  <Button
+                    title="Cancel Reminder"
+                    onPress={() => cancelSpecificReminder(reminder.id)}
+                  />
+                </View>
+              ))}
             </View>
           </View>
         </View>
       </DrawerScreen>
     </>
   );
-};
+}
+
+
 const styles = StyleSheet.create({
   smallFabShadowBox: {
     shadowOpacity: 1,
@@ -397,5 +558,3 @@ const styles = StyleSheet.create({
     backgroundColor: Color.neutralBackground,
   },
 });
-
-export default ViewDetailsCancled;

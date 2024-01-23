@@ -76,7 +76,7 @@ export const useFetchSavedArticles = (userId: number) => {
       const response = await axios.get(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/savedArticles`,
         {
-          userId: 1,
+          userId,
         }
       );
       const data = response.data;

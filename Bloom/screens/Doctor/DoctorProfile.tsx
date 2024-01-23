@@ -85,8 +85,8 @@ const DoctorProfile = ({ navigation, route }: any) => {
               {isSuccess && <DoctorBio data={data} />}
               <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
-
-          onPress={()=>navigation.navigate("AddArticle")}
+          ///////////////////////missing getting the user to this page /////////////////////
+          onPress={()=>{navigation.navigate("AddArticle"),{data:data}}}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             
