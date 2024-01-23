@@ -72,7 +72,7 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                   <TouchableOpacity
                     style={[styles.homeButton, { backgroundColor: homeBgColor, }]}
                     onPress={() => {
-                      navigation.navigate("Home")
+                      navigation.navigate("Back")
                     }}
                   >
                     <Octicons name="home" size={18} color={homeButtonColor} />
