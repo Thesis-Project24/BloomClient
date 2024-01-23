@@ -46,14 +46,14 @@ const DoctorProfile = ({ navigation, route }: any) => {
 
   
   
-    //  const [id,setId] = useState(route.params.id)
-  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', 1], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+     const [id,setId] = useState(route.params.id)
+  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
     // Extract id from context
-    const id = context.queryKey[1];  
+    // const id = context.queryKey[id];  
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
-      return useFetchOneDoctor(1);
+      return useFetchOneDoctor(id);
     } 
     });
       console.log(data, "DoctorProfile");
@@ -93,7 +93,7 @@ const DoctorProfile = ({ navigation, route }: any) => {
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
         </TouchableOpacity>
-              <BookAppointment />
+              <BookAppointment doctorId={id} />
             </View>
           </View>
         </View>

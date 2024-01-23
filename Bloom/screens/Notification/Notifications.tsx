@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { DatePicker}  from "@react-native-community/datetimepicker";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 

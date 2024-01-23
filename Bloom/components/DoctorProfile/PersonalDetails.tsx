@@ -11,7 +11,7 @@ import {
 import { useQueryClient, useQuery } from "react-query";
 
 interface DoctorData {
-  id?: number;
+  id?: string;
   email?: string;
   first_name?: string;
   last_name?: string;

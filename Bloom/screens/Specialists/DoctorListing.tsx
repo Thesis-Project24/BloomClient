@@ -26,7 +26,7 @@ import { QueryFunctionContext, useQuery } from "react-query";
 import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
 
 interface DoctorData {
-  id?: number;
+  id?: string;
   email?: string;
   first_name?: string;
   last_name?: string;
@@ -75,13 +75,6 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
   });
 
   const [search , setSearch] = useState<string>("")
-  // function handleFilter() {
-  //   let filteredData = doctors.filter((doctor)=>{
-  //     return doctor.name.toLowerCase().includes(search.toLowerCase()) ||
-  //     doctor.hospital.toLowerCase().includes(search.toLowerCase());
-  //     })
-  //     navigation.navigate('DoctorListing',{data : filteredData})
-  //     }
 
   const filteredList = list?.filter((doc: any) =>
     doc.first_name.toLowerCase().includes(search.toLowerCase())
