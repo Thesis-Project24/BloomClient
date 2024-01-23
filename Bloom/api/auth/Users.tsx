@@ -25,6 +25,7 @@ interface User {
 }
 
 export const login = () => {
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const mutation = useMutation({
     mutationFn: async (object: { email: string; password: string, role: string  }) => {
       const {email,password,role} = object
@@ -35,9 +36,7 @@ export const login = () => {
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin/${role}`,
         object
         );
-        AsyncStorage.setItem(res.data.role,JSON.stringify(res.data))
-        const item = await AsyncStorage.getItem(role)
-        // console.log(item, "*/*/*/*/*/*/*/*/*/*/*/*", AsyncStorage)
+        navigation.navigate("User")
       })
       .catch((error:any)=>{
         console.log(error)
@@ -47,6 +46,7 @@ export const login = () => {
   return mutation;
  };
  
+
 
 export const signup = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -58,46 +58,33 @@ export const signup = () => {
     }) => {
       try {
         const auth = getAuth(app);
-        const {email,password,username}= object
-        await axios.post(
-            `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
-            {email:object.email,username:object.username}
-          );
-        await createUserWithEmailAndPassword(auth,email,password)
-        .then((credentials:any)=>{
-          console.log(credentials.user)
-          sendEmailVerification(credentials.user)
-        })
-        .then(()=>{
-          alert("verification mail")
-          if(!auth.currentUser?.emailVerified){
-            console.log("triggered")
-          }
-        })
-        .then(()=>{
-          console.log(auth.currentUser?.emailVerified)
-          navigation.navigate("signIn")
-        })
-        
-        
-        
-        
-  
-        // const db = await axios.post(
-        //   `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
-        //   object
-        // );
-        // console.log("Backend Response:", db.data);
-        // return db.data;
+        const { email, password, username } = object;
+        await createUserWithEmailAndPassword(auth, email, password)
+          .then((userCred) => {
+            axios.post(
+              `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signup`,
+              { email: object.email, username: object.username, id: userCred.user.uid }
+            );
+            sendEmailVerification(userCred.user);
+          })
+          .then(() => {
+            alert("Verification mail sent");
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            if (auth.currentUser ) {
+              navigation.navigate("SignIn");
+            }
+          });
       } catch (error) {
-        console.error("Signup Error:", error);
-        throw error; 
+        console.log(error);
       }
     },
   });
   return query;
 };
-
 
 
 const deleteuser = () => {

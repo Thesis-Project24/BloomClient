@@ -26,15 +26,15 @@ import {
     getWindowsByDate,
 } from "../../api/appointements/appointments";
 import { Slot, Window } from "../../type";
-const BookAppointment = () => {
+const BookAppointment = ({doctorId}) => {
     const [selectedDate, setSelectedDate] = React.useState("");
     const [windows, setWindows] = React.useState<Window[]>([]);
     const [description, setDescription] = React.useState("");
     const [slot, setSlot] = React.useState<Slot>();
-    const windowMutation = getWindowsByDate();
+    const windowMutation = getWindowsByDate(doctorId);
     const slotMutation = getSlotsByWindow();
     const bookingMutation = bookAppointment();
-    console.log(slot);
+    
     return (
         <View style={styles.frameParent}>
             {/* horizontal calendar */}
@@ -179,7 +179,7 @@ const BookAppointment = () => {
                         onPress={() => {
                             bookingMutation.mutate({
                                 patientId: 1,
-                                doctorId: 1,
+                                doctorId: doctorId,
                                 slotId: slot.id,
                                 appDetails: description,
                             });
@@ -195,7 +195,7 @@ const BookAppointment = () => {
                 ""
             )}
             
-            <ButtonBooking />
+            <ButtonBooking doctorId= {doctorId} />
         </View>
     );
 };

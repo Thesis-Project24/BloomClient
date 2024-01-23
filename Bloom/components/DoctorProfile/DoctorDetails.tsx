@@ -12,7 +12,7 @@ import DropdownComponent from "./Dropdown";
 import { useQueryClient } from "react-query";
 
 interface DoctorData {
-  id?: number;
+  id?: string;
   email?: string;
   first_name?: string;
   last_name?: string;

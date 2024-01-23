@@ -107,6 +107,7 @@ const Availability = () => {
               onPress={() => navigation.navigate("AvailabilityW", {
                 duration: duration,
                 pause: pause,
+                doctorId: doctorId
               })}
             // title="add Window"
             >

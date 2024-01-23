@@ -39,6 +39,8 @@ import Journal from "./screens/UserProfile/Journal";
 import Notifications from "./screens/Notification/Notifications"
 // import PostDetails from "./components/forum/PostDetails";
 import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
+import { getAuth } from "firebase/auth";
+import { app } from "./firebase.config";
 
 
 
@@ -52,25 +54,7 @@ export default function App() {
       setHideSplashScreen(true);
     }, 1000);
   }, []);
-
-
-  // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  // useEffect(() => {
-  //   const checkLogin = async () => {
-  //     const user = await AsyncStorage.getItem('user');
-  //     if (user) {
-  //       navigation.navigate('Journal')
-  //     } else {
-  //       navigation.navigate('SignIn')
-  //     }
-  //   };
-
-  //   checkLogin();
-  // }, []);
-
-
-
-
+  
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -99,10 +83,35 @@ export default function App() {
     "Tajawal-Medium": require("./assets/fonts/Tajawal-Medium.ttf"),
     "Tajawal-Bold": require("./assets/fonts/Tajawal-Bold.ttf"),
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
-
+  
   });
-  const Stack = createStackNavigator();
+const [user,setUser]=useState({})
+  // useEffect(()=>{
+  //   const auth= getAuth(app)
+  //    auth.onAuthStateChanged(async (user)=>{
+  //    setUser(user)
+  //   })
+  // },[])
 
+  if(!user){
+    return
+      // <QueryClientProvider client={queryClient}>
+      //   <Stack.Navigator initialRouteName="SignIn">
+      //   <Stack.Screen
+      //               name="SignIn"
+      //               component={SignIn}
+      //               options={{ headerShown: false }}
+      //           />
+      //   </Stack.Navigator>
+      //   </QueryClientProvider> 
+    
+  }
+
+
+
+
+  const Stack = createStackNavigator();
+  
   if (!fontsLoaded && !error) {
     return (
       <MentalHealth />
@@ -114,7 +123,7 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           {hideSplashScreen ? (
-            <Stack.Navigator initialRouteName="ArticleDet">
+            <Stack.Navigator initialRouteName="SignIn">
                 {/* <Stack.Screen
                 name="DiaryDetails"
                 component={DiaryDetails}
@@ -140,7 +149,7 @@ export default function App() {
                 component={EditUserProfile}
                 options={{ headerShown: true }}
               />
-
+              
               <Stack.Screen
                 name="Availability"
                 component={Availability}
@@ -168,6 +177,11 @@ export default function App() {
                 }}
                 component={BottomTabNav}
               />
+              <Stack.Screen
+                    name="SignIn"
+                    component={SignIn}
+                    options={{ headerShown: false }}
+                />
               <Stack.Screen
                 name="Nav"
                 component={Nav}
@@ -233,11 +247,11 @@ export default function App() {
                 component={SignUp}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="SignIn"
                 component={SignIn}
                 options={{ headerShown: false }}
-              />
+              /> */}
               <Stack.Screen
                 name="AritcleDet"
                 component={ArticleDet}
@@ -282,11 +296,11 @@ export default function App() {
              component={Community}
              options={{ headerShown: true }}
            /> */}
-              {/* <Stack.Screen
+              <Stack.Screen
               name="Home"
               component={Home}
               options={{ headerShown: true }}
-            /> */}
+            />
               {/* <Stack.Screen
             name="PostDetails"
             component={PostDetails}

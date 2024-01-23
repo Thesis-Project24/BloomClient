@@ -14,60 +14,58 @@ import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
 import DrawerScreen from "./screens/SideBar.tsx/DrawerScreen";
 import PageNotifications from "./screens/Notification/Notifications";
-import { RouteProp, useNavigation } from '@react-navigation/native';
-import { DrawerNavigationOptions } from '@react-navigation/drawer';
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import { DrawerNavigationOptions } from "@react-navigation/drawer";
+import SignIn from "./screens/Auth/SignIn";
+// type RootStackParamList = {
+//     Home: undefined;
+//     // Add other screens here
+// };
 
-type RootStackParamList = {
-    Home: undefined;
-    // Add other screens here
-};
+// type DrawerStackParamList = {
+//     Home: undefined;
+//     // Add other screens for the Drawer here
+// };
 
-type DrawerStackParamList = {
-    Home: undefined;
-    // Add other screens for the Drawer here
-};
-
-type AppNavigatorParamList = {
-    Root: RootStackParamList;
-    Drawer: DrawerStackParamList;
-};
+// type AppNavigatorParamList = {
+//     Root: RootStackParamList;
+//     Drawer: DrawerStackParamList;
+// };
 const queryClient = new QueryClient();
 const Drawer = createDrawerNavigator();
 
-
 export default function DrawerRoot({ navigation }: any) {
-
-
-
     return (
         <QueryClientProvider client={queryClient}>
-
-            <Drawer.Navigator initialRouteName="Back"
-                 screenOptions={({ route }) => {
+            <Drawer.Navigator
+                initialRouteName="SignIn"
+                screenOptions={({ route }) => {
                     // console.log(route,"routeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                    return (
-                        { headerShown: false,
-                            drawerStyle: {
-                                backgroundColor: '#fff',
-                                width: "60%",
-                                // borderTopRightRadius: 100,
-                                // borderBottomRightRadius: 100,
-                                
-                            },
-                            drawerActiveBackgroundColor: "#f3f0ea",
-                            overlayColor: "transparent",
-                            drawerHideStatusBarOnOpen: true,
-                            sceneContainerStyle: {
-                                backgroundColor: '#fff',
-                            }
-        })}}
+                    return {
+                        headerShown: false,
+                        drawerStyle: {
+                            backgroundColor: "#fff",
+                            width: "60%",
+                            // borderTopRightRadius: 100,
+                            // borderBottomRightRadius: 100,
+                        },
+                        drawerActiveBackgroundColor: "#f3f0ea",
+                        overlayColor: "transparent",
+                        drawerHideStatusBarOnOpen: true,
+                        sceneContainerStyle: {
+                            backgroundColor: "#fff",
+                        },
+                    };
+                }}
                 drawerContent={(props) => {
-                    console.log(props,"propssssssssssssssssssssssssssssssssssssssssssssssssss");
-                    
-                    return (
-                    <SideBar {...props}  />
-                    )}}  >
+                    console.log(
+                        props,
+                        "propssssssssssssssssssssssssssssssssssssssssssssssssss"
+                    );
 
+                    return <SideBar {...props} />;
+                }}
+            >
                 <Drawer.Screen
                     name="Back"
                     options={{
@@ -86,7 +84,11 @@ export default function DrawerRoot({ navigation }: any) {
                         
                     }}
                 /> */}
-
+                {/* <Drawer.Screen
+                    name="SignIn"
+                    component={SignIn}
+                    options={{ headerShown: false }}
+                /> */}
                 <Drawer.Screen
                     name="Nav"
                     component={Nav}
@@ -96,7 +98,6 @@ export default function DrawerRoot({ navigation }: any) {
                         // cardStyle: { backgroundColor: "transparent" },
                         header: () => <Nav />,
                         headerLeft: () => null,
-
                     }}
                 />
                 {/* <Drawer.Screen
@@ -160,10 +161,9 @@ export default function DrawerRoot({ navigation }: any) {
                         // header: () => <NavBarEdit />,
                         headerLeft: () => null,
                         // headerShown: true
-                        
                     }}
                 />
-                  {/* <Drawer.Screen
+                {/* <Drawer.Screen
                 name="DiaryDetails"
                 component={DiaryDetails}
                 options={{
@@ -172,9 +172,6 @@ export default function DrawerRoot({ navigation }: any) {
                 }}
               /> */}
             </Drawer.Navigator>
-
         </QueryClientProvider>
     );
 }
-
-
