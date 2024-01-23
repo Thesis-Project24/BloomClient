@@ -36,12 +36,13 @@ export const useAssignHabit = () => {
   return { assignHabit, isAssigning: assignHabitMutation.isLoading };
 };
 // { user Habit fetcher } //
-export const useFetchHabitsUser = () => {
+export const useFetchHabitsUser = (id:number) => {
+  console.log
   return useQuery({
-    queryKey: "habitsUser",
+    queryKey: [id],
     queryFn: async () => {
       const response = await axios.get(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getHabits/1`
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/habits/getHabits/${id}`
       );
       const data = response.data;
 
