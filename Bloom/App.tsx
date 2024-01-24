@@ -225,6 +225,13 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+                    name="DoctorProfile"
+                    component={DoctorProfile}
+                    options={{
+                        headerLeft: () => null,
+                    }}
+                />
+        <Stack.Screen
           name="Articles"
           component={Articles}
           options={{ headerShown: false }}

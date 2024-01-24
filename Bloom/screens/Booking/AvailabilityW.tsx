@@ -10,6 +10,7 @@ import {
   Border,
 } from "../../GlobalStyles";
 const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: { duration: string; pause: string, doctorId:string } };}) => {
+
   const duration = route.params.duration;
   const pause = route.params.pause;
   const doctorId = route.params.doctorId
@@ -31,7 +32,7 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
   }[]
 >([]);
   const mutation = addWindow(doctorId);
-  console.log(windowsDb,"front")
+  console.log(doctorId,"front")
   if(windowsDb){
 
     windowsDb.forEach(element=>{
@@ -83,7 +84,7 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
         onPress={() => {
           mutation.mutate([
             {
-              doctorId: 1,
+              doctorId: doctorId,
               duration: Number(duration),
               pause: Number(pause),
               startingTime: chosenDateStart,

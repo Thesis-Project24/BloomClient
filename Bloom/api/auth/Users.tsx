@@ -36,6 +36,7 @@ export const login = () => {
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/signin/${role}`,
         object
         );
+        await AsyncStorage.setItem("user", JSON.stringify(res.data));
         navigation.navigate("User")
       })
       .catch((error:any)=>{

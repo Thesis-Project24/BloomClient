@@ -2,8 +2,6 @@ import React , {useState} from "react";
 import { StatusBar, StyleSheet, ScrollView, View, Text ,TouchableOpacity} from "react-native";
 import DoctoreDeatailss from "../../components/DoctorProfile/DoctorProfileDetailt";
 import DoctorBio from "../../components/DoctorProfile/DoctorBio";
-import BookAppointment from "../../components/DoctorProfile/BookAppointment";
-import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
 import { FontSize , FontFamily, Color, Padding , Border } from "../../GlobalStyles";
 import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
 import { useFetchOneDoctor } from "../../api/doctors/Doctors";
@@ -42,41 +40,29 @@ type OneDoctorProps = {
 };
 
 
-const DoctorProfile = ({ navigation, route }: any) => {
-
-  
-  
+const DoctorPersonalProfile = ({ navigation, route }: any) => {
      const [id,setId] = useState(route.params.id)
   const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
-    // Extract id from context
-    // const id = context.queryKey[id];  
-    // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
       return useFetchOneDoctor(id);
     } 
     });
-    
+      console.log(data, "DoctorProfile");
   return (
     <DrawerScreen>
       <Nav/>
    
     <ScrollView 
     style={[styles.profileDoctorRaja, styles.textFlexBox]}
-    // style={[styles.frameGroup, styles.frameFlexBox]}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.frameScrollViewContent}
-    
-    
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.frameScrollViewContent}
     >
       <View style={[styles.profileDoctorRajaInner, styles.doctorPosition]}>
         <View style={styles.frameParent}>
           <View
             style={[styles.frameGroup, styles.frameFlexBox]}
-            // showsVerticalScrollIndicator={false}
-            // showsHorizontalScrollIndicator={false}
-            // contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} />}
             
@@ -85,15 +71,15 @@ const DoctorProfile = ({ navigation, route }: any) => {
               {isSuccess && <DoctorBio data={data} />}
               <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
-          ///////////////////////missing getting the user to this page /////////////////////
-          onPress={()=>{navigation.navigate("AddArticle"),{data:data}}}
+
+          onPress={()=>navigation.navigate("AddArticle")}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
         </TouchableOpacity>
-              <BookAppointment doctorId={id} />
+
             </View>
           </View>
         </View>
@@ -278,4 +264,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorProfile;
+export default DoctorPersonalProfile;
