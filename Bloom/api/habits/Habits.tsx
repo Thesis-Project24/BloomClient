@@ -37,7 +37,7 @@ export const useAssignHabit = () => {
 };
 // { user Habit fetcher } //
 export const useFetchHabitsUser = (id:number) => {
-  console.log
+  
   return useQuery({
     queryKey: [id],
     queryFn: async () => {

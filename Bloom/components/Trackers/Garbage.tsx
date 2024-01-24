@@ -13,6 +13,9 @@ const Garbage = () => {
           setLayout({ x, y });
         }}
       ></View>
+      <View style={Styles.text}>
+        <Text>Drag to Delte</Text>
+      </View>
       <Ionicons name="trash-bin-outline" size={30} color="black" />
     </View>
     //87.5, 0 //
@@ -24,6 +27,10 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  text :{
+    opacity:0.6,
+    marginBottom:20
+  }
 });
 
 export default Garbage;
