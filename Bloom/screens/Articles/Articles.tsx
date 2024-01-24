@@ -7,7 +7,7 @@ import SliderArticles from "../../components/articles/SliderArticles";
 import Article from "../../components/articles/Article";
 import ArticleDet from "../../components/articles/ArticleDet";
 import AddArticle from "../../components/articles/AddArticle";
-import SavedArticles from "./SavedArticles";
+import SavedArticles from "../SavedArticles";
 import { SearchBar } from "@rneui/themed";
 const Articles = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");

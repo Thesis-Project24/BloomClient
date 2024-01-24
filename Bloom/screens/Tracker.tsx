@@ -22,6 +22,7 @@ import Garbage from "../components/Trackers/Garbage";
 import Satisfaction from "../components/UserProfile/Satisfaction";
 import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import NavBarEdit from "../components/DoctorProfile/NavBarEditDoctor";
 
 const Tracker = () => {
   const {
@@ -115,14 +116,12 @@ const Tracker = () => {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <>
+    <NavBarEdit page={"hello"}/>
+    <ScrollView 
+    style={styles.track}
+    showsVerticalScrollIndicator={false}>
       <View>
-        <Image
-          style={[styles.profileItem, styles.profilePosition]}
-          // contentFit="cover"
-          source={require("../assets/vector-1.png")}
-        />
-
         <Text style={styles.init}> What Habit Do you Want to Track </Text>
         <View style={styles.habitsWrapper}>
           {habits &&
@@ -216,10 +215,18 @@ const Tracker = () => {
           ))}
       </View>
     </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  track:{
+    flex: 1,
+    backgroundColor:"#F3F0EA",
+    // flexDirection: "",
+
+    // marginTop: 10,
+  },
   container: {
     flex: 1,
     flexDirection: "row",

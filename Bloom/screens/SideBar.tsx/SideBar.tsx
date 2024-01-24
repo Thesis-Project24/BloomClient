@@ -17,27 +17,30 @@ type SideBarType = {
   navigation?: any;
 };
 
-const SideBar = ({ state, navigation }: SideBarType) => {
+const SideBar = ({ state, navigation , }: SideBarType) => {
+  //  console.log(navigation.route,"routtttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
   
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
     useState(true);
   const stateIndex = !state ? 0 : state.index - 1;
   const activeRoute = state.routeNames[state.index];
+  //         console.log(activeRoute,",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+  
 
   const homeButtonColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
-  const notifColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const notifBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
-  const messColor = activeRoute === "Appi" ? Color.green : Color.colorGray_400;
-  const messBgColor = activeRoute === "Appi" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
+  const notifColor = activeRoute === "Notifications" ? Color.green : Color.colorGray_400;
+  const notifBgColor = activeRoute === "Notifications" ? Color.colorPaleturquoise_200 : "transparent";
+  const messColor = activeRoute === "Appi"  ? Color.green : Color.colorGray_400;
+  const messBgColor = activeRoute === "Appi" ? Color.colorPaleturquoise_200 : "transparent";
   const trackerColor = activeRoute === "Tracker" ? Color.green : Color.colorGray_400;
-  const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : "transparent";
   const settingColor = activeRoute === "EditDoctorProfile" ? Color.green : Color.colorGray_400;
-  const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : "transparent";
   const historyColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
   const articalColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : Color.neutralsWhite;
+  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
 
 
 
@@ -47,6 +50,9 @@ const SideBar = ({ state, navigation }: SideBarType) => {
         <View style={[styles.inner, styles.frameFlexBox1]}>
           <View style={[styles.frameWrapper, styles.frameFlexBox1]}>
             <View style={styles.frameParent}>
+
+
+
               <View style={styles.frameContainer}>
                 <TouchableOpacity
                   style={[styles.frameGroup, styles.frameFlexBox1]}
@@ -56,6 +62,10 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   <Text style={styles.leftTitle}>Back</Text>
                 </TouchableOpacity>
               </View>
+
+
+<View style={styles.ViewParent22}>
+              
               <View style={styles.frameView}>
                 <View style={styles.frameParent1}>
                   <TouchableOpacity
@@ -72,11 +82,13 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   </TouchableOpacity>
 
                 </View>
-                <View style={[styles.frameItem, styles.frameFlexBox]} />
-                <View style={styles.frameFlexBox}>
+                
+     <View style={[styles.frameItem, styles.frameFlexBox]} />
+               
+                <View style={[styles.viewButtom , styles.frameFlexBox]}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Home")
+                      navigation.navigate("Notifications")
                     }}
                     style={[styles.iconmenuIconParent, { backgroundColor: notifBgColor, }]}>
                     <Ionicons
@@ -137,13 +149,14 @@ const SideBar = ({ state, navigation }: SideBarType) => {
 
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: articalBgColor, }]}
                   >
-                    <MaterialIcons name="save-alt" size={22} color={articalColor} />
+                     <Feather name="bookmark" size={22} color={articalColor} />
+                    {/* <MaterialIcons name="save-alt" size={22} color={articalColor} /> */}
                    
                     <Text
                       style={[styles.home, styles.homeLayout, { color: articalColor }]}
                       numberOfLines={1}
                     >
-                      Saved Artical
+                      Saved Articles
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -161,7 +174,7 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("EditDoctorProfile")
+                      // navigation.navigate("EditDoctorProfile")
                     }}
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: settingBgColor }]}
                   >
@@ -176,7 +189,12 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   </TouchableOpacity>
                
                 </View>
+              
               </View>
+
+
+
+
 
               <View style={styles.bottom}>
                 <TouchableOpacity
@@ -236,6 +254,11 @@ const SideBar = ({ state, navigation }: SideBarType) => {
                   />
                 </TouchableOpacity>
               </View>
+
+
+              </View>
+
+
             </View>
           </View>
         </View>
@@ -292,12 +315,15 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   sideBar: {
-    borderTopRightRadius: Border.br_81xl,
-    borderBottomRightRadius: Border.br_81xl,
+    // borderTopRightRadius: Border.br_81xl,
+    // borderBottomRightRadius: Border.br_81xl,
+    
     overflow: "hidden",
     // backgroundColor: "red",
     // backgroundColor: Color.neutralsWhite,
     flex: 1,
+    height: "100%",
+     width: "100%",
   },
   viewLayout: {
     height: "100%",
@@ -341,6 +367,14 @@ const styles = StyleSheet.create({
     marginTop: 23,
     alignSelf: "stretch",
     flex: 1,
+  },
+  viewButtom:{
+    alignItems: "center",
+    flexDirection: "column",
+    // backgroundColor: "red",
+    justifyContent: "center",
+    flex: 1,
+    gap : 10,
   },
   iconsIconLayout: {
     maxWidth: 25,
@@ -419,6 +453,7 @@ const styles = StyleSheet.create({
     maxHeight: 23,
     maxWidth: 218,
     width: "100%",
+    height: "100%",
     flex: 1,
   },
   frameParent1: {
@@ -453,7 +488,10 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: Color.neutralsWhite,
+    justifyContent: "flex-start",
+
+    // backgroundColor: Color.neutralsWhite, 
+
     flex: 1,
   },
   chatIcon: {
@@ -537,10 +575,21 @@ const styles = StyleSheet.create({
   frameView: {
     paddingLeft: Padding.p_lg,
     paddingRight: Padding.p_5xs,
-    maxHeight: 477,
+    maxHeight: 437,
     marginTop: 58,
     alignSelf: "stretch",
     flex: 1,
+    height: "100%",
+  },
+  ViewParent22:{
+    justifyContent: "space-between",
+    // paddingLeft: Padding.p_lg,
+    // paddingRight: Padding.p_5xs,
+    // maxHeight: 457,
+    // marginTop: 58,
+    alignSelf: "stretch",
+    flex: 1,
+    height: "100%",
   },
   uiIconhelplight: {
     borderRadius: Border.br_2xs,
@@ -638,6 +687,8 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_7xl,
     alignSelf: "stretch",
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   frameWrapper: {
     borderTopRightRadius: 70,
@@ -646,6 +697,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     width: "100%",
+    height: "100%",
   },
   inner: {
     position: "relative",
@@ -653,11 +705,11 @@ const styles = StyleSheet.create({
     // left: 0,
     alignItems: "center",
     height: "100%",
-    width: 265,
+    width: "100%",
   },
   view: {
-    borderTopRightRadius: Border.br_81xl,
-    borderBottomRightRadius: Border.br_81xl,
+    // borderTopRightRadius: Border.br_81xl,
+    // borderBottomRightRadius: Border.br_81xl,
     overflow: "hidden",
     // backgroundColor: Color.neutralsWhite,
     // backgroundColor: "blue",

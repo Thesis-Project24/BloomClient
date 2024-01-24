@@ -71,13 +71,30 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
       //fetch data depending on specialty 
       return useFetchDocSpecialists(specialty);
     }
-    
+   
   });
+
+  const [search , setSearch] = useState<string>("")
+  // function handleFilter() {
+  //   let filteredData = doctors.filter((doctor)=>{
+  //     return doctor.name.toLowerCase().includes(search.toLowerCase()) ||
+  //     doctor.hospital.toLowerCase().includes(search.toLowerCase());
+  //     })
+  //     navigation.navigate('DoctorListing',{data : filteredData})
+  //     }
+
+  const filteredList = list?.filter((doc: any) =>
+    doc.first_name.toLowerCase().includes(search.toLowerCase())
+  );
+
+
 
   return (
     <View style={styles.doctorListing}>
       <View style={styles.frameParent}>
+        
         <View style={styles.frameGroup}>
+          
           <View style={[styles.frameContainer, styles.frameLayout3]}>
             <TouchableOpacity
               style={[styles.vectorWrapper, styles.vectorWrapperFlexBox]}
@@ -100,7 +117,8 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
             </Text>
           </View>
 
-          <SearchDoctor />
+          <SearchDoctor setSearch={setSearch} />
+        
         </View>
 
         <ScrollView
@@ -111,8 +129,9 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
         >
           {isSuccess &&
             list.map((doc: any) => (
-              <CartDoctor propMarginTop={{ propMarginTop: 16 }} doctor={doc} />
+              <CartDoctor propMarginTop={{ propMarginTop: 1 }} doctor={doc} />
             ))}
+            
         </ScrollView>
       </View>
     </View>
@@ -121,6 +140,7 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
 
 const styles = StyleSheet.create({
   frameScrollViewContent: {
+    gap: 30,
     flexDirection: "column",
     paddingBottom: 285,
     alignItems: "center",
@@ -184,6 +204,9 @@ const styles = StyleSheet.create({
     maxHeight: 230,
     maxWidth: 370,
     width: "100%",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+    gap: 11,
     // backgroundColor: "green",
   },
   frameChild: {
@@ -398,12 +421,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_base,
     paddingBottom: Padding.p_9xs,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    
     maxWidth: 370,
     overflow: "hidden",
     // backgroundColor: Color.neutralsWhite,
     // backgroundColor: "black",
   },
+  
   frameScrollview: {
     borderRadius: 44,
     // borderTopRightRadius: Border.br_9xs,
@@ -428,13 +453,15 @@ const styles = StyleSheet.create({
     // left: 0,
     width: "100%",
     paddingHorizontal: Padding.p_mini,
-    paddingTop: 59,
+    paddingTop: 89,
     paddingBottom: 71,
     alignItems: "center",
     height: "100%",
     // backgroundColor: "blue",
   },
   doctorListing: {
+    // marginTop: 30,
+    
     overflow: "hidden",
     height: "100%",
     width: "100%",

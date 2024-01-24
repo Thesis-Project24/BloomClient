@@ -11,6 +11,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import io from "socket.io-client";
 import Chat from "./Chat";
 import {
@@ -21,6 +22,8 @@ import {
   Border,
 } from "../../GlobalStyles";
 import { StyleSheet } from "react-native";
+import Nav from "../Nav";
+import DrawerScreen from "../SideBar.tsx/DrawerScreen";
 
 const socket = io.connect(`http://${process.env.EXPO_PUBLIC_ipadress}:3000`);
 
@@ -41,10 +44,15 @@ const App: React.FC<AppProps> = () => {
 
 
   return (
+    // <DrawerScreen>
+    <View style={styles.sideBar}>
+
+<Nav/>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{
         flex: 1,
+        // backgroundColor: "#f3f0ea",
       }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -84,10 +92,24 @@ const App: React.FC<AppProps> = () => {
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
+    </View>
+    // </DrawerScreen>
   );
 };
-
-
+const styles = StyleSheet.create({
+sideBar: {
+  // borderTopRightRadius: Border.br_81xl,
+  // borderBottomRightRadius: Border.br_81xl,
+  
+  overflow: "hidden",
+  // backgroundColor: "red",
+  // backgroundColor: Color.neutralsWhite,
+  flex: 1,
+  height: "100%",
+   width: "100%",
+   backgroundColor: "#f3f0ea",
+},
+})
 
 
 export default App;

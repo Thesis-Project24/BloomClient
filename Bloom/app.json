@@ -1,20 +1,19 @@
 {
   "expo": {
     "name": "Bloom",
-    "slug": "Bloom",
-
+    "slug": "bloom",
     "version": "1.0.0",
-     "fonts": {
-     "Inter-Black": "./assets/fonts/Roboto-Medium.ttf",
-     "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
-   },
+    "fonts": {
+      "Inter-Black": "./assets/fonts/Roboto-Medium.ttf",
+      "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
+    },
     "orientation": "portrait",
     "icon": "./assets/group-123@3x.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/group-123@3x.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "300",
+      "backgroundColor": "#f3f0ea"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -28,11 +27,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/group-123@3x.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#f3f0ea"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e"
+      }
+    },
+    "owner": "bloom2"
   }
 }

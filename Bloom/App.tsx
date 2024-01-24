@@ -1,12 +1,10 @@
+
+import React, { useState } from "react";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { Text, View, Image, StyleSheet } from "react-native";
 import Nav from "./screens/Nav";
-
-
 import Tracker from "./screens/Tracker";
 import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
-// import Login from "./screens/Login";
-
 import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import User from "./screens/UserProfile/User";
@@ -29,23 +27,34 @@ import DiaryDetails from "./components/Journal/DiaryDetails";
 import ConfirmAppointmentOnline from "./screens/Confirm Appointment/ConfirmAppointment";
 import EditUserProfile from "./screens/UserProfile/EditUserProfile";
 import ArticleDet from "./components/articles/ArticleDet";
-
 import PageSpecialists from "./screens/Specialists/PageSpecialists";
 import DoctorListing from "./screens/Specialists/DoctorListing";
 import Articles from "./screens/Articles/Articles";
 import AddArticle from "./components/articles/AddArticle";
-
-
+// import Test from "./screens/Notification/Test"
 import DrawerRoot from "./DrawerNavigation";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Community from "./screens/Community";
+// import Community from "./screens/Community";
 import Journal from "./screens/UserProfile/Journal";
-// import Notifications from "./screens/Notification/Notifications"
-import PostDetails from "./components/forum/PostDetails";
+import Notifications from "./screens/Notification/Notifications"
+// import PostDetails from "./components/forum/PostDetails";
+import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
+
+
+
+
 
 const queryClient = new QueryClient();
 export default function App() {
+  const [hideSplashScreen, setHideSplashScreen] = useState(false);
+  React.useEffect(() => {
+    setTimeout(() => {
+      setHideSplashScreen(true);
+    }, 1000);
+  }, []);
+
+
   // const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   // useEffect(() => {
   //   const checkLogin = async () => {
@@ -80,6 +89,18 @@ export default function App() {
     "DMSans-Regular": require("./assets/fonts/DMSans-Regular.ttf"),
     "DMSans-Bold": require("./assets/fonts/DMSans-Bold.ttf"),
     "Epilogue-Medium": require("./assets/fonts/Epilogue-Medium.ttf"),
+    "Manrope-Regular": require("./assets/fonts/Manrope-Regular.ttf"),
+    "Manrope-Medium": require("./assets/fonts/Manrope-Medium.ttf"),
+    "Manrope-SemiBold": require("./assets/fonts/Manrope-SemiBold.ttf"),
+    "Manrope-Bold": require("./assets/fonts/Manrope-Bold.ttf"),
+    "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
+    "Sora-Regular": require("./assets/fonts/Sora-Regular.ttf"),
+    "Sora-SemiBold": require("./assets/fonts/Sora-SemiBold.ttf"),
+    "Tajawal-Regular": require("./assets/fonts/Tajawal-Regular.ttf"),
+    "Tajawal-Medium": require("./assets/fonts/Tajawal-Medium.ttf"),
+    "Tajawal-Bold": require("./assets/fonts/Tajawal-Bold.ttf"),
+    "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
+
   });
   const Stack = createStackNavigator();
 
@@ -93,159 +114,201 @@ export default function App() {
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="DrawerRoot">
-          <Stack.Screen
-            name="DrawerRoot"
-            component={DrawerRoot}
-            options={{ headerShown: false }}
-          />
-            <Stack.Screen
-              name="EditUserProfile"
-              component={EditUserProfile}
-              options={{ headerShown: true }}
-            />
+          {hideSplashScreen ? (
+            <Stack.Navigator initialRouteName="ArticleDet">
+                {/* <Stack.Screen
+                name="DiaryDetails"
+                component={DiaryDetails}
+                options={{
+                  headerShown: false
+                  // header: () => (
+                  //   <Image
+                  //     style={[styles.profileItem, styles.profilePosition]}
+                  //     // contentFit="cover"
+                  //     source={require("./assets/vector-1.png")}
+                  //   />
+                  // ),
+                }}
+              /> */}
+             
+              <Stack.Screen
+                name="DrawerRoot"
+                component={DrawerRoot}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="EditUserProfile"
+                component={EditUserProfile}
+                options={{ headerShown: true }}
+              />
 
-            <Stack.Screen
-              name="Availability"
-              component={Availability}
-              options={{ headerShown: true }}
+              <Stack.Screen
+                name="Availability"
+                component={Availability}
+                options={{ headerShown: true }}
+              />
+              <Stack.Screen
+                name="AvailabilityW"
+                component={AvailabilityW}
+                options={{ headerShown: true }}
+              />
+              {/* <Stack.Screen
+              name="PostDetails"
+              component={PostDetails}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="AvailabilityW"
-              component={AvailabilityW}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="Back"
-              options={{
-                headerTitle: () => <Nav />,
-              }}
-              component={BottomTabNav}
-            />
-            <Stack.Screen
-              name="Nav"
-              component={Nav}
-              options={{
-                headerShown: false,
-                headerTransparent: true,
-                cardStyle: { backgroundColor: "transparent" },
-              }}
-            />
-            <Stack.Screen
-              name="Appi"
-              component={Appi}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="Tracker"
-              component={Tracker}
-              options={{ headerShown: true }}
-            />
+              name="CreatePost"
+              component={CreatePost}
+              options={{ headerShown: false }}
+            /> */}
+              <Stack.Screen
+                name="Back"
+                options={{
+                  headerShown: false
+                }}
+                component={BottomTabNav}
+              />
+              <Stack.Screen
+                name="Nav"
+                component={Nav}
+                options={{
+                  headerShown: false,
+                  headerTransparent: true,
+                  cardStyle: { backgroundColor: "transparent" },
+                }}
+              />
+              <Stack.Screen
+                name="Tracker"
+                component={Tracker}
+                options={{ headerShown: false }}
+              />
+
+              {/* <Stack.Screen
+                name="Notifications"
+                component={Notifications}
+                options={{
+                  headerShown: false
+                }}
+              /> */}
+              <Stack.Screen
+                name="CreateJournal"
+                component={CreateJournal}
+                options={{
+                  header: () => (
+                    <Image
+                      style={[styles.profileItem, styles.profilePosition]}
+                      // contentFit="cover"
+                      source={require("./assets/vector-1.png")}
+                    />
+                  ),
+                }}
+              />
+              {/* <Stack.Screen
+                name="Journal"
+                component={Journal}
+                options={{
+                  header: () => (
+                    <Image
+                      style={[styles.profileItem, styles.profilePosition]}
+                      // contentFit="cover"
+                      source={require("./assets/vector-1.png")}
+                    />
+                  ),
+                }}
+              /> */}
             
-          {/* <Stack.Screen
-            name="Notifications"
-           component={Notifications}
-            options={{ headerShown: true }}
-          /> */}
-            <Stack.Screen
-              name="CreateJournal"
-              component={CreateJournal}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="Journal"
-              component={Journal}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="DiaryDetails"
-              component={DiaryDetails}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="EditDoctorProfile"
-              component={EditDoctorProfile}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="DoctorProfile"
-              component={DoctorProfile}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AritcleDet"
-              component={ArticleDet}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name="NavBarEdit"
+                component={NavBarEdit}
+                options={{
+                  // header: () => <NavBarEdit />,
+                  headerShown: false,
+                  headerTransparent: true,
+                  cardStyle: { backgroundColor: "transparent" },
 
-            <Stack.Screen
-              name="User"
-              component={User}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="ConfirmAppointmentOnline"
-              component={ConfirmAppointmentOnline}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="PageSpecialists"
-              component={PageSpecialists}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="DoctorListing"
-              component={DoctorListing}
-              options={{ headerShown: true }}
-            />
-            <Stack.Screen
-              name="Articles"
-              component={Articles}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AddArticle"
-              component={AddArticle}
-              options={{
-                header: () => (
-                  <Image
-                    style={[styles.profileItem, styles.profilePosition]}
-                    // contentFit="cover"
-                    source={require("./assets/vector-1.png")}
-                  />
-                ),
-              }}
-            />
-         <Stack.Screen
+                }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AritcleDet"
+                component={ArticleDet}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="User"
+                component={User}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ConfirmAppointmentOnline"
+                component={ConfirmAppointmentOnline}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="DoctorListing"
+                component={DoctorListing}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Articles"
+                component={Articles}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AddArticle"
+                component={AddArticle}
+                options={{
+                  header: () => (
+                    <Image
+                      style={[styles.profileItem, styles.profilePosition]}
+                      // contentFit="cover"
+                      source={require("./assets/vector-1.png")}
+                    />
+                  ),
+                }}
+              />
+              {/* <Stack.Screen
              name="Community"
              component={Community}
              options={{ headerShown: true }}
-           />
-           <Stack.Screen
-            name="Home"
-             component={Home}
-          options={{ headerShown: true }}
-          />
-          <Stack.Screen
+           /> */}
+              {/* <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: true }}
+            /> */}
+              {/* <Stack.Screen
             name="PostDetails"
             component={PostDetails}
            options={{ headerShown: true }}
-           /> 
-          </Stack.Navigator>
+           />  */}
+
+
+              <Stack.Screen
+                name="MentalHealth"
+                component={MentalHealth}
+                options={{ headerShown: true }}
+              />
+
+
+            </Stack.Navigator>
+          ) : (
+            <MentalHealth />
+          )}
         </NavigationContainer>
       </QueryClientProvider>
     </RootSiblingParent>
-  
   );
 }
 
