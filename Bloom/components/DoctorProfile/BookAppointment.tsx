@@ -26,7 +26,7 @@ import {
     getWindowsByDate,
 } from "../../api/appointements/appointments";
 import { Slot, Window } from "../../type";
-const BookAppointment = ({doctorId}) => {
+const BookAppointment = ({doctorId}:any) => {
     const [selectedDate, setSelectedDate] = React.useState("");
     const [windows, setWindows] = React.useState<Window[]>([]);
     const [description, setDescription] = React.useState("");
