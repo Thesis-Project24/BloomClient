@@ -50,12 +50,22 @@ import SideBar from "./screens/SideBar.tsx/SideBar";
 const queryClient = new QueryClient();
 export default function App() {
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
+  const [user, setUser] = useState({});
   React.useEffect(() => {
-    setTimeout(() => {
-      setHideSplashScreen(true);
-    }, 1000);
+   console.log("haja")
+   const auth = getAuth(app);
+  
+   const unsubscribe = auth.onAuthStateChanged((currentUser:any) => {
+      setUser(currentUser);
+      console.log(currentUser,':current');
+    });
+  
+   return () => {
+      unsubscribe();
+   };
   }, []);
-
+  
+ 
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -85,32 +95,12 @@ export default function App() {
     "Tajawal-Bold": require("./assets/fonts/Tajawal-Bold.ttf"),
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
   });
-  const [user, setUser] = useState({});
-  // useEffect(()=>{
-  //   const auth= getAuth(app)
-  //    auth.onAuthStateChanged(async (user)=>{
-  //    setUser(user)
-  //   })
-  // },[])
-
-  if (!user) {
-    return;
-    // <QueryClientProvider client={queryClient}>
-    //   <Stack.Navigator initialRouteName="SignIn">
-    //   <Stack.Screen
-    //               name="SignIn"
-    //               component={SignIn}
-    //               options={{ headerShown: false }}
-    //           />
-    //   </Stack.Navigator>
-    //   </QueryClientProvider>
-  }
 
   const Drawer = createDrawerNavigator();
   function Root() {
     return (
       <Drawer.Navigator
-        initialRouteName="SignIn"
+        initialRouteName="Back"
         screenOptions={({ route }) => {
           return {
             headerShown: false,
@@ -307,14 +297,13 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        {hideSplashScreen ? (
+        {user ? (
           <Stack.Navigator initialRouteName="Root">
             <Stack.Screen
               name="Root"
               component={Root}
               options={{ headerShown: false }}
             />
-          
             <Stack.Screen
               name="MentalHealth"
               component={MentalHealth}
@@ -322,7 +311,14 @@ export default function App() {
             />
           </Stack.Navigator>
         ) : (
-          <MentalHealth />
+          <>
+          <Stack.Navigator initialRouteName="SignIn">
+            <Stack.Screen name="SignIn" component={SignIn} />
+             <Stack.Screen name="SignUp" component={SignUp} />
+          </Stack.Navigator>
+             
+          </>
+         
         )}
       </NavigationContainer>
     </QueryClientProvider>
