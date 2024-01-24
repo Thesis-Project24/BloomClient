@@ -32,7 +32,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({
     setUserData,
     userData,
 }) => {
-    console.log(userData,"/////////////////////////////////////")
+    
     return (
         <View
             style={[

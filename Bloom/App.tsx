@@ -62,12 +62,11 @@ export default function App() {
    useEffect(() => {
     const auth = getAuth(app)
     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber; 
    }, []);
   // if (initializing) return null;
-  
-  
-   console.log(user,"user in app")
+
+
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
