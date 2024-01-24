@@ -9,6 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth, signOut } from "firebase/auth";
 
 
 
@@ -214,13 +215,13 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
 
                 <TouchableOpacity
                   onPress={async()=>{
-                    try {
-                      await AsyncStorage.removeItem("user");
-                      return true;
-                  }
-                  catch(error) {
-                      return false;
-                  }
+                    const auth = getAuth();
+                    signOut(auth).then(() => {
+                      navigation.navigate("signIn")
+                      console.log("byebye")
+                    }).catch((error:any) => {
+                      console.log(error)
+                    });
                   }}
                   style={styles.listManu}>
                   <View style={[styles.content, styles.frameFlexBox1]}>
