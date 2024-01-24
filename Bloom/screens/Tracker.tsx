@@ -23,8 +23,12 @@ import Satisfaction from "../components/UserProfile/Satisfaction";
 import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import NavBarEdit from "../components/DoctorProfile/NavBarEditDoctor";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase.config";
 
 const Tracker = () => {
+  const auth = getAuth(app)
+  const id = auth.currentUser?.uid
   const {
     data: habits,
     isLoading: habitsLoading,
@@ -37,7 +41,7 @@ const Tracker = () => {
     isError: userHabitsError,
     isSuccess,
     refetch: refetchUserHabits,
-  } = useFetchHabitsUser();
+  } = useFetchHabitsUser(id);
   const { assignMultiHabits, isAssigningMultipleHabits } =
     useAssignMultiHabits();
   // const [submitted, setSubmitted] = useState<boolean>(false);

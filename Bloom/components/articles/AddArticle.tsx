@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { createArticle } from '../../api/articles/Articles'
 import { FontAwesome } from '@expo/vector-icons'
 
-const AddArticle = () => {
+const AddArticle = ({route}:any) => {
     const [title,setTitle] = useState<string>("")
     const [content,setContent] = useState<string>("")
-    const [authorId,setAuthorId]= useState<number>(1)
+    const [authorId,setAuthorId]= useState<number>(route.params.data)
     const createMutation = createArticle()
     const handleSubmit = ()=>{
         createMutation.mutate(

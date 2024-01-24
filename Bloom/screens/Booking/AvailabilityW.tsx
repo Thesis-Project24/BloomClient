@@ -9,9 +9,10 @@ import {
   Padding,
   Border,
 } from "../../GlobalStyles";
-const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: { duration: string; pause: string } };}) => {
+const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: { duration: string; pause: string, doctorId:string } };}) => {
   const duration = route.params.duration;
   const pause = route.params.pause;
+  const doctorId = route.params.doctorId
   const [chosenDateStart, setChosenDateStart] = React.useState(new Date());
   const [chosenDateEnd, setChosenDateEnd] = React.useState(new Date());
   const [viewEnd, setViewEnd] = React.useState(false);
@@ -29,7 +30,7 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
     endingTime: string;
   }[]
 >([]);
-  const mutation = addWindow();
+  const mutation = addWindow(doctorId);
   console.log(windowsDb,"front")
   if(windowsDb){
 
