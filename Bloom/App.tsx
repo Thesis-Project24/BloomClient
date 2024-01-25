@@ -40,6 +40,8 @@ import Journal from "./screens/UserProfile/Journal";
 import Notifications from "./screens/Notification/Notifications"
 // import PostDetails from "./components/forum/PostDetails";
 import NavBarEdit from "./components/DoctorProfile/NavBarEditDoctor";
+import PostDetails from "./components/forum/PostDetails";
+import CreatePost from "./components/forum/CreatePost";
 
 
 
@@ -152,16 +154,12 @@ export default function App() {
                 component={AvailabilityW}
                 options={{ headerShown: true }}
               />
-              {/* <Stack.Screen
-              name="PostDetails"
-              component={PostDetails}
-              options={{ headerShown: false }}
-            />
+          
             <Stack.Screen
               name="CreatePost"
               component={CreatePost}
               options={{ headerShown: false }}
-            /> */}
+            />
               <Stack.Screen
                 name="Back"
                 options={{

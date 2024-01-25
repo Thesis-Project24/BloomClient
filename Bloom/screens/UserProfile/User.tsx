@@ -69,7 +69,6 @@ const User =  () => {
               >
                 <View  style={styles.user11}>
                   <Image
-                   
                     resizeMode="cover"
                     source={require("../../assets/user-1-1.png")}
                   />

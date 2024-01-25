@@ -4,15 +4,15 @@ import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useMutation, useQuery } from 'react-query';
+import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
-import {  createCommentMutation, deleteCommentMutation, deletePostMutation, editCommentMutation, useFetchComments } from '../../api/forum/Forum';
 
-const PostForum = ({refetch, post }:any) => {
-refetch(post);
+import { createCommentMutation, deleteCommentMutation, deletePostMutation, editCommentMutation, getUserIdFromUsername, useFetchComments } from '../../api/forum/Forum';
 
-  const { data: comments, isLoading: isLoadingComments } = useFetchComments(post.id);
-  const { mutate: deleteComment } = deleteCommentMutation();
-  const { mutate: editComment } = editCommentMutation();
+const PostForum = ({ refetch, post }: any) => {
+  refetch(post);
+  const [userSuggestions, setUserSuggestions] = useState([]);
+  const [isTagging, setIsTagging] = useState(false);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const [newComment, setNewComment] = useState('');
   const [voteStatus, setVoteStatus] = useState({ upvoted: false, downvoted: false });
@@ -20,100 +20,130 @@ refetch(post);
   const [downvoteCount, setDownvoteCount] = useState(post.downvote);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
-  
-  const isAuthor = post.author.id === 1
   const [posts, setPost] = useState();
+  
+  //  comments fetcher 
+  const { data: comments, isLoading: isLoadingComments, refetch: refetchcomments } = useFetchComments(post.id);
+  // comments deletion
+  const { mutate: deleteComment } = deleteCommentMutation();
+  // comments editor
+  const { mutate: editComment } = editCommentMutation();
+  // comments creation
   const { mutate: createComment, isLoading: isCommentLoading, isError: isCommentError } = createCommentMutation();
+// post deletion
   const { mutate: deletePost } = deletePostMutation();
-
+  //handle up vote changes
   const upvoteMutation = useMutation(async (postId) => {
     const response = await axios.put(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/forum/posts/upvote`, { postId });
     return response.data;
   });
-  
+//handle down vote changes
   const downvoteMutation = useMutation(async (postId) => {
     const response = await axios.put(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/forum/posts/downvote`, { postId });
     return response.data;
   });
-  
+
+
+  ////////////////////////////////input and tag handler////////////////////////////////
+  const handleChangeText = (text: string) => {
+    setNewComment(text);
+
+    const tagMatch = text.match(/@\w*$/); // Regular expression to match '@' followed by username
+    if (tagMatch) {
+      setIsTagging(true);
+      const searchQuery = tagMatch[0].slice(1); // Remove '@' from the search query
+      axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/forum/posts/searchUsers?q=${searchQuery}`)
+        .then((response) => {
+          setUserSuggestions(response.data.map((user: any) => user.username));
+        })
+        .catch((error) => console.error('Error fetching users:', error));
+    } else {
+      setIsTagging(false);
+      setUserSuggestions([]);
+    }
+  };
+//handle up vote changes
   const handleUpvote = () => {
     const currentlyUpvoted = voteStatus.upvoted;
     setVoteStatus({ upvoted: !currentlyUpvoted, downvoted: false });
-    
+
     if (!currentlyUpvoted) {
+      setUpvoteCount(upvoteCount + 1);
       upvoteMutation.mutate(post.id, {
         onSuccess: (data) => {
-          
           setPost({ ...post, upvotes: data.newUpvoteCount });
           refetch();
         }
       });
     } else {
-      
+      setUpvoteCount(upvoteCount - 1);
+     
     }
   };
-  
+//handle down vote changes
   const handleDownvote = () => {
     const currentlyDownvoted = voteStatus.downvoted;
     setVoteStatus({ upvoted: false, downvoted: !currentlyDownvoted });
-    
+
     if (!currentlyDownvoted) {
+      setDownvoteCount(downvoteCount + 1);
       downvoteMutation.mutate(post.id, {
         onSuccess: (data) => {
-          
           setPost({ ...post, downvotes: data.newDownvoteCount });
           refetch();
         }
       });
     } else {
-      
+      setDownvoteCount(downvoteCount - 1);
     }
   };
-  const handleDeleteComment = (commentId:number) => {
+//handle comments deletion 
+  const handleDeleteComment = (commentId: number) => {
     deleteComment(commentId, {
       onSuccess: () => {
-       refetch();
+        refetchcomments();
       },
       onError: (error) => {
-      
-        
+
+
       }
     });
   };
 
-  const handleEditComment = (commentId:number, newContent:string) => {
+  //handle comments edit
+  const handleEditComment = (commentId: number, newContent: string) => {
     editComment({ commentId, content: newContent }, {
       onSuccess: () => {
-       refetch();
+        refetchcomments();
       },
       onError: (error) => {
-      
+
       }
     });
   };
-  
 
-  
-  const startEditing = (comment:any) => {
+
+  const startEditing = (comment: any) => {
     setEditingCommentId(comment.id);
     setEditedContent(comment.content);
   };
-  
-  const submitEdit = (commentId:number) => {
+
+
+  const submitEdit = (commentId: number) => {
     handleEditComment(commentId, editedContent);
     setEditingCommentId(null);
     setEditedContent("");
-    refetch();
+    refetchcomments();
   };
-  
-  
+
+
   const cancelEdit = () => {
     setEditingCommentId(null);
     setEditedContent("");
   };
-  
+////////////////////////////////handle delete post ///////////////////////////////////////////
   const handleDeletePost = () => {
-    if (post.authorId === 1) {
+    if (post.authorId === 'fdgbh') {
       Alert.alert(
         "Delete Post",
         "Are you sure you want to delete this post?",
@@ -124,7 +154,7 @@ refetch(post);
             style: "cancel"
           },
           {
-            text: "OK", 
+            text: "OK",
             onPress: () => {
               deletePost(post.id, {
                 onSuccess: () => {
@@ -143,13 +173,13 @@ refetch(post);
       console.error('You do not have permission to delete this post');
     }
   };
-  
 
 
 
 
-  const renderCommentOptions = (comment:any) => {
-    if (comment.userId === 1) {
+// rendering the edit comment component
+  const renderCommentOptions = (comment: any) => {
+    if (comment.userId === "fdgbh") {
       return (
         <View style={styles.commentOptionsContainer}>
           <TouchableOpacity onPress={() => startEditing(comment)}>
@@ -161,21 +191,55 @@ refetch(post);
         </View>
       );
     }
-    return null; 
+    return null;
   };
-  
-  
-  const renderComment = ({ item }:any) => {
+
+//handle add comment
+  const handleAddComment =async () => {
+    if (newComment) {
+      const tagUsernameMatch = newComment.match(/@\w+/g);
+      let tagId = null;
+
+      if (tagUsernameMatch) {
+          const tagUsername = tagUsernameMatch[0].slice(1);
+          tagId = await getUserIdFromUsername(tagUsername);
+      }
+
+      const commentData = {
+          content: newComment,
+          postId: post.id,
+          userId: "fdgbh",
+          tagId: tagId, 
+      };
+      console.log("Sending comment data: ", commentData);
+      createComment(commentData, {
+        onSuccess: () => {
+          setNewComment('');
+          refetchcomments();
+        },
+
+
+
+        onError: (error) => {
+          console.error('Error adding comment', error);
+
+        }
+      });
+    }
+  };
+
+  // comment rendering 
+  const renderComment = ({ item }: any) => {
     const isEditing = item.id === editingCommentId;
-  
+
     return (
       <View style={styles.commentContainer}>
         <Image source={{ uri: item.User.profile_picture }} style={styles.commentImage} />
         <View style={styles.commentTextContainer}>
-          <Text style={styles.commentAuthor}>{item.User.fullName}</Text>
+          <Text style={styles.commentAuthor}>{item.User.first_name}</Text>
           {isEditing ? (
             <TextInput
-              
+
               value={editedContent}
               onChangeText={setEditedContent}
               autoFocus
@@ -187,10 +251,10 @@ refetch(post);
         {isEditing ? (
           <View style={styles.commentOptionsContainer}>
             <TouchableOpacity onPress={() => submitEdit(item.id)}>
-            <MaterialIcons name="save-alt" size={24} color="#729384" />
+              <MaterialIcons name="save-alt" size={24} color="#729384" />
             </TouchableOpacity>
             <TouchableOpacity onPress={cancelEdit}>
-            <FontAwesome name="times" size={24} color="red" />
+              <FontAwesome name="times" size={24} color="red" />
             </TouchableOpacity>
           </View>
         ) : (
@@ -199,60 +263,24 @@ refetch(post);
       </View>
     );
   };
-  // const postComment=async ()=>{
-  //   try {
-  //     await axios.post(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/forum/comments/`, { content:"jhbjhcv", postId:4, userId:1 })
-  //   console.log("added");
-    
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+
+
+
   
-  const handleAddComment =  () => {
-    if (newComment) {
-      const commentData = {
-        content: newComment,
-        postId: post.id,
-        userId: 1, 
-      };
-      console.log("Sending comment data: ", commentData);
-      createComment(commentData, {
-        onSuccess: () => {
-          setNewComment(''); 
-          refetch()
-        },
-        onError: (error) => {
-          console.error('Error adding comment', error);
-          
-        }
-      });
-    }
-  };
   return (
-    
-    <TouchableOpacity onPress={() => navigation.navigate("PostDetails",{id: post.id,
-      content: post.content,
-      title: post.title,
-      author: post.author.fullName,
-      image: post.author.profile_picture,
-      upvotes: upvoteCount,
-      downvotes: downvoteCount,
-      handleUpvote,
-      handleDownvote,
-      editComment, 
-      deleteComment})}>
-      
+
+    <TouchableOpacity>
+
       <View style={styles.postContainer}>
         <View style={styles.header}>
           <Image
             source={{ uri: post.author.profile_picture }}
             style={styles.profileImage}
-            />
-          <Text style={styles.authorName}>{post.author.fullName}</Text>
-          {post.authorId === 1 && 
+          />
+          <Text style={styles.authorName}>{post.author.first_name  }</Text>
+          {post.authorId === "fdgbh" &&
             <TouchableOpacity onPress={handleDeletePost} style={styles.deleteIcon}>
-              <MaterialIcons name="delete" size={24} color="#729384"/>
+              <MaterialIcons name="delete" size={24} color="#729384" />
             </TouchableOpacity>
           }
         </View>
@@ -272,20 +300,38 @@ refetch(post);
         </View>
 
         <FlatList
-            data={comments}
-            renderItem={renderComment}
-            keyExtractor={(item) => item.id.toString()}
+          data={comments}
+          renderItem={renderComment}
+          keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={<Text>Comments</Text>}
-        
-          />
+
+        />
 
         <View style={styles.addCommentContainer}>
-          <TextInput
-            style={styles.commentInput}
-            placeholder="Add a comment..."
-            value={newComment}
-            onChangeText={setNewComment}
-          />
+        <View style={{ flex: 1 }}>
+ <TextInput
+    style={styles.commentInput}
+    placeholder="Add a comment..."
+    value={newComment}
+    onChangeText={handleChangeText}
+ />
+
+ {isTagging && (
+    <FlatList
+      style={styles.suggestionsList}
+      data={userSuggestions}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => {
+          setNewComment(newComment + item);
+          setIsTagging(false);
+        }}>
+          <Text style={styles.suggestionItem}>{item}</Text>
+        </TouchableOpacity>
+      )}
+      keyExtractor={(item, index) => index.toString()}
+    />
+ )}
+</View>
           <TouchableOpacity style={styles.enterButton} onPress={handleAddComment}>
             <AntDesign name="enter" size={24} color="black" />
           </TouchableOpacity>
@@ -297,7 +343,7 @@ refetch(post);
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: '#F7F7F7', 
+    backgroundColor: '#F7F7F7',
     padding: 12,
     borderRadius: 10,
     shadowColor: '#000',
@@ -307,6 +353,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: '#E0E0E0',
+  },
+  suggestionsList: {
+   display : 'flex',
+  },
+  suggestionItem: {
+    display : 'flex',
+    padding: 10,
+    fontSize: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0',
   },
   header: {
     flexDirection: 'row',
@@ -375,7 +431,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   enterButton: {
-    
+
   },
   commentContainer: {
     backgroundColor: '#FFFFFF',

@@ -11,7 +11,7 @@ const CreatePost = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const handleSubmit = () => {
     if (title && content) {
-      const postData = { title, content ,authorId:1};
+      const postData = { title, content ,authorId:"fdgbh"};
       console.log("Post Data: ", postData);  
       createPost(postData);
 navigation.navigate('Community')

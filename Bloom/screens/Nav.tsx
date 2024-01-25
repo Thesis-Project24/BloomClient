@@ -17,12 +17,12 @@ const Nav = () => {
 
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
-  const {
-    data: userData,
-    isLoading: userLoading,
-    isError: usersError,
-    isSuccess,
-  } = fetchData();
+  // const {
+  //   data: userData,
+  //   isLoading: userLoading,
+  //   isError: usersError,
+  //   isSuccess,
+  // } = fetchData();
 
   return (
 
@@ -52,7 +52,7 @@ const Nav = () => {
               <Avatar
                 rounded
                 size={"medium"}
-                source={{ uri: userData?.profile_picture }}
+                // source={{ uri: userData?.profile_picture }}
               />
             </TouchableOpacity>
           </View>

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: 'center',
-    marginBottom: 40,
+    marginBottom: 140,
   },
 });
 

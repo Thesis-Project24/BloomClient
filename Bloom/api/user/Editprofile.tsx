@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import axios from "axios";
 
 export const fetchData = (params: number) => {
-  console.log(params,'****************************')
+  // console.log(params,'****************************')
     const query = useQuery({
       queryKey: [ params],
       queryFn: async () => {
