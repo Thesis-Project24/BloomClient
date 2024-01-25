@@ -50,10 +50,10 @@ const getSlotsByWindow = () => {
     return mutation;
 };
 
-//appointement will be added but the status would stay pending (waitlist implenmeting next week)
+//appointement will be added but the status would stay pending
 const bookAppointment = ()=> {
     const mutation = useMutation({
-        mutationFn: async (object:{patientId:string,doctorId:string,slotId:number,appDetails:string}) => {
+        mutationFn: async (object:{patientId:string,doctorId:string,slotId:number,appDetails:string,status:"accepted"}) => {
             const response =  await axios.post(
                 `http://${process.env.EXPO_PUBLIC_ipadress}:3000/appointemnt/appointments/add`,object
             );
