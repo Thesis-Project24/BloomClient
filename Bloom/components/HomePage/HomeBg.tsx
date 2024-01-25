@@ -3,11 +3,36 @@ import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from "react
 import { Image } from "expo-image";
 import { FontSize, Color, FontFamily, Padding, Border } from "../../GlobalStyles";
 import { useNavigation } from "@react-navigation/core";
+import { getAuth } from "firebase/auth";
+import { app } from "../../firebase.config";
+import axios from "axios";
+type User = {
+  id: string;
+  email: string;
+  username: string;
+  first_name: string | null;
+  last_name: string | null;
+  profile_picture: string | null;
+  phone_number: string | null;
+  age: number | null;
+  role: string;
+}
 
-
-
-const HomeBG1 = () => {
+const HomeBG = () => {
   const navigation = useNavigation();
+  const [data,setData]= React.useState<User | null>(null)
+  React.useEffect(() => {
+    const auth = getAuth(app)
+    const id = auth.currentUser?.uid
+    console.log(auth.currentUser?.uid,':id')
+    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
+    .then((response:any)=> {
+      setData(response.data)
+    })
+    .catch((error:any)=> {
+      console.log(error)
+    })
+    }, []);
 
   return (
 
@@ -16,7 +41,7 @@ const HomeBG1 = () => {
       <ImageBackground
         style={styles.backgroundhome}
         resizeMode="cover"
-        source={require("../../assets/bg.png")} >
+        source={require("../../assets/bg22.png")} >
 
 
         <View style={styles.contenuhomeWrapper}>
@@ -51,7 +76,7 @@ const HomeBG1 = () => {
                       <Text style={styles.goodAfternoon}>Good Afternoon</Text>
                       <Text style={styles.text}>{`,
 `}</Text>
-                      <Text style={styles.myriam}>Myriam!</Text>
+                      <Text style={styles.myriam}>{ data?.username}!</Text>
                     </Text>
                   </Text>
                 </View>
@@ -175,23 +200,27 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   backgroundhome: {
-    minHeight: 427,
-    maxHeight: 430,
+    minHeight: 200,
+    maxHeight: 350,
     height: "100%",
     width: "100%",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    // backgroundColor: "blue",
-    paddingBottom: 10,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    backgroundColor: Color.beige,
+    paddingBottom: 0,
   },
   containerHome: {
-    height: 407,
+    height: "100%",
+    maxHeight:400,
+    paddingBottom:10,
     width: "100%",
     // backgroundColor: "red",
     flexDirection: "row",
     alignSelf: "stretch",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flex: 1,
   },
 
 
@@ -333,7 +362,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   frameParent: {
-    minHeight: 170,
+    minHeight: 100,
     maxHeight: 180,
     flex: 1,
     alignSelf: "stretch",
@@ -419,4 +448,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeBG1;
+export default HomeBG;

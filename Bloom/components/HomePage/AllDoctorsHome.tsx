@@ -3,11 +3,18 @@ import { Text, StyleSheet, TouchableOpacity, View, ScrollView } from "react-nati
 import { Image } from "expo-image";
 import { FontSize, FontFamily, Color, Border, Padding } from "../../GlobalStyles";
 import { NavigationProp } from '@react-navigation/native';
+import { useFetchAllDoctors } from "../../api/doctors/Doctors";
+import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
+
 
 type AllDoctorsNavigationProp = NavigationProp<Record<string, object>>;
 
 const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {    // const navigation = useNavigation();
 
+    const { data , isError, isLoading, isSuccess, refetch } = useQuery("AllDoctors",useFetchAllDoctors)
+console.log(data,"dataaaaaa");
+
+    
     return (
         <View style={styles.frameWrapper}>
             <View style={styles.frameParent}>
@@ -44,7 +51,9 @@ const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {  
                     contentContainerStyle={styles.allDoctorsHomeContent}
                 >
 
-                    <TouchableOpacity
+                    {isSuccess && data.map((doc:any)=>{
+                        return (
+                            <TouchableOpacity
                         onPress={() => {
                             navigation.navigate("PageSpecialists")
 
@@ -54,17 +63,17 @@ const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {  
                             <Image
                                 style={styles.frameItem}
                                 contentFit="cover"
-                                source={require("../../assets/rectangle-6.png")}
+                                source={doc.profile_picture}
                             />
                             <View style={styles.frameView}>
                                 <View style={styles.drugoDavidParent}>
                                     <Text style={[styles.drugoDavid, styles.drugoDavidFlexBox]}>
-                                        Dr.Ugo David
+                                        Dr.{doc.first_name} {doc.last_name}
                                     </Text>
                                     <Text
                                         style={[styles.srpsychologist, styles.drugoDavidFlexBox]}
                                     >
-                                        Sr.Psychologist
+                                        {doc.specialty}
                                     </Text>
                                 </View>
                                 <View style={[styles.telephone1Parent, styles.parentFlexBox]}>
@@ -74,17 +83,19 @@ const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {  
                                         source={require("../../assets/telephone-1.png")}
                                     />
                                     <Text style={[styles.text, styles.textFlexBox]}>
-                                        +216 58 057 094
+                                        +216 {doc.phone_number}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                     </TouchableOpacity>
+                        )
+                    })  }
 
 
 
 
-
+{/* 
                     <View style={styles.allInnerLayout}>
                         <View style={styles.frameContainer}>
                             <Image
@@ -177,7 +188,7 @@ const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {  
                                 </View>
                             </View>
                         </View>
-                    </View>
+                    </View> */}
                 </ScrollView>
             </View>
         </View>
