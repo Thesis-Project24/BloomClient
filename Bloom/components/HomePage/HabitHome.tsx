@@ -1,195 +1,204 @@
-// import * as React from "react";
-// import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-// import {
-//   Padding,
-//   Color,
-//   Border,
-//   FontSize,
-//   FontFamily,
-// } from "../GlobalStyles";
-// import { useNavigation } from "@react-navigation/core";
-// import Nav from "./Nav";
-// import DrawerScreen from "./SideBar.tsx/DrawerScreen";
-
-// const Home = () => {
-//   const navigation = useNavigation();
-//   return (
-//     <DrawerScreen>
-//     <View style={{
-//       flex: 1,
-//       backgroundColor: "#f3f0ea",
-//     }}>
-//       <Nav/>
-//       <Text style={[styles.textPosition]}>Ahla bikom ness koll marhbee marhbeee</Text>
-
-
-//       <View style={[styles.frameContainer, styles.frameWrapperShadowBox]}>
-//         <View style={styles.vectorParent}>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate("Articles" as never)}
-//           >
-//             <Image
-//               style={styles.vectorIcon1}
-//               resizeMode="cover"
-//               source={require("../assets/vector1.png")}
-//             />
-//             <Text
-//               style={[styles.reservation, styles.journalFlexBox]}
-//               numberOfLines={1}
-//             >
-//               {" "}
-//               Articles
-//             </Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     </View>
-//     </DrawerScreen>
-//   );
-// };
-// const styles = StyleSheet.create({
-//   textPosition: {
-//     left: -10,
-//     top: 50,
-//     textAlign: "center",
-//     fontWeight: "800",
-//   },
-//   frameContainer: {
-//     // zIndex: 1,
-//   },
-//   frameWrapperShadowBox: {
-//     padding: Padding.p_3xs,
-//     height: 100,
-//     width: 120,
-//     shadowOpacity: 1,
-//     elevation: 4,
-//     shadowRadius: 4,
-//     shadowOffset: {
-//       width: 0,
-//       height: 4,
-//     },
-//     shadowColor: "rgba(0, 0, 0, 0.25)",
-//     backgroundColor: Color.sageGreen,
-//     borderRadius: Border.br_3xs,
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     flexDirection: "row",
-//   },
-//   vectorParent: {
-//     justifyContent: "center",
-//     flex: 1,
-
-//     alignSelf: "stretch",
-//     alignItems: "center",
-//   },
-//   vectorIcon1: {
-//     width: 37,
-//     height: 37,
-//     marginLeft: 30,
-//   },
-//   reservation: {
-//     lineHeight: 16,
-//     fontWeight: "700",
-//     fontFamily: FontFamily.tajawalBold,
-//   },
-//   journalFlexBox: {
-//     marginTop: 10,
-//     maxHeight: 20,
-//     display: "flex",
-//     textAlign: "center",
-//     color: Color.colorGray_200,
-//     letterSpacing: 0,
-//     fontSize: FontSize.size_sm,
-//     overflow: "hidden",
-//     justifyContent: "center",
-//     flex: 1,
-//     alignSelf: "stretch",
-//     alignItems: "center",
-//   },
-// });
-// export default Home;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
-import HomeBg from "../components/HomePage/HomeBg";
-import HabitHome from "../components/HomePage/HabitHome";
-import AllDoctorsHome from "../components/HomePage/AllDoctorsHome";
-import JournalHome from "../components/HomePage/JournalHome";
-import ArticlesHome from "../components/HomePage/ArticlesHome";
-import MentalHealthHome from "../components/HomePage/MentalHealthHome";
-import { Color, FontSize, Padding, FontFamily, Border } from "../GlobalStyles";
-import UpComingSession from "../components/HomePage/UpComingSession";
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Color, FontSize, Padding, FontFamily, Border } from "../../GlobalStyles";
 // import { useNavigation } from "@react-navigation/core";
-import Nav from "./Nav";
-import DrawerScreen from "./SideBar.tsx/DrawerScreen";
-import { NavigationProp } from '@react-navigation/native';
 
-type HomeScreenNavigationProp = NavigationProp<Record<string, object>>;
+const HabitHome = ({navigation}:any) => {
+    // const navigation = useNavigation();
 
-const Home = ({navigation}: {navigation: HomeScreenNavigationProp}) => {
-  // const navigation = useNavigation();
   return (
-    <DrawerScreen>
-      <Nav/>
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      style={styles.homePage}>
-      <View style={[styles.containerHomeParent, styles.artboard1741Position]}>
+    <View style={[styles.bgParent, styles.bgParentSpaceBlock]}>
+      <ImageBackground
+        resizeMode="cover"
+        source={require("../../assets/bg1.png")}
+        style={styles.bgIcon}>
+        {/* <Image
+      style={styles.bgIcon}
+      contentFit="cover"
+      source={require("../../assets/bg1.png")}
+      /> */}
 
-        {/* <View style={styles.containerHome}> */}
-          <HomeBg />
-        {/* </View> */}
-
-
-        <View style={styles.frameParent}>
-
-
-          <UpComingSession />
-
-
-          {/* <View style={[styles.bgParent, styles.bgParentSpaceBlock]}> */}
-          <HabitHome navigation={navigation}/>
-
-          {/* </View> */}
-
-
-
-
-          <AllDoctorsHome navigation={navigation} />
-          <JournalHome navigation={navigation} />
-          <ArticlesHome navigation={navigation} />
-          <MentalHealthHome navigation={navigation} />
-
+        <View style={styles.artboard1741Parent}>
+          <Image
+            style={[styles.artboard1741, styles.artboard1741Position]}
+            contentFit="cover"
+            source={require("../../assets/artboard-174-1.png")}
+          />
+          <ScrollView
+            style={styles.frameContainer}
+            horizontal={true}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.frameScrollViewContent}
+          >
+            <TouchableOpacity 
+             onPress={() => {
+                navigation.navigate("Tracker")
+             
+              }}
+            style={styles.frameWrapper}>
+              <View style={[styles.frameView, styles.frameLayout]}>
+                <View style={styles.dateFilterParent}>
+                  <Image
+                    style={[styles.artboard1781, styles.bgIconLayout]}
+                    contentFit="cover"
+                    source={require("../../assets/artboard-178-1.png")}
+                  />
+                </View>
+                <View
+                  style={[styles.logYourHabitParent, styles.cardFlexBox]}
+                >
+                  <Text style={[styles.logYour, styles.logYourHabitContainer]}>LOG YOUR</Text>
+                  <Text style={[styles.habit, styles.habitClr, styles.logYourHabitContainer]}>
+                    {" "}
+                    HABIT
+                  </Text>
+                  <Image
+                    style={styles.artboard341}
+                    contentFit="cover"
+                    source={require("../../assets/artboard-34-1.png")}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => {
+                navigation.navigate("Tracker")
+             
+              }}
+              style={[styles.framePressable, styles.joinToParentLayout]}
+            >
+              <View
+                style={[styles.rectangleWrapper, styles.rectangleLayout]}
+              >
+                <Image
+                  style={styles.frameChild}
+                  contentFit="cover"
+                  source={require("../../assets/artboard-186.png")}
+                />
+              </View>
+              <Text
+                style={[styles.sleeping, styles.smokingTypo]}
+                numberOfLines={1}
+              >
+                Sleeping
+              </Text>
+            </TouchableOpacity>
+            <View
+              style={[styles.framePressable, styles.joinToParentLayout]}
+            >
+              <TouchableOpacity 
+               onPress={() => {
+                navigation.navigate("Tracker")
+             
+              }}
+              style={styles.rectangleLayout}>
+                <Image
+                  style={[styles.frameItem, styles.frameLayout]}
+                  contentFit="cover"
+                  source={require("../../assets/artboard-184.png")}
+                />
+              </TouchableOpacity>
+              <Text
+                style={[styles.smoking, styles.smokingTypo]}
+                numberOfLines={1}
+              >
+                Smoking
+              </Text>
+            </View>
+            <View
+              style={[styles.framePressable, styles.joinToParentLayout]}
+            >
+              <TouchableOpacity
+               onPress={() => {
+                navigation.navigate("Tracker")
+             
+              }}
+                style={[styles.rectangleFrame, styles.rectangleLayout]}
+              >
+                <Image
+                  style={[styles.frameItem, styles.frameLayout]}
+                  contentFit="cover"
+                  source={require("../../assets/artboard-185.png")}
+                />
+              </TouchableOpacity>
+              <Text
+                style={[styles.alcohol, styles.smokingTypo]}
+                numberOfLines={1}
+              >
+                Alcohol
+              </Text>
+            </View>
+          </ScrollView>
         </View>
-      </View>
-    </ScrollView>
-    </DrawerScreen>
+
+
+      </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  frameParent: {
-    minHeight: 170,
-    maxHeight: 180,
+  bgIcon: {
+    width: "100%",
+    // paddingHorizontal:-60,
     flex: 1,
+    overflow: "hidden",
+    minWidth: 370,
+    maxHeight: 330,
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+
+    // borderRadius:0,
+    // backgroundColor: "blue",
+    // paddingBottom: 10,
+
+
+
+  },
+  bgIconLayout: {
+    maxWidth: "100%",
+    alignSelf: "stretch",
+    overflow: "hidden",
+    width: "100%",
+  },
+  frameWrapper: {
+    width: 109,
+    flexDirection: "row",
+  },
+
+  habitClr: {
+    color: Color.generalLightText,
+    lineHeight: 22,
+  },
+
+  joinToParentLayout: {
+    maxWidth: 130,
+    height: "100%",
+    flex: 1,
+  },
+
+
+
+  bgParent: {
+    height: 262,
+  },
+
+
+  bgParentSpaceBlock: {
+    marginTop: 32,
     alignSelf: "stretch",
   },
+
+
+
+
+
+
+
+
 
   frameScrollViewContent: {
     flexDirection: "row",
@@ -201,7 +210,7 @@ const styles = StyleSheet.create({
     // top: 0,
     // position: "absolute",
   },
- 
+
   july2023FlexBox: {
     textAlign: "left",
     color: Color.black,
@@ -282,23 +291,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  bgParentSpaceBlock: {
-    marginTop: 32,
-    alignSelf: "stretch",
-  },
+
   frameLayout: {
     height: 109,
     width: 109,
   },
-  habitClr: {
-    color: Color.generalLightText,
-    lineHeight: 22,
-  },
-  joinToParentLayout: {
-    maxWidth: 130,
-    height: "100%",
-    flex: 1,
-  },
+
   rectangleLayout: {
     maxHeight: 109,
     maxWidth: 109,
@@ -340,33 +338,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
   },
-  bgGroupLayout: {
-    maxWidth: 414,
-    width: "100%",
-  },
-  notContainerText: {
-    textShadowRadius: 1.1,
-    color: Color.generalText,
-    textShadowOffset: {
-      width: 1,
-      height: 2,
-    },
-    textShadowColor: "rgba(0, 0, 0, 0.25)",
-    textAlign: "left",
-    alignSelf: "stretch",
-    overflow: "hidden",
-  },
-  playArrowParentShadowBox: {
-    shadowColor: "#729384",
-    shadowOpacity: 1,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    flexDirection: "row",
-  },
- 
- 
+
+
   july2023: {
     minHeight: 24,
     marginLeft: 9,
@@ -569,13 +542,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_base,
     width: "100%",
   },
- 
+
   artboard1741: {
-    left: 0,
+    // left: 0,
     height: 106,
-    width: 414,
-    top: 0,
-    position: "absolute",
+    width: "100%",
+    marginRight: 10,
+    // backgroundColor:"blue",
+
+
+    // top: 0,
+    // position: "absolute",
   },
   artboard1781: {
     height: 92,
@@ -636,7 +613,7 @@ const styles = StyleSheet.create({
     height: 109,
     alignItems: "center",
   },
-  
+
   frameChild: {
     borderRadius: 26,
     width: 103,
@@ -672,78 +649,32 @@ const styles = StyleSheet.create({
     maxHeight: 25,
   },
   frameContainer: {
-    top: 45,
-    left: 15,
+    // top: 45,
+    // left: 15,
     height: 138,
     minWidth: 350,
     maxWidth: 385,
     maxHeight: 138,
     minHeight: 138,
-    position: "absolute",
+    // position: "absolute",
     width: "100%",
+
+
   },
   artboard1741Parent: {
-    height: 232,
-    marginTop: -236,
+    maxHeight: 232,
+    width: "100%",
+    height: "100%",
     alignSelf: "stretch",
-  },
-  bgParent: {
-    height: 262,
-  },
-  mentalHealth: {
-    fontSize: FontSize.size_xl,
-    textShadowColor: "#729384",
-    height: 22,
-    textShadowRadius: 4,
-    lineHeight: 22,
-    color: Color.green,
-    textShadowOffset: {
-      width: 1,
-      height: 2,
-    },
-    fontFamily: FontFamily.soraSemiBold,
-    textTransform: "uppercase",
-    fontWeight: "600",
-    display: "flex",
-    textAlign: "left",
-    alignItems: "center",
-    overflow: "hidden",
+    // backgroundColor:"red",
+    paddingHorizontal: 10,
     flex: 1,
-  },
-  mentalHealthWrapper: {
-    height: 22,
-    flexDirection: "row",
-    alignSelf: "stretch",
-  },
-  isNotA: {
-    fontWeight: "500",
-    fontFamily: FontFamily.epilogueMedium,
-  },
-  itsAJourney: {
-    fontFamily: FontFamily.epilogueBold,
-    fontWeight: "700",
-  },
-  isNotAContainer: {
-    fontSize: 32,
-    lineHeight: 34,
-    height: 85,
-  },
- 
-  coteandButtonInner: {
-    paddingVertical: Padding.p_7xs,
-    minWidth: 195,
-    maxHeight: 60,
     justifyContent: "center",
-    paddingHorizontal: Padding.p_xl,
-    alignItems: "flex-end",
-    alignSelf: "stretch",
-    flex: 1,
+    alignItems: "center",
+    gap: -30,
   },
-  coteandButton: {
-    width: 395,
-    height: 167,
-    alignItems: "flex-end",
-  },
+
+
   artboard17811: {
     width: 415,
     height: 334,
@@ -753,57 +684,8 @@ const styles = StyleSheet.create({
     height: 248,
     marginTop: -273,
   },
-  imageBg: {
-    marginTop: -190,
-  },
-  mentalHealth1: {
-    height: 22,
-    lineHeight: 22,
-    color: Color.green,
-    fontFamily: FontFamily.soraSemiBold,
-    textTransform: "uppercase",
-    fontWeight: "600",
-    display: "flex",
-    fontSize: FontSize.smallOneLinerRegular_size,
-    textAlign: "left",
-    alignItems: "center",
-    overflow: "hidden",
-    flex: 1,
-  },
-  mentalHealthContainer: {
-    shadowRadius: 2.8,
-    elevation: 2.8,
-    height: 22,
-    alignSelf: "stretch",
-  },
-  isNotAContainer1: {
-    fontSize: FontSize.size_lg,
-    height: 52,
-    lineHeight: 22,
-  },
-  frameParent3: {
-    width: 197,
-    height: 265,
-    marginTop: -190,
-    display: "none",
-  },
-  coteandButtonParent: {
-    height: 417,
-    minHeight: 417,
-    maxHeight: 420,
-    marginTop: -382,
-    alignItems: "flex-end",
-  },
-  bgGroup: {
-    minHeight: 450,
-    maxHeight: 455,
-    flex: 1,
-  },
-  frameWrapper1: {
-    height: 455,
-    alignItems: "flex-end",
-  },
- 
+
+
   containerHomeParent: {
     // marginLeft: -207,
     alignItems: "center",
@@ -812,26 +694,16 @@ const styles = StyleSheet.create({
     height: "100%",
     // top: 0,
     flex: 1,
-    justifyContent: "flex-start",
-    // position: "relative",
-    // overflow: "hidden",
-    paddingBottom:100,
-    marginBottom:200,
-    // backgroundColor:"green",
-    minHeight: 2000,
+    justifyContent: "center",
+    position: "relative",
+    overflow: "hidden",
   },
   homePage: {
-    // marginTop:-60,
     height: "100%",
-    // overflow: "hidden",
+    overflow: "hidden",
     width: "100%",
     flex: 1,
-  //  marginBottom:100,
-  
-    position: "relative",
-     backgroundColor: Color.colorWhite,
-  //  backgroundColor: "red",
+    backgroundColor: Color.colorWhite,
   },
 });
-
-export default Home;
+export default HabitHome;
