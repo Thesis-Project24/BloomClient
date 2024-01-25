@@ -194,6 +194,7 @@ const BookAppointment = ({doctorId}:any) => {
                             //     doctorId: doctorId,
                             //     slotId: slot.id,
                             //     appDetails: description,
+                            //   status:"accepted"
                             // });
                             waitlistMutation.mutate(slot.id)
                         }}
@@ -208,7 +209,7 @@ const BookAppointment = ({doctorId}:any) => {
                 ""
             )}
             
-            <ButtonBooking doctorId= {doctorId} />
+           
         </View>
     );
 };

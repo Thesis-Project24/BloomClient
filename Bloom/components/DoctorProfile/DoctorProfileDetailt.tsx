@@ -33,14 +33,16 @@ type RootStackParamList = {
   EditDoctorProfile: undefined;
   // other screen names
 };
-const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
+const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   return (
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
-          <View >
+
+          {/* edit profile button must be added to user personal profil */}
+         { show && <View style= {styles.edit}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("EditDoctorProfile", {
@@ -56,7 +58,7 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
 
             </TouchableOpacity>
 
-          </View>
+          </View> }
           {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate("Profile");
@@ -365,6 +367,7 @@ const styles = StyleSheet.create({
   frameContainer: {
     paddingHorizontal: 0,
     paddingVertical: Padding.p_smi,
+    paddingTop:50,
     zIndex: 0,
     alignItems: "center",
   },
@@ -529,6 +532,11 @@ const styles = StyleSheet.create({
     maxHeight: 330,
     alignItems: "center",
   },
+  edit:{
+    position: "absolute",
+    top:22,
+    right:2
+  }
 });
 
 export default DoctoreDeatailss;

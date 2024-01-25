@@ -71,13 +71,17 @@ const PostForum = ({ refetch, post,id }: any) => {
       setUpvoteCount(upvoteCount + 1);
       upvoteMutation.mutate(post.id, {
         onSuccess: (data) => {
-          setPost({ ...post, upvotes: data.newUpvoteCount });
+          // setPost({ ...post, upvotes: data.newUpvoteCount });
           refetch();
         }
       });
     } else {
       setUpvoteCount(upvoteCount - 1);
-     
+      downvoteMutation.mutate(post.id, {
+        onSuccess: (data) => {
+          refetch();
+        }
+      });
     }
   };
 //handle down vote changes

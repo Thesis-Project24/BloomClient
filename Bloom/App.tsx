@@ -45,6 +45,8 @@ import { app } from "./firebase.config";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SideBar from "./screens/SideBar.tsx/SideBar";
+import Appointments from "./screens/Doctor/Appointments";
+import DoctorPersonalProfile from "./screens/Doctor/DoctorPersonalProfil";
 import CreatePost from "./components/forum/CreatePost";
 import Community from "./screens/Community";
 
@@ -59,7 +61,6 @@ export default function App() {
 
   function onAuthStateChanged(user:any) {
     setUser(user);
-    // if (initializing) setInitializing(false);
    }
    
    useEffect(() => {
@@ -67,7 +68,7 @@ export default function App() {
     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
     return subscriber; 
    }, []);
-  // if (initializing) return null;
+ 
 
 
   const [fontsLoaded, error] = useFonts({
@@ -163,11 +164,29 @@ export default function App() {
           component={SignIn}
           options={{ headerShown: false }}
         />
-
+         <Stack.Screen
+                    name="EditDoctorProfile"
+                    component={EditDoctorProfile}
+                    options={{
+                        // header: () => <NavBarEdit />,
+                        headerLeft: () => null,
+                        // headerShown: true
+                    }}
+                />
         <Stack.Screen
           name="EditUserProfile"
           component={EditUserProfile}
           options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Appointments"
+          component={Appointments}
+          options={{ headerShown: true }}
+        />
+         <Stack.Screen
+          name="DoctorPersonalProfile"
+          component={DoctorPersonalProfile}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
