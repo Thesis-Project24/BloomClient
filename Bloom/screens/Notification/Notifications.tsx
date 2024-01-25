@@ -88,7 +88,7 @@ export default function Notification() {
 
       token = (
         await Notifications.getExpoPushTokenAsync({
-          projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
+          // projectId: "6183aa6f-2c21-4b7e-bdcc-38ca6b09bd2e",
         })
       ).data;
       console.log(token, "rrrrrrrrrrrrrr");

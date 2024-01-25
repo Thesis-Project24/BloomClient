@@ -16,6 +16,7 @@ import Appi from "./screens/ChatApp/Appi";
 import EditDoctorProfile from "./screens/Doctor/EditDoctorProfile";
 import DoctorProfile from "./screens/Doctor/DoctorProfile";
 import MentalHealth from "./screens/MentalHealth";
+
 import Availability from "./screens/Booking/Availablity";
 import AvailabilityW from "./screens/Booking/AvailabilityW";
 import { Title } from "react-native-paper";
@@ -46,6 +47,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import SideBar from "./screens/SideBar.tsx/SideBar";
 import Appointments from "./screens/Doctor/Appointments";
 import DoctorPersonalProfile from "./screens/Doctor/DoctorPersonalProfil";
+import CreatePost from "./components/forum/CreatePost";
+import Community from "./screens/Community";
 
 
 
@@ -294,21 +297,21 @@ export default function App() {
           }}
         /> */}
 
-        {/* <Stack.Screen
+         {/* <Stack.Screen
           name="PostDetails"
           component={PostDetails}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="CreatePost"
           component={CreatePost}
           options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
+        /> 
+        <Stack.Screen
           name="Community"
           component={Community}
           options={{ headerShown: true }}
-        /> */}
+        />
         <Stack.Screen
           name="Notifications"
           component={Notifications}
