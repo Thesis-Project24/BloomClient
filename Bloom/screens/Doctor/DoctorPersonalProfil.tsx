@@ -10,6 +10,7 @@ import { RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Nav from "../Nav";
 import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import ButtonBooking from "../../components/DoctorProfile/ButtonBooking";
 interface DoctorData {
   id?: number;
   email?: string;
@@ -41,14 +42,14 @@ type OneDoctorProps = {
 
 
 const DoctorPersonalProfile = ({ navigation, route }: any) => {
-     const [id,setId] = useState(route.params.id)
-  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
-    if (id !== undefined) {
-      // Call useFetchDocSpecialists with id
-      return useFetchOneDoctor(id);
+  const doctor = route.params.doctor
+  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', doctor.id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+    if (doctor.id !== undefined) {
+      // Call useFetchDocSpecialists with doctor.id
+      return useFetchOneDoctor(doctor.id);
     } 
     });
-      console.log(data, "DoctorProfile");
+      console.log(doctor, "DoctorProfile");
   return (
     <DrawerScreen>
       <Nav/>
@@ -64,7 +65,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
           <View
             style={[styles.frameGroup, styles.frameFlexBox]}
           >
-            {isSuccess && <DoctoreDeatailss data={data} />}
+            {isSuccess && <DoctoreDeatailss data={data} show={true} />}
             
             
             <View style={[styles.historyParent, styles.frameFlexBox]}>
@@ -79,7 +80,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
         </TouchableOpacity>
-
+        <ButtonBooking doctorId= {doctor.id} />
             </View>
           </View>
         </View>
@@ -89,6 +90,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
     </DrawerScreen>
   );
 };
+
 
 const styles = StyleSheet.create({
 

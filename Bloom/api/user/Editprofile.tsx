@@ -15,7 +15,6 @@ export const useUpdateUser = (id: number) => {
                     `http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/update/${id}`,
                     obj
                 );
-                console.log(response.data);
                 return response.data;
             } catch (error) {
                 console.error("Error updating user:", error);
