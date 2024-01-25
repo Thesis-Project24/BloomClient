@@ -209,7 +209,7 @@ const BookAppointment = ({doctorId}:any) => {
                 ""
             )}
             
-            <ButtonBooking doctorId= {doctorId} />
+           
         </View>
     );
 };

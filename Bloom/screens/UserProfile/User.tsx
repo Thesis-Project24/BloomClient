@@ -33,21 +33,23 @@ import axios from "axios";
 
 
 const User =  () => {
- 
+  // const user = route.params.user
   const [data,setData]= React.useState({})
-  
+
     React.useEffect(()=>{
     const auth = getAuth(app)
     const id = auth.currentUser?.uid
     console.log(auth.currentUser?.uid,':id')
-    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
+    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/getOne/${id}`)
     .then((response:any)=> {
       setData(response.data)
+      console.log("*-*-*-*-**-*-*-*-*-*");
     })
     .catch((error:any)=> {
       console.log(error)
     })
   },[])
+  
   const navigation:any = useNavigation();
   return (
     <>

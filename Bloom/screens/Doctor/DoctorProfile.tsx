@@ -12,8 +12,9 @@ import { RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Nav from "../Nav";
 import DrawerScreen from "../SideBar.tsx/DrawerScreen";
+import { Button } from "react-native-elements";
 interface DoctorData {
-  id?: number;
+  id?: string;
   email?: string;
   first_name?: string;
   last_name?: string;
@@ -77,12 +78,13 @@ const DoctorProfile = ({ navigation, route }: any) => {
             // showsHorizontalScrollIndicator={false}
             // contentContainerStyle={styles.frameScrollViewContent}
           >
-            {isSuccess && <DoctoreDeatailss data={data} />}
+            {isSuccess && <DoctoreDeatailss data={data} show = {false} />}
             
             
             <View style={[styles.historyParent, styles.frameFlexBox]}>
               {isSuccess && <DoctorBio data={data} />}
-              <TouchableOpacity 
+              {/* add article button must be added to doctor personal profil*/}
+              {/* <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
           ///////////////////////missing getting the user to this page /////////////////////
           onPress={()=>{navigation.navigate("AddArticle"),{data:data}}}
@@ -91,13 +93,13 @@ const DoctorProfile = ({ navigation, route }: any) => {
             
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
               <BookAppointment doctorId={id} />
             </View>
           </View>
+     
         </View>
       </View>
-    
     </ScrollView>
     </DrawerScreen>
   );
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   historyParent: {
+    
     maxHeight: 682,
     marginTop: 46,
   },
@@ -274,6 +277,45 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     flex: 1,
     alignItems: "center",
+  },
+  patientFlexBox: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  labelText2: {
+    fontSize: FontSize.medium14_size,
+    fontWeight: "700",
+    fontFamily: FontFamily.headingsH6,
+    color: Color.black,
+    textAlign: "center",
+  },
+  stateLayer: {
+    flex: 1,
+    backgroundColor: Color.sageGreen,
+    flexDirection: "row",
+    paddingHorizontal: Padding.p_5xl,
+    paddingVertical: Padding.p_3xs,
+    alignSelf: "stretch",
+  },
+  patientButton: {
+    borderRadius: Border.br_5xs,
+    backgroundColor: Color.orangeRangeOrange90,
+    width: 288,
+    height: 48,
+    maxWidth: 288,
+    maxHeight: 50,
+    overflow: "hidden",
+    alignItems: "center",
+  },
+  patientButtonWrapper: {
+    height: 74,
+    paddingHorizontal: Padding.p_32xl,
+    paddingVertical: Padding.p_smi,
+    maxHeight: 75,
+    marginTop: 46,
+    overflow: "hidden",
+    alignItems: "center",
+    alignSelf: "stretch",
   },
 });
 
