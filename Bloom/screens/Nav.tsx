@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 11,
     fontFamily: FontFamily.epilogueMedium,
-    color: Color.colorGray_100,
+    color: Color.coloGray_100,
   },
   wrapper: {
     borderRadius: Border.br_2xs,

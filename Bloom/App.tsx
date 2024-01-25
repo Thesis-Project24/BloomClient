@@ -95,6 +95,11 @@ export default function App() {
     "Tajawal-Medium": require("./assets/fonts/Tajawal-Medium.ttf"),
     "Tajawal-Bold": require("./assets/fonts/Tajawal-Bold.ttf"),
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "Sora-Bold": require("./assets/fonts/Sora-Bold.ttf"),
+    "Epilogue-SemiBold": require("./assets/fonts/Epilogue-SemiBold.ttf"),
+    "Epilogue-Bold": require("./assets/fonts/Epilogue-Bold.ttf"),
+    "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
+    "Tajawal-Light": require("./assets/fonts/Tajawal-Light.ttf"),
   });
 
   const Drawer = createDrawerNavigator();
@@ -129,6 +134,11 @@ export default function App() {
           component={User}
           options={{ headerShown: false }}
         />
+        {/* <Drawer.Screen
+          name="PageSpecialists"
+          component={PageSpecialists}
+          options={{ headerShown: false }}
+        /> */}
         <Drawer.Screen
           name="Back"
           options={{
@@ -216,12 +226,12 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-                    name="DoctorProfile"
-                    component={DoctorProfile}
-                    options={{
-                        headerLeft: () => null,
-                    }}
-                />
+          name="DoctorProfile"
+          component={DoctorProfile}
+          options={{
+            headerLeft: () => null,
+          }}
+        />
         <Stack.Screen
           name="Articles"
           component={Articles}
@@ -257,6 +267,13 @@ export default function App() {
             headerShown: false,
           }}
         />
+        {/* <Stack.Screen
+          name="PageSpecialists"
+          component={PageSpecialists}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
 
         {/* <Stack.Screen
           name="PostDetails"
@@ -280,7 +297,7 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <Stack.Screen
+        <Drawer.Screen
           name="Tracker"
           component={Tracker}
           options={{ headerShown: false }}
@@ -308,18 +325,24 @@ export default function App() {
             <Stack.Screen
               name="MentalHealth"
               component={MentalHealth}
-              options={{ headerShown: true }}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         ) : (
           <>
-          <Stack.Navigator initialRouteName="SignIn">
-            <Stack.Screen name="SignIn" component={SignIn} />
-             <Stack.Screen name="SignUp" component={SignUp} />
-          </Stack.Navigator>
-             
+            <Stack.Navigator initialRouteName="SignIn">
+              <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{ headerShown: false }} />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{ headerShown: false }} />
+            </Stack.Navigator>
+
           </>
-         
+
         )}
       </NavigationContainer>
     </QueryClientProvider>
