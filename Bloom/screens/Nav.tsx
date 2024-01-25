@@ -75,9 +75,7 @@ const Nav = () => {
                         >
                             <TouchableOpacity
                                 onPress={() =>{
-                                  console.log(data.role)
                                   if(data.role === "user") {
-                                   console.log("lf,zmlf,")
                                     navigation.navigate("User" as never)
                                   }
                                   else { navigation.navigate("DoctorPersonalProfile",{doctor:data})}
