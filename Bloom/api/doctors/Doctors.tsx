@@ -1,6 +1,19 @@
 import { useMutation, useQuery } from "react-query";
 
-export const useFetchOneDoctor = async (id:number) => {
+export const useFetchAllDoctors = async () => {
+  try {
+    const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getAll`);
+    if (!res.ok) throw new Error(res.statusText);
+    const jsonData = await res.json();
+    return jsonData;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+
+
+export const useFetchOneDoctor = async (id:string) => {
   try {
     const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/getOne/${id}`);
     if (!res.ok) throw new Error(res.statusText);
@@ -13,7 +26,6 @@ export const useFetchOneDoctor = async (id:number) => {
 
 export const useFetchDocSpecialists = async (specialty:string) => {
   try {
-    
     const res = await fetch(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/doctors/specialty/${specialty}`);
     if (!res.ok) throw new Error(res.statusText);
     const jsonData = await res.json();

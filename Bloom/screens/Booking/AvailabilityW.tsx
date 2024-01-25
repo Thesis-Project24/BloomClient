@@ -9,9 +9,11 @@ import {
   Padding,
   Border,
 } from "../../GlobalStyles";
-const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: { duration: string; pause: string } };}) => {
+const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: { duration: string; pause: string, doctorId:string } };}) => {
+
   const duration = route.params.duration;
   const pause = route.params.pause;
+  const doctorId = route.params.doctorId
   const [chosenDateStart, setChosenDateStart] = React.useState(new Date());
   const [chosenDateEnd, setChosenDateEnd] = React.useState(new Date());
   const [viewEnd, setViewEnd] = React.useState(false);
@@ -29,8 +31,7 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
     endingTime: string;
   }[]
 >([]);
-  const mutation = addWindow();
-  console.log(windowsDb,"front")
+  const mutation = addWindow(doctorId);
   if(windowsDb){
 
     windowsDb.forEach(element=>{
@@ -82,14 +83,13 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
         onPress={() => {
           mutation.mutate([
             {
-              doctorId: 1,
+              doctorId: doctorId,
               duration: Number(duration),
               pause: Number(pause),
               startingTime: chosenDateStart,
               endingTime: chosenDateEnd,
             },
           ]);
-          // console.log(mutation.data,"mutated")
           setWindowsDb(mutation.data);
         }}
         title="set window"

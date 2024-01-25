@@ -4,12 +4,12 @@ import { FontSize, FontFamily, Color, Padding, Border } from "../../GlobalStyles
 // import { useNavigation } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/core";
 
-const ButtonBooking = () => {
+const ButtonBooking = ({doctorId}:any) => {
   const navigation:any= useNavigation()
   return (
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
       <TouchableOpacity 
-       onPress={() => navigation.navigate("Availability")}
+       onPress={() => {navigation.navigate("Availability",{doctorId:doctorId})}}
       style={[styles.patientButton, styles.patientFlexBox]}>
         <View style={[styles.stateLayer, styles.patientFlexBox]}>
           <Text style={styles.labelText2}>Availability</Text>

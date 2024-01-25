@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import React, { useState,useEffect } from "react";
 import {  useSearchArticles } from "../../api/articles/Articles";
 import { FontFamily } from "../../GlobalStyles";
@@ -39,14 +39,20 @@ const Articles = () => {
   }
   return (
     <View style={styles.bigContainer}>
-      <ScrollView>
+      <ScrollView
+       showsVerticalScrollIndicator={false}
+       showsHorizontalScrollIndicator={false}
+      
+      >
         <Image
           style={[styles.profileItem, styles.profilePosition]}
           // contentFit="cover"
           source={require("../../assets/vector-1.png")}
         />
         {/* image carrossel  */}
-        <SliderArticles />
+        
+        <SliderArticles disabled = {true} />
+    
         <SearchBar
          placeholder="Look for your article"
          containerStyle={{ backgroundColor: "#ADD8C4", borderRadius: 30 }}

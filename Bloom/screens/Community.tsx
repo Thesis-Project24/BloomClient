@@ -6,6 +6,8 @@ import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { getAuth } from 'firebase/auth';
+import { app } from '../firebase.config';
 
 const fetchForumPosts = () => {
   return useQuery('fetchForum', async () => {
@@ -19,6 +21,28 @@ const fetchForumPosts = () => {
 };
 
 const Community = () => {
+
+
+
+  const [data,setData]= React.useState({})
+  
+    React.useEffect(()=>{
+    const auth = getAuth(app)
+    const id = auth.currentUser?.uid
+    console.log(auth.currentUser?.uid,':id')
+    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
+    .then((response:any)=> {
+      setData(response.data)
+    })
+    .catch((error:any)=> {
+      console.log(error)
+    })
+    // console.log(id);
+  },[])
+
+
+
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const { data: posts, isLoading, error,refetch } = fetchForumPosts();
 
@@ -41,11 +65,13 @@ const Community = () => {
         
         <FlatList
           data={posts}
-          renderItem={({ item }) => <PostForum refetch={refetch} post={item} />}
+          renderItem={({ item }) => <PostForum refetch={refetch} post={item} id={data.id}/>}
           keyExtractor={(item) => item.id.toString()}
           // ListFooterComponent={()=><Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost")} />}
         />
-      <Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost")} />
+      <Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost",{
+        id:data.id,
+      })} />
       </View>
     </View>
   );

@@ -45,18 +45,17 @@ type OneDoctorProps = {
 const DoctorProfile = ({ navigation, route }: any) => {
 
   
-  
+   const id =route.params.id
     //  const [id,setId] = useState(route.params.id)
-  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', 1], (context: QueryFunctionContext<["OneDoctor", number]>) => {
-    // Extract id from context
-    const id = context.queryKey[1];  
+  const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
+
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
-      return useFetchOneDoctor(1);
+      return useFetchOneDoctor(id);
     } 
     });
-      console.log(data, "DoctorProfile");
+    
   return (
     <DrawerScreen>
       <Nav/>
@@ -85,15 +84,15 @@ const DoctorProfile = ({ navigation, route }: any) => {
               {isSuccess && <DoctorBio data={data} />}
               <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
-
-          onPress={()=>navigation.navigate("AddArticle")}
+          ///////////////////////missing getting the user to this page /////////////////////
+          onPress={()=>{navigation.navigate("AddArticle"),{data:data}}}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
         </TouchableOpacity>
-              <BookAppointment />
+              <BookAppointment doctorId={id} />
             </View>
           </View>
         </View>

@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import { createCommentMutation, deleteCommentMutation, deletePostMutation, editCommentMutation, getUserIdFromUsername, useFetchComments } from '../../api/forum/Forum';
 
-const PostForum = ({ refetch, post }: any) => {
+const PostForum = ({ refetch, post,id }: any) => {
   refetch(post);
   const [userSuggestions, setUserSuggestions] = useState([]);
   const [isTagging, setIsTagging] = useState(false);
@@ -143,7 +143,7 @@ const PostForum = ({ refetch, post }: any) => {
   };
 ////////////////////////////////handle delete post ///////////////////////////////////////////
   const handleDeletePost = () => {
-    if (post.authorId === 'fdgbh') {
+    if (post.authorId === id) {
       Alert.alert(
         "Delete Post",
         "Are you sure you want to delete this post?",
@@ -179,7 +179,7 @@ const PostForum = ({ refetch, post }: any) => {
 
 // rendering the edit comment component
   const renderCommentOptions = (comment: any) => {
-    if (comment.userId === "fdgbh") {
+    if (comment.userId === id) {
       return (
         <View style={styles.commentOptionsContainer}>
           <TouchableOpacity onPress={() => startEditing(comment)}>
@@ -208,7 +208,7 @@ const PostForum = ({ refetch, post }: any) => {
       const commentData = {
           content: newComment,
           postId: post.id,
-          userId: "fdgbh",
+          userId: id,
           tagId: tagId, 
       };
       console.log("Sending comment data: ", commentData);
@@ -278,7 +278,7 @@ const PostForum = ({ refetch, post }: any) => {
             style={styles.profileImage}
           />
           <Text style={styles.authorName}>{post.author.first_name  }</Text>
-          {post.authorId === "fdgbh" &&
+          {post.authorId === id &&
             <TouchableOpacity onPress={handleDeletePost} style={styles.deleteIcon}>
               <MaterialIcons name="delete" size={24} color="#729384" />
             </TouchableOpacity>

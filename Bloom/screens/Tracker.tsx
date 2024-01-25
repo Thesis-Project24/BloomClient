@@ -21,8 +21,14 @@ import {
 import Garbage from "../components/Trackers/Garbage";
 import Satisfaction from "../components/UserProfile/Satisfaction";
 import { AntDesign } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import NavBarEdit from "../components/DoctorProfile/NavBarEditDoctor";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase.config";
 
 const Tracker = () => {
+  const auth = getAuth(app)
+  const id = auth.currentUser?.uid
   const {
     data: habits,
     isLoading: habitsLoading,
@@ -35,7 +41,7 @@ const Tracker = () => {
     isError: userHabitsError,
     isSuccess,
     refetch: refetchUserHabits,
-  } = useFetchHabitsUser();
+  } = useFetchHabitsUser(id);
   const { assignMultiHabits, isAssigningMultipleHabits } =
     useAssignMultiHabits();
   // const [submitted, setSubmitted] = useState<boolean>(false);
@@ -114,18 +120,16 @@ const Tracker = () => {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <>
+    <NavBarEdit page={"hello"}/>
+    <ScrollView 
+    style={styles.track}
+    showsVerticalScrollIndicator={false}>
       <View>
-        <Image
-          style={[styles.profileItem, styles.profilePosition]}
-          // contentFit="cover"
-          source={require("../assets/vector-1.png")}
-        />
-
         <Text style={styles.init}> What Habit Do you Want to Track </Text>
         <View style={styles.habitsWrapper}>
           {habits &&
-            habits.habits?.map((ele: any) => (
+            habits.habits?.map((ele: any,index:number) => (
               <Habit
                 key={ele.id}
                 habit={{
@@ -133,6 +137,7 @@ const Tracker = () => {
                   name: ele.name,
                 }}
                 onHabitSelect={handleHabitSelect}
+                style={index < 3 ? styles.habitGroup1 : index < 6 ? styles.habitGroup2 : styles.habitGroup3}
               />
             ))}
         </View>
@@ -168,7 +173,7 @@ const Tracker = () => {
                 ))}
             </View>
           </ScrollView>
-          {<Garbage />}
+          {isDragging && <Garbage />}
         </View>
       </View>
       <View>
@@ -209,14 +214,23 @@ const Tracker = () => {
                 name: ele.habit.name,
                 tracker: ele.tracker,
               }}
+              reload={refetchUserHabits}
             />
           ))}
       </View>
     </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  track:{
+    flex: 1,
+    backgroundColor:"#F3F0EA",
+    // flexDirection: "",
+
+    // marginTop: 10,
+  },
   container: {
     flex: 1,
     flexDirection: "row",
@@ -277,6 +291,36 @@ const styles = StyleSheet.create({
   profilePosition: {
     left: 0,
     position: "relative",
+  },
+  habitGroup1: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#729384",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
+  },
+  habitGroup2: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#ADD8C4",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
+  },
+  habitGroup3: {
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: "#ADD8C4",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+    // ...other styles
   },
 });
 

@@ -71,7 +71,7 @@ const Ad = () => {
 
 const styles = StyleSheet.create({
   textTypo: {
-    color: Color.colorDimgray,
+    color: Color.colorDimgrayred,
     lineHeight: 16,
     fontSize: FontSize.size_xs,
     textAlign: "left",
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "500",
-    color: Color.colorDimgray,
+    color: Color.colorDimgrayred,
   },
   starIcon1: {
     marginLeft: 2,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   text1: {
     marginLeft: 8,
     fontWeight: "500",
-    color: Color.colorDimgray,
+    color: Color.colorDimgrayred,
   },
   frameGroup: {
     marginTop: 8,

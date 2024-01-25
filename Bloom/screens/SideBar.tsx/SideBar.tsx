@@ -8,6 +8,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth, signOut } from "firebase/auth";
 
 
 
@@ -71,7 +73,7 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                   <TouchableOpacity
                     style={[styles.homeButton, { backgroundColor: homeBgColor, }]}
                     onPress={() => {
-                      navigation.navigate("Home")
+                      navigation.navigate("Back")
                     }}
                   >
                     <Octicons name="home" size={18} color={homeButtonColor} />
@@ -144,7 +146,7 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Home")
+                      navigation.navigate("SavedArticles")
                     }}
 
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: articalBgColor, }]}
@@ -212,7 +214,15 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  
+                  onPress={async()=>{
+                    const auth = getAuth();
+                    signOut(auth).then(() => {
+                      navigation.navigate("signIn")
+                      console.log("byebye")
+                    }).catch((error:any) => {
+                      console.log(error)
+                    });
+                  }}
                   style={styles.listManu}>
                   <View style={[styles.content, styles.frameFlexBox1]}>
                     <MaterialIcons name="logout" size={22} color={Color.grayShadesDarkGray} />

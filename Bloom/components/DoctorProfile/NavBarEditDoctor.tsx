@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     // minWidth: 430,
     // width: "100%",
     // maxWidth: 450,
-    // height: "100%",
+     height: "100%",
     // maxHeight: 300,
     // minHeight: 100,
 

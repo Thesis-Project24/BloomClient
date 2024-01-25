@@ -1,12 +1,15 @@
-import { View,KeyboardAvoidingView, Text,ScrollView,TextInput,StyleSheet, Platform } from 'react-native'
+import { View,KeyboardAvoidingView, Text,ScrollView,TextInput,StyleSheet, Platform,TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { createArticle } from '../../api/articles/Articles'
 import { FontAwesome } from '@expo/vector-icons'
 
-const AddArticle = () => {
+const AddArticle = ({route}:any) => {
+    console.log('====================================');
+    console.log(route,'///////////////');
+    console.log('====================================');
     const [title,setTitle] = useState<string>("")
     const [content,setContent] = useState<string>("")
-    const [authorId,setAuthorId]= useState<number>(1)
+    const [authorId,setAuthorId]= useState<number>(route.data)
     const createMutation = createArticle()
     const handleSubmit = ()=>{
         createMutation.mutate(
@@ -15,135 +18,82 @@ const AddArticle = () => {
     }
   return (
     
-    <ScrollView
-    >
-      <View
-        style={styles.inputContainer}
-      >
-        <TextInput
-          style={[styles.input, { fontSize: 45 }]}
-          multiline={true}
-          numberOfLines={2}
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-          placeholder="Title"
-        />
-      </View>
-      <View
-        style={styles.inputContainer}
-        >
-  
-        <TextInput
-          style={styles.input}
-          placeholder="Content"
-          multiline={true}
-          numberOfLines={10}
-          value={content}
-          onChangeText={(text) => setContent(text)}
-          underlineColorAndroid='transparent'
-          />
-       
+<View style={styles.container}>
+      <Text style={styles.header}>Create An Article</Text>
 
-      </View>
-      <FontAwesome
-        name='check-circle'
-        color='purple'
-        size={44}
-        style={styles.uploadBtn}
-        onPress={handleSubmit}
-        />
-    </ScrollView>
-  )
-}
+      <TextInput
+        style={styles.input}
+        placeholder="Title ..."
+        placeholderTextColor="#888"
+        value={title}
+        onChangeText={setTitle}
+      />
+
+      <TextInput
+        style={[styles.input, styles.textArea]}
+        placeholder="What's on your mind?"
+        placeholderTextColor="#888"
+        value={content}
+        onChangeText={setContent}
+        multiline
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleSubmit }>
+        <Text style={styles.buttonText}>Post</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-  profileChild: {
-    bottom: -155,
-    left: -262,
-    width: 411,
-    height: 358,
-    position: "absolute",
-  },
-
-  handlewrite: {
-    color: 'white',
-  },
-  headingText: {
-    fontSize: 36,
-    fontFamily: 'Nunito-Black',
-    color: 'rgba(0,0,0,0.7)',
-    margin: 10,
-  },
-  primaryContainer: {
+  container: {
+    // padding: 20,
+    paddingTop: 100,
     backgroundColor: '#F3F0EA',
-    flex: 1,
-    height: "100%",
-
-
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    flexDirection:'column',
+    justifyContent:'space-between'
   },
-  btnText: {
-    fontFamily: 'Nunito-SemiBold',
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center'
-  },
-  gradient: {
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-  },
-  text: {
-    fontSize: 24,
+  header: {
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#000',
-    textShadowColor: '#fff',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 5,
+    marginBottom: 55,
+    color: '#333',
+    alignSelf:'center',
+    
   },
   input: {
-    marginHorizontal: 10,
-    marginVertical: 10,
-    padding: 10,
-    textAlignVertical: 'top',
-    fontSize: 30
+    borderWidth: 1,
+    borderColor: '#DDD',
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 4,
+    marginBottom: 10,
+    fontSize: 16,
+    color: '#333',
   },
-  label: {
-    fontSize: 18,
-    margin: 10,
-    fontFamily: 'Nunito-Regular',
+  textArea: {
+    height: 150,
   },
-  touchabelBtn: {
-    padding: 10,
-    backgroundColor: 'lightgray',
-    borderRadius: 7,
-    shadowColor: 'gray',
-    shadowOffset: {
-      width: 1,
-      height: 2,
+  button: {
+    backgroundColor: '#ADD8C4',
+    padding: 15,
+    borderRadius: 4,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    
+  },
+  // Add more styling as needed
+});
 
-      marginHorizontal: 20,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  },
-  image: {
-    width: 50,
-    height: 50,
-  },
-  uploadBtn: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    color: '#729384',
-    shadowOffset: {
-      width: 1,
-      height: 2
-    },
-    shadowOpacity: 0.5,
-    elevation: 10,
-  },
-  inputContainer: {
-    marginTop: 20,
-  }
-})
 
 export default AddArticle

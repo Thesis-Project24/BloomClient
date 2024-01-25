@@ -7,7 +7,8 @@ import { Border, FontFamily, FontSize, Color, Padding } from '../../GlobalStyles
 import { AntDesign } from '@expo/vector-icons';
 
 
-const Availability = () => {
+const Availability = ({route}:any) => {
+  const doctorId = route.params.doctorId
   const navigation: any = useNavigation()
   const [duration, onChangeDuration] = React.useState("");
   const [pause, onChangePause] = React.useState("");
@@ -107,6 +108,7 @@ const Availability = () => {
               onPress={() => navigation.navigate("AvailabilityW", {
                 duration: duration,
                 pause: pause,
+                doctorId: doctorId
               })}
             // title="add Window"
             >

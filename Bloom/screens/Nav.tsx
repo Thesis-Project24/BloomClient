@@ -2,28 +2,36 @@ import * as React from "react";
 import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { FontSize, FontFamily, Color, Padding, Border } from "../GlobalStyles";
 import { StatusBar } from "react-native";
-import { fetchData } from "../api/user/Editprofile";
 import { Avatar } from "react-native-elements";
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import DrawerScreen from "./SideBar.tsx/DrawerScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase.config";
+import axios from "axios";
 
 
 const Nav = () => {
-
+  const [data,setData]= React.useState({})
+    React.useEffect(() => {
+      const auth = getAuth(app)
+      const id = auth.currentUser?.uid
+      console.log(auth.currentUser?.uid,':id')
+      axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
+      .then((response:any)=> {
+        setData(response.data)
+      })
+      .catch((error:any)=> {
+        console.log(error)
+      })
+      }, []);
   const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
 
   StatusBar.setBarStyle("dark-content");
   StatusBar.setHidden(false);
-  // const {
-  //   data: userData,
-  //   isLoading: userLoading,
-  //   isError: usersError,
-  //   isSuccess,
-  // } = fetchData();
-
   return (
 
     <View style={ styles.textPosition} >
@@ -52,7 +60,7 @@ const Nav = () => {
               <Avatar
                 rounded
                 size={"medium"}
-                // source={{ uri: userData?.profile_picture }}
+                source={{ uri: data?.profile_picture }}
               />
             </TouchableOpacity>
           </View>
@@ -154,7 +162,7 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 11,
     fontFamily: FontFamily.epilogueMedium,
-    color: Color.colorGray_100,
+    color: Color.coloGray_100,
   },
   wrapper: {
     borderRadius: Border.br_2xs,
@@ -202,3 +210,4 @@ const styles = StyleSheet.create({
 });
 
 export default Nav;
+   

@@ -15,6 +15,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { app } from "../../firebase.config";
 
 const SignIn = () => {
+  console.log('reached')
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -165,9 +166,8 @@ Happier You`}</Text>
                   <Pressable
                     style={styles.vectorWrapper}
                     onPress={() =>{
-                      
                       mutation.mutate({ email: email, password: password, role:"user" })
-                      navigation.navigate("Back");
+                      // navigation.navigate("User");
                     }}
                   >
                     <Image

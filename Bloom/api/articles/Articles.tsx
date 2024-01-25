@@ -41,8 +41,11 @@ export const createArticle = () => {
     }: {
       title: string;
       content: string;
-      authorId: number;
+      authorId: string;
     }) => {
+      console.log('====================================');
+      console.log(authorId);
+      console.log('====================================');
       const response = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/postArticle`,
         { title, content, authorId }
@@ -76,7 +79,7 @@ export const useFetchSavedArticles = (userId: number) => {
       const response = await axios.get(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/savedArticles`,
         {
-          userId: 1,
+          userId,
         }
       );
       const data = response.data;

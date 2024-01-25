@@ -3,15 +3,26 @@ import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from 'rea
 import { createForumPost } from '../../api/forum/Forum'
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-const CreatePost = () => {
+const CreatePost = ({route}:any) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [authorId, setAuthorId] = useState('');
   const { mutate: createPost, isLoading, isError, error } = createForumPost();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+const {id}=route.params
+
+
+
+
+
+
+
+
+
+  
   const handleSubmit = () => {
     if (title && content) {
-      const postData = { title, content ,authorId:"fdgbh"};
+      const postData = { title, content ,authorId:id};
       console.log("Post Data: ", postData);  
       createPost(postData);
 navigation.navigate('Community')

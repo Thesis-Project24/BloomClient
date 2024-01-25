@@ -19,7 +19,7 @@ import {
 } from "../../GlobalStyles";
 
 interface DoctorData {
-  id?: number;
+  id?: string;
   email?: string;
   first_name?: string;
   last_name?: string;
@@ -46,7 +46,6 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
                 navigation.navigate("EditDoctorProfile", {
                   id: data.id
                 })
-                console.log(data.id, "doctor.idddddddddddddddddddddddddd");
               }
               }
               style={[styles.iconsWrapper, styles.parentFlexBox]} >
