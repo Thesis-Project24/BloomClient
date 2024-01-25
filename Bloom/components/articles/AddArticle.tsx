@@ -4,9 +4,12 @@ import { createArticle } from '../../api/articles/Articles'
 import { FontAwesome } from '@expo/vector-icons'
 
 const AddArticle = ({route}:any) => {
+    console.log('====================================');
+    console.log(route,'///////////////');
+    console.log('====================================');
     const [title,setTitle] = useState<string>("")
     const [content,setContent] = useState<string>("")
-    const [authorId,setAuthorId]= useState<number>(route.params.data)
+    const [authorId,setAuthorId]= useState<number>(route.data)
     const createMutation = createArticle()
     const handleSubmit = ()=>{
         createMutation.mutate(

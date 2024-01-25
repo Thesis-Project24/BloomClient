@@ -41,8 +41,11 @@ export const createArticle = () => {
     }: {
       title: string;
       content: string;
-      authorId: number;
+      authorId: string;
     }) => {
+      console.log('====================================');
+      console.log(authorId);
+      console.log('====================================');
       const response = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/postArticle`,
         { title, content, authorId }
