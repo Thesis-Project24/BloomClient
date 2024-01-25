@@ -21,20 +21,32 @@ import {
 import { transparent } from "react-native-paper/lib/typescript/styles/colors";
 import ButtonBooking from "./ButtonBooking";
 import {
+    addToWaitlist,
     bookAppointment,
     getSlotsByWindow,
     getWindowsByDate,
 } from "../../api/appointements/appointments";
 import { Slot, Window } from "../../type";
+import { app } from "../../firebase.config";
+import { getAuth } from "firebase/auth";
 const BookAppointment = ({doctorId}:any) => {
+    
+    //states
     const [selectedDate, setSelectedDate] = React.useState("");
     const [windows, setWindows] = React.useState<Window[]>([]);
     const [description, setDescription] = React.useState("");
     const [slot, setSlot] = React.useState<Slot>();
+
+    //get user Id from firebase
+    const auth = getAuth(app)
+    const userId = auth.currentUser?.uid
+
+    //mutation functions
     const windowMutation = getWindowsByDate(doctorId);
     const slotMutation = getSlotsByWindow();
     const bookingMutation = bookAppointment();
-    
+      const waitlistMutation = addToWaitlist(userId)
+
     return (
         <View style={styles.frameParent}>
             {/* horizontal calendar */}
@@ -172,17 +184,18 @@ const BookAppointment = ({doctorId}:any) => {
                     </View>
                 </View>
             </View>
-            {slot ? (
+            {slot && userId ? (
                 <View>
                     <TouchableOpacity
                         style={[styles.patientButton, styles.patientFlexBox]}
                         onPress={() => {
-                            bookingMutation.mutate({
-                                patientId: 1,
-                                doctorId: doctorId,
-                                slotId: slot.id,
-                                appDetails: description,
-                            });
+                            // bookingMutation.mutate({
+                            //     patientId: userId,
+                            //     doctorId: doctorId,
+                            //     slotId: slot.id,
+                            //     appDetails: description,
+                            // });
+                            waitlistMutation.mutate(slot.id)
                         }}
                     >
                         <View style={[styles.stateLayer, styles.patientFlexBox]}>

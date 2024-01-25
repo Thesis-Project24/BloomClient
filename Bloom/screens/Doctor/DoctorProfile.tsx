@@ -45,11 +45,10 @@ type OneDoctorProps = {
 const DoctorProfile = ({ navigation, route }: any) => {
 
   
-  
-     const [id,setId] = useState(route.params.id)
+   const id =route.params.id
+    //  const [id,setId] = useState(route.params.id)
   const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
-    // Extract id from context
-    // const id = context.queryKey[id];  
+
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id

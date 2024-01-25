@@ -46,7 +46,6 @@ const DoctoreDeatailss = ({ data }: { data: DoctorData }) => {
                 navigation.navigate("EditDoctorProfile", {
                   id: data.id
                 })
-                console.log(data.id, "doctor.idddddddddddddddddddddddddd");
               }
               }
               style={[styles.iconsWrapper, styles.parentFlexBox]} >

@@ -32,7 +32,6 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
   }[]
 >([]);
   const mutation = addWindow(doctorId);
-  console.log(doctorId,"front")
   if(windowsDb){
 
     windowsDb.forEach(element=>{
@@ -91,7 +90,6 @@ const AvailabilityW = ({navigation,route}: {navigation: string;route: { params: 
               endingTime: chosenDateEnd,
             },
           ]);
-          // console.log(mutation.data,"mutated")
           setWindowsDb(mutation.data);
         }}
         title="set window"
