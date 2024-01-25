@@ -217,6 +217,7 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                   onPress={async()=>{
                     const auth = getAuth();
                     signOut(auth).then(() => {
+                      AsyncStorage.clear()
                       navigation.navigate("signIn")
                       console.log("byebye")
                     }).catch((error:any) => {
