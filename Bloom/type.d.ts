@@ -1,5 +1,5 @@
 interface User {
-  id: number;
+  id: string;
   email: string;
   username: string;
   first_name: string;
@@ -11,7 +11,7 @@ interface User {
 }
 
 interface Doctor {
-  id?: number;
+  id?: string;
   email: string;
   first_name: string;
   last_name: string;
@@ -34,8 +34,8 @@ interface Journal {
 
 interface Appointmenent {
   id?: number;
-  patientId: number;
-  doctorId: number;
+  patientId: string;
+  doctorId: string;
   appDetails?: string;
   appStatus?: string;
   appReview?: number;

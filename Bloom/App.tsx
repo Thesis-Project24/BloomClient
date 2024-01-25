@@ -47,25 +47,26 @@ import SideBar from "./screens/SideBar.tsx/SideBar";
 
 
 
+
 const queryClient = new QueryClient();
 export default function App() {
+  // const [initializing, setInitializing] = useState(true);
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
   const [user, setUser] = useState({});
-  React.useEffect(() => {
-   console.log("haja")
-   const auth = getAuth(app);
-  
-   const unsubscribe = auth.onAuthStateChanged((currentUser:any) => {
-      setUser(currentUser);
-      console.log(currentUser,':current');
-    });
-  
-   return () => {
-      unsubscribe();
-   };
-  }, []);
-  
- 
+
+  function onAuthStateChanged(user:any) {
+    setUser(user);
+    // if (initializing) setInitializing(false);
+   }
+   
+   useEffect(() => {
+    const auth = getAuth(app)
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+    return subscriber; 
+   }, []);
+  // if (initializing) return null;
+
+
   const [fontsLoaded, error] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
