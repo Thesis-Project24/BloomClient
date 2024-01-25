@@ -1,128 +1,3 @@
-// import * as React from "react";
-// import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-// import {
-//   Padding,
-//   Color,
-//   Border,
-//   FontSize,
-//   FontFamily,
-// } from "../GlobalStyles";
-// import { useNavigation } from "@react-navigation/core";
-// import Nav from "./Nav";
-// import DrawerScreen from "./SideBar.tsx/DrawerScreen";
-
-// const Home = () => {
-//   const navigation = useNavigation();
-//   return (
-//     <DrawerScreen>
-//     <View style={{
-//       flex: 1,
-//       backgroundColor: "#f3f0ea",
-//     }}>
-//       <Nav/>
-//       <Text style={[styles.textPosition]}>Ahla bikom ness koll marhbee marhbeee</Text>
-
-
-//       <View style={[styles.frameContainer, styles.frameWrapperShadowBox]}>
-//         <View style={styles.vectorParent}>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate("Articles" as never)}
-//           >
-//             <Image
-//               style={styles.vectorIcon1}
-//               resizeMode="cover"
-//               source={require("../assets/vector1.png")}
-//             />
-//             <Text
-//               style={[styles.reservation, styles.journalFlexBox]}
-//               numberOfLines={1}
-//             >
-//               {" "}
-//               Articles
-//             </Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     </View>
-//     </DrawerScreen>
-//   );
-// };
-// const styles = StyleSheet.create({
-//   textPosition: {
-//     left: -10,
-//     top: 50,
-//     textAlign: "center",
-//     fontWeight: "800",
-//   },
-//   frameContainer: {
-//     // zIndex: 1,
-//   },
-//   frameWrapperShadowBox: {
-//     padding: Padding.p_3xs,
-//     height: 100,
-//     width: 120,
-//     shadowOpacity: 1,
-//     elevation: 4,
-//     shadowRadius: 4,
-//     shadowOffset: {
-//       width: 0,
-//       height: 4,
-//     },
-//     shadowColor: "rgba(0, 0, 0, 0.25)",
-//     backgroundColor: Color.sageGreen,
-//     borderRadius: Border.br_3xs,
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     flexDirection: "row",
-//   },
-//   vectorParent: {
-//     justifyContent: "center",
-//     flex: 1,
-
-//     alignSelf: "stretch",
-//     alignItems: "center",
-//   },
-//   vectorIcon1: {
-//     width: 37,
-//     height: 37,
-//     marginLeft: 30,
-//   },
-//   reservation: {
-//     lineHeight: 16,
-//     fontWeight: "700",
-//     fontFamily: FontFamily.tajawalBold,
-//   },
-//   journalFlexBox: {
-//     marginTop: 10,
-//     maxHeight: 20,
-//     display: "flex",
-//     textAlign: "center",
-//     color: Color.colorGray_200,
-//     letterSpacing: 0,
-//     fontSize: FontSize.size_sm,
-//     overflow: "hidden",
-//     justifyContent: "center",
-//     flex: 1,
-//     alignSelf: "stretch",
-//     alignItems: "center",
-//   },
-// });
-// export default Home;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
@@ -134,17 +9,19 @@ import ArticlesHome from "../components/HomePage/ArticlesHome";
 import MentalHealthHome from "../components/HomePage/MentalHealthHome";
 import { Color, FontSize, Padding, FontFamily, Border } from "../GlobalStyles";
 import UpComingSession from "../components/HomePage/UpComingSession";
-// import { useNavigation } from "@react-navigation/core";
 import Nav from "./Nav";
 import DrawerScreen from "./SideBar.tsx/DrawerScreen";
 import { NavigationProp } from '@react-navigation/native';
+import { useFetchAllDoctors } from "../api/doctors/Doctors";
+import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
 
 type HomeScreenNavigationProp = NavigationProp<Record<string, object>>;
 
 const Home = ({navigation}: {navigation: HomeScreenNavigationProp}) => {
-  // const navigation = useNavigation();
+  
   return (
-    <DrawerScreen>
+    <>
+    {/* // <DrawerScreen> */}
       <Nav/>
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -179,7 +56,8 @@ const Home = ({navigation}: {navigation: HomeScreenNavigationProp}) => {
         </View>
       </View>
     </ScrollView>
-    </DrawerScreen>
+    {/* // </DrawerScreen> */}
+    </>
   );
 };
 
@@ -189,6 +67,7 @@ const styles = StyleSheet.create({
     maxHeight: 180,
     flex: 1,
     alignSelf: "stretch",
+    backgroundColor: Color.colorWhite,
   },
 
   frameScrollViewContent: {
@@ -805,6 +684,7 @@ const styles = StyleSheet.create({
   },
  
   containerHomeParent: {
+    backgroundColor: Color.colorWhite,
     // marginLeft: -207,
     alignItems: "center",
     // left: "50%",
@@ -815,8 +695,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     // position: "relative",
     // overflow: "hidden",
-    paddingBottom:100,
-    marginBottom:200,
+    paddingBottom:400,
+    marginBottom:600,
     // backgroundColor:"green",
     minHeight: 2000,
   },
@@ -829,7 +709,7 @@ const styles = StyleSheet.create({
   //  marginBottom:100,
   
     position: "relative",
-     backgroundColor: Color.colorWhite,
+     backgroundColor: Color.beige,
   //  backgroundColor: "red",
   },
 });

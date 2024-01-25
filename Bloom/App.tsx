@@ -113,8 +113,8 @@ export default function App() {
             headerShown: false,
             drawerStyle: {
               backgroundColor: "#fff",
-              borderTopRightRadius: 100,
-              borderBottomRightRadius: 100,
+              // borderTopRightRadius: 100,
+              // borderBottomRightRadius: 100,
             },
             drawerActiveBackgroundColor: "#f3f0ea",
             overlayColor: "transparent",
