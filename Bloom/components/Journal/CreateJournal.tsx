@@ -1,30 +1,56 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 import { createJ, getJournals } from '../../api/journal/Journal';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { getAuth } from 'firebase/auth';
+import { app } from '../../firebase.config';
+import axios from 'axios';
 
 
 
 
 
 const CreateJournal = () => {
-  const createMutation = createJ()
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const [content, setContent] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [write, SetWrite] = useState<Boolean>(true)
-  const { data: Journals, isLoading, isError, refetch } = getJournals();
+  const [authorId, setAuthorId] = useState(null);
+  const [data, setData] = useState({});
+  // const { data: Journals, isLoading, isError, refetch } = getJournals();
+  
+  const createMutation = createJ(authorId)
+  useEffect(() => {
+    const auth = getAuth(app);
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      setAuthorId(uid);
+      axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${uid}`)
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+
+
+  
+
+
   const handleCreateJournal = () => {
     createMutation.mutate(
       { content, title },
       {
         onSuccess: () => {
           navigation.navigate('Journal');
-          refetch()
+          
         },
         onError: (error) => {
           console.error(error);

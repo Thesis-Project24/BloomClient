@@ -43,9 +43,6 @@ export const createArticle = () => {
       content: string;
       authorId: string;
     }) => {
-      console.log('====================================');
-      console.log(authorId);
-      console.log('====================================');
       const response = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/postArticle`,
         { title, content, authorId }
@@ -59,7 +56,7 @@ export const createArticle = () => {
 
 export const useSaveArticle = () => {
   const mutation = useMutation(
-    async ({ userId, articleId }: { userId: number; articleId: number }) => {
+    async ({ userId, articleId }: { userId: number; articleId: string }) => {
       const response = await axios.post(
         `http://${process.env.EXPO_PUBLIC_ipadress}:3000/articles/saveArticle`,
         { userId, articleId }
@@ -72,7 +69,7 @@ export const useSaveArticle = () => {
 };
 
 //  {Saved Articles fetcher} //
-export const useFetchSavedArticles = (userId: number) => {
+export const useFetchSavedArticles = (userId: string) => {
   return useQuery({
     queryKey: ["SavedArticles", userId],
     queryFn: async () => {

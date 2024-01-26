@@ -12,7 +12,7 @@ type AllDoctorsNavigationProp = NavigationProp<Record<string, object>>;
 const AllDoctors = ({navigation}: {navigation: AllDoctorsNavigationProp}) => {    // const navigation = useNavigation();
 
     const { data , isError, isLoading, isSuccess, refetch } = useQuery("AllDoctors",useFetchAllDoctors)
-console.log(data,"dataaaaaa");
+// console.log(data,"dataaaaaa");
 
     
     return (

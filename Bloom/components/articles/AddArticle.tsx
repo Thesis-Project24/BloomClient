@@ -2,20 +2,36 @@ import { View,KeyboardAvoidingView, Text,ScrollView,TextInput,StyleSheet, Platfo
 import React, { useState } from 'react'
 import { createArticle } from '../../api/articles/Articles'
 import { FontAwesome } from '@expo/vector-icons'
+import { ParamListBase, useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddArticle = ({route}:any) => {
-    console.log('====================================');
-    console.log(route,'///////////////');
-    console.log('====================================');
+  
     const [title,setTitle] = useState<string>("")
     const [content,setContent] = useState<string>("")
-    const [authorId,setAuthorId]= useState<number>(route.data)
+    const [authorId,setAuthorId]= useState<string>(route.params.doctor.id)
+    const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
     const createMutation = createArticle()
-    const handleSubmit = ()=>{
-        createMutation.mutate(
-            {title,content,authorId}
-        )
-    }
+    
+    
+    const handleSubmit = () => {
+      
+  
+      createMutation.mutate(
+          { title, content, authorId },
+          {
+              onSuccess: () => {
+                  // Navigate to the articles component upon successful creation
+                  navigation.navigate('Articles');
+              },
+              // Optionally, you can also handle errors
+              onError: (error) => {
+                  // Handle error (e.g., display a message)
+                  console.error('Mutation error:', error);
+              }
+          }
+      );
+  }
   return (
     
 <View style={styles.container}>

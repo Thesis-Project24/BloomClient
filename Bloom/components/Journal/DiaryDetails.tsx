@@ -9,8 +9,8 @@ import NavBarEdit from '../DoctorProfile/NavBarEditDoctor';
 import DrawerScreen from '../../screens/SideBar.tsx/DrawerScreen';
 
 const DiaryDetails = ({ navigation, route }: { navigation: string; route: { params: { id: number } } }) => {
-  const  id  = 1
-  const { data, isLoading, isError, isFetched } = getOneJournal(id);
+  const id=1
+  const { data, isLoading, isError, isFetched } = getOneJournal();
   const [content, setContent] = useState<string>(data?.content)
   const [title, setTitle] = useState<string>(data?.title)
   const [write, SetWrite] = useState<Boolean>(true)
@@ -18,7 +18,7 @@ const DiaryDetails = ({ navigation, route }: { navigation: string; route: { para
   const navigations = useNavigation<StackNavigationProp<ParamListBase>>();
   const { data: Journals,  refetch } = getJournals();
   const handleUpdate = () => {
-    mutate({ authorid: 1, id, content, title });
+    mutate({ authorid: '1', id, content, title });
      navigations.navigate('Journal')
      refetch()
      
