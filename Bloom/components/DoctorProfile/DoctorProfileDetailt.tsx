@@ -34,150 +34,148 @@ type RootStackParamList = {
   // other screen names
 };
 const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) => {
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   return (
-    <></>
-    // <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
-    //   <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
-    //     <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
+   
+    <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
+      <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
+        <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
 
-    //       {/* edit profile button must be added to user personal profil */}
-    //      { show && <View style= {styles.edit}>
-    //         <TouchableOpacity
-    //           onPress={() => {
-    //             navigation.navigate("EditDoctorProfile", {
-    //               id: data.id
-    //             })
-    //           }
-    //           }
-    //           style={[styles.iconsWrapper, styles.parentFlexBox]} >
-    //           <FontAwesome5
-    //             style={styles.icons}
-    //             name="user-edit"
-    //             size={20} color={Color.green} />
+          {/* edit profile button must be added to user personal profil */}
+         { show && <View style= {styles.edit}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("EditDoctorProfile", {
+                  id: data.id
+                })
+              }
+              }
+              style={[styles.iconsWrapper, styles.parentFlexBox]} >
+              <FontAwesome5
+                style={styles.icons}
+                name="user-edit"
+                size={20} color={Color.green} />
 
-    //         </TouchableOpacity>
+            </TouchableOpacity>
 
-    //       </View> }
-    //       {/* <TouchableOpacity
-    //         onPress={() => {
-    //           navigation.navigate("Profile");
-    //         }}
-    //       >
-    //         <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
-    //           <Image
-    //             style={styles.icons}
-    //             source={require("../../assets/user-1-1.png")}
-    //           />
-    //         </View>
-    //       </TouchableOpacity> */}
-    //       <View style={[styles.doctorInfo, styles.frameParentFlexBox]}>
-    //         <View style={[styles.titleDescription, styles.frameParentFlexBox1]}>
-    //           <Text style={[styles.text, styles.textFlexBox]}>
-    //             Dr. {data.first_name} {data.last_name}
-    //           </Text>
-    //           <Text style={[styles.text1, styles.text1FlexBox]}>
-    //             {data.specialty}, 20 y.e
-    //           </Text>
-    //         </View>
-    //         <View style={[styles.reviews, styles.reviewsFlexBox]}>
-    //           <View style={[styles.vectorWrapper, styles.frameParentFlexBox]}>
+          </View> }
+          {/* <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Profile");
+            }}
+          >
+            <View style={[styles.iconsWrapper, styles.parentFlexBox]}>
+              <Image
+                style={styles.icons}
+                source={require("../../assets/user-1-1.png")}
+              />
+            </View>
+          </TouchableOpacity> */}
+          <View style={[styles.doctorInfo, styles.frameParentFlexBox]}>
+            <View style={[styles.titleDescription, styles.frameParentFlexBox1]}>
+              <Text style={[styles.text, styles.textFlexBox]}>
+                Dr. {data.first_name} {data.last_name}
+              </Text>
+              <Text style={[styles.text1, styles.text1FlexBox]}>
+                {data.specialty}, 20 y.e
+              </Text>
+            </View>
+            <View style={[styles.reviews, styles.reviewsFlexBox]}>
+              <View style={[styles.vectorWrapper, styles.frameParentFlexBox]}>
 
-    //             <FontAwesome
-    //               style={styles.vectorIcon}
-    //               name="star"
-    //               size={20}
-    //               color="#FFD33C" />
+                <FontAwesome
+                  style={styles.vectorIcon}
+                  name="star"
+                  size={20}
+                  color="#FFD33C" />
 
-    //           </View>
+              </View>
 
-    //           <Text style={[styles.kReviews, styles.text1FlexBox]}>
-    //             <Text>
-    //               <Text style={styles.textTypo}>4.9</Text>
-    //               <Text style={styles.text1Clr}> (1.7k reviews)</Text>
-    //             </Text>
-    //           </Text>
-    //         </View>
-    //         <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
-    //           <MaterialCommunityIcons
-    //             style={styles.telephone2Icon}
-    //             name="email-fast"
-    //             size={20}
-    //             color="#4F6F52" />
-    //           <Text style={styles.text2}>{data.email}</Text>
-    //           <TouchableOpacity
-    //             style={[styles.telephone2Parent, styles.parentFlexBox]} >
+              <Text style={[styles.kReviews, styles.text1FlexBox]}>
+                <Text>
+                  <Text style={styles.textTypo}>4.9</Text>
+                  <Text style={styles.text1Clr}> (1.7k reviews)</Text>
+                </Text>
+              </Text>
+            </View>
+            <View style={[styles.doctorInfoInner, styles.reviewsFlexBox]}>
+              <MaterialCommunityIcons
+                style={styles.telephone2Icon}
+                name="email-fast"
+                size={20}
+                color="#4F6F52" />
+              <Text style={styles.text2}>{data.email}</Text>
+              <TouchableOpacity
+                style={[styles.telephone2Parent, styles.parentFlexBox]} >
 
-    //             <Feather
-    //               style={styles.telephone2Icon}
-    //               name="phone"
-    //               size={18}
-    //               color="#4F6F52"
-    //             />
-    //             <Text style={styles.text3}>+216 {data.phone_number}</Text>
-    //           </TouchableOpacity>
-    //         </View>
-    //       </View>
-    //     </View>
-    //     <View style={[styles.avatar, styles.groupParentShadowBox]}>
-    //       <Image
-    //         style={styles.avatarChild}
-    //         contentFit="cover"
-    //         source={data.profile_picture}
-    //       />
-    //       <MaterialIcons
-    //         style={styles.avatarItem2}
-    //         name="circle"
-    //         size={34}
-    //         color="white" />
-    //       <MaterialIcons
-    //         style={styles.avatarItem}
-    //         name="circle"
-    //         size={25}
-    //         color="#A1DAD7" />
+                <Feather
+                  style={styles.telephone2Icon}
+                  name="phone"
+                  size={18}
+                  color="#4F6F52"
+                />
+                <Text style={styles.text3}>+216 {data.phone_number}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View style={[styles.avatar, styles.groupParentShadowBox]}>
+          <Image
+            style={styles.avatarChild}
+            contentFit="cover"
+            source={data.profile_picture}
+          />
+          <MaterialIcons
+            style={styles.avatarItem2}
+            name="circle"
+            size={34}
+            color="white" />
+          <MaterialIcons
+            style={styles.avatarItem}
+            name="circle"
+            size={25}
+            color="#A1DAD7" />
 
 
-    //     </View>
-    //   </View>
-    //   <View style={[styles.frameView, styles.parentFlexBox]}>
-    //     <TouchableOpacity style={styles.frameWrapper}>
-    //       <TouchableOpacity style={[styles.vectorParent, styles.parentFlexBox]}>
-    //         <Feather
-    //           style={styles.vectorIcon1}
-    //           name="phone-call"
-    //           size={18}
-    //           color="white" />
-    //         <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
-    //       </TouchableOpacity>
-    //     </TouchableOpacity>
-    //     <TouchableOpacity
-    //       style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
-    //     >
-    //       <View style={[styles.videoParent, styles.parentFlexBox]}>
-    //         <Ionicons
-    //           style={styles.videoIcon}
-    //           name="videocam"
-    //           size={20}
-    //           color="white" />
-    //         <Text style={[styles.videoCall, styles.callTypo]}>Video Call</Text>
-    //       </View>
-    //     </TouchableOpacity>
-    //     <TouchableOpacity style={[styles.frameWrapper1, styles.frameShadowBox]}>
-    //       <View style={[styles.vectorGroup, styles.parentFlexBox]}>
-    //         <AntDesign
-    //           style={styles.vectorIcon2}
-    //           name="wechat"
-    //           size={20}
-    //           color="white" />
-    //         <Text style={[styles.videoCall, styles.callTypo]}>Message</Text>
-    //       </View>
-    //     </TouchableOpacity>
-    //   </View>
-    // </View>
+        </View>
+      </View>
+      <View style={[styles.frameView, styles.parentFlexBox]}>
+        <TouchableOpacity style={styles.frameWrapper}>
+          <TouchableOpacity style={[styles.vectorParent, styles.parentFlexBox]}>
+            <Feather
+              style={styles.vectorIcon1}
+              name="phone-call"
+              size={18}
+              color="white" />
+            <Text style={[styles.voiceCall, styles.callTypo]}>Voice Call</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
+        >
+          <View style={[styles.videoParent, styles.parentFlexBox]}>
+            <Ionicons
+              style={styles.videoIcon}
+              name="videocam"
+              size={20}
+              color="white" />
+            <Text style={[styles.videoCall, styles.callTypo]}>Video Call</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.frameWrapper1, styles.frameShadowBox]}>
+          <View style={[styles.vectorGroup, styles.parentFlexBox]}>
+            <AntDesign
+              style={styles.vectorIcon2}
+              name="wechat"
+              size={20}
+              color="white" />
+            <Text style={[styles.videoCall, styles.callTypo]}>Message</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
