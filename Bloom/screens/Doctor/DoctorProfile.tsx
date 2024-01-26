@@ -57,9 +57,7 @@ const DoctorProfile = ({ navigation, route }: any) => {
       return useFetchOneDoctor(id);
     } 
   });
-  console.log('====================================');
-  console.log(data,"aaaaaaaaaaaaaaa");
-  
+ 
   
   return (
     <DrawerScreen>

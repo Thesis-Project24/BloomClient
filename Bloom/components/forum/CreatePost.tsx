@@ -10,19 +10,11 @@ const CreatePost = ({route}:any) => {
   const { mutate: createPost, isLoading, isError, error } = createForumPost();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 const {id}=route.params
+console.log(id);
 
-
-
-
-
-
-
-
-
-  
   const handleSubmit = () => {
     if (title && content) {
-      const postData = { title, content ,authorId:id};
+      const postData = { title, content ,authorId:'BbxCll2osWbDsrNqWDLfDppBRQE3'};
       console.log("Post Data: ", postData);  
       createPost(postData);
 navigation.navigate('Community')

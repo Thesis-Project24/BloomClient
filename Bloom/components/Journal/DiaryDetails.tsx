@@ -18,7 +18,7 @@ const DiaryDetails = ({ navigation, route }: { navigation: string; route: { para
   const navigations = useNavigation<StackNavigationProp<ParamListBase>>();
   const { data: Journals,  refetch } = getJournals();
   const handleUpdate = () => {
-    mutate({ authorid: 1, id, content, title });
+    mutate({ authorid: '1', id, content, title });
      navigations.navigate('Journal')
      refetch()
      

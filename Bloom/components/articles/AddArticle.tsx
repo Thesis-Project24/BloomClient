@@ -12,7 +12,7 @@ const AddArticle = ({route}:any) => {
     const [authorId,setAuthorId]= useState<string>(route.params.doctor.id)
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
     const createMutation = createArticle()
-    console.log(route.params.doctor.id,'amine');
+    
     
     const handleSubmit = () => {
       

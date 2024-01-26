@@ -7,17 +7,18 @@ import { useDeleteJournal } from '../../api/journal/Journal';
 import { Ionicons } from '@expo/vector-icons'; // Ensure you have this dependency
 
 interface DiaryProps {
-  diary: { content: string, title: string, id: number };
+  diary: { content: string, title: string, id: number,authorId: string, };
   onDiaryDelete: () => void;
 }
 
 const Diary = ({ diary, onDiaryDelete }: DiaryProps) => {
+  console.log(diary);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const { mutate: deleteJournal } = useDeleteJournal();
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleDelete = () => {
-    deleteJournal({ authorid: 1, id: diary.id }, {
+    deleteJournal({ authorid: diary.authorId, id: diary.id }, {
       onSuccess: () => {
         console.log('Deletion successful');
         setIsDeleted(true);
@@ -57,7 +58,7 @@ const Diary = ({ diary, onDiaryDelete }: DiaryProps) => {
     <Swipeable renderRightActions={renderRightActions} onSwipeableRightOpen={handleDelete}>
       <View style={styles.card}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('DiaryDetails', { id: diary.id, title: diary.title, content: diary.content })}
+          onPress={() => navigation.navigate('DiaryDetails', { id: diary.id, title: diary.title, content: diary.content,authorId:diary.authorId })}
           style={styles.touchableArea}
         >
           <Text style={styles.title}>{diary.title}</Text>

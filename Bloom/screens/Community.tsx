@@ -29,6 +29,8 @@ const Community = () => {
     React.useEffect(()=>{
     const auth = getAuth(app)
     const id = auth.currentUser?.uid
+    
+    
     console.log(auth.currentUser?.uid,':id')
     axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
     .then((response:any)=> {
@@ -65,12 +67,13 @@ const Community = () => {
         
         <FlatList
           data={posts}
-          renderItem={({ item }) => <PostForum refetch={refetch} post={item} id={data.id}/>}
+          renderItem={({ item }) => <PostForum refetch={refetch} post={item} id={posts
+            .id}/>}
           keyExtractor={(item) => item.id.toString()}
           // ListFooterComponent={()=><Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost")} />}
         />
       <Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost",{
-        id:data.id,
+        id:posts.authorId,
       })} />
       </View>
     </View>
