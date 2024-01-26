@@ -60,9 +60,6 @@ const AvailabilityW = ({ navigation, route }: { navigation: string; route: { par
 <View style={styles.frameGroup} >
         <View style={styles.frameGroupSpaceBlock} >
           <TouchableOpacity
-            onPress={() => {
-
-            }}
             style={[
               styles.amWrapper,
               styles.amFrameLayout,
@@ -77,9 +74,6 @@ const AvailabilityW = ({ navigation, route }: { navigation: string; route: { par
 
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-
-            }}
             style={[
               styles.amWrapper,
               styles.amFrameLayout,
