@@ -15,11 +15,28 @@ import { RouteProp } from '@react-navigation/native';
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 
 
+import { NavigationProp } from '@react-navigation/native';
 
-const NavBarEdit = ({page} : {page?:string}) => {
-    const navigation = useNavigation();
+type NavigationPropType = NavigationProp<
+ Record<string, object>, // Replace this with your RootStackParamList
+ 'NavBarEdit' // Replace this with your route name
+>;
+
+const NavBarEdit = ({ page, goTo , data }: { page?: string; goTo?: string | undefined; data?:string }) => {
+ const navigation = useNavigation<NavigationPropType>();
     StatusBar.setBarStyle("dark-content");
     StatusBar.setHidden(false);
+   console.log(data,"id from navvvvvvvvvvvvvvvvvvvvvvvvvvv");
+   console.log(goTo,"gotooooooooooooooooooooooo");
+   
+   
+  //  else if(goTo = "DoctorProfile" || "EditDoctorProfile" ){
+  //   navigation.navigate("DoctorProfile", {
+  //     id: id,
+  //   });
+  // }
+
+
   return (
     <View style={[styles.profile,styles.header]}>
      
@@ -31,7 +48,27 @@ const NavBarEdit = ({page} : {page?:string}) => {
 
       <View style={styles.vectorParent}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            if( goTo === "DoctorPersonalProfile" && data ){
+              navigation.navigate("DoctorPersonalProfile", {
+                doctor:data,
+              });
+              console.log(data,"from nav bar dddddddddddddddddddddd");
+              
+            }else if( goTo === "Availability" && data){
+              navigation.navigate("Availability", {
+                doctor:data,
+              });
+            } 
+            
+            else if (goTo) {
+              navigation.navigate(goTo)
+              
+            }
+            else{
+              navigation.goBack()
+            }
+          }}
         >
           <Ionicons
             style={styles.frameChild}
