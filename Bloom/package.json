@@ -72,7 +72,6 @@
     "@types/react-native": "^0.73.0",
     "@types/react-native-datepicker": "^1.7.6",
     "@types/react-native-vector-icons": "^6.4.18",
-    
     "metro-config": "^0.80.3",
     "typescript": "^5.3.3"
   },

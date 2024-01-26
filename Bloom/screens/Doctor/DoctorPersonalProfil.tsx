@@ -79,7 +79,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
             <Text style={[styles.videoCall, styles.callTypo]}>Add article</Text>
           </View>
         </TouchableOpacity>
-        <ButtonBooking doctorId= {doctor.id} />
+        <ButtonBooking doctorId= {doctor.id} doctor={data} />
             </View>
           </View>
         </View>
