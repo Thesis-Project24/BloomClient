@@ -275,12 +275,12 @@ export default function App() {
         <Stack.Screen
           name="Availability"
           component={Availability}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="AvailabilityW"
           component={AvailabilityW}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="DiaryDetails"

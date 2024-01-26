@@ -166,7 +166,7 @@ Happier You`}</Text>
                   <Pressable
                     style={styles.vectorWrapper}
                     onPress={() =>{
-                      mutation.mutate({ email: email, password: password, role:"user" })
+                      mutation.mutate({ email: email, password: password, role:"doctor" })
                       // if()
                       navigation.navigate("User");
                     }}

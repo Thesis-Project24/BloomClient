@@ -5,14 +5,20 @@ import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { Border, FontFamily, FontSize, Color, Padding } from '../../GlobalStyles'
 import { AntDesign } from '@expo/vector-icons';
+import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
 
 
 const Availability = ({route}:any) => {
-  const doctorId = route.params.doctorId
+  const doctor = route.params.doctor
+  const doctorId = route.params.doctor.id
+  // console.log(doctor,doctorId,"AvailabilityyyyyyyyyyyyyyyYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+  
   const navigation: any = useNavigation()
   const [duration, onChangeDuration] = React.useState("");
   const [pause, onChangePause] = React.useState("");
   return (
+<>
+<NavBarEdit data={doctor} goTo={"DoctorPersonalProfile"} page="Availability" />
 
     <View style={styles.availability}>
       <Image
@@ -108,7 +114,7 @@ const Availability = ({route}:any) => {
               onPress={() => navigation.navigate("AvailabilityW", {
                 duration: duration,
                 pause: pause,
-                doctorId: doctorId
+                doctor: doctor
               })}
             // title="add Window"
             >
@@ -130,6 +136,7 @@ const Availability = ({route}:any) => {
         </View>
       </View>
     </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
