@@ -56,7 +56,7 @@ const Journal = () => {
         <ScrollView
           style={styles.content}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
           }
         >
           <Text style={styles.headingText}>My Journal</Text>
