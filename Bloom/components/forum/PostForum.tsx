@@ -210,10 +210,10 @@ const PostForum = ({ refetch, post,id }: any) => {
       }
 
       const commentData = {
-          content: newComment,
-          postId: post.id,
-          userId: id,
-          tagId: tagId, 
+        content: newComment,
+        postId: post.id,
+        userId: id,  // Make sure 'id' is defined and holds the current user's ID
+        tagId: tagId, 
       };
       console.log("Sending comment data: ", commentData);
       createComment(commentData, {
@@ -221,12 +221,8 @@ const PostForum = ({ refetch, post,id }: any) => {
           setNewComment('');
           refetchcomments();
         },
-
-
-
         onError: (error) => {
           console.error('Error adding comment', error);
-
         }
       });
     }

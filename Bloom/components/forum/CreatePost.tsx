@@ -14,7 +14,7 @@ console.log(id);
 
   const handleSubmit = () => {
     if (title && content) {
-      const postData = { title, content ,authorId:'BbxCll2osWbDsrNqWDLfDppBRQE3'};
+      const postData = { title, content ,authorId:id};
       console.log("Post Data: ", postData);  
       createPost(postData);
 navigation.navigate('Community')

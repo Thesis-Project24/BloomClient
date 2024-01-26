@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Text, ActivityIndicator, Image } from 'react-native';
 import PostForum from '../components/forum/PostForum';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,22 +25,21 @@ const Community = () => {
 
 
   const [data,setData]= React.useState({})
-  
-    React.useEffect(()=>{
-    const auth = getAuth(app)
-    const id = auth.currentUser?.uid
-    
-    
-    console.log(auth.currentUser?.uid,':id')
-    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
-    .then((response:any)=> {
-      setData(response.data)
-    })
-    .catch((error:any)=> {
-      console.log(error)
-    })
-    // console.log(id);
-  },[])
+  const [authorId,setAuthorId] = useState(null)
+  useEffect(() => {
+    const auth = getAuth(app);
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      setAuthorId(uid);
+      axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${uid}`)
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
 
 
@@ -67,13 +66,13 @@ const Community = () => {
         
         <FlatList
           data={posts}
-          renderItem={({ item }) => <PostForum refetch={refetch} post={item} id={posts
-            .id}/>}
+          renderItem={({ item }) => <PostForum refetch={refetch} post={item} id={
+            authorId}/>}
           keyExtractor={(item) => item.id.toString()}
           // ListFooterComponent={()=><Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost")} />}
         />
       <Ionicons name="add-circle-sharp" size={54} color="#ADD8C4" style={styles.icon} onPress={() => navigation.navigate("CreatePost",{
-        id:posts.authorId,
+        id:authorId,
       })} />
       </View>
     </View>
