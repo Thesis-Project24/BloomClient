@@ -31,17 +31,17 @@ export const getJournals = (authorId:string) => {
     }
   });
 };
-export const getOneJournal = (id: number,authorId:string) => {
-  const query = useQuery(["Journal"], async () => {
+export const getOneJournal = (id: number, authorId: string) => {
+  const query = useQuery(["Journal", id, authorId], async () => {
     const response = await axios.get(
       `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/getone/${authorId}/${id}`
     );
-    const data = response.data;
-
-    return data;
+    return response.data;
   });
+
   return query;
 };
+
 
 export const usedeleteJournal = () => {
   return useMutation(
