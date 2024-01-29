@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -24,6 +24,7 @@ import { RouteProp } from "@react-navigation/native";
 import SearchDoctor from "../../components/Specialists/SearchDoctor";
 import { QueryFunctionContext, useQuery } from "react-query";
 import { useFetchDocSpecialists } from "../../api/doctors/Doctors";
+import { List } from "react-native-paper";
 
 interface DoctorData {
   id?: string;
@@ -75,10 +76,26 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
   });
 
   const [search , setSearch] = useState<string>("")
-
-  const filteredList = list?.filter((doc: any) =>
-    doc.first_name.toLowerCase().includes(search.toLowerCase())
-  );
+  const [filteredData, setFilteredData] = useState<any>([]);
+  
+  useEffect(() => {
+    if (search) {
+      const lowerCaseKeyword = search.toLowerCase();
+      setFilteredData(
+        list.filter((doc:any) =>
+          doc.first_name.toLowerCase().includes(lowerCaseKeyword) ||
+          doc.last_name.toLowerCase().includes(lowerCaseKeyword) ||
+          doc.address[0].toLowerCase().includes(lowerCaseKeyword)||
+          doc.address[1].toLowerCase().includes(lowerCaseKeyword)||
+          doc.address[2].toLowerCase().includes(lowerCaseKeyword)||
+          doc.address[3].toLowerCase().includes(lowerCaseKeyword)
+        )
+      );
+    } else {
+      setFilteredData(list);
+    }
+  }, [search, list]);
+ 
 
 
 
@@ -93,7 +110,7 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
               style={[styles.vectorWrapper, styles.vectorWrapperFlexBox]}
               onPress={() => {
                 refetch();
-                navigation.goBack();
+                navigation.navigate("PageSpecialists");
               }}
             >
               <Image
@@ -120,8 +137,8 @@ const DoctorListing: React.FC<DoctorListingProps> = ({ route }: DoctorListingPro
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.frameScrollViewContent}
         >
-          {isSuccess &&
-            list.map((doc: any) => (
+          {filteredData &&
+            filteredData.map((doc: any) => (
               <CartDoctor propMarginTop={{ propMarginTop: 1 }} doctor={doc} />
             ))}
             

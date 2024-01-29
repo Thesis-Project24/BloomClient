@@ -244,7 +244,7 @@ const cancelSpecificReminder = async (id:any) => {
   return (
     <>
       <DrawerScreen>
-        <NavBarEdit page={"Notification"} />
+        <NavBarEdit page={"Notification"} goTo={"Back"} />
         <View style={styles.viewDetailsCancled}>
           <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
             <View style={styles.appointmentHeader}>

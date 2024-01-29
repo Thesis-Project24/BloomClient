@@ -34,7 +34,7 @@ const SearchDoctor: React.FC<{ setSearch: React.Dispatch<React.SetStateAction<st
                                         onChangeText={(text) => {
                                             setSearch(text)                                           
                                         }}
-                                        placeholder="Physician"
+                                        placeholder="Search"
                                         placeholderTextColor="#ADADAD"
                                         style={styles.labelText1} numberOfLines={1} />
                                 </View>

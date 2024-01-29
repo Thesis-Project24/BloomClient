@@ -13,14 +13,36 @@ import {
   Padding,
   Border,
 } from "../../GlobalStyles";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
 
-const SaveUpdateButton = ({ upDateData , refetch , id }: { refetch:any , upDateData: any , id:number }) => {
+
+import { NavigationProp } from '@react-navigation/native';
+
+type NavigationPropType = NavigationProp<
+ Record<string, object>, // Replace this with your RootStackParamList
+ 'NavBarEdit' // Replace this with your route name
+>;
+
+const SaveUpdateButton = ({ upDateData , refetch , id , data }: { refetch:any , upDateData: any , id:number , data:any }) => {
+  
+  const navigation = useNavigation<NavigationPropType>();
+const navigationn=()=>{
+  setTimeout(() => {
+    navigation.navigate("DoctorPersonalProfile", {
+      doctor:data,
+    });
+  }, 1000);
+}
+  
   return (
     <View style={[styles.patientButtonWrapper, styles.patientFlexBox]}>
       <TouchableOpacity
         onPress={() => {
+
           upDateData(id);
           refetch()
+          navigationn()
+
         }}
         style={[styles.patientButton, styles.patientFlexBox]}
       >

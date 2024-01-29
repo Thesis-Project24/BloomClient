@@ -53,7 +53,7 @@ const NavBarEdit = ({ page, goTo , data }: { page?: string; goTo?: string | unde
               navigation.navigate("DoctorPersonalProfile", {
                 doctor:data,
               });
-              console.log(data,"from nav bar dddddddddddddddddddddd");
+              // console.log(data,"from nav bar dddddddddddddddddddddd");
               
             }else if( goTo === "Availability" && data){
               navigation.navigate("Availability", {

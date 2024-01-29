@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Image } from "react-native"; // Corrected import
-import { View, Text, TextInput, Pressable } from "react-native";
-import { StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+
 import { Checkbox } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation, ParamListBase } from "@react-navigation/native";
+import { useNavigation, ParamListBase } from "@react-navigation/core";
+
 import {
   FontFamily, FontSize, Color, Border, Padding,
 } from "../../GlobalStyles";
@@ -13,6 +14,17 @@ import { login } from "../../api/auth/Users";
 import { ScrollView } from "react-native-gesture-handler";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { app } from "../../firebase.config";
+import { Feather } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import ForgotPassword from "../Password/PassWord";
+// import BottomSeheet, { BottomSheetBackdrop, BottomSheetTextInput, BottomSheetFooter } from "@gorhom/bottom-sheet"
+// import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+// import { BottomSheetBackdropMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { AntDesign } from '@expo/vector-icons';
+import Welcome from "../Welcome";
+
 
 const SignIn = () => {
   console.log('reached')
@@ -22,71 +34,154 @@ const SignIn = () => {
   const [username, setUsername] = useState<string>("");
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [frameCheckboxchecked, setFrameCheckboxchecked] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(true);
+  const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(false);
+  const [handelErrorEmail, setHandelErrorEmail] = useState<boolean>(false);
+  const [isEmailEmptyP, setIsEmailEmptyP] = useState<boolean>(false);
+  const [success,setSuccess] = useState<boolean>(false);
+  
+  const [handelError, setHandelError] = useState<boolean>(false);
+
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  const mutation = login();
+  const handelWelcomePage = ()=>{
+    // navigation.navigate('Home')
+    console.log("testtttt");
+    
+    setTimeout(() => {
+    console.log(" mpreee testtttt");
+
+      return(<Welcome/>)
+    }, 7000);
+   }
+  
+  const mutation = login(setHandelErrorEmail , handelWelcomePage);
   const togglePasswordVisibility = () => {
     setPasswordHidden(!passwordHidden);
+    console.log(passwordHidden, "passssssssssssssssssssss");
+
   };
-  const handlePasswordReset = async () => {
-    try {
-      const auth = getAuth(app);
-      if (!email) {
-        throw new Error("No email provided");
+  const handlePasswordReset = async (email: string) => {
+    if (email) {
+      try {
+       
+        setHandelError(false)
+        const auth = getAuth(app);
+        if (!email) {
+          throw new Error("No email provided");
+        setSuccess(false)
+
+        }
+        await sendPasswordResetEmail(auth, email);
+        setSuccess(true)
+        console.log("Password reset email sent successfully");
+      } catch (error) {
+        console.error("Error sending password reset email:", error);
+        setHandelError(true)
+        setSuccess(false)
+        // setIsEmailEmpty(true)
       }
-      await sendPasswordResetEmail(auth, email);
-      console.log("Password reset email sent successfully");
-    } catch (error) {
-      console.error("Error sending password reset email:", error);
+    }else {
+      setHandelError(true)
     }
+   
+
+  };
+  const bottomSheetRef = useRef<BottomSheetMethods>(null)
+  console.log(success,"ssssssssssssssssssssssssssssssssssssss");
+
+  const handelOpen = (index: number) => {
+    // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
+    bottomSheetRef.current?.snapToIndex(index)
+  }
+
+  const handelClose = () => {
+    console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
+    bottomSheetRef.current?.close()
+
+  }
+
+  // useEffect(() => {
+  //    handelClose()
+  //   // bottomSheetRef.current?.close()
+  //   }, [])    
+  bottomSheetRef.current?.close()
+
+  const handleEmailChange = (text: string) => {
+    if (text) {
+      setHandelError(false)
+      setEmail(text);
+    }
+    setIsEmailEmpty(text.trim() === '');
+    // console.log(text.trim() === '', "testttttttttttt");
+
+  };
+  const handlePassWordChange = (text: string) => {
+    if (text) {
+      setHandelError(false)
+      setPassword(text);
+    }
+    setIsEmailEmptyP(text.trim() === '');
+    // console.log(text.trim() === '', "testttttttttttt");
+
   };
 
+
   return (
-    <ScrollView>
-      <View style={[styles.signIn, styles.signInLayout]}>
-        <View style={[styles.signInInner, styles.frameViewPosition]}>
-          <Image
-            style={styles.frameChild}
-            resizeMode="cover"
-            source={require("../../assets/vector-13.png")}
-          />
-        </View>
-        <Image 
-          style={styles.signInChild}
+    // <ScrollView>
+    
+    <>
+    <View style={[styles.signIn, styles.signInLayout]}>
+      <View style={[styles.signInInner, styles.frameViewPosition]}>
+        <Image
+          style={styles.frameChild}
           resizeMode="cover"
-          source={require("../../assets/vector-23.png")}
+          source={require("../../assets/vector-13.png")}
         />
-        <View style={[styles.frameView, styles.frameViewPosition]}>
-          <View style={[styles.frameParent, styles.eMailLayout]}>
-            <View style={styles.welcomeBackParent}>
-              <Text
-                style={[styles.welcomeBack, styles.textTypo]}
-                numberOfLines={1}
-              >
-                Welcome Back
-              </Text>
-              <Text style={styles.signInTo}>{`Sign In to a Healthier,
-Happier You`}</Text>
-            </View>
-            <View style={styles.frameGroup}>
-              <View style={styles.frameContainer}>
-                <View style={styles.frameParent1}>
+      </View>
+      <Image
+        style={styles.signInChild}
+        resizeMode="cover"
+        source={require("../../assets/vector-23.png")}
+      />
+      <View style={[styles.frameView, styles.frameViewPositionn]}>
+        <View style={[styles.frameParent, styles.eMailLayout]}>
+          <View style={styles.welcomeBackParent}>
+            <Text
+              style={[styles.welcomeBack, styles.textTypo]}
+              numberOfLines={1}
+            >
+              Welcome Back
+            </Text>
+            <Text style={styles.signInTo}>{`Sign In to a Healthier, 
+  Happier You`}</Text>
+          </View>
+          <View style={styles.frameGroup}>
+            <View style={styles.frameContainer}>
+              <View style={styles.frameParent1}>
+                <View
+                  style={[styles.frameParent2, styles.frameParentFlexBox]}
+                >
                   <View
-                    style={[styles.frameParent2, styles.frameParentFlexBox]}
-                  >
-                    <View
-                      style={[styles.frameParent3, styles.frameParentFlexBox]}
-                    >
-                      <View style={styles.frameWrapper}>
+                    style={[styles.frameParent3, styles.frameParentFlexBox]} >
+
+                    <View style={[styles.Email]} >
+
+                      <View style={[styles.frameWrapper,
+                      isEmailEmpty ? {
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        borderStyle: "solid",
+                      } : null,]}>
                         <View style={styles.iconsParent}>
-                          <Image
-                            style={styles.icons}
-                            resizeMode="cover"
-                            source={require("../../assets/icons.png")}
-                          />
+                          <MaterialIcons name="email" size={24} color="#9A9A9A" />
+
                           <TextInput
                             style={[styles.eMail, styles.eMailTypo]}
                             placeholder="E-mail"
-                            onChangeText={(text) => setEmail(text)}
+                            onChangeText={handleEmailChange}
                             keyboardType="email-address"
                             autoCapitalize="sentences"
                             secureTextEntry={false}
@@ -94,43 +189,78 @@ Happier You`}</Text>
                           />
                         </View>
                       </View>
-                      <View style={styles.frameWrapper}>
-                        <View
-                          style={[
-                            styles.frameParent4,
-                            styles.frameParentFlexBox,
-                          ]}
-                        >
-                          <View style={styles.iconsParent}>
-                            <Pressable onPress={togglePasswordVisibility}>
-                              <Image
-                                style={styles.vectorIcon}
-                                resizeMode="cover"
-                                source={require("../../assets/vector7.png")}
-                              />
-                            </Pressable>
-                            <TextInput
-                              style={[styles.eMail, styles.eMailTypo]}
-                              placeholder="Password"
-                              onChangeText={(text) => setPassword(text)}
-                              multiline={false}
-                              secureTextEntry={true}
-                              placeholderTextColor="#c8c8c8"
-                            />
-                          </View>
-                          <Image
-                            style={styles.vectorIcon1}
-                            resizeMode="cover"
-                            source={require("../../assets/vector8.png")}
+                      <Text
+                        style={[styles.enterYourEmailL, styles.enterYourEmailFlexBox]}
+                      >
+                        {handelErrorEmail ? `Please Enter a Valid Email Address` : null}
+                      </Text>
+                    </View>
+
+
+
+                    <View style={[styles.frameWrapper,
+                    isEmailEmptyP ? {
+                      borderColor: 'red',
+                      borderWidth: 1,
+                      borderStyle: "solid",
+                    } : null,
+                    ]}>
+
+                      <View
+                        style={[
+                          styles.frameParent4,
+                          styles.frameParentFlexBox,
+                        ]}
+                      >
+                        <View style={styles.iconsParent}>
+                          <Fontisto name="locked" size={20} color="#9A9A9A" />
+                          <TextInput
+                            style={[styles.eMail, styles.eMailTypo]}
+                            placeholder="Password"
+                            onChangeText={handlePassWordChange}
+                            multiline={false}
+                            secureTextEntry={passwordHidden}
+                            placeholderTextColor="#c8c8c8"
                           />
                         </View>
+                        <TouchableOpacity onPress={togglePasswordVisibility}>
+                          {passwordHidden ? <Feather name="eye-off" size={23} color="#9A9A9A" /> : <Feather name="eye" size={23} color="#9A9A9A" />}
+                        </TouchableOpacity>
+
+
                       </View>
+                      
                     </View>
-                    <View
-                      style={[styles.frameParent5, styles.frameParentFlexBox]}
-                    >
-                      <View style={styles.frameParent6}>
-                        <View>
+                    <Text
+                        style={[styles.enterYourEmailL, styles.enterYourEmailFlexBox]}
+                      >
+                        {handelErrorEmail ? `The Email or Password You Entered is Incorrect.` : null}
+                      </Text>
+                  </View>
+
+                  <View
+                    style={[styles.frameParent5, styles.frameParentFlexBox]}
+                  >
+                    <View style={styles.frameParent6}>
+                      <View
+                        style={{
+                          marginLeft: 16,
+                          width: 27,
+                          height: 27,
+                          paddingRight: 1,
+                          paddingBottom:6,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderColor: '#a78a6e',
+                          borderWidth: 2,
+                          borderStyle:"solid" ,
+                          borderRadius: 11,
+                        }}
+                      >
+                        <View style={{ 
+                          width: 35,
+                          height: 30,
+                         }}>
                           <Checkbox
                             status={
                               frameCheckboxchecked ? "checked" : "unchecked"
@@ -142,67 +272,123 @@ Happier You`}</Text>
                           />
                         </View>
                       </View>
-                      <Pressable
-                        
-                      >
-                        <Text
-                          style={[
-                            styles.forgotYourPassword,
-                            styles.signIn1FlexBox,
-                          ]}
-                          onPress={() => handlePasswordReset()}
-                        >
-                          Forgot your password?
-                        </Text>
-                      </Pressable>
                     </View>
+                    <TouchableOpacity
+
+                    >
+                      <Text
+                        style={[
+                          styles.forgotYourPassword,
+                          styles.signIn1FlexBox,
+                        ]}
+                        // onPress={() => handlePasswordReset()}
+                        onPress={() => handelOpen(1)}
+
+
+                      >
+                        Forgot your password?
+                      </Text>
+
+                    </TouchableOpacity>
                   </View>
-                  <IconsSignIn />
                 </View>
-                <View style={styles.signInParent}>
-                  <Text style={[styles.signIn1, styles.signIn1FlexBox]}>
-                    Sign in
-                  </Text>
-                  <Pressable
-                    style={styles.vectorWrapper}
-                    onPress={() =>{
-                      mutation.mutate({ email: email, password: password, role:"doctor" })
-                      // if()
-                      navigation.navigate("User");
-                    }}
-                  >
-                    <Image
-                      style={styles.vectorIcon2}
-                      resizeMode="cover"
-                      source={require("../../assets/vector10.png")}
-                    />
-                  </Pressable>
-                </View>
+                <IconsSignIn />
               </View>
-              <Text style={[styles.dontHaveAnContainer, styles.eMailTypo]}>
-                {`Don't have an account? `}
-                <Text onPress={() => navigation.navigate("SignUp")}>
-                  Create
+              <View style={styles.signInParent}>
+                <Text style={[styles.signIn1, styles.signIn1FlexBox]}>
+                  Sign in
                 </Text>
-              </Text>
+                <TouchableOpacity
+                  style={styles.vectorWrapper}
+                  onPress={() => {
+                    mutation.mutate({ email: email, password: password, role: "doctor" })
+                    if(handelErrorEmail)setIsEmailEmpty(true)
+                    // if()
+                    navigation.navigate("User");
+                  }}
+                >
+                  <AntDesign name="arrowright" size={29} color="white" />
+                  {/* <Image
+                    style={styles.vectorIcon2}
+                    resizeMode="cover"
+                    source={require("../../assets/vector10.png")}
+                  /> */}
+                </TouchableOpacity>
+              </View>
             </View>
+            <Text style={[styles.dontHaveAnContainer, styles.eMailTypo]}>
+              {`Don't have an account? `}
+              <Text onPress={() => navigation.navigate("SignUp")}>
+                Create
+              </Text>
+            </Text>
           </View>
+
+
         </View>
+
       </View>
-    </ScrollView>
+      <ForgotPassword ref={bottomSheetRef} handlePasswordReset={handlePasswordReset} handelError={handelError} success={success}  />
+    </View>
+    {/* {handelWelcomePage()  } */}
+    </>
+    // </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  enterYourEmailL: {
+    fontSize: FontSize.regular12_size,
+    fontWeight: "500",
+    fontFamily: FontFamily.poppinsMedium,
+    color:"red",
+    // marginTop: 9,
+    // backgroundColor:"red",
+    maxHeight: 20,
+  },
+  enterYourEmailFlexBox: {
+    textAlign: "left",
+    alignSelf: "stretch",
+    flex: 1,
+  },
+
+  iconsParent: {
+    flexDirection: "row",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    paddingHorizontal: 2,
+  },
+
+  Email: {
+    justifyContent: "flex-start",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    // gap:1,
+    // backgroundColor:"yellow",
+  },
+
+
+
+
+
+
+
   signInLayout: {
-    height: 844,
+    height: "100%",
     overflow: "hidden",
   },
   frameViewPosition: {
-    width: 390,
+    width: "100%",
     left: 0,
     top: 0,
     position: "absolute",
+  },
+  frameViewPositionn: {
+
+    position: "relative",
+    // backgroundColor:"blue"
   },
   textTypo: {
     // fontFamily: FontFamily.poppinsMedium,
@@ -223,6 +409,12 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "center",
     flex: 1,
+    width:"100%",
+    // backgroundColor: "blue",
+    // minHeight: "100%",
+    height:"100%",
+    // gap:0
+
   },
   eMailTypo: {
     fontSize: FontSize.size_mini,
@@ -234,11 +426,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   frameChild: {
-    width: 391,
-    height: 129,
+    width: "100%",
+    height: 149,
   },
   signInInner: {
-    height: 129,
+    height: 159,
+    // backgroundColor:"red"
   },
   text: {
     fontSize: FontSize.size_sm,
@@ -283,8 +476,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   signInChild: {
-    top: 573,
-    left: -275,
+    // top: 573,
+    bottom:-60,
+    left: -255,
     width: 369,
     height: 305,
     position: "absolute",
@@ -307,12 +501,15 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: Color.bleck,
     alignSelf: "stretch",
-    alignItems: "center",
+    alignItems: "flex-start",
     flex: 1,
+    // backgroundColor:"yellow"
   },
   welcomeBackParent: {
-    height: 87,
+    maxHeight: 100,
+    height: "100%",
     alignSelf: "stretch",
+    // backgroundColor:"red"
   },
   icons: {
     width: 15,
@@ -323,13 +520,11 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     height: "100%",
     flex: 1,
+    width: "10%",
+    // backgroundColor:"red"
+
   },
-  iconsParent: {
-    alignSelf: "stretch",
-    alignItems: "center",
-    flexDirection: "row",
-    flex: 1,
-  },
+
   frameWrapper: {
     borderRadius: Border.br_21xl,
     backgroundColor: Color.colorWhite,
@@ -343,7 +538,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   vectorIcon: {
-    height: 18,
+    height: 111,
     width: 14,
   },
   vectorIcon1: {
@@ -354,7 +549,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   frameParent3: {
-    maxHeight: 128,
+    maxHeight: 190,
+    // backgroundColor: "yellow",
+    height: "100%",
+    minHeight:120,
+
   },
   rememberMe: {
     fontSize: 9,
@@ -364,10 +563,11 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   frameParent6: {
-    maxWidth: 78,
+    // maxWidth: 78,
     alignSelf: "stretch",
     alignItems: "center",
     flexDirection: "row",
+    justifyContent: "flex-start",
     flex: 1,
   },
   forgotYourPassword: {
@@ -404,17 +604,17 @@ const styles = StyleSheet.create({
   vectorWrapper: {
     borderRadius: Border.br_mid,
     backgroundColor: Color.colorCadetblue,
-    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowColor: "rgba(0, 0, 0, 0.35)",
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 4,
     },
     shadowRadius: 4,
     elevation: 4,
     shadowOpacity: 1,
     width: 56,
-    height: 34,
-    padding: Padding.p_3xs,
+    height: 35,
+    // padding: Padding.p_3xs,
     marginLeft: 13,
     alignItems: "center",
     justifyContent: "center",
@@ -446,9 +646,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   frameParent: {
-    maxWidth: 300,
-    maxHeight: 635,
+    justifyContent: "center",
+
+    width: "100%",
+    // maxWidth: 300,
+    // maxHeight: 635,
     alignItems: "center",
+    // backgroundColor: "green",
   },
   frameView: {
     paddingHorizontal: Padding.p_26xl,
@@ -458,13 +662,17 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
     overflow: "hidden",
-    height: 844,
+    height: "100%",
+    width: "100%",
+
   },
   signIn: {
     backgroundColor: Color.beige,
     width: "100%",
     overflow: "hidden",
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

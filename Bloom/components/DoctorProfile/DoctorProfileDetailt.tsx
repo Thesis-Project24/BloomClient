@@ -17,6 +17,8 @@ import {
   FontSize,
   Border,
 } from "../../GlobalStyles";
+import { EvilIcons } from '@expo/vector-icons';
+import { NavigationProp } from '@react-navigation/native';
 
 interface DoctorData {
   id?: string;
@@ -28,7 +30,10 @@ interface DoctorData {
   phone_number?: string;
   address?: string[];
   bio?: string;
+  review?: number
 }
+
+
 type RootStackParamList = {
   EditDoctorProfile: undefined;
   // other screen names
@@ -42,7 +47,7 @@ const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) =
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>
 
           {/* edit profile button must be added to user personal profil */}
-         { show && <View style= {styles.edit}>
+          {show && <View style={styles.edit}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("EditDoctorProfile", {
@@ -58,7 +63,7 @@ const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) =
 
             </TouchableOpacity>
 
-          </View> }
+          </View>}
           {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate("Profile");
@@ -76,25 +81,37 @@ const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) =
               <Text style={[styles.text, styles.textFlexBox]}>
                 Dr. {data.first_name} {data.last_name}
               </Text>
+
               <Text style={[styles.text1, styles.text1FlexBox]}>
-                {data.specialty}, 20 y.e
+                {/* <Feather
+                  style={styles.vectorIcon}
+                  name="star"
+                  size={18}
+                  color="#FFD33C" /> */}
+                  <FontAwesome5 name="star-half-alt" size={18} color="#FFD33C" />
+                <Text style={styles.textTypo}> {data.review} </Text>
+                ,{data.specialty}
               </Text>
+
             </View>
             <View style={[styles.reviews, styles.reviewsFlexBox]}>
               <View style={[styles.vectorWrapper, styles.frameParentFlexBox]}>
 
-                <FontAwesome
+                {/* <Feather
                   style={styles.vectorIcon}
                   name="star"
                   size={20}
-                  color="#FFD33C" />
+                  color="#FFD33C" /> */}
 
               </View>
 
               <Text style={[styles.kReviews, styles.text1FlexBox]}>
-                <Text>
-                  <Text style={styles.textTypo}>4.9</Text>
-                  <Text style={styles.text1Clr}> (1.7k reviews)</Text>
+              <EvilIcons name="location" size={19} color={Color.green} />
+                  {/* <Text style={styles.textTypo}>{data.review}</Text> */}
+                  <Text style={styles.text1Clr}>
+                    {data.address?.[0]} {data.address?.[1]} {data.address?.[2]} {data.address?.[3]}
+
+              
                 </Text>
               </Text>
             </View>
@@ -140,8 +157,12 @@ const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) =
         </View>
       </View>
       <View style={[styles.frameView, styles.parentFlexBox]}>
-        <TouchableOpacity style={styles.frameWrapper}>
-          <TouchableOpacity style={[styles.vectorParent, styles.parentFlexBox]}>
+        <TouchableOpacity
+
+          style={styles.frameWrapper}>
+          <TouchableOpacity
+           
+            style={[styles.vectorParent, styles.parentFlexBox]}>
             <Feather
               style={styles.vectorIcon1}
               name="phone-call"
@@ -162,7 +183,12 @@ const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) =
             <Text style={[styles.videoCall, styles.callTypo]}>Video Call</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.frameWrapper1, styles.frameShadowBox]}>
+        <TouchableOpacity 
+         onPress={() => {
+          navigation.navigate("Appi")
+
+        }}
+        style={[styles.frameWrapper1, styles.frameShadowBox]}>
           <View style={[styles.vectorGroup, styles.parentFlexBox]}>
             <AntDesign
               style={styles.vectorIcon2}
@@ -299,19 +325,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textTypo: {
-    color: Color.charade,
+    color: Color.manatee,
+    // color: Color.charade,
     fontFamily: FontFamily.soraSemiBold,
     fontWeight: "600",
   },
   text1Clr: {
     color: Color.manatee,
     fontFamily: FontFamily.soraRegular,
+    width:"100%",
   },
   kReviews: {
     fontSize: FontSize.regular12_size,
     lineHeight: 14,
-    marginLeft: 4,
-    textAlign: "left",
+    // marginLeft: 4,
+    textAlign: "center",
+    width:"100%",
+    // backgroundColor:"red",
+    // minHeight: "100%",
+    minWidth:300,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop:9,
+
   },
   reviews: {
     textAlign: "center",
@@ -367,7 +403,7 @@ const styles = StyleSheet.create({
   frameContainer: {
     paddingHorizontal: 0,
     paddingVertical: Padding.p_smi,
-    paddingTop:50,
+    paddingTop: 50,
     zIndex: 0,
     alignItems: "center",
   },
@@ -532,10 +568,10 @@ const styles = StyleSheet.create({
     maxHeight: 330,
     alignItems: "center",
   },
-  edit:{
+  edit: {
     position: "absolute",
-    top:22,
-    right:2
+    top: 22,
+    right: 2
   }
 });
 

@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/core";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase.config";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 type User = {
   id: string;
   email: string;
@@ -21,18 +23,33 @@ type User = {
 const HomeBG = () => {
   const navigation = useNavigation();
   const [data,setData]= React.useState<User | null>(null)
-  React.useEffect(() => {
-    const auth = getAuth(app)
-    const id = auth.currentUser?.uid
-    console.log(auth.currentUser?.uid,':id')
-    axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${id}`)
-    .then((response:any)=> {
-      setData(response.data)
-    })
-    .catch((error:any)=> {
-      console.log(error)
-    })
-    }, []);
+  const [role,setRole]=React.useState(true)
+  const checkRoleUser = async () => {
+    const userString = await AsyncStorage.getItem("user");
+    if (userString === null) {
+      setData(null);
+    } else {
+      try {
+        const user: User = JSON.parse(userString);
+        setData(user);
+
+      } catch (error) {
+        console.log(error);
+        setData(null);
+      }
+    }
+  }
+
+    React.useEffect(() => {
+      checkRoleUser()
+    }, [])
+    console.log(data,"data from home page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbb");
+  
+if(data?.role === "user"){
+setRole(false)
+}
+
+
 
   return (
 
@@ -76,7 +93,7 @@ const HomeBG = () => {
                       <Text style={styles.goodAfternoon}>Good Afternoon</Text>
                       <Text style={styles.text}>{`,
 `}</Text>
-                      <Text style={styles.myriam}>{ data?.username}!</Text>
+                      <Text style={styles.myriam}>{role ? ("Dr "+ data?.first_name) : data?.username }!</Text>
                     </Text>
                   </Text>
                 </View>

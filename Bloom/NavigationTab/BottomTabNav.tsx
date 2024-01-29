@@ -23,6 +23,7 @@ export const BottomTabNav = () => {
   return (
     <DrawerScreen>
       <Tab.Navigator
+       initialRouteName="Home"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
