@@ -24,7 +24,7 @@ interface User {
     mood: number[];
 }
 
-export const login = () => {
+export const login = (handelError:any , handelWelcomePage : any) => {
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
     const mutation = useMutation({
         mutationFn: async (object: {
@@ -44,13 +44,17 @@ export const login = () => {
                         "user",
                         JSON.stringify(res.data)
                     );
+                    handelWelcomePage()
                     res.data.role === "doctor"
                         ? navigation.navigate("DoctorPersonalProfile", {
                               doctor: res.data,
                           })
                         : navigation.navigate("User", { user: res.data });
+
+                        handelError(false)
                 })
                 .catch((error: any) => {
+                    handelError(true)
                     console.log(error);
                 });
         },
@@ -58,7 +62,7 @@ export const login = () => {
     return mutation;
 };
 
-export const signup = () => {
+export const signup = (handelError:any) => {
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
     const query = useMutation({
         mutationFn: async (object: {
@@ -83,9 +87,11 @@ export const signup = () => {
                     })
                     .then(() => {
                         alert("Verification mail sent");
+                        handelError(false)
                     })
                     .catch((error) => {
                         console.log(error);
+                        handelError(true)
                     })
                     .finally(() => {
                         if (auth.currentUser) {
@@ -94,6 +100,7 @@ export const signup = () => {
                     });
             } catch (error) {
                 console.log(error);
+                handelError(true)
             }
         },
     });

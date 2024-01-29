@@ -76,19 +76,15 @@ const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
         Alert.alert("Updated Successfully!");
       })
       .catch((err) => {
-        Alert.alert("Error Updating Data");
+        // Alert.alert("Error Updating Data");
         console.log(err, "error");
         // toast.error("Something went wrong! Please try again.")
       })
-      .catch((err) => {
-        Alert.alert("Error Updating Data");
-        console.log(err, "error");
-        // toast.error("Something went wrong! Please try again.")
-      });
+      
   };
   return (
     <DrawerScreen>
-     <NavBarEdit page={"Your Profile"}/>
+     <NavBarEdit page={"Your Profile"} goTo={"DoctorPersonalProfile"} data={data} />
    
     <ScrollView style={styles.profile}>
       <Image
@@ -156,7 +152,7 @@ const EditDoctorProfile = ({ navigation, route }: OneDoctorProps) => {
                 />
               )}
 
-              <SaveUpdateButton refetch={refetch} upDateData={upDateData} id={id} />
+              <SaveUpdateButton data={data} refetch={refetch} upDateData={upDateData} id={id} />
             </View>
 
 

@@ -1,22 +1,29 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
-import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FontSize, FontFamily, Color, Padding ,Border } from "../GlobalStyles";
 
-const MentalHealth = () => {
+import { useNavigation } from "@react-navigation/core";
+// import { StackNavigationProp } from "@react-navigation/stack";
+
+
+const GetStart = () => {
+  const navigation = useNavigation();
+
+
   return (
-    <View style={styles.mentalHealth}>
+    <View style={styles.GetStart}>
       <Image
-        style={styles.mentalHealthChild}
+        style={styles.GetStartChild}
         contentFit="cover"
         source={require("../assets/vector-12.png")}
       />
       <Image
-        style={styles.mentalHealthItem}
+        style={styles.GetStartItem}
         contentFit="cover"
         source={require("../assets/vector-2.png")}
       />
-      <View style={styles.mentalHealthInner}>
+      <View style={styles.GetStartInner}>
         <View style={[styles.frameWrapper, styles.groupParentFlexBox]}>
           <View style={[styles.groupParent, styles.groupParentFlexBox]}>
             <Image
@@ -25,13 +32,24 @@ const MentalHealth = () => {
              source={require("../assets/group-1231.png")}
             />
             <Text
-              style={[styles.mentalHealth1, styles.mentalHealth1FlexBox]}
+              style={[styles.GetStart1, styles.GetStart1FlexBox]}
             >{`Mental Health `}</Text>
-            <Text style={[styles.healthyLifeIs, styles.mentalHealth1FlexBox]}>
+            <Text style={[styles.healthyLifeIs, styles.GetStart1FlexBox]}>
               Healthy life is having a healthy mind so build a healthy mind then
               the healthy body.
             </Text>
+           
           </View>
+          <TouchableOpacity 
+        onPress={()=>{
+          navigation.navigate("SignIn");
+
+        }}
+          style={[styles.backToLoginWrapper, styles.wrapperFlexBox]}>
+            <Text style={[styles.backToLogin, styles.backToLoginTypo]}>
+              Get Start
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -39,25 +57,62 @@ const MentalHealth = () => {
 };
 
 const styles = StyleSheet.create({
+  backToLoginTypo: {
+    fontWeight: "500",
+    textAlign: "center",
+  },
+  backToLogin: {
+    fontSize: 19,
+    // textTransform: "uppercase",
+    fontFamily: FontFamily.robotoMedium,
+    color: Color.lightGray10,
+    width: 126,
+    height: 19,
+  },
+
+  backToLoginWrapper: {
+    borderRadius: Border.br_31xl,
+    backgroundColor: Color.sageGreen,
+    shadowColor: "rgba(0, 88, 0, 0.26)",
+    shadowOffset: {
+      width: 3,
+      height: 9,
+    },
+    shadowRadius: 14,
+    elevation: 14,
+    shadowOpacity: 1,
+    width: 286,
+    height: 54,
+    marginTop: 47,
+    alignItems: "center",
+  },
+  wrapperFlexBox: {
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+
+
+
   groupParentFlexBox: {
     alignSelf: "stretch",
     alignItems: "center",
     flex: 1,
   },
-  mentalHealth1FlexBox: {
+  GetStart1FlexBox: {
     marginTop: 13,
     textAlign: "center",
     alignSelf: "stretch",
     flex: 1,
   },
-  mentalHealthChild: {
+  GetStartChild: {
     width: 391,
     height: 119,
     left: 0,
     top: 0,
     position: "absolute",
   },
-  mentalHealthItem: {
+  GetStartItem: {
     top: 636,
     left: -257,
     width: 414,
@@ -68,7 +123,7 @@ const styles = StyleSheet.create({
     width: 137,
     height: 181,
   },
-  mentalHealth1: {
+  GetStart1: {
     fontSize: FontSize.size_18xl,
     fontWeight: "700",
     fontFamily: FontFamily.interBold,
@@ -85,7 +140,7 @@ const styles = StyleSheet.create({
   frameWrapper: {
     justifyContent: "center",
   },
-  mentalHealthInner: {
+  GetStartInner: {
     width: "100%",
     flexDirection: "row",
     paddingHorizontal: Padding.p_3xs,
@@ -98,7 +153,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     height: "100%",
   },
-  mentalHealth: {
+  GetStart: {
     backgroundColor: Color.beige,
     width: "100%",
     overflow: "hidden",
@@ -107,5 +162,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MentalHealth;
+export default GetStart;
 

@@ -10,8 +10,17 @@ import { Feather } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth, signOut } from "firebase/auth";
-
-
+type User = {
+  id: string;
+  email: string;
+  username: string;
+  first_name: string | null;
+  last_name: string | null;
+  profile_picture: string | null;
+  phone_number: string | null;
+  age: number | null;
+  role: string;
+}
 
 
 type SideBarType = {
@@ -19,15 +28,32 @@ type SideBarType = {
   navigation?: any;
 };
 
+
 const SideBar = ({ state, navigation , }: SideBarType) => {
   //  console.log(navigation.route,"routtttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-  
+  const [data, setData] = React.useState<User | null>(null)
   const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] =
     useState(true);
-  const stateIndex = !state ? 0 : state.index - 1;
-  const activeRoute = state.routeNames[state.index];
+  
   //         console.log(activeRoute,",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
   
+  const checkRoleUser = async () => {
+    const userString = await AsyncStorage.getItem("user");
+    if (userString === null) {
+      setData(null);
+    } else {
+      try {
+        const user: User = JSON.parse(userString);
+        setData(user);
+      } catch (error) {
+        console.log(error);
+        setData(null);
+      }
+    }
+  }
+
+  const stateIndex = !state ? 0 : state.index - 1;
+  const activeRoute = state.routeNames[state.index];
 
   const homeButtonColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
   const homeBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
@@ -39,12 +65,17 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
   const trackerBgColor = activeRoute === "Tracker" ? Color.colorPaleturquoise_200 : "transparent";
   const settingColor = activeRoute === "EditDoctorProfile" ? Color.green : Color.colorGray_400;
   const settingBgColor = activeRoute === "EditDoctorProfile" ? Color.colorPaleturquoise_200 : "transparent";
-  const historyColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const historyBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
-  const articalColor = activeRoute === "Home" ? Color.green : Color.colorGray_400;
-  const articalBgColor = activeRoute === "Home" ? Color.colorPaleturquoise_200 : "transparent";
+  const historyColor = activeRoute === "" ? Color.green : Color.colorGray_400;
+  const historyBgColor = activeRoute === "" ? Color.colorPaleturquoise_200 : "transparent";
+  const articalColor = activeRoute === "Articles" ? Color.green : Color.colorGray_400;
+  const articalBgColor = activeRoute === "Articles" ? Color.colorPaleturquoise_200 : "transparent";
 
 
+  React.useEffect(() => {
+    checkRoleUser()
+  }, [])
+
+// console.log(data,"data from side barrr rrrrrrrrrrrrrrrrrrrrrr");
 
   return (
     <SafeAreaView style={styles.sideBar}>
@@ -176,7 +207,15 @@ const SideBar = ({ state, navigation , }: SideBarType) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      // navigation.navigate("EditDoctorProfile")
+                      if (data?.role === "user") {
+                        navigation.navigate("EditUserProfile",
+                          { userData: data }
+                        )
+                      } else if (data?.role === "doctor") {
+                        navigation.navigate("EditDoctorProfile",
+                          {  id: data.id }
+                        )
+                      }
                     }}
                     style={[styles.vectorGroup, styles.chatParentLayout, { backgroundColor: settingBgColor }]}
                   >

@@ -12,7 +12,7 @@ export const FontFamily = {
    montserratSemiBold: "Montserrat-SemiBold",
    //   montserratRegular: "Montserrat-Regular",
    montserratMedium: "Montserrat-Medium",
-   //   interBold: "Inter-Bold",
+     interBold: "Inter-Bold",
    latoBold: "Lato-Bold",
    latoRegular: "Lato-Regular",
    mulishRegular: "Mulish-Regular",

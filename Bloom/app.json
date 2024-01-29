@@ -8,10 +8,10 @@
       "Raleway-Regular": "./assets/fonts/Raleway-Regular.ttf"
     },
     "orientation": "portrait",
-    "icon": "./assets/group-123@3x.png",
+    "icon": "./assets/Splash (2).png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/group-123@3x.png",
+      "image": "./assets/Splash (2).png",
       "resizeMode": "300",
       "backgroundColor": "#f3f0ea"
     },
@@ -26,12 +26,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/group-123@3x.png",
+        "foregroundImage": "./assets/Splash (2).png",
         "backgroundColor": "#f3f0ea"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Splash (2).png"
     },
     "extra": {
       "eas": {

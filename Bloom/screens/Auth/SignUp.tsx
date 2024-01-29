@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View, TextInput, Pressable,KeyboardAvoidingView } from "react-native";
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import IconsSignUp from "../../components/auth/IconsSIgnUp";
 import {
   Color,
@@ -16,6 +16,7 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase.config";
+import { Feather, Fontisto, MaterialIcons } from "@expo/vector-icons";
 
 
 const SignUp = () => {
@@ -25,57 +26,103 @@ const SignUp = () => {
   const [username, setUsername] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [fullName, setFullName] = useState<string>("");
- 
+  const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(false);
+  const [handelErrorEmail, setHandelErrorEmail] = useState<boolean>(false);
+  const [isEmailEmptyP, setIsEmailEmptyP] = useState<boolean>(false);
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  const mutation = signup();
+  const mutation = signup(setHandelErrorEmail);
 
- 
+
+
+
+  const handleEmailChange = (text: string) => {
+    if (text) {
+      // setHandelError(false)
+      setEmail(text);
+    }
+    setIsEmailEmpty(text.trim() === '');
+    // console.log(text.trim() === '', "testttttttttttt");
+
+  };
+  const handlePassWordChange = (text: string) => {
+    if (text.length  >= 6) {
+      // setHandelError(false)
+    setIsEmailEmptyP(false);
+
+      setPassword(text);
+    }
+    setIsEmailEmptyP(text.trim() === '');
+
+    // console.log(text.trim() === '', "testttttttttttt");
+
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordHidden(!passwordHidden);
+    console.log(passwordHidden, "passssssssssssssssssssss");
+
+  };
+
   return (
-    <KeyboardAvoidingView behavior={"height"}>
-      <ScrollView>
-        <View style={[styles.SignUp, styles.SignUpLayout]}>
-          <Image
-            style={[styles.SignUpChild, styles.SignUpChildPosition]}
-            contentFit="cover"
-            source={require("../../assets/vector-12.png")}
-          />
+    <>
+      <View style={[styles.SignUp, styles.SignUpLayout]}>
+      <View style={[styles.signInInner, styles.frameViewPosition]}>
+        <Image
+          style={styles.frameChild}
+          // resizeMode="cover"
+          source={require("../../assets/vector-13.png")}
+        />
+      </View>
 
-          <Image
-            style={styles.SignUpItem}
-            contentFit="cover"
-            source={require("../../assets/vector-23.png")}
-          />
-          <View style={[styles.SignUpInner, styles.textPosition]}>
-            <View style={styles.frameParent}>
-              <View style={[styles.createAccountParent, styles.frameFlexBox]}>
-                <Text
-                  style={[styles.createAccount, styles.createTypo]}
-                  numberOfLines={1}
-                >
-                  Create account
-                </Text>
-                <View style={[styles.frameGroup, styles.frameFlexBox]}>
-                  <View style={styles.usernameParent}>
-                    <View style={[styles.username, styles.usernameLayout]}>
-                      <View style={styles.userParent}>
-                        <Image
-                          style={styles.userIcon}
-                          contentFit="cover"
-                          source={require("../../assets/group.png")}
-                        />
-                        <TextInput
-                          style={[styles.username1, styles.eMailLayout]}
-                          placeholder="Username"
-                          keyboardType="email-address"
-                          onChangeText={(text) => setUsername(text)}
-                          autoCapitalize="sentences"
-                          secureTextEntry={false}
-                          placeholderTextColor="#c7c7c7"
-                        />
-                      </View>
+        <Image
+          style={styles.SignUpItem}
+          contentFit="cover"
+          source={require("../../assets/vector-23.png")}
+        />
+
+        <View style={[styles.SignUpInner, styles.textPosition]}>
+
+
+          <View style={styles.frameParent}>
+
+
+            <View style={[styles.createAccountParent, styles.frameFlexBox]}>
+
+              <Text
+                style={[styles.createAccount, styles.createTypo]}
+                numberOfLines={1}
+              >
+                Create account
+              </Text>
+
+
+              <View style={[styles.frameGroup, styles.frameFlexBox]}>
+
+                <View style={styles.usernameParent}>
+
+
+
+
+                  <View style={[styles.username, styles.usernameLayout]}>
+                    <View style={styles.userParent}>
+                      <Image
+                        style={styles.userIcon}
+                        contentFit="cover"
+                        source={require("../../assets/group.png")}
+                      />
+                      <TextInput
+                        style={[styles.username1, styles.eMailLayout]}
+                        placeholder="Username"
+                        keyboardType="email-address"
+                        onChangeText={(text) => setUsername(text)}
+                        autoCapitalize="sentences"
+                        secureTextEntry={false}
+                        placeholderTextColor="#c7c7c7"
+                      />
                     </View>
+                  </View>
 
-                    <View style={[styles.email, styles.emailSpaceBlock]}>
+                  {/* <View style={[styles.email, styles.emailSpaceBlock]}>
                       <View style={styles.userParent}>
                         <Image
                           style={styles.icons}
@@ -90,8 +137,42 @@ const SignUp = () => {
                           placeholderTextColor="#c8c8c8"
                         />
                       </View>
+                    </View> */}
+                  <View
+                    style={[styles.frameParent3, styles.frameParentFlexBox]} >
+
+                    <View style={[styles.Email]} >
+
+                      <View style={[styles.frameWrapper,
+                      isEmailEmpty ? {
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        borderStyle: "solid",
+                      } : null,]}>
+                        <View style={styles.iconsParent}>
+                          <MaterialIcons name="email" size={24} color="#9A9A9A" />
+
+                          <TextInput
+                            style={[styles.eMail, styles.eMailTypo]}
+                            placeholder="E-mail"
+                            onChangeText={handleEmailChange}
+                            keyboardType="email-address"
+                            autoCapitalize="sentences"
+                            secureTextEntry={false}
+                            placeholderTextColor="#c7c7c7"
+                          />
+                        </View>
+                      </View>
+                      <Text
+                        style={[styles.enterYourEmailL, styles.enterYourEmailFlexBox]}
+                      >
+                        {handelErrorEmail ? `Please Enter a Valid Email Address.` : null}
+                      </Text>
                     </View>
-                    <View style={[styles.password, styles.emailSpaceBlock]}>
+
+
+
+                    {/* <View style={[styles.password, styles.emailSpaceBlock]}>
                       <View
                         style={[styles.frameContainer, styles.frameFlexBox]}
                       >
@@ -110,7 +191,7 @@ const SignUp = () => {
                             placeholderTextColor="#c8c8c8"
                           />
                         </View>
-                        <Pressable
+                        <TouchableOpacity
                           onPress={() => {
                             setPasswordHidden(!passwordHidden);
                           }}
@@ -120,11 +201,99 @@ const SignUp = () => {
                             contentFit="cover"
                             source={require("../../assets/vector4.png")}
                           />
-                        </Pressable>
+                        </TouchableOpacity>
                       </View>
+                    </View> */}
+                    <View style={[styles.Email]} >
+                      <View style={[styles.frameWrapper,
+                      isEmailEmptyP ? {
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        borderStyle: "solid",
+                      } : null,
+                      ]}>
+
+                        <View
+                          style={[
+                            styles.frameParent4,
+                            styles.frameParentFlexBox,
+                          ]}
+                        >
+                          <View style={styles.iconsParent}>
+                            <Fontisto name="locked" size={20} color="#9A9A9A" />
+                            <TextInput
+                              style={[styles.eMail, styles.eMailTypo]}
+                              placeholder="Password"
+                              onChangeText={handlePassWordChange}
+                              multiline={false}
+                              secureTextEntry={passwordHidden}
+                              placeholderTextColor="#c8c8c8"
+                            />
+                          </View>
+                          <TouchableOpacity onPress={togglePasswordVisibility}>
+                            {passwordHidden ? <Feather name="eye-off" size={23} color="#9A9A9A" /> : <Feather name="eye" size={23} color="#9A9A9A" />}
+                          </TouchableOpacity>
+
+
+                        </View>
+
+                      </View>
+                      <Text
+                        style={[styles.enterYourEmailL, styles.enterYourEmailFlexBox]}
+                      >
+                        {handelErrorEmail ? `Your Password Must Be at Least 8 Characters Long.` : null}
+                      </Text>
                     </View>
 
-                    <View style={[styles.password, styles.emailSpaceBlock]}>
+                    <View style={[styles.Email]} >
+                      <View style={[styles.frameWrapper,
+                      isEmailEmptyP ? {
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        borderStyle: "solid",
+                      } : null,
+                      ]}>
+
+                        <View
+                          style={[
+                            styles.frameParent4,
+                            styles.frameParentFlexBox,
+                          ]}
+                        >
+                          <View style={styles.iconsParent}>
+                            <Fontisto name="locked" size={20} color="#9A9A9A" />
+                            <TextInput
+                              style={[styles.eMail, styles.eMailTypo]}
+                              placeholder="Confirm Password"
+                              // onChangeText={handlePassWordChange}
+                              multiline={false}
+                              secureTextEntry={passwordHidden}
+                              placeholderTextColor="#c8c8c8"
+                            />
+                          </View>
+                          <TouchableOpacity onPress={togglePasswordVisibility}>
+                            {passwordHidden ? <Feather name="eye-off" size={23} color="#9A9A9A" /> : <Feather name="eye" size={23} color="#9A9A9A" />}
+                          </TouchableOpacity>
+
+
+                        </View>
+
+                      </View>
+                      <Text
+                        style={[styles.enterYourEmailL, styles.enterYourEmailFlexBox]}
+                      >
+                        {handelErrorEmail ? `Please Make Sure Your Passwords Match.` : null}
+                      </Text>
+                    </View>
+
+
+
+                  </View>
+
+
+
+                  
+                  {/* <View style={[styles.password, styles.emailSpaceBlock]}>
                       <View
                         style={[styles.frameContainer, styles.frameFlexBox]}
                       >
@@ -137,43 +306,153 @@ const SignUp = () => {
                           />
                         </View>
                       </View>
-                    </View>
-                  </View>
-                  <IconsSignUp />
+                    </View> */}
                 </View>
+
+
+
+                <IconsSignUp />
               </View>
-              <View style={styles.createParent}>
-                <Text
-                  style={[styles.create, styles.createTypo]}
-                >{`Create`}</Text>
-                <Pressable
-                  style={styles.vectorWrapper}
-                  onPress={() => {
-                    mutation.mutate({
-                      email: email,
-                      password: password,
-                      username: username
-                    });
-                    // navigation.navigate("signIn")
-                    // alert("Verification email sent. Please check your inbox.");
-                  }}
-                >
-                  <Image
-                    style={styles.vectorIcon4}
-                    contentFit="cover"
-                    source={require("../../assets/vector6.png")}
-                  />
-                </Pressable>
-              </View>
+
+            </View>
+            <View style={styles.createParent}>
+              <Text
+                style={[styles.create, styles.createTypo]}
+              >{`Create`}</Text>
+              <TouchableOpacity
+                style={styles.vectorWrapper}
+                onPress={() => {
+                  mutation.mutate({
+                    email: email,
+                    password: password,
+                    username: username
+                  });
+                  if(handelErrorEmail)setIsEmailEmpty(true)
+                  if(handelErrorEmail)setIsEmailEmptyP(true)
+
+                  
+                  // navigation.navigate("signIn")
+                  // alert("Verification email sent. Please check your inbox.");
+                }}
+              >
+                <Image
+                  style={styles.vectorIcon4}
+                  contentFit="cover"
+                  source={require("../../assets/vector6.png")}
+                />
+              </TouchableOpacity>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </View >
+      </View >
+      {/* // <KeyboardAvoidingView behavior={"height"}> */}
+      {/* <ScrollView> */}
+
+      {/* </ScrollView> */}
+      {/* // </KeyboardAvoidingView> */}
+    </>
+
+
   );
 };
 
 const styles = StyleSheet.create({
+  frameViewPosition: {
+    width: "100%",
+    left: 0,
+    top: 0,
+    position: "absolute",
+  },
+  signInInner: {
+    height: 159,
+    // backgroundColor:"red"
+  },
+
+  frameChild: {
+    width: "100%",
+    height: 149,
+  },
+  frameParent3: {
+    maxHeight: 190,
+    // backgroundColor: "yellow",
+    height: "100%",
+    minHeight: 120,
+
+  },
+
+  frameParentFlexBox: {
+    justifyContent: "flex-start",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    width: "100%",
+    // backgroundColor: "blue",
+    // minHeight: "100%",
+    height: "100%",
+    gap:10
+
+  },
+  frameParent4: {
+    flexDirection: "row",
+
+  },
+  enterYourEmailL: {
+    fontSize: FontSize.regular12_size,
+    fontWeight: "500",
+    fontFamily: FontFamily.poppinsMedium,
+    color: "red",
+    // marginTop: 9,
+    // backgroundColor:"red",
+    maxHeight: 20,
+  },
+  enterYourEmailFlexBox: {
+    textAlign: "left",
+    alignSelf: "stretch",
+    flex: 1,
+  },
+
+
+
+  iconsParent: {
+    flexDirection: "row",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    paddingHorizontal: 2,
+  },
+  frameWrapper: {
+    borderRadius: Border.br_21xl,
+    backgroundColor: Color.colorWhite,
+    paddingLeft: Padding.p_lgi,
+    paddingTop: Padding.p_3xs,
+    paddingRight: Padding.p_base,
+    paddingBottom: Padding.p_3xs,
+    maxHeight: 50,
+    alignSelf: "stretch",
+    justifyContent: "center",
+    flex: 1,
+  },
+
+  eMailTypo: {
+    fontSize: FontSize.size_mini,
+    // fontFamily: FontFamily.latoRegular,
+  },
+
+  Email: {
+    justifyContent: "flex-start",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    // gap:1,
+    // backgroundColor: "red",
+    height: "100%",
+    maxHeight: 72,
+    minHeight:70
+  },
+
+
+
+
   frameLayout: {
     maxHeight: 1,
     overflow: "hidden",
@@ -195,17 +474,18 @@ const styles = StyleSheet.create({
   },
 
   SignUpLayout: {
-    height: 844,
-    overflow: "hidden",
+
+    height: "100%",
+    // overflow: "hidden",
   },
   SignUpChildPosition: {
     top: 0,
     position: "absolute",
   },
   textPosition: {
-    left: 0,
-    top: 0,
-    position: "absolute",
+    // left: 0,
+    // top: 0,
+    // position: "absolute",
   },
   frameItem: {
     marginLeft: 7,
@@ -217,7 +497,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   frameFlexBox: {
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
   },
   createTypo: {
@@ -227,6 +507,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   usernameLayout: {
+    minHeight: 50,
     maxHeight: 50,
     flex: 1,
   },
@@ -250,8 +531,8 @@ const styles = StyleSheet.create({
   },
   SignUpChild: {
     left: -1,
-    width: 391,
-    height: 119,
+    width: "100%",
+    height: 115,
   },
   text: {
     fontSize: FontSize.size_sm,
@@ -309,8 +590,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   SignUpItem: {
-    top: 573,
-    left: -275,
+    bottom:-60,
+    // top: 573,
+    left: -255,
     width: 369,
     height: 305,
     position: "absolute",
@@ -370,18 +652,44 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   usernameParent: {
-    minHeight: 250,
-    maxHeight: 272,
+    minHeight: 310,
+    maxHeight: 320,
+    // alignItems: "center",
+    // alignSelf: "stretch",
+    // flex: 1,
+    width: "100%",
+    height: "100%",
     alignItems: "center",
     alignSelf: "stretch",
+    justifyContent: "flex-start",
     flex: 1,
+    // backgroundColor: "green",
+    gap:20,
+
   },
   frameGroup: {
-    width: 300,
-    height: 386,
+    justifyContent: "center",
+    alignItems: "center",
+    minWidth: 280,
+    maxHeight: 386,
+    width: "100%",
+    height: "100%",
+    // backgroundColor: "red",
+    gap: 10
   },
   createAccountParent: {
-    height: 476,
+    minHeight: 490,
+    maxHeight: 520,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+    flex: 1,
+    // backgroundColor: "white",
+    // width: "100%",
+    // height: "100%",
+    gap: 74
   },
   create: {
     fontSize: FontSize.size_6xl,
@@ -428,17 +736,28 @@ const styles = StyleSheet.create({
   frameParent: {
     alignItems: "center",
     alignSelf: "stretch",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     flex: 1,
+    // backgroundColor: "green",
+    width: "100%",
+    height: "100%",
+    // gap: 14
+
+
+
   },
   SignUpInner: {
-    width: 390,
+    width: "100%",
     paddingHorizontal: Padding.p_26xl,
-    paddingTop: 132,
+    paddingTop: 200,
     justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
     overflow: "hidden",
-    height: 844,
+    height: "100%",
+    position: "relative",
+    flex: 1,
+    // backgroundColor: "blue",
   },
   SignUp: {
     backgroundColor: Color.beige,

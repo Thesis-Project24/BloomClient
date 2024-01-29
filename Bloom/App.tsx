@@ -49,26 +49,49 @@ import Appointments from "./screens/Doctor/Appointments";
 import DoctorPersonalProfile from "./screens/Doctor/DoctorPersonalProfil";
 import CreatePost from "./components/forum/CreatePost";
 import Community from "./screens/Community";
-
-
-
+import ForgotPassword from "./screens/Password/PassWord";
+import Success from "./screens/Success";
+import GetStart from "./screens/GetStart";
+import Welcome from "./screens/Welcome";
+type RootStackParamList = {
+  Root: undefined;
+  MentalHealth: undefined;
+  Success: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  Nav: undefined;
+  EditUserProfile: undefined;
+};
 
 const queryClient = new QueryClient();
 export default function App() {
+  const Stack = createStackNavigator();
+const [welcomPage,setWelcomPage]=useState(false)
   // const [initializing, setInitializing] = useState(true);
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
   const [user, setUser] = useState({});
 
-  function onAuthStateChanged(user:any) {
+  function onAuthStateChanged(user: any) {
     setUser(user);
+  }
+  const handelWelcomePage = ()=>{
+    // navigation.navigate('Home')
+    console.log("testtttt");
+     setTimeout(() => {
+      setWelcomPage(false)
+      
+    }, 7000);
+     setWelcomPage(true)
    }
-   
-   useEffect(() => {
+    
+
+  useEffect(() => {
+    handelWelcomePage()
     const auth = getAuth(app)
     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-    return subscriber; 
-   }, []);
- 
+    return subscriber;
+  }, []);
+
 
 
   const [fontsLoaded, error] = useFonts({
@@ -134,6 +157,12 @@ export default function App() {
         <Drawer.Screen name="Home" component={Home} />
 
         <Drawer.Screen
+          name="ForgotPassword"
+          component={ForgotPassword}
+          options={{ headerShown: false }}
+        />
+
+        <Drawer.Screen
           name="User"
           component={User}
           options={{ headerShown: false }}
@@ -164,15 +193,15 @@ export default function App() {
           component={SignIn}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
-                    name="EditDoctorProfile"
-                    component={EditDoctorProfile}
-                    options={{
-                        // header: () => <NavBarEdit />,
-                        headerLeft: () => null,
-                        // headerShown: true
-                    }}
-                />
+        <Stack.Screen
+          name="EditDoctorProfile"
+          component={EditDoctorProfile}
+          options={{
+            // header: () => <NavBarEdit />,
+            headerLeft: () => null,
+            // headerShown: true
+          }}
+        />
         <Stack.Screen
           name="EditUserProfile"
           component={EditUserProfile}
@@ -183,7 +212,7 @@ export default function App() {
           component={Appointments}
           options={{ headerShown: true }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="DoctorPersonalProfile"
           component={DoctorPersonalProfile}
           options={{ headerShown: false }}
@@ -297,7 +326,7 @@ export default function App() {
           }}
         /> */}
 
-         {/* <Stack.Screen
+        {/* <Stack.Screen
           name="PostDetails"
           component={PostDetails}
           options={{ headerShown: false }}
@@ -306,7 +335,7 @@ export default function App() {
           name="CreatePost"
           component={CreatePost}
           options={{ headerShown: false }}
-        /> 
+        />
         <Stack.Screen
           name="Community"
           component={Community}
@@ -324,15 +353,22 @@ export default function App() {
           component={Tracker}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Success"
+          component={Success}
+          options={{ headerShown: false }} />
       </Drawer.Navigator>
     );
   }
 
-  const Stack = createStackNavigator();
 
   if (!fontsLoaded && !error) {
     return <MentalHealth />;
   }
+  if(user && welcomPage ){
+    return <Welcome/>
+  }
+ 
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -349,18 +385,37 @@ export default function App() {
               component={MentalHealth}
               options={{ headerShown: false }}
             />
+             <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{ headerShown: false }}
+            />
+
           </Stack.Navigator>
         ) : (
           <>
-            <Stack.Navigator initialRouteName="SignIn">
+
+            <Stack.Navigator initialRouteName="GetStart">
+            
+            <Stack.Screen
+                name="GetStart"
+                component={GetStart}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="SignIn"
                 component={SignIn}
                 options={{ headerShown: false }} />
+                
               <Stack.Screen
                 name="SignUp"
                 component={SignUp}
                 options={{ headerShown: false }} />
+              <Stack.Screen
+                name="Success"
+                component={Success}
+                options={{ headerShown: false }} />
+
             </Stack.Navigator>
 
           </>
