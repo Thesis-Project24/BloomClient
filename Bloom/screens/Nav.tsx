@@ -19,7 +19,7 @@ const Nav = () => {
         const auth = getAuth(app);
         const id = auth.currentUser?.uid;
         console.log(auth.currentUser?.uid, ":id");
-         checkUser().then((role: any)=>{
+         checkUser().then((role: string)=>{
            return axios
            .get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/${role}s/getOne/${id}`)
           })

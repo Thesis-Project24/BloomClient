@@ -10,16 +10,8 @@ const CreatePost = ({route}:any) => {
   const { mutate: createPost, isLoading, isError, error } = createForumPost();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 const {id}=route.params
+console.log(id);
 
-
-
-
-
-
-
-
-
-  
   const handleSubmit = () => {
     if (title && content) {
       const postData = { title, content ,authorId:id};

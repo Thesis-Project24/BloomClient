@@ -1,14 +1,14 @@
 import { Mutation, useMutation, useQuery } from "react-query";
 import axios from "axios";
+import User from "../../screens/UserProfile/User";
 
-export const createJ = () => {
+export const createJ = (authorId: string) => {
   const mutation = useMutation(
     async ({ content, title }: { content: string; title: string }) => {
       const response = await axios.post(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/addpost/1`,
-        { content, title }
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/addpost/${authorId}`,
+        { content, title, authorId }
       );
-      console.log(content, title, "adzksfjvf,bng");
       return response.data;
     }
   );
@@ -16,32 +16,38 @@ export const createJ = () => {
   return mutation;
 };
 
-export const getJournals = () => {
-  return useQuery("Journals", async () => {
-    const response = await axios.get(
-      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/getall/1`
-    );
-    const data = response.data;
-    return data;
+
+export const getJournals = (authorId:string) => {
+  return useQuery(['Journals', authorId], async () => {
+    try {
+      const response = await axios.get(
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/getall/${authorId}`
+      );
+      return response.data;
+    } catch (error) {
+      // Handle error here, you can also throw an error or return a default value
+      console.error('Error fetching journals:', error);
+      throw new Error('Error fetching journals');
+    }
   });
 };
-export const getOneJournal = (id: number) => {
-  const query = useQuery(["Journal"], async () => {
+export const getOneJournal = (id: number, authorId: string) => {
+  const query = useQuery(["Journal", id, authorId], async () => {
     const response = await axios.get(
-      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/getone/1/${id}`
+      `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/getone/${authorId}/${id}`
     );
-    const data = response.data;
-
-    return data;
+    return response.data;
   });
+
   return query;
 };
 
+
 export const usedeleteJournal = () => {
   return useMutation(
-    async ({ authorid, id }: { authorid: number; id: number }) => {
+    async ({ authorid, id }: { authorid: string; id: number }) => {
       const response = await axios.delete(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/remove/1/${id}`,
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/remove/${authorid}/${id}`,
         { data: { authorid, id } }
       );
 
@@ -58,13 +64,13 @@ export const useupdates = () => {
       content,
       title,
     }: {
-      authorid: number;
+      authorid: string;
       id: number;
       title: string;
       content: string;
     }) => {
       const response = await axios.put(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/update/all/1/${id}`,
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/update/all/${authorid}/${id}`,
         { data: { authorid, id, content, title } }
       );
       return response.data;
@@ -79,13 +85,13 @@ export const useupdate = () => {
       content,
       title,
     }: {
-      authorid: number;
+      authorid: string;
       id: number;
       content: string;
       title: string;
     }) => {
       const response = await axios.put(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/update/all/1/${id}`,
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/update/all/${authorid}/${id}`,
         { content, title, id, authorid }
       );
       return response.data;
@@ -95,10 +101,10 @@ export const useupdate = () => {
 
 export const useDeleteJournal = () => {
   return useMutation(
-    async ({ authorid, id }: { authorid: number; id: number }) => {
+    async ({ authorid, id }: { authorid: string; id: number }) => {
       console.log(`Attempting to delete journal with id: ${id}`);
       const response = await axios.delete(
-        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/remove/1/${id}`,
+        `http://${process.env.EXPO_PUBLIC_ipadress}:3000/journals/remove/${authorid}/${id}`,
         {
           data: { authorid, id },
         }

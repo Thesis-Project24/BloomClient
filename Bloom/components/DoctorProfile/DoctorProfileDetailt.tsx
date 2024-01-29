@@ -39,9 +39,11 @@ type RootStackParamList = {
   // other screen names
 };
 const DoctoreDeatailss = ({ data, show }: { data: DoctorData, show: boolean }) => {
+
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   return (
+   
     <View style={[styles.frameParent, styles.frameParentFlexBox1]}>
       <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
         <View style={[styles.frameContainer, styles.frameParentFlexBox]}>

@@ -39,24 +39,26 @@ type OneDoctorRouteProp = RouteProp<YourRouteParamList, 'OneDoctor'>;
 type OneDoctorProps = {
   navigation: OneDoctorNavigationProp;
   route: OneDoctorRouteProp;
-
+  
 };
 
 
 const DoctorProfile = ({ navigation, route }: any) => {
-
   
-   const id =route.params.id
-    //  const [id,setId] = useState(route.params.id)
+  
+  const id =route.params.id
+  
+  //  const [id,setId] = useState(route.params.id)
   const { data, isError, isLoading, isSuccess } = useQuery(['OneDoctor', id], (context: QueryFunctionContext<["OneDoctor", number]>) => {
-
+    
     // Check if id is defined
     if (id !== undefined) {
       // Call useFetchDocSpecialists with id
       return useFetchOneDoctor(id);
     } 
-    });
-    
+  });
+ 
+  
   return (
     <DrawerScreen>
       <Nav/>
@@ -79,10 +81,8 @@ const DoctorProfile = ({ navigation, route }: any) => {
             // contentContainerStyle={styles.frameScrollViewContent}
           >
             {isSuccess && <DoctoreDeatailss data={data} show = {false} />}
-            
-            
             <View style={[styles.historyParent, styles.frameFlexBox]}>
-              {isSuccess && <DoctorBio data={data} />}
+              {isSuccess && <DoctorBio data={data}/>}
               {/* add article button must be added to doctor personal profil*/}
               {/* <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}

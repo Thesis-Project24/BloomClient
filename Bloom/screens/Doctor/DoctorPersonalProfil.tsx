@@ -54,7 +54,6 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
   return (
     <DrawerScreen>
       <Nav/>
-   
     <ScrollView 
     style={[styles.profileDoctorRaja, styles.textFlexBox]}
                 showsVerticalScrollIndicator={false}
@@ -66,7 +65,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
           <View
             style={[styles.frameGroup, styles.frameFlexBox]}
           >
-            {isSuccess && <DoctoreDeatailss data={data} show={true} />}
+            {isSuccess && <DoctoreDeatailss data={doctor} show={true} />}
             
             
             <View style={[styles.historyParent, styles.frameFlexBox]}>
@@ -74,7 +73,7 @@ const DoctorPersonalProfile = ({ navigation, route }: any) => {
               <TouchableOpacity 
           style={[styles.frameTouchableOpacity, styles.frameShadowBox]}
 
-          onPress={()=>navigation.navigate("AddArticle")}
+          onPress={()=>navigation.navigate("AddArticle",{doctor})}
         >
           <View style={[styles.videoParent, styles.parentFlexBox]}>
             

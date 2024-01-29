@@ -1,26 +1,52 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import { getJournals } from '../../api/journal/Journal';
 import Diary from '../../components/Journal/Diary';
 import { Ionicons } from '@expo/vector-icons';
-import { ParamListBase, useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Image } from "expo-image";
 import Nav from '../Nav';
+import { getAuth } from 'firebase/auth';
+import { app } from '../../firebase.config';
+import axios from 'axios';
+
 const Journal = () => {
+  const [authorId, setAuthorId] = useState(null);
+  const [data, setData] = useState({});
   const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  const { data: Journals, isLoading, isError, isFetched, refetch } = getJournals();
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
+  // Fetch journals when authorId is set
+  const { data: Journals, isLoading, isError, isFetched, refetch } = getJournals(authorId);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      setAuthorId(uid);
+      axios.get(`http://${process.env.EXPO_PUBLIC_ipadress}:3000/users/${uid}`)
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch().then(() => setRefreshing(false)); // Assuming `refetch` is a function to re-fetch journals
-  }, [refetch()]);
+    if (authorId) {
+      refetch().then(() => setRefreshing(false));
+    } else {
+      setRefreshing(false);
+    }
+  }, [refetch, authorId]);
 
   return (
     <>
       <Nav />
-
       <View style={styles.container}>
         <Image
           style={styles.profileChild}
@@ -30,16 +56,16 @@ const Journal = () => {
         <ScrollView
           style={styles.content}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
           }
         >
           <Text style={styles.headingText}>My Journal</Text>
           <View style={styles.card}>
-            {Journals?.map((ele: any) => (
+            {Journals?.map((ele) => (
               <Diary
                 key={ele.id}
-                diary={{ content: ele.content, title: ele.title, id: ele.id }}
-              // onDiaryDelete={() => (ele.id)} // Pass the onDiaryDelete prop
+                diary={{ content: ele.content, title: ele.title, id: ele.id, authorId: ele.authorId }}
+                onDiaryDelete={() => (ele.id)}
               />
             ))}
           </View>
@@ -54,8 +80,7 @@ const Journal = () => {
       </View>
     </>
   );
-}
-
+};
 const styles = StyleSheet.create({
   profileChild: {
     bottom: -155,
