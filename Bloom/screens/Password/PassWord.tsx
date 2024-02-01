@@ -36,14 +36,7 @@ const {success}= props;
   };
 
 
-  const snapPoints = useMemo(() => ["1%","45%", "60%", "70%", "80%", "83%"], [])
-  // const ref = useRef<BottomSeheet>(null)
-  // const handelOpen = (index: number) => { ref.current?.snapToIndex(index) }
-
-
-  // useEffect(() => {
-  // ref?.current?.close()
-  // }, [])    
+  const snapPoints = useMemo(() => ["1%","45%", "60%", "70%", "80%", "83%"], [])   
 
 
   const renderBackdrop = useCallback(

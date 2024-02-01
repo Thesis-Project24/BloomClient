@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Text, View, Alert, TextInput, Switch } from "react-native";
+import { ScrollView ,  Button, Text, View, Alert, TextInput, Switch } from "react-native";
 import { Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -18,6 +18,7 @@ import {
 } from "../../GlobalStyles";
 import DrawerScreen from "../SideBar.tsx/DrawerScreen";
 import NavBarEdit from "../../components/DoctorProfile/NavBarEditDoctor";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -124,24 +125,24 @@ export default function Notification() {
       data: { scheduledTime: scheduledTime.getTime() },
     };
 
-      const scheduledNotification =
-        await Notifications.scheduleNotificationAsync({
-          content: pushMessage,
-          trigger: { date: scheduledTime },
-        });
+    const scheduledNotification =
+      await Notifications.scheduleNotificationAsync({
+        content: pushMessage,
+        trigger: { date: scheduledTime },
+      });
 
-      setNotificationId(scheduledNotification.identifier);
-      setReminderSet(true);
+    setNotificationId(scheduledNotification.identifier);
+    setReminderSet(true);
 
-      // Update the scheduled notifications state
-      setScheduledNotifications([
-        ...scheduledNotifications,
-        {
-          id: scheduledNotification.identifier,
-          message: message,
-          scheduledTime: scheduledTime.getTime(),
-        },
-      ]);
+    // Update the scheduled notifications state
+    setScheduledNotifications([
+      ...scheduledNotifications,
+      {
+        id: scheduledNotification.identifier,
+        message: message,
+        scheduledTime: scheduledTime.getTime(),
+      },
+    ]);
 
     Alert.alert(
       "Notification Scheduled",
@@ -154,24 +155,24 @@ export default function Notification() {
       ]
     );
   };
-const cancelSpecificReminder = async (id:any) => {
-  console.log(`Canceling reminder with ID: ${id}`);
+  const cancelSpecificReminder = async (id: any) => {
+    console.log(`Canceling reminder with ID: ${id}`);
 
-  // Cancel the specific reminder
-  await Notifications.cancelScheduledNotificationAsync(id);
+    // Cancel the specific reminder
+    await Notifications.cancelScheduledNotificationAsync(id);
 
-  // Remove the canceled reminder from the state
-  setScheduledNotifications(
-    scheduledNotifications.filter((item) => item.id !== id)
-  );
+    // Remove the canceled reminder from the state
+    setScheduledNotifications(
+      scheduledNotifications.filter((item) => item.id !== id)
+    );
 
-  Alert.alert("Reminder Canceled", "The reminder has been canceled!", [
-    {
-      text: "OK",
-      onPress: () => console.log("OK Pressed"),
-    },
-  ]);
-};
+    Alert.alert("Reminder Canceled", "The reminder has been canceled!", [
+      {
+        text: "OK",
+        onPress: () => console.log("OK Pressed"),
+      },
+    ]);
+  };
 
   const cancelDailyReminder = async () => {
     console.log("Canceling daily reminder...");
@@ -240,31 +241,55 @@ const cancelSpecificReminder = async (id:any) => {
     // Update the scheduled notifications
     checkScheduledNotifications();
   };
+  const [switchToggleSwitchValueState, setSwitchToggleSwitchValueState] = useState(true);
 
   return (
     <>
       <DrawerScreen>
-        <NavBarEdit page={"Notification"} goTo={"Back"} />
-        <View style={styles.viewDetailsCancled}>
+        <NavBarEdit page={"Add Medication"} goTo={"Back"} />
+        <ScrollView 
+         showsVerticalScrollIndicator={false}
+         showsHorizontalScrollIndicator={false}
+        style={styles.viewDetailsCancled}>
           <View style={[styles.symptomContentBox, styles.smallFabShadowBox]}>
             <View style={styles.appointmentHeader}>
+
               <Text
                 style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}
               >
-                Notifications
+                What Medicine Do You Want
+                To Add?
               </Text>
-              <TextInput
-                style={{
-                  height: 40,
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  marginBottom: 10,
-                  padding: 10,
-                }}
-                placeholder="Enter message"
-                onChangeText={(text) => setMessage(text)}
-                value={message}
-              />
+
+              <View style={[styles.Email]} >
+                <View style={[styles.frameWrapper, styles.wrapperFlexBox]}>
+                  <View style={styles.iconsParent}>
+                  <MaterialCommunityIcons
+                                    // style={styles.frameChild}
+                                    name="pill" size={25} color={Color.black} />
+
+                    <TextInput
+                      style={[styles.eMail, {
+                        // height: 40,
+                        // borderColor: "gray",
+                        // borderWidth: 1,
+                        // marginBottom: 10,
+                        // padding: 10,
+
+                      }]}
+                      placeholder="Enter Your Med "
+                      onChangeText={(text) => setMessage(text)}
+                      value={message}
+                    />
+                  </View>
+                </View>
+              </View>
+              <Text
+                style={[styles.drPoppenschmitz, styles.drPoppenschmitzFlexBox]}
+              >
+                How Often Do You Take This Medicine ?
+              </Text>
+
               <View
                 style={{
                   flexDirection: "row",
@@ -272,8 +297,15 @@ const cancelSpecificReminder = async (id:any) => {
                   marginBottom: 20,
                 }}
               >
-                <Text>Enable Daily Reminder:</Text>
+
+                <Text style={[styles.enterYourEmail, styles.enterYourEmailFlexBox]} >Enable Daily Reminder:</Text>
                 <Switch
+                  style={styles.switchToggle}
+                  disabled={false}
+                  //  value={switchToggleSwitchValueState}
+                  //  onValueChange={setSwitchToggleSwitchValueState}
+                  thumbColor={Color.brown}
+                  trackColor={{ false: "#242424", true: "#add8c4" }}
                   value={enableDailyReminder}
                   onValueChange={(value) => setEnableDailyReminder(value)}
                 />
@@ -293,38 +325,95 @@ const cancelSpecificReminder = async (id:any) => {
                   />
 
                   {reminderSet ? (
-                    <Text style={{ marginBottom: 20 }}>Reminder set!</Text>
+                    <Text style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                      color: Color.black,
+                      justifyContent: "center",
+                      alignContent: "center",
+                      // textAlign: "center",
+
+                    }]}>Reminder set!</Text>
                   ) : (
-                    <Button
-                      title="Set Daily Reminder"
+                    <Text
+                      style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                        color: Color.black,
+                        justifyContent: "center",
+                        alignContent: "center",
+                        textAlign: "center",
+
+                      }]}
+                      // title="Set Daily Reminder"
                       onPress={scheduleDailyReminder}
-                    />
+                    >
+                      Set Daily Reminder
+                    </Text>
                   )}
                 </>
               )}
               {reminderSet && (
-                <Button
-                  title="Cancel Daily Reminder"
+                <Text
+                  style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                    color: Color.green,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    textAlign: "center",
+                    fontSize: 20
+
+                  }]}
+                  // title="Cancel Daily Reminder":
                   onPress={cancelDailyReminder}
-                />
+                >
+                  Cancel Daily Reminder
+                </Text>
               )}
 
               {/* Display all scheduled reminders */}
               {scheduledNotifications.map((reminder) => (
                 <View key={reminder.id} style={{ marginTop: 10 }}>
-                  <Text>{`Message: ${reminder.message}`}</Text>
-                  <Text>{`Time: ${new Date(
+                  <Text  style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                      color: Color.black,
+                      justifyContent: "center",
+                      alignContent: "center",
+                      textAlign: "left",
+                      fontSize: 14,
+                      // backgroundColor:"red",
+
+                    }]} >{`Med Name: ${reminder.message}`}</Text>
+                  <Text style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                      color: Color.black,
+                      justifyContent: "center",
+                      alignContent: "center",
+                      textAlign: "left",
+                      fontSize: 14,
+                      // backgroundColor:"red",
+
+                    }]} >{`Time : ${new Date(
                     parseInt(reminder.scheduledTime)
                   ).toLocaleTimeString()}`}</Text>
-                  <Button
+                 
+                  <Text
+                    style={[styles.enterYourEmail, styles.enterYourEmailFlexBox, {
+                      color: Color.green,
+                      justifyContent: "center",
+                      alignContent: "center",
+                      textAlign: "center",
+                      fontSize: 20,
+                      // backgroundColor:"red",
+
+                    }]}
+                    // title="Cancel Daily Reminder":                    onPress={() => cancelSpecificReminder(reminder.id)}
+                    onPress={() => cancelSpecificReminder(reminder.id)}
+                  >
+                    Cancel Reminder
+                  </Text>
+                  {/* <Button
                     title="Cancel Reminder"
                     onPress={() => cancelSpecificReminder(reminder.id)}
-                  />
+                  /> */}
                 </View>
               ))}
             </View>
           </View>
-        </View>
+        </ScrollView>
       </DrawerScreen>
     </>
   );
@@ -332,6 +421,70 @@ const cancelSpecificReminder = async (id:any) => {
 
 
 const styles = StyleSheet.create({
+  switchToggle: {
+    width: 56,
+    height: 32,
+    maxWidth: 56,
+    maxHeight: 32,
+  },
+  enterYourEmailFlexBox: {
+    textAlign: "left",
+    alignSelf: "stretch",
+    flex: 1,
+  },
+  enterYourEmail: {
+    fontSize: 16,
+    fontWeight: "700",
+    fontFamily: FontFamily.poppinsMedium,
+    color: Color.brown,
+    marginTop: 10,
+    // backgroundColor:"red",
+    maxHeight: 30,
+    // maxWidth:200
+  },
+  wrapperFlexBox: {
+    justifyContent: "center",
+    flex: 1,
+  },
+  frameWrapper: {
+    borderRadius: Border.br_21xl,
+    backgroundColor: Color.neutralsWhite,
+    paddingLeft: 5,
+    // paddingTop: Padding.p_3xs,
+    paddingRight: Padding.p_base,
+    // paddingBottom: Padding.p_3xs,
+    maxHeight: 50,
+    alignSelf: "stretch",
+    alignItems: "center",
+    justifyContent: "center",
+
+  },
+  Email: {
+    justifyContent: "flex-start",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    maxHeight: 60,
+    // gap:1,
+    // backgroundColor: "yellow",
+  },
+  iconsParent: {
+    flexDirection: "row",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  eMail: {
+    height: "100%",
+    fontFamily: FontFamily.latoRegular,
+    fontSize: FontSize.size_mini,
+    maxHeight: 20,
+    marginLeft: 8,
+    flex: 1,
+  },
+
+
   smallFabShadowBox: {
     shadowOpacity: 1,
     elevation: 3,
@@ -342,7 +495,7 @@ const styles = StyleSheet.create({
     },
     shadowColor: "#dadada",
     overflow: "hidden",
-    backgroundColor: Color.neutralBackground,
+    // backgroundColor: Color.neutralBackground,
   },
   drPoppenschmitzFlexBox: {
     textAlign: "left",
@@ -419,6 +572,8 @@ const styles = StyleSheet.create({
   },
   appointmentHeader: {
     alignSelf: "stretch",
+    flex: 1,
+    gap: 15,
   },
   date1: {
     color: Color.brown,
@@ -536,12 +691,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   symptomContentBox: {
-    top: 81,
-    left: 41,
-    borderRadius: Border.br_13xl,
-    width: 308,
+    marginBottom:300,
+    gap: 22,
+    // top: 81,
+    // left: 41,
+    // borderRadius: Border.br_13xl,
+    width: "100%",
+    height: "100%",
+
     padding: Padding.p_11xl,
-    position: "absolute",
+    position: "relative",
     elevation: 3,
     shadowRadius: 3,
     shadowOffset: {
@@ -551,10 +710,14 @@ const styles = StyleSheet.create({
     shadowColor: "#dadada",
   },
   viewDetailsCancled: {
+    paddingVertical: 40,
+    // justifyContent: "flex-start",
+    // alignItems: "center",
     flex: 1,
     width: "100%",
-    height: 844,
+    height: "100%",
     overflow: "hidden",
-    backgroundColor: Color.neutralBackground,
+    backgroundColor: Color.beige,
+    
   },
 });

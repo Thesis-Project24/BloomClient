@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { FontSize, Color, FontFamily, Padding, Border } from "../../GlobalStyles";
@@ -8,49 +8,29 @@ import { app } from "../../firebase.config";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type User = {
-  id: string;
-  email: string;
-  username: string;
-  first_name: string | null;
-  last_name: string | null;
-  profile_picture: string | null;
-  phone_number: string | null;
-  age: number | null;
-  role: string;
-}
-
 const HomeBG = () => {
   const navigation = useNavigation();
-  const [data,setData]= React.useState<User | null>(null)
-  const [role,setRole]=React.useState(true)
+  const [userName, setUserName] = useState("")
+  
   const checkRoleUser = async () => {
-    const userString = await AsyncStorage.getItem("user");
-    if (userString === null) {
-      setData(null);
-    } else {
-      try {
-        const user: User = JSON.parse(userString);
-        setData(user);
 
+    const userNameString = await AsyncStorage.getItem("userName");
+    if (userNameString) {
+      setUserName(userNameString);
+      try {
+        const user: string = JSON.parse(userNameString);
+        setUserName(user);
       } catch (error) {
         console.log(error);
-        setData(null);
+        // setUserName("");
       }
     }
   }
-
-    React.useEffect(() => {
-      checkRoleUser()
-    }, [])
-    console.log(data,"data from home page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbb");
-  
-if(data?.role === "user"){
-setRole(false)
-}
-
-
-
+  useEffect(() => {
+    checkRoleUser();
+   }, []);
+  //  console.log(userName,"userrrrname");
+   
   return (
 
     <View style={styles.containerHome}>
@@ -93,7 +73,7 @@ setRole(false)
                       <Text style={styles.goodAfternoon}>Good Afternoon</Text>
                       <Text style={styles.text}>{`,
 `}</Text>
-                      <Text style={styles.myriam}>{role ? ("Dr "+ data?.first_name) : data?.username }!</Text>
+                      <Text style={styles.myriam}>{userName} !</Text>
                     </Text>
                   </Text>
                 </View>
@@ -114,10 +94,10 @@ setRole(false)
             </View>
             <View style={[styles.contenuhomeInner, styles.playArrowParentLayout]}>
               <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Community")
-             
-              }}
+                onPress={() => {
+                  navigation.navigate("Community")
+
+                }}
                 style={[styles.playArrowParent, styles.playArrowParentLayout]}
               >
                 <Image
@@ -229,8 +209,8 @@ const styles = StyleSheet.create({
   },
   containerHome: {
     height: "100%",
-    maxHeight:400,
-    paddingBottom:10,
+    maxHeight: 400,
+    paddingBottom: 10,
     width: "100%",
     // backgroundColor: "red",
     flexDirection: "row",

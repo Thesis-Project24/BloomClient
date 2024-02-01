@@ -99,7 +99,7 @@ Start with `}
             <View style={styles.frameWrapper}>
               <TouchableOpacity 
                onPress={() => {
-                navigation.navigate("Community")
+                navigation.navigate("Articles")
              
               }}
               style={styles.seeMoreWrapper}>

@@ -4,7 +4,7 @@ import { StyleSheet,  View,TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../../GlobalStyles";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
-type SectionCard3Type = {
+type CartDoctorType = {
   /** Style props */
   propMarginTop?: number | string;
 }; 
@@ -28,7 +28,7 @@ interface DoctorData {
   gender?: string;
 }
 
-const SectionCard3 = ({ propMarginTop, doctor }: { propMarginTop: SectionCard3Type, doctor: DoctorData }) => {
+const CartDoctor = ({ propMarginTop, doctor }: { propMarginTop: CartDoctorType, doctor: DoctorData }) => {
   const navigation: any = useNavigation()
 
 
@@ -450,4 +450,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SectionCard3;
+export default CartDoctor;

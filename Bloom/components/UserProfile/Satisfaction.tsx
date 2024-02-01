@@ -36,7 +36,7 @@ const Satisfaction = ({ habitsUser,reload }: SatisfactionProps) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   // console.log(Array.isArray( habitsUser.tracker) );
 
-  const days = habitsUser.tracker.map((item) => item.dayOfWeek);
+  const days = habitsUser.tracker.map((item:any) => item.dayOfWeek);
   const ratings = habitsUser.tracker.map((item) => item.rating);
 
 // {Checking if the user submiited or still }
