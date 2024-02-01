@@ -53,6 +53,8 @@ import ForgotPassword from "./screens/Password/PassWord";
 import Success from "./screens/Success";
 import GetStart from "./screens/GetStart";
 import Welcome from "./screens/Welcome";
+import Reminders from "./screens/Notification/Reminders";
+
 type RootStackParamList = {
   Root: undefined;
   MentalHealth: undefined;
@@ -80,7 +82,7 @@ const [welcomPage,setWelcomPage]=useState(false)
      setTimeout(() => {
       setWelcomPage(false)
       
-    }, 7000);
+    }, 1000);
      setWelcomPage(true)
    }
     
@@ -357,6 +359,11 @@ const [welcomPage,setWelcomPage]=useState(false)
           name="Success"
           component={Success}
           options={{ headerShown: false }} />
+          <Stack.Screen
+          name="Reminders"
+          component={Reminders}
+          options={{ headerShown: false }} />
+
       </Drawer.Navigator>
     );
   }

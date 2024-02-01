@@ -151,9 +151,10 @@ const styles = StyleSheet.create({
   },
   advertisingbanner03: {
     position: "absolute",
-    marginLeft: -195,
-    top: 620,
-    left: "50%",
+    // marginLeft: -195,
+    bottom: 0,
+    // top: 620,
+    // left: "50%",
     borderRadius: Border.br_9xs,
     backgroundColor: Color.colorWhite,
     width: 390,

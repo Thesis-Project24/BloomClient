@@ -44,6 +44,18 @@ export const login = (handelError:any , handelWelcomePage : any) => {
                         "user",
                         JSON.stringify(res.data)
                     );
+                    if(res.data.role === "user"){
+                        await AsyncStorage.setItem(
+                            "userName",
+                            JSON.stringify(res.data.username)
+                        );
+                    }else if(res.data.role === "doctor"){
+                        await AsyncStorage.setItem(
+                            "userName",
+                            JSON.stringify(res.data.first_name)
+                        );
+                    }
+                    
                     handelWelcomePage()
                     res.data.role === "doctor"
                         ? navigation.navigate("DoctorPersonalProfile", {

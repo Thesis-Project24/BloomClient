@@ -30,11 +30,22 @@ import Nav from "../Nav";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase.config";
 import axios from "axios";
-
-
+import Reminders from "../Notification/Reminders";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+type User = {
+  id: string;
+  email?: string;
+  username?: string;
+  first_name: string | null;
+  last_name: string | null;
+  profile_picture?: string | null;
+  phone_number: string | null;
+  age: number | null;
+  role: string;
+}
 const User =  () => {
   // const user = route.params.user
-  const [data,setData]= React.useState({})
+  const [data,setData]= React.useState<User|{}>({})
 
     React.useEffect(()=>{
     const auth = getAuth(app)
@@ -51,6 +62,26 @@ const User =  () => {
   },[])
   
   const navigation:any = useNavigation();
+
+  const bottomSheetRef = React.useRef<BottomSheetMethods>(null)
+  const handelOpen = (index: number) => {
+    // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
+    bottomSheetRef.current?.snapToIndex(index)
+  }
+  const handelClose = () => {
+    console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
+    bottomSheetRef.current?.close()
+
+  }
+  // bottomSheetRef.current?.close()
+
+ React.useEffect(() => {
+     handelClose()
+    // bottomSheetRef.current?.close()
+    }, []) 
+
   return (
     <>
     <Nav/>
@@ -92,6 +123,8 @@ const User =  () => {
           <Text style={[styles.howsYourMood, styles.howsYourMoodFlexBox]}>
             How’s your mood today
           </Text>
+
+
           <View style={[styles.rectangleParent, styles.beHappyYoureSpaceBlock]}>
             <View style={styles.frameChildss}>
               <Entypo name="emoji-happy" size={34} color="#729384" />
@@ -106,19 +139,28 @@ const User =  () => {
               <Entypo name="emoji-sad" size={34} color="#729384" />
             </View>
           </View>
+
+
+
           <Text
             style={[styles.beHappyYoure, styles.beHappyYoureSpaceBlock]}
           >{`Be happy you’re not a Tree `}</Text>
         </View>
-        <ButtonUser />
+        <ButtonUser handelOpen={handelOpen} />
         <Ad />
       </View>
     </ScrollView>
+    <Reminders ref={bottomSheetRef}/>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  
+
+
+
+
   user11WrapperFlexBox: {},
   parentFlexBox: {
     justifyContent: "center",

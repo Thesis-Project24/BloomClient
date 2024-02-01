@@ -301,7 +301,7 @@ const SignIn = () => {
                 <TouchableOpacity
                   style={styles.vectorWrapper}
                   onPress={() => {
-                    mutation.mutate({ email: email, password: password, role: "doctor" })
+                    mutation.mutate({ email: email, password: password, role: "user" })
                     if(handelErrorEmail)setIsEmailEmpty(true)
                     // if()
                     navigation.navigate("User");

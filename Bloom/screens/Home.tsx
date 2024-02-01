@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React , {useEffect , useState} from "react";
 import { Image } from "expo-image";
 import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import HomeBg from "../components/HomePage/HomeBg";
@@ -14,11 +14,29 @@ import DrawerScreen from "./SideBar.tsx/DrawerScreen";
 import { NavigationProp } from '@react-navigation/native';
 import { useFetchAllDoctors } from "../api/doctors/Doctors";
 import { useQuery , useQueryClient , QueryFunctionContext } from "react-query";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase.config";
+import axios from "axios";
 
 type HomeScreenNavigationProp = NavigationProp<Record<string, object>>;
+type User = {
+  id: string;
+  email: string;
+  username: string;
+  first_name: string | null;
+  last_name: string | null;
+  profile_picture: string | null;
+  phone_number: string | null;
+  age: number | null;
+  role: string;
+}
 
 const Home = ({navigation}: {navigation: HomeScreenNavigationProp}) => {
+ 
+
   
+
   return (
     <>
     {/* // <DrawerScreen> */}
